@@ -20,6 +20,20 @@ namespace BarberApp.Infra.Repository
             _userCollection = mongoDatabase.GetCollection<User>
                 (userServices.Value.CollectionName);
         }
+
+        public async Task<List<User>> GetAll()
+        {
+            try
+            {
+                var filter = Builders<User>.Filter.Empty;
+                return await _userCollection.Find(filter).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<User> GetByEmail(string email)
         {
             try

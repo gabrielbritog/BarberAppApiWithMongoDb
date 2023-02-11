@@ -16,5 +16,6 @@ namespace BarberApp.Domain.Interface.Services
         public Task<ResponseUserDto> Update(UpdateUserDto user, string userId);
         public Task<User> GetById(string userId);
         public Task<User> GetByEmail(string userEmail);
+        public Task<List<User>> GetAll();
     }
 }

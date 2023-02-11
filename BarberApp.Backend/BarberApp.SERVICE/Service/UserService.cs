@@ -4,9 +4,9 @@ using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
-using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using BarberApp.Service.Global;
+
 namespace BarberApp.Service.Service
 {
     public class UserService : Functions, IUserService
@@ -21,6 +21,11 @@ namespace BarberApp.Service.Service
             _userRepository = userRepository;
             _tokenService = tokenService;
             _tokenConfiguration = tokenConfiguration;
+        }
+
+        public async Task<List<User>> GetAll()
+        {
+            return await _userRepository.GetAll();
         }
 
         public async Task<User> GetByEmail(string userEmail)

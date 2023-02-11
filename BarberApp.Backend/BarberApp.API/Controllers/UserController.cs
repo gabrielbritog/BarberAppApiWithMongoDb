@@ -72,6 +72,20 @@ namespace BarberApp.Api.Controllers
             }
 
         }
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> GetAll()
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.GetAll()));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
 
     }
 }
