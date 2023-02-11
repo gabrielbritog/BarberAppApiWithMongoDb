@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@200;400;600;800&display=swap');
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
+@import 'ngx-toastr/toastr';
 
 :root{
   --app-color-primary: #ff9000;
@@ -73,7 +74,7 @@ a{
 input{
   background-color: var(--app-color-input-bg);
   color: var(--app-color-input-text);
-  border: 0px solid #000000;
+  border: none;
   padding: .5rem 1rem;
   border-radius: var(--global-border-radius);
   &:focus{
@@ -81,7 +82,7 @@ input{
     box-shadow: 0px 0px 0px 2px var(--app-color-input-text);
   }
   &.form_invalid{
-    border: 3px solid red;
+    outline: 2px solid red;
     animation: .3s alternate horizontal-shaking;
   }
 }
@@ -102,6 +103,40 @@ input{
   align-items: center;
 }
 
+img.app-logo{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  mix-blend-mode: lighten;
+}
+
+h1,h2,h3,h4{
+  font-family: 'Bebas Neue', cursive;
+}
+
+h1{
+  font-size: 4rem;
+}
+
+h2{
+  font-size: 3.5rem;
+}
+
+h3{
+  font-size: 2.5rem;
+}
+
+h3{
+  font-size: 2rem;
+}
+
+// .app-logo-text{
+//   font-size: 3rem;
+//   font-family: 'Bebas Neue', cursive;
+// }
+.text_color_primary{
+  color: var(--app-color-primary);
+}
 
 @keyframes tilt-shaking {
   0% { transform: rotate(0deg); }
