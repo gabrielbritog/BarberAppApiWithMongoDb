@@ -7,7 +7,6 @@ using BarberApp.Domain.ViewModels;
 using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using BarberApp.Service.Global;
-
 namespace BarberApp.Service.Service
 {
     public class UserService : Functions, IUserService
@@ -29,17 +28,19 @@ namespace BarberApp.Service.Service
             return await _userRepository.GetByEmail(userEmail);
         }
 
-        public Task<User> GetById(int userId)
+        public async Task<User> GetById(string userId)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetById(userId);
         }
 
         public async Task<TokenViewModel> Login(LoginUserDto user)
         {
-            user.Password = EncryptPassword(user.Password);
-            var userDb = await this.GetByEmail($"{user.Email}");            
-            if (userDb == null || userDb.Password != user.Password)
-                throw new Exception("Email ou senha inválidos.");              
+            var userDb = await this.GetByEmail($"{user.Email}");
+            if (userDb == null)
+                throw new Exception("Email ou senha inválidos.");
+            user.Password = EncryptPassword(user.Password + userDb.PasswordSalt);
+            if (userDb.Password != user.Password)
+                throw new Exception("Email ou senha inválidos.");          
             return new TokenViewModel(
                true,
             DateTime.Now.ToString(),
@@ -47,25 +48,43 @@ namespace BarberApp.Service.Service
                _tokenService.GenerateToken(userDb),
                _mapper.Map<ResponseUserDto>(userDb)
                );
-
         }
-
         public async Task<ResponseUserDto> Register(RegisterUserDto user)
         {
             var checkEmail = await this.GetByEmail($"{user.Email}");
             if (checkEmail != null)             
                 throw new Exception("Email já está sendo usado");
-            
-            user.Password = EncryptPassword(user.Password);  
+            user.PasswordSalt = new Random().Next().GetHashCode().ToString();
+            user.Password = EncryptPassword(user.Password+user.PasswordSalt);  
             var UserMap = _mapper.Map<User>(user);
             UserMap.UserRegistration= DateTime.Now;
             await _userRepository.Register(UserMap);
             return _mapper.Map<ResponseUserDto>(UserMap);
         }
 
-        public Task<ResponseUserDto> Update(UpdateUserDto user, string email)
+        public async Task<ResponseUserDto> Update(UpdateUserDto user, string email)
         {
-            throw new NotImplementedException();
+
+            var userDb = await this.GetByEmail($"{email}");
+            var checkEmail = await this.GetByEmail($"{user.Email}");
+            if (checkEmail != null)
+                throw new Exception("Email já está sendo usado");
+            if (string.IsNullOrEmpty(user.FirstName))
+                user.FirstName = userDb.FirstName;
+            if (string.IsNullOrEmpty(user.LastName))
+                user.LastName = userDb.LastName;
+            user.Password = string.IsNullOrEmpty(user.Password) ? userDb.Password : EncryptPassword(user.Password + userDb.PasswordSalt);
+            if (string.IsNullOrEmpty(user.Email))
+                user.Email = userDb.Email;
+            if (string.IsNullOrEmpty(user.UrlImage))
+                user.UrlImage = userDb.UrlImage;
+            if (string.IsNullOrEmpty(user.PhoneNumber))
+                user.PhoneNumber= userDb.PhoneNumber;
+            if (string.IsNullOrEmpty(user.Cep))
+                user.Cep = userDb.Cep;
+
+            var result = await _userRepository.Update(_mapper.Map<User>(user) , email);
+            return _mapper.Map<ResponseUserDto>(result);
         }
     }
 }

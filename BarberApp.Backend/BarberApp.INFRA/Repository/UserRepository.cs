@@ -2,9 +2,7 @@
 using BarberApp.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Xml.Linq;
 
 
 namespace BarberApp.Infra.Repository
@@ -38,10 +36,11 @@ namespace BarberApp.Infra.Repository
             
         }
 
-        public Task<User> GetById(User user)
+        public async Task<User> GetById(string userId)
         {
-             
-            throw new NotImplementedException();
+            var filter = Builders<User>.Filter.Eq(u => u.UserId, userId);
+            var result = await _userCollection.Find(filter).FirstOrDefaultAsync();
+            return result;
         }
       
 
@@ -61,9 +60,29 @@ namespace BarberApp.Infra.Repository
             
         }
 
-        public Task<User> Update(User user)
+        public async Task<User> Update(User user, string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<User>.Filter.Eq(u => u.Email, email);
+                var update = Builders<User>.Update
+                    .Set(u => u.FirstName, user.FirstName)
+                    .Set(u => u.LastName, user.LastName)
+                    .Set(u => u.Password, user.Password)
+                    .Set(u => u.UrlImage, user.UrlImage)
+                    .Set(u => u.Cep, user.Cep)
+                    .Set(u => u.Email, user.Email)
+                    .Set(u => u.PhoneNumber, user.PhoneNumber);
+                var result = await _userCollection.UpdateOneAsync(filter, update);
+                if (result.MatchedCount == 0)
+                    throw new Exception("Usuário não encontrado.");
+                return user;
+            }
+            catch (Exception e )
+            {
+
+                throw new Exception(e.Message);
+            }
         }
     }
 }

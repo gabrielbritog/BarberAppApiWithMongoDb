@@ -2,14 +2,13 @@
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
-using BarberApp.Service.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarberApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IUserService _userServices;
         public UserController(IUserService userServices)
@@ -50,6 +49,21 @@ namespace BarberApp.Api.Controllers
             try
             {
                 return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.GetByEmail(email)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
+
+        [HttpPut("Update")]
+        public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> Update([FromBody]UpdateUserDto user)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.Update(user, Email)));
             }
             catch (Exception e)
             {
