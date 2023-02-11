@@ -44,5 +44,20 @@ namespace BarberApp.Api.Controllers
             }
 
         }
+        [HttpGet("GetByEmail")]
+        public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> GetByEmail(string email)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.GetByEmail(email)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
+
     }
 }
