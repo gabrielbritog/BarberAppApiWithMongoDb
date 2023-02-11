@@ -1,0 +1,120 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap');
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
+
+:root{
+  --app-color-primary: #ff9000;
+  --app-color-text: #f4ede8;
+  --app-color-bg: #312e38;
+  --app-color-input-bg: #232129;
+  --app-color-input-text: #5e5b59;
+
+  --global-border-radius: 10px;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Poppins', sans-serif;
+  transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body{
+  background-color: var(--app-color-bg);
+  color: var(--app-color-text);
+}
+
+.container{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.container-fluid, .w_100{
+  width: 100%;
+}
+
+.btn{
+  cursor: pointer;
+  border: 1px solid var(--app-color-primary);
+  background-color: var(--app-color-primary);
+  color: var(--app-color-bg);
+  border-radius: var(--global-border-radius);
+  padding: .5rem 1rem;
+  &.outline{
+    background-color: transparent;
+    color: var(--app-color-primary);
+  }
+}
+
+a{
+  color: var(--app-color-text);
+  &.primary{
+    color: var(--app-color-primary);
+  }
+}
+
+.flex_column{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.mr-1{
+  margin-right: .5rem;
+}
+
+.mr-2{
+  margin-right: 1rem;
+}
+
+input{
+  background-color: var(--app-color-input-bg);
+  color: var(--app-color-input-text);
+  border: 0px solid #000000;
+  padding: .5rem 1rem;
+  border-radius: var(--global-border-radius);
+  &:focus{
+    outline: none;
+    box-shadow: 0px 0px 0px 2px var(--app-color-input-text);
+  }
+  &.form_invalid{
+    border: 3px solid red;
+    animation: .3s alternate horizontal-shaking;
+  }
+}
+
+.show_password{
+  border: none;
+  font-size: medium;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  top: 2px;
+  right: .25rem;
+  color: var(--app-color-input-text);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
+ }

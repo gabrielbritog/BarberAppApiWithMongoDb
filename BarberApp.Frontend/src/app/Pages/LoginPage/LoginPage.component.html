@@ -1,0 +1,43 @@
+<section class="container-fluid">
+  <div class="container login_container flex_column">
+    <div class="container_header">
+      <h1>BARBER-APP</h1>
+    </div>
+
+    <div class="container_content flex_column w_100">
+      <form #client_form="ngForm"
+      (ngSubmit)="onSubmit(client_form)"
+      class="login_form flex_column">
+        <h1 class="form_title">Login</h1>
+        <div class="form_group">
+          <input class="w_100" type="email" name="email"
+          [ngClass]="isControlValid('form-email')?'':'form_invalid'"
+          id="form-email" placeholder="E-mail" ngModel required>
+        </div>
+        <div class="form_group">
+          <button type="button" class="show_password"
+          (pointerenter)="showPassword('form-password')"
+          (pointerleave)="showPassword('form-password')">
+            <i class="fa-solid show"
+            [ngClass]="isShowPassword('form-password')? ' fa-eye':' fa-eye-slash'"></i>
+          </button>
+          <input class="w_100" type="password" name="password"
+          [ngClass]="isControlValid('form-password')?'':'form_invalid'"
+          id="form-password" placeholder="Senha" ngModel required>
+        </div>
+
+        <button type="submit" class="btn btn_submit">Entrar</button>
+
+      </form>
+      <a href="#" id="reset_password">Esqueci minha senha</a>
+    </div>
+
+    <div class="container_footer">
+      <a routerLink="/Register"class="primary" id="new_user">
+        <i class="fa-solid fa-right-to-bracket mr-1"></i>
+        <span>Criar Conta</span>
+      </a>
+    </div>
+  </div>
+  <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJhcmJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60" alt="" srcset="">
+</section>
