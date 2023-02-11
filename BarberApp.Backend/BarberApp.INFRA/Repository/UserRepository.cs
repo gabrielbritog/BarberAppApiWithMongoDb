@@ -26,7 +26,7 @@ namespace BarberApp.Infra.Repository
         {
             try
             {
-                var filter = Builders<User>.Filter.Eq(u => u.Email, email);
+                var filter = Builders<User>.Filter.Eq(u => u.Email, email.ToLower());
                 var result = await _userCollection.Find(filter).FirstOrDefaultAsync();
                 return result;
 
@@ -49,6 +49,7 @@ namespace BarberApp.Infra.Repository
         {
             try
             {
+                user.Email = user.Email.ToLower();
                 await _userCollection.InsertOneAsync(user);
                 return user;
             }
