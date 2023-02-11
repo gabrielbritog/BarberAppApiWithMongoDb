@@ -28,6 +28,9 @@ namespace BarberApp.Domain.Models
         public int UserLevel { get; set; }
         [BsonElement("userRegistration")]
         public DateTime UserRegistration { get; set; }
+        [JsonIgnore]
+        [BsonElement("passwordSalt")]
+        public string PasswordSalt { get; set; }
 
 
     }

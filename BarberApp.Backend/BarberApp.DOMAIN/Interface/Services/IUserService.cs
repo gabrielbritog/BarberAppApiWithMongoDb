@@ -13,8 +13,9 @@ namespace BarberApp.Domain.Interface.Services
     {
         public Task<ResponseUserDto> Register(RegisterUserDto user);
         public Task<TokenViewModel> Login(LoginUserDto user);
-        public Task<ResponseUserDto> Update(UpdateUserDto user, string email);
-        public Task<User> GetById(int userId);
+        public Task<ResponseUserDto> Update(UpdateUserDto user, string userId);
+        public Task<User> GetById(string userId);
         public Task<User> GetByEmail(string userEmail);
+        public Task<List<User>> GetAll();
     }
 }

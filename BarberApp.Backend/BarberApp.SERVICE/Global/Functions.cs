@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BarberApp.Service.Global
 {
@@ -11,7 +7,7 @@ namespace BarberApp.Service.Global
     {
         public static string EncryptPassword(string password)
         {
-
+            
             Byte[] inputBytes = Encoding.UTF8.GetBytes(password);
             Byte[] hashedBytes = SHA256.Create().ComputeHash(inputBytes);
             var sb = new StringBuilder();
