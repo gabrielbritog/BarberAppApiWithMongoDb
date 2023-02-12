@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { FormValidationService } from '../../Services/FormValidation.service';
 import { AuthService } from '../../Services/Auth.service';
 import { UserModel } from '../../Models/UserModel';
+import { Router } from '@angular/router';
+import { TokenStorageService } from '../../Services/token-storage.service';
 
 @Component({
   selector: 'app-RegisterPage',
@@ -18,9 +20,13 @@ export class RegisterPageComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private formValidation: FormValidationService,
-    private authService: AuthService) { }
+    private tokenStorage: TokenStorageService,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
+    if (this.tokenStorage.getToken())
+      this.router.navigateByUrl('/Home');
   }
 
   onSubmit(form: NgForm) {
@@ -30,20 +36,21 @@ export class RegisterPageComponent implements OnInit {
     const validationResult = this.formValidation.checkValidation(form);
     const userModel = new UserModel(form.value);
 
-    if(form.invalid){
-      for (let i = 0; i < validationResult.length; i++)
-        this.toastr.error(validationResult[i]);
+    for (let i = 0; i < validationResult.length; i++)
+      this.toastr.error(validationResult[i]);
+
+    if(form.invalid)
       return;
-    }
 
-
+    console.log(userModel);
     this.authService.register(userModel).subscribe({
-      next: (data: UserModel) => {
-        console.log(data);
+      next: (data: any) => {
         this.toastr.success(toastrString);
+        this.router.navigateByUrl('/Login');
       },
-      error: (err) => {
-        this.toastr.error(err);
+      error: err => {
+        console.log(err);
+        this.toastr.error(err.error.data);
       }
     });
 

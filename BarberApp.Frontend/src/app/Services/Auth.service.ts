@@ -1,17 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserModel } from '../Models/UserModel';
 
-const AUTH_API = 'https://localhost:7026/api/User/'
+const AUTH_API = 'http://localhost:5066/api/User/'
 const LOGIN_ROUTE = 'Login';
 const REGISTER_ROUTE = 'Register';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-}
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +14,21 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(credentials: UserModel): Observable<any>{
+  login(credentials: any): Observable<any>{
     return this.http.post(AUTH_API + LOGIN_ROUTE, {
       email: credentials.email,
       password: credentials.password,
     });
   }
 
-  register(credentials: UserModel): Observable<UserModel>{
-    return this.http.post<UserModel>(AUTH_API + REGISTER_ROUTE, credentials);
+  register(credentials: any): Observable<any>{
+    return this.http.post(AUTH_API + REGISTER_ROUTE, {
+      firstname: credentials.firstname,
+      Lastname: credentials.lastname,
+      cep: 'Não definido',
+      email: credentials.email,
+      password: credentials.password,
+      phoneNumber: 'Não definido'
+    });
   }
 }

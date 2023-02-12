@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from '../../Services/token-storage.service';
 
 @Component({
   selector: 'app-NavBar',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor() { }
+  get loggedUser() {
+    return this.tokenStorage.getUserModel();
+  }
+
+  constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
   }

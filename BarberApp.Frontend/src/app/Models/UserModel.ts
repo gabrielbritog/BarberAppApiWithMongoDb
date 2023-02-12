@@ -1,4 +1,5 @@
 export class UserModel {
+  userId?: string;
   firstName!: string;
   lastName!: string;
   cep?: string;
@@ -7,6 +8,8 @@ export class UserModel {
   password!: string;
   phoneNumber?: string;
   userLevel?: number;
+  urlImagem?: string;
+  userRegistration?: string;
 
   constructor(params?: Partial<UserModel>) {
     if (params)
