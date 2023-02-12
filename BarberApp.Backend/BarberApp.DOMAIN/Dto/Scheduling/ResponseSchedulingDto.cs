@@ -1,4 +1,5 @@
-﻿using BarberApp.Domain.Models;
+﻿using BarberApp.Domain.Dto.ServiceType;
+using BarberApp.Domain.Models;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace BarberApp.Domain.Dto.Scheduling
         [BsonElement("clientName")]
         public string ClientName { get; set; }
         [BsonElement("serviceType")]
-        public List<ServiceType> ServiceType { get; set; }
+        public List<RegisterServiceTypeDto> ServiceType { get; set; }
         [BsonElement("schedulingDate")]
         public DateTime SchedulingDate { get; set; }
     }
