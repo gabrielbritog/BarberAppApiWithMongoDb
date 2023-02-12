@@ -13,13 +13,23 @@ import { AuthService } from './Services/Auth.service';
 import { FormValidationService } from './Services/FormValidation.service';
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
 import { HttpClientModule } from '@angular/common/http';
+import { HomePageComponent } from './Pages/HomePage/HomePage.component';
+import { TodaySectionComponent } from './Pages/HomePage/Sections/TodaySection/TodaySection.component';
+import { CalendarSectionComponent } from './Pages/HomePage/Sections/CalendarSection/CalendarSection.component';
+import { ClientListSectionComponent } from './Pages/HomePage/Sections/ClientListSection/ClientListSection.component';
+import { AccountSectionComponent } from './Pages/HomePage/Sections/AccountSection/AccountSection.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    NavBarComponent
+    NavBarComponent,
+    TodaySectionComponent,
+    CalendarSectionComponent,
+    ClientListSectionComponent,
+    AccountSectionComponent
   ],
   imports: [
     BrowserAnimationsModule,

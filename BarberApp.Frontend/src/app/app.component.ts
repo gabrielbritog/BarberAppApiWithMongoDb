@@ -9,7 +9,6 @@ import { TokenStorageService } from './Services/token-storage.service';
 export class AppComponent implements OnInit{
   title = 'Barber-App';
 
-  private roles: string[] = [];
   isLoggedIn = false;
   showUserBoard = false;
   showAdminBoard = false;
@@ -18,13 +17,6 @@ export class AppComponent implements OnInit{
   constructor(private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    if (!this.isLoggedIn)
-      return;
-
-    const user = this.tokenStorageService.getUser();
-    // this.roles = user.roles;
   }
 
   logout() {

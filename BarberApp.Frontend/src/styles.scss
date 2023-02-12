@@ -7,8 +7,12 @@
   --app-color-primary: #ff9000;
   --app-color-text: #f4ede8;
   --app-color-bg: #312e38;
+  --app-color-bg-alt: #3e3b47;
   --app-color-input-bg: #232129;
   --app-color-input-text: #5e5b59;
+
+  --nav-color-bg: #28262e;
+
 
   --global-border-radius: 10px;
 }
@@ -21,6 +25,10 @@
   list-style: none;
   font-family: 'Poppins', sans-serif;
   transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+html{
+  overflow: hidden;
 }
 
 body{
@@ -47,6 +55,14 @@ body{
   &.outline{
     background-color: transparent;
     color: var(--app-color-primary);
+  }
+  &.btn_light{
+    background-color: var(--app-color-text);
+    border-color: var(--app-color-text);
+  }
+  &.circle{
+    aspect-ratio: 1/1;
+    border-radius: 50%;
   }
 }
 
@@ -130,12 +146,31 @@ h3{
   font-size: 2rem;
 }
 
-// .app-logo-text{
-//   font-size: 3rem;
-//   font-family: 'Bebas Neue', cursive;
-// }
 .text_color_primary{
   color: var(--app-color-primary);
+}
+
+.card{
+  border-radius: 5px;
+  background-color: var(--app-color-bg-alt);
+  width: 100%;
+  padding: .5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  .title{
+    font-size: 1.2rem;
+  }
+  .desc{
+    font-size: .8rem;
+    margin-top: .25rem;
+    i{
+      color: var(--app-color-primary);
+    }
+    span{
+      margin-left: .5rem;
+      opacity: .45;
+    }
+  }
 }
 
 @keyframes tilt-shaking {
@@ -153,3 +188,26 @@ h3{
   75% { transform: translateX(5px) }
   100% { transform: translateX(0) }
  }
+
+ @media (max-width: 767px) {
+  .container{
+    width: 90%;
+  }
+
+  h1{
+    font-size: 3rem;
+  }
+
+  h2{
+    font-size: 2.875rem;
+  }
+
+  h3{
+    font-size: 2.25rem;
+  }
+
+  h3{
+    font-size: 1.85rem;
+  }
+
+}

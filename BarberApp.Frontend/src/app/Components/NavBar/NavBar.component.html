@@ -1,3 +1,13 @@
-<p>
-  NavBar works!
-</p>
+<nav class="container_fluid">
+  <div class="container nav_container">
+    <div class="nav_left">
+      <span class="welcome">Bem vindo, </span>
+      <span class="user_name">{{loggedUser.firstName + ' ' + loggedUser.lastName}}</span>
+    </div>
+    <div class="nav_right">
+      <button class="btn nav_button">
+        <i class="fa-solid fa-user"></i>
+      </button>
+    </div>
+  </div>
+</nav>

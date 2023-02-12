@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ValidationEnum } from 'src/app/Enums/ValidationEnum.enum';
 import { UserModel } from 'src/app/Models/UserModel';
@@ -15,16 +16,16 @@ import { TokenStorageService } from '../../Services/token-storage.service';
 export class LoginPageComponent implements OnInit {
 
   submited = false;
-  isLoggedIn = false;
 
   constructor(
     private toastr: ToastrService,
     private authService: AuthService,
-    private tokenStorage: TokenStorageService) { }
+    private tokenStorage: TokenStorageService,
+    private router: Router) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken())
-      this.isLoggedIn = true;
+      this.router.navigateByUrl('/Home');
   }
 
   onSubmit(form: NgForm) {
@@ -42,13 +43,14 @@ export class LoginPageComponent implements OnInit {
 
     this.authService.login(userModel).subscribe({
       next: (data: any) => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data.dados);
+        this.tokenStorage.saveToken(data.data.accessToken);
+        this.tokenStorage.saveUser(data.data.dados);
         this.toastr.success(successString);
-        this.isLoggedIn = true;
+        this.router.navigateByUrl('/Home');
       },
       error: (err) => {
-        this.toastr.error(err);
+        console.log(err);
+        this.toastr.error(err.error.data);
       }
     })
 
