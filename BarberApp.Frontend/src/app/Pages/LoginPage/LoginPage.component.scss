@@ -3,7 +3,7 @@ section{
   background-color: var(--app-color-bg);
   display: flex;
   align-items: center;
-  img{
+  img#banner_img{
     display: none;
     height: 100%;
     width: 55%;
@@ -50,13 +50,13 @@ a{
 }
 
 @media (min-width:768px) {
-  section img{
+  section img#banner_img{
     display: block;
   }
 }
 
 @media (min-width:1024px) {
-  section img{
+  section img#banner_img{
     width: 60%;
   }
 }

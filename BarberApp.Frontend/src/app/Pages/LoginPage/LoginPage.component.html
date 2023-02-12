@@ -1,14 +1,14 @@
 <section class="container-fluid">
   <div class="container login_container flex_column">
     <div class="container_header">
-      <h1>BARBER-APP</h1>
+      <h1 class="app-logo-text text_color_primary">BarberShop</h1>
     </div>
 
     <div class="container_content flex_column w_100">
       <form #client_form="ngForm"
       (ngSubmit)="onSubmit(client_form)"
       class="login_form flex_column">
-        <h1 class="form_title">Login</h1>
+        <h3 class="form_title">Login</h3>
         <div class="form_group">
           <input class="w_100" type="email" name="email"
           [ngClass]="isControlValid('form-email')?'':'form_invalid'"
@@ -39,5 +39,5 @@
       </a>
     </div>
   </div>
-  <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJhcmJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60" alt="" srcset="">
+  <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJhcmJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60" alt="" id="banner_img">
 </section>

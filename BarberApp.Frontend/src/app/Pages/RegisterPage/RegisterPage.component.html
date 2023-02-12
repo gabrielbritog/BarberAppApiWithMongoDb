@@ -1,7 +1,7 @@
 <section class="container-fluid">
   <div class="container register_container flex_column">
     <div class="container_header">
-      <h1>BARBER-APP</h1>
+      <h1 class="app-logo-text text_color_primary">BarberShop</h1>
     </div>
 
     <div class="container_content flex_column w_100">
@@ -9,7 +9,7 @@
       (ngSubmit)="onSubmit(client_form)"
       class="register_form flex_column">
 
-        <h1 class="form_title">Registrar</h1>
+        <h3 class="form_title">Registrar</h3>
 
         <div class="form_group group_fullname">
           <input type="text" name="firstname"
@@ -36,7 +36,7 @@
           </button>
           <input type="password" name="password"
           [ngClass]="isControlValid('form-password')?'':'form_invalid'"
-          id="form-password" placeholder="Senha" ngModel required>
+          id="form-password" placeholder="Senha" ngModel minlength="8" required>
         </div>
 
         <div class="form_group">
@@ -63,5 +63,6 @@
       </a>
     </div>
   </div>
-  <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJhcmJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60" alt="" srcset="">
+  <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJhcmJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60"
+  alt="" id="banner_img">
 </section>
