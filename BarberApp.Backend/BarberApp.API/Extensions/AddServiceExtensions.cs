@@ -13,6 +13,8 @@ namespace BarberApp.Api.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISchedulingRepository, SchedulingRepository>();
+            services.AddScoped<ISchedulingService, SchedulingService>();
 
             return services;
         }
