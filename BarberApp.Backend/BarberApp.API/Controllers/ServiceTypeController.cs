@@ -2,6 +2,7 @@
 using BarberApp.Domain.Dto.ServiceType;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace BarberApp.Api.Controllers
         }
 
         [HttpPost("Register")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseServiceTypeDto>>> Register([FromBody] RegisterServiceTypeDto serviceType)
         {
             try
