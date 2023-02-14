@@ -1,13 +1,16 @@
-<nav class="container_fluid">
+<nav class="container_fluid" [class.today_section]="currentSection == 0">
   <div class="container nav_container">
-    <div class="nav_left">
-      <span class="welcome">Bem vindo, </span>
-      <span class="user_name">{{loggedUser.firstName + ' ' + loggedUser.lastName}}</span>
-    </div>
-    <div class="nav_right">
+    <div class="nav_profile">
       <button class="btn nav_button">
         <i class="fa-solid fa-user"></i>
       </button>
+    </div>
+    <div class="nav_text">
+      <span class="welcome">Bem vindo, </span>
+      <span class="user_name">{{loggedUser.firstName + ' ' + loggedUser.lastName}}</span>
+    </div>
+    <div class="sidebar_toogle">
+      <i class="fa-solid fa-bars"></i>
     </div>
   </div>
 </nav>

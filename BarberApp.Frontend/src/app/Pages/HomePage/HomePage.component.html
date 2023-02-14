@@ -1,17 +1,18 @@
+<div class="home_container">
 <app-NavBar></app-NavBar>
 
-
-<!-- {{sectionScroll}}/{{screenWidth}}/{{currentSection}} -->
-
-<ul class="tab_sections">
-  <li class="tab" [ngClass]="currentSection == 0 ? 'active': ''"
+<ul id="tab_sections">
+  <li class="tab" [ngClass]="roundedCurrentSection == 0 ? 'active': ''"
   id="today_tab" (click)="setToSection(0)">Hoje</li>
-  <li class="tab" [ngClass]="currentSection == 1 ? 'active': ''"
+  <li class="tab" [ngClass]="roundedCurrentSection == 1 ? 'active': ''"
   id="calendar_tab" (click)="setToSection(1)">Calendário</li>
-  <li class="tab" [ngClass]="currentSection == 2 ? 'active': ''"
+  <li class="tab" [ngClass]="roundedCurrentSection == 2 ? 'active': ''"
   id="clients_tab" (click)="setToSection(2)">Lista de Clientes</li>
-  <li class="tab" [ngClass]="currentSection == 3 ? 'active': ''"
+  <li class="tab" [ngClass]="roundedCurrentSection == 3 ? 'active': ''"
   id="account_tab" (click)="setToSection(3)">Conta</li>
+  <div id="indicator_line"
+  [ngStyle]="{'width': indicatorWidth(), 'left': indicatorLeft()}"
+  ></div>
 </ul>
 
 <section id="section_container">
@@ -20,3 +21,4 @@
   <app-ClientListSection class="nav_section" id="clients_section"></app-ClientListSection>
   <app-AccountSection class="nav_section" id="account_section"></app-AccountSection>
 </section>
+</div>

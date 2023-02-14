@@ -1,256 +1,29 @@
+<app-SchedulingModal></app-SchedulingModal>
 
 <div class="cards_container">
-  <div class="card">
-    <div class="title">
+  <div class="card" *ngFor="let item of todaySchedules">
+    <div class="picture">
+      <i class="fa-solid fa-scissors"></i>
+    </div>
+    <div class="content">
+      <div class="title">
 
-      <span>Usuário tal</span>
+        <span>{{item.clientName}}</span>
+      </div>
+      <div class="desc">
+        <i class="fa-regular fa-clock"></i>
+      <span>{{item.time}}</span>
+      </div>
     </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-
-
-
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="title">
-
-      <span>Usuário tal</span>
-    </div>
-    <div class="desc">
-      <i class="fa-regular fa-clock"></i>
-     <span>11h às 12h</span>
+    <div class="edit_btn">
+      <i class="fa-solid fa-ellipsis-vertical"></i>
     </div>
   </div>
 </div>
+
+<div class="btn_container">
+  <button class="btn btn_new" (click)="newSchedule()">
+    Novo Agendamento
+  </button>
+</div>
+

@@ -1,0 +1,32 @@
+<div class="modal_container_bg" [class.active]="showModal">
+  <div class="container modal_container">
+    <div class="header">
+      <h3>Novo Agendamento</h3>
+      <button class="btn_close" (click)="onCancel(scheduleForm)">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <hr>
+    <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)" class="flex_column">
+      <div class="form_group">
+        <label for="clientName">
+          <input type="text" name="clientName" id="clientName" placeholder="Nome do cliente" ngModel>
+        </label>
+      </div>
+      <div class="form_group">
+        <label for="date">
+          <input class="no-icon" type="date" name="date" id="date" [ngModel]="today | date:'yyyy-MM-dd'">
+          <i class="fa-solid fa-calendar"></i>
+        </label>
+      </div>
+      <div class="form_group">
+        <label for="time">
+          <input class="no-icon" type="time" name="time" id="time" ngModel>
+          <i class="fa-solid fa-clock"></i>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn_submit">Agendar</button>
+    </form>
+  </div>
+</div>

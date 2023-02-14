@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-AccountSection',
   templateUrl: './AccountSection.component.html',
-  styleUrls: ['./AccountSection.component.css']
+  styleUrls: ['./AccountSection.component.scss']
 })
 export class AccountSectionComponent implements OnInit {
 

@@ -50,7 +50,10 @@ export class RegisterPageComponent implements OnInit {
       },
       error: err => {
         console.log(err);
-        this.toastr.error(err.error.data);
+        if (err.error.data)
+          this.toastr.error(err.error.data);
+        else
+          this.toastr.error(err.error.message);
       }
     });
 

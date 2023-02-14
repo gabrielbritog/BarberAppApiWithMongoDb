@@ -18,6 +18,7 @@ import { TodaySectionComponent } from './Pages/HomePage/Sections/TodaySection/To
 import { CalendarSectionComponent } from './Pages/HomePage/Sections/CalendarSection/CalendarSection.component';
 import { ClientListSectionComponent } from './Pages/HomePage/Sections/ClientListSection/ClientListSection.component';
 import { AccountSectionComponent } from './Pages/HomePage/Sections/AccountSection/AccountSection.component';
+import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AccountSectionComponent } from './Pages/HomePage/Sections/AccountSectio
     TodaySectionComponent,
     CalendarSectionComponent,
     ClientListSectionComponent,
-    AccountSectionComponent
+    AccountSectionComponent,
+    SchedulingModalComponent
   ],
   imports: [
     BrowserAnimationsModule,

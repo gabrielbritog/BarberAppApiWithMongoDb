@@ -15,6 +15,9 @@
 
 
   --global-border-radius: 10px;
+
+  --default-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --default-transition-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1);
 }
 
 *{
@@ -24,7 +27,7 @@
   text-decoration: none;
   list-style: none;
   font-family: 'Poppins', sans-serif;
-  transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all .3s var(--default-transition);
 }
 
 html{
@@ -46,6 +49,7 @@ body{
 }
 
 .btn{
+  font-weight: 600;
   cursor: pointer;
   border: 1px solid var(--app-color-primary);
   background-color: var(--app-color-primary);
@@ -95,7 +99,8 @@ input{
   border-radius: var(--global-border-radius);
   &:focus{
     outline: none;
-    box-shadow: 0px 0px 0px 2px var(--app-color-input-text);
+    box-shadow: 0px 0px 0px 2px var(--app-color-primary);
+    color: var(--app-color-text);
   }
   &.form_invalid{
     outline: 2px solid red;
@@ -151,25 +156,46 @@ h3{
 }
 
 .card{
-  border-radius: 5px;
+  border-radius: var(--global-border-radius);
   background-color: var(--app-color-bg-alt);
   width: 100%;
-  padding: .5rem 1rem;
+  padding: .5rem;
   display: flex;
-  flex-direction: column;
-  .title{
-    font-size: 1.2rem;
+  gap: .75rem;
+  align-items: flex-start;
+  .picture{
+    width: 50px;
+    height: 50px;
+    background-color: var(--app-color-input-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .desc{
-    font-size: .8rem;
-    margin-top: .25rem;
-    i{
-      color: var(--app-color-primary);
+  .content{
+    flex-grow: 1;
+    .title{
+      font-size: 1rem;
     }
-    span{
-      margin-left: .5rem;
-      opacity: .45;
+    .desc{
+      font-size: .8rem;
+      margin-top: .25rem;
+      i{
+        color: var(--app-color-primary);
+      }
+      span{
+        margin-left: .5rem;
+        opacity: .45;
+      }
     }
+  }
+  .edit_btn{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    padding: 0.25rem;
   }
 }
 

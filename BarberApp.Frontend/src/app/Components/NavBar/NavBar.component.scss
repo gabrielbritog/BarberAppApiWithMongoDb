@@ -8,7 +8,19 @@ nav{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .nav_left{
+  gap: .75rem;
+  >*{
+    flex-grow: 0;
+  }
+  .sidebar_toogle{
+    font-size: 1.25rem;
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    cursor: pointer;
+  }
+  .nav_text{
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     .welcome{
@@ -22,7 +34,7 @@ nav{
       font-size: 1.2rem;
     }
   }
-  .nav_right{
+  .nav_profile{
     .nav_button{
       position: relative;
       overflow: hidden;
