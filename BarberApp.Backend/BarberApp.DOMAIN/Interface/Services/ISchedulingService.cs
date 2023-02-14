@@ -11,10 +11,10 @@ namespace BarberApp.Domain.Interface.Services
     public interface ISchedulingService
     {
         public Task<RegisterSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId);
-        public Task<Scheduling> GetById(string schedulingId);
+        public Task<Scheduling> GetById(string schedulingId, string userId);
         public Task<Scheduling> Delete(string schedulingId, string userId);
         public Task<List<Scheduling>> GetAll(string userId);
-        public Task<Scheduling> Update(Scheduling scheduling, string userId);
+        public Task<UpdateSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId);
 
     }
 }

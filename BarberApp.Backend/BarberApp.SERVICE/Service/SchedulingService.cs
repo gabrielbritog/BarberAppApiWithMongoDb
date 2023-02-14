@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Scheduling;
+using BarberApp.Domain.Dto.ServiceType;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
+using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using System;
 using System.Collections.Generic;
@@ -27,14 +29,14 @@ namespace BarberApp.Service.Service
             throw new NotImplementedException();
         }
 
-        public Task<List<Scheduling>> GetAll(string userId)
+        public async Task<List<Scheduling>> GetAll(string userId)
         {
-            throw new NotImplementedException();
+            return await _schedulingRepository.GetAll(userId);
         }
 
-        public Task<Scheduling> GetById(string schedulingId)
+        public async Task<Scheduling> GetById(string schedulingId,string userId)
         {
-            throw new NotImplementedException();
+            return await _schedulingRepository.GetById(schedulingId, userId);
         }
 
         public async Task<RegisterSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
@@ -50,13 +52,25 @@ namespace BarberApp.Service.Service
             }
             
             await _schedulingRepository.Register(schedulingMap, UserId);
-          // var teste = _mapper.Map<ResponseSchedulingDto>(scheduling);
             return scheduling;
         }
 
-        public Task<Scheduling> Update(Scheduling scheduling, string userId)
+        public async Task<UpdateSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId)
         {
-            throw new NotImplementedException();
+            var schedulingDb = await GetById(scheduling.SchedulingId, userId);
+            var schedulingConvert = _mapper.Map<UpdateSchedulingDto>(schedulingDb);
+
+
+            if (string.IsNullOrEmpty(scheduling.ClientName))
+                scheduling.ClientName = schedulingDb.ClientName;
+            if (scheduling.ServiceType == null)
+                scheduling.ServiceType = schedulingConvert.ServiceType;
+            if (scheduling.SchedulingDate == DateTime.MinValue)
+                scheduling.SchedulingDate = schedulingDb.SchedulingDate;
+
+
+            var result = await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), userId);
+            return _mapper.Map<UpdateSchedulingDto>(result);
         }
     }
 }

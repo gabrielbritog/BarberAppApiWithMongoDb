@@ -2,6 +2,7 @@
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarberApp.Api.Controllers
@@ -59,6 +60,7 @@ namespace BarberApp.Api.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> Update([FromBody]UpdateUserDto user)
         {
             try

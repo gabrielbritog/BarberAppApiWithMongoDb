@@ -23,6 +23,8 @@ namespace BarberApp.Service.Configurations
                 .ReverseMap();
             CreateMap<Scheduling, ResponseSchedulingDto>()
                 .ReverseMap();
+            CreateMap<Scheduling, UpdateSchedulingDto>()
+                .ReverseMap();
 
             CreateMap<ServiceType, RegisterServiceTypeDto>()
                 .ReverseMap();

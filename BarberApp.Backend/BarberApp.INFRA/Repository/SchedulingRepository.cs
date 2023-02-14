@@ -28,14 +28,36 @@ namespace BarberApp.Infra.Repository
             throw new NotImplementedException();
         }
 
-        public Task<List<Scheduling>> GetAll(string userId)
+        public async Task<List<Scheduling>> GetAll(string userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Scheduling>.Filter.Eq(u => u.UserId, userId);
+                return await _schedulingCollection.Find(filter).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
-        public Task<Scheduling> GetById(string schedulingId)
+        public async Task<Scheduling> GetById(string schedulingId, string userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //var schedulingOfUser = this.GetAll(userId);
+
+                var filter = Builders<Scheduling>.Filter.And(
+           Builders<Scheduling>.Filter.Eq(u => u.UserId, userId),
+           Builders<Scheduling>.Filter.Eq(u => u.SchedulingId, schedulingId)
+       );
+
+                return await _schedulingCollection.Find(filter).FirstOrDefaultAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<Scheduling> Register(Scheduling scheduling, string UserId)
@@ -52,9 +74,26 @@ namespace BarberApp.Infra.Repository
             }
         }
 
-        public Task<Scheduling> Update(Scheduling scheduling, string userId)
+        public async Task<Scheduling> Update(Scheduling scheduling, string schedulingId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Scheduling>.Filter.Eq(u => u.SchedulingId, schedulingId);
+                var update = Builders<Scheduling>.Update
+                    .Set(u => u.ClientName, scheduling.ClientName)
+                    .Set(u => u.ServiceType, scheduling.ServiceType)
+                    .Set(u => u.SchedulingDate, scheduling.SchedulingDate);
+                    
+                var result = await _schedulingCollection.UpdateOneAsync(filter, update);
+                if (result.MatchedCount == 0)
+                    throw new Exception("Agendamento não encontrado.");
+                return scheduling;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
     }
 }
