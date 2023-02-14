@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { Router } from '@angular/router';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
+import { SchedulingService } from 'src/app/Services/SchedulingService.service';
+import { ScheduleModel } from '../../Models/ScheduleModel';
 
 @Component({
   selector: 'app-HomePage',
@@ -26,6 +28,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
+    private schedulingService: SchedulingService,
     private router: Router) { }
 
   ngOnInit() {
@@ -35,6 +38,23 @@ export class HomePageComponent implements OnInit {
     this.scrollEventListener();
     this.getTabsWidth();
     this.getTabsLeft();
+    this.getSchedules();
+  }
+
+  getSchedules() {
+
+    this.schedulingService.getAllSchedule().subscribe({
+      next: (data: any) => {
+        let schedules: ScheduleModel[] = [];
+        data.data.forEach((element: any) => {
+          schedules.push(new ScheduleModel(element));
+        });
+        GlobalVariables.schedules = schedules;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
   getTabsLeft() {

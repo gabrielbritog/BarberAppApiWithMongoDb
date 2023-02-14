@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import * as moment from 'moment';
+import { SchedulingService } from 'src/app/Services/SchedulingService.service';
 
 @Component({
   selector: 'app-SchedulingModal',
@@ -21,17 +22,26 @@ export class SchedulingModalComponent implements OnInit {
 
   get today(){return moment().format('YYYY-MM-DD')};
 
-  constructor() { }
+  constructor(private schedulingService: SchedulingService) { }
 
   ngOnInit() {
   }
 
   onSubmit(form: NgForm) {
-    GlobalVariables.schedules.push(new ScheduleModel(form.value));
-    this.showModal = false;
-    form.resetForm({
-      date: this.today
-    });
+    var schedule = new ScheduleModel(form.value);
+    this.schedulingService.registerSchedule(schedule).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        GlobalVariables.schedules.push(schedule);
+        this.showModal = false;
+        form.resetForm({
+          date: this.today
+        });
+      },
+      error: (err) => {
+        console.log(err.message);
+      }
+    })
   }
 
   onCancel(form: NgForm) {
