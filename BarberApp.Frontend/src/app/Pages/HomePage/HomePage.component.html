@@ -2,23 +2,20 @@
 <app-NavBar></app-NavBar>
 
 <ul id="tab_sections">
-  <li class="tab" [ngClass]="roundedCurrentSection == 0 ? 'active': ''"
-  id="today_tab" (click)="setToSection(0)">Hoje</li>
-  <li class="tab" [ngClass]="roundedCurrentSection == 1 ? 'active': ''"
-  id="calendar_tab" (click)="setToSection(1)">Calendário</li>
-  <li class="tab" [ngClass]="roundedCurrentSection == 2 ? 'active': ''"
-  id="clients_tab" (click)="setToSection(2)">Lista de Clientes</li>
-  <li class="tab" [ngClass]="roundedCurrentSection == 3 ? 'active': ''"
-  id="account_tab" (click)="setToSection(3)">Conta</li>
+  <li class="tab" [class.active]="roundedCurrentSection == 0"
+  id="today_tab" (click)="setToSection(0)">Agendamentos</li>
+  <li class="tab" [class.active]="roundedCurrentSection == 1"
+  id="clients_tab" (click)="setToSection(1)">Clientes</li>
+  <li class="tab" [class.active]="roundedCurrentSection == 2"
+  id="account_tab" (click)="setToSection(2)">Serviços</li>
   <div id="indicator_line"
   [ngStyle]="{'width': indicatorWidth(), 'left': indicatorLeft()}"
   ></div>
 </ul>
 
 <section id="section_container">
-  <app-TodaySection class="nav_section" id="today_section"></app-TodaySection>
-  <app-CalendarSection class="nav_section" id="calendar_section"></app-CalendarSection>
+  <app-SchedulesSection class="nav_section" id="schedules_section"></app-SchedulesSection>
   <app-ClientListSection class="nav_section" id="clients_section"></app-ClientListSection>
-  <app-AccountSection class="nav_section" id="account_section"></app-AccountSection>
+  <app-ServiceTypesSection class="nav_section" id="serviceTypes_section"></app-ServiceTypesSection>
 </section>
 </div>

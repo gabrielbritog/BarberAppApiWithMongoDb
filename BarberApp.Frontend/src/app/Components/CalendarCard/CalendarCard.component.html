@@ -1,0 +1,21 @@
+<div class="section_container card primary_card header_card">
+  <div class="month_day">
+    {{currentMonthDay}}
+  </div>
+  <div class="calendar_date flex_column">
+    <div class="month">
+      Fevereiro
+    </div>
+    <div class="week_day">
+      {{currentWeekDay}}
+    </div>
+  </div>
+<div class="calendar_controls">
+  <button class="btn btn_control control_left" (click)="previousDay()">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+  <button class="btn btn_control control_right" (click)="nextDay()">
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+</div>
+</div>

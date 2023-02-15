@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
-import { ScheduleModel } from '../../../../Models/ScheduleModel';
 
 @Component({
-  selector: 'app-TodaySection',
-  templateUrl: './TodaySection.component.html',
-  styleUrls: ['./TodaySection.component.scss']
+  selector: 'app-SchedulesSection',
+  templateUrl: './SchedulesSection.component.html',
+  styleUrls: ['./SchedulesSection.component.scss']
 })
-export class TodaySectionComponent implements OnInit {
+export class SchedulesSectionComponent implements OnInit {
 
-  get todaySchedules() {
+  get currentDaySchedules() {
     var result = GlobalVariables.schedules
-                .filter(p => moment(p.date).format('L') == moment().format('L'))
+                .filter(p => moment(p.date).format('L') == GlobalVariables.currentDay.format('L'))
                 .sort((n1, n2) => {
                   if (n1.time > n2.time) {
                       return 1;

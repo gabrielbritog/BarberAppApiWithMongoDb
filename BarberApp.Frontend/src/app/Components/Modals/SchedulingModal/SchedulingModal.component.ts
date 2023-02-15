@@ -20,7 +20,7 @@ export class SchedulingModalComponent implements OnInit {
     GlobalVariables.showScheduleModal = value;
   };
 
-  get today(){return moment().format('YYYY-MM-DD')};
+  get currentDay(){return GlobalVariables.currentDay.format('YYYY-MM-DD')};
 
   constructor(private schedulingService: SchedulingService) { }
 
@@ -35,7 +35,7 @@ export class SchedulingModalComponent implements OnInit {
         GlobalVariables.schedules.push(schedule);
         this.showModal = false;
         form.resetForm({
-          date: this.today
+          date: this.currentDay
         });
       },
       error: (err) => {
@@ -47,7 +47,7 @@ export class SchedulingModalComponent implements OnInit {
   onCancel(form: NgForm) {
     this.showModal = false;
     form.resetForm({
-      date: this.today
+      date: this.currentDay
     });
   }
 

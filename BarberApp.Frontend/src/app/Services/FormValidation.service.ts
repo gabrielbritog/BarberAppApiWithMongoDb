@@ -55,7 +55,8 @@ export class FormValidationService {
       response.push(`A senha precisa ter no mínimo 8 caracteres.`);
     }
 
-    if ((validationEnum & ValidationEnum.InvalidConfirmPassword) === ValidationEnum.InvalidConfirmPassword) {
+    if ((validationEnum & ValidationEnum.InvalidConfirmPassword) === ValidationEnum.InvalidConfirmPassword
+        || form.value.confirmpassword != form.value.password) {
       response.push(`O campo 'Confirmar senha' deve ser igual a senha.`);
     }
 

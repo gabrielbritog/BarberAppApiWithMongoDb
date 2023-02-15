@@ -39,7 +39,7 @@ export class RegisterPageComponent implements OnInit {
     for (let i = 0; i < validationResult.length; i++)
       this.toastr.error(validationResult[i]);
 
-    if(form.invalid)
+    if(validationResult.length > 0)
       return;
 
     console.log(userModel);
@@ -53,7 +53,7 @@ export class RegisterPageComponent implements OnInit {
         if (err.error.data)
           this.toastr.error(err.error.data);
         else
-          this.toastr.error(err.error.message);
+          this.toastr.error("Algo deu errado, tente novamente.");
       }
     });
 

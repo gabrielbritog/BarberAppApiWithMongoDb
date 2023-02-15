@@ -6,22 +6,38 @@
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
-    <hr>
-    <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)" class="flex_column">
+    <hr />
+    <form
+      #scheduleForm="ngForm"
+      (ngSubmit)="onSubmit(scheduleForm)"
+      class="flex_column"
+    >
       <div class="form_group">
         <label for="clientName">
-          <input type="text" name="clientName" id="clientName" placeholder="Nome do cliente" ngModel>
+          <input
+            type="text"
+            name="clientName"
+            id="clientName"
+            placeholder="Nome do cliente"
+            ngModel
+          />
         </label>
       </div>
       <div class="form_group">
         <label for="date">
-          <input class="no-icon" type="date" name="date" id="date" [ngModel]="today | date:'yyyy-MM-dd'">
+          <input
+            class="no-icon"
+            type="date"
+            name="date"
+            id="date"
+            [ngModel]="currentDay"
+          />
           <i class="fa-solid fa-calendar"></i>
         </label>
       </div>
       <div class="form_group">
         <label for="time">
-          <input class="no-icon" type="time" name="time" id="time" ngModel>
+          <input class="no-icon" type="time" name="time" id="time" ngModel />
           <i class="fa-solid fa-clock"></i>
         </label>
       </div>

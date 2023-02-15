@@ -1,0 +1,25 @@
+<div class="card" [class.w_100]="fullWidth">
+  <div class="picture">
+    <i class="fa-solid fa-scissors"></i>
+  </div>
+  <div class="content">
+    <div class="title">
+      <span>{{scheduleModel.clientName}}</span>
+    </div>
+    <div class="desc" *ngIf="scheduleModel.date != '' && showDate">
+      <i class="fa-regular fa-calendar"></i>
+      <span>{{scheduleModel.date}}</span>
+    </div>
+    <div class="desc" *ngIf="scheduleModel.time != ''">
+      <i class="fa-regular fa-clock"></i>
+      <span>{{scheduleModel.time}}</span>
+    </div>
+    <div class="desc" *ngIf="showPhone">
+      <i class="fa-solid fa-phone"></i>
+      <span>(21) 99757-1234</span>
+    </div>
+  </div>
+  <div class="edit_btn">
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+  </div>
+</div>

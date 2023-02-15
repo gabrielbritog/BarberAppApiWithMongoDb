@@ -14,23 +14,33 @@ import { FormValidationService } from './Services/FormValidation.service';
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './Pages/HomePage/HomePage.component';
-import { TodaySectionComponent } from './Pages/HomePage/Sections/TodaySection/TodaySection.component';
-import { CalendarSectionComponent } from './Pages/HomePage/Sections/CalendarSection/CalendarSection.component';
 import { ClientListSectionComponent } from './Pages/HomePage/Sections/ClientListSection/ClientListSection.component';
-import { AccountSectionComponent } from './Pages/HomePage/Sections/AccountSection/AccountSection.component';
 import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
+import { ServiceTypesSectionComponent } from './Pages/HomePage/Sections/ServiceTypesSection/ServiceTypesSection.component';
+import { ScheduleCardComponent } from './Components/ScheduleCard/ScheduleCard.component';
+import { CalendarCardComponent } from './Components/CalendarCard/CalendarCard.component';
+import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+
+    // PAGES
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    NavBarComponent,
-    TodaySectionComponent,
-    CalendarSectionComponent,
+
+    // HOME SECTIONS
+    SchedulesSectionComponent,
     ClientListSectionComponent,
-    AccountSectionComponent,
+    ServiceTypesSectionComponent,
+
+    // COMPONENTS
+    NavBarComponent,
+    ScheduleCardComponent,
+    CalendarCardComponent,
+
+    // MODAL
     SchedulingModalComponent
   ],
   imports: [

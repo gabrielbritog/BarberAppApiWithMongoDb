@@ -53,7 +53,7 @@ export class LoginPageComponent implements OnInit {
         if (err.error.data)
           this.toastr.error(err.error.data);
         else
-          this.toastr.error(err.error.message);
+          this.toastr.error("Algo deu errado, tente novamente.");
       }
     })
 
