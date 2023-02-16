@@ -20,6 +20,7 @@ import { ServiceTypesSectionComponent } from './Pages/HomePage/Sections/ServiceT
 import { ScheduleCardComponent } from './Components/ScheduleCard/ScheduleCard.component';
 import { CalendarCardComponent } from './Components/CalendarCard/CalendarCard.component';
 import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
+import { LoaderComponent } from './Components/Loader/Loader.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSe
     NavBarComponent,
     ScheduleCardComponent,
     CalendarCardComponent,
+    LoaderComponent,
 
     // MODAL
     SchedulingModalComponent

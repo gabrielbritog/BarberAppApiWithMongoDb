@@ -1,9 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserModel } from '../Models/UserModel';
+import { LoaderComponent } from '../Components/Loader/Loader.component';
 
-const AUTH_API = 'http://localhost:5066/api/User/'
+
+// IP DA MÁQUINA
+const MACHINE_IP = "192.168.1.83"
+const AUTH_API = `http://${MACHINE_IP}:5066/api/User`
+
+
 const LOGIN_ROUTE = 'Login';
 const REGISTER_ROUTE = 'Register';
 
@@ -15,6 +20,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(credentials: any): Observable<any>{
+    LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + LOGIN_ROUTE, {
       email: credentials.email,
       password: credentials.password,
@@ -22,6 +28,7 @@ export class AuthService {
   }
 
   register(credentials: any): Observable<any>{
+    LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + REGISTER_ROUTE, {
       firstname: credentials.firstname,
       Lastname: credentials.lastname,

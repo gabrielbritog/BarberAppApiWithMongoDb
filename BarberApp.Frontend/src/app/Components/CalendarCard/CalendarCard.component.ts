@@ -16,6 +16,10 @@ export class CalendarCardComponent implements OnInit {
     return this.currentMomentDay.format('D');
   }
 
+  get currentMonth() {
+    return this.months[this.currentMomentDay.month()];
+  }
+
   get currentWeekDay() {
     return this.weekdays[this.currentMomentDay.day()];
   }
@@ -28,6 +32,21 @@ export class CalendarCardComponent implements OnInit {
     'Quinta-Feira',
     'Sexta-Feira',
     'Sábado'
+  ]
+
+  months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
   ]
 
   constructor() { }

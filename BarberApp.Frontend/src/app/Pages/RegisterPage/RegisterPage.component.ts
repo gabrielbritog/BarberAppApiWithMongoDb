@@ -6,6 +6,8 @@ import { AuthService } from '../../Services/Auth.service';
 import { UserModel } from '../../Models/UserModel';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../Services/token-storage.service';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 
 @Component({
   selector: 'app-RegisterPage',
@@ -45,15 +47,23 @@ export class RegisterPageComponent implements OnInit {
     console.log(userModel);
     this.authService.register(userModel).subscribe({
       next: (data: any) => {
-        this.toastr.success(toastrString);
-        this.router.navigateByUrl('/Login');
+        LoaderComponent.SetOptions(false, true, true);
+
+        setTimeout(() => {
+          this.toastr.success(toastrString);
+          this.router.navigateByUrl('/Login');
+        }, LoaderComponent.timeoutOffset);
       },
       error: err => {
-        console.log(err);
-        if (err.error.data)
-          this.toastr.error(err.error.data);
-        else
-          this.toastr.error("Algo deu errado, tente novamente.");
+        LoaderComponent.SetOptions(false, false, true);
+
+        setTimeout(() => {
+          console.log(err);
+          if (err.error.data)
+            this.toastr.error(err.error.data);
+          else
+            this.toastr.error("Algo deu errado, tente novamente.");
+        }, LoaderComponent.timeoutOffset);
       }
     });
 

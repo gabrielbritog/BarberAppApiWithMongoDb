@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { SchedulingService } from 'src/app/Services/SchedulingService.service';
 import { ScheduleModel } from '../../Models/ScheduleModel';
+import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 
 @Component({
   selector: 'app-HomePage',
@@ -21,7 +22,7 @@ export class HomePageComponent implements OnInit {
   sectionScroll = 0;
 
   get currentSection(){ return GlobalVariables.currentSection };
-  get roundedCurrentSection() { return Math.round(this.currentSection) };
+  get roundedCurrentSection() { return Math.round(GlobalVariables.currentSection) };
 
   tabsWidth: number[] = [];
   tabsLeft: number[] = [];
@@ -37,7 +38,6 @@ export class HomePageComponent implements OnInit {
 
     this.scrollEventListener();
     this.getTabsWidth();
-    this.getTabsLeft();
     this.getSchedules();
   }
 
@@ -50,34 +50,21 @@ export class HomePageComponent implements OnInit {
           schedules.push(new ScheduleModel(element));
         });
         GlobalVariables.schedules = schedules;
+        LoaderComponent.SetOptions(false);
       },
       error: (err) => {
         console.log(err);
+        LoaderComponent.SetOptions(false);
       }
-    })
-  }
-
-  getTabsLeft() {
-    this.tabsLeft = [];
-    let result = 0;
-
-    this.tabsWidth.forEach((elementWidth, index) => {
-      if (index > 0)
-        result += this.tabsWidth[index - 1];
-
-      this.tabsLeft.push(result);
     })
   }
 
   getTabsWidth() {
     const sectionTabs = document.getElementById(this.sectionTabsId)!;
-    const childCount = sectionTabs.childElementCount;
-    this.tabsWidth = [];
+    const tab = sectionTabs.childNodes[0] as HTMLElement;
+    let tabsWidth = tab.clientWidth;
 
-    for (let index = 0; index < childCount; index++) {
-      const child = sectionTabs.childNodes[index] as HTMLElement;
-      this.tabsWidth.push(child.clientWidth);
-    }
+    sectionTabs.style.setProperty('--tab-width', `${tabsWidth}px`)
   }
 
   setToSection(index: number) {
@@ -88,46 +75,21 @@ export class HomePageComponent implements OnInit {
   scrollEventListener() {
     let sectionContainer = document.getElementById(this.sectionContainerId)!;
     let tabssectionTabs = document.getElementById(this.sectionTabsId)!;
-    let tabsCount = tabssectionTabs.childElementCount;
-    let scrolledAtMax = false;
-    let scrolledAtBegin = true;
     let screenWidth = window.innerWidth;
     let tabScrollWidth = tabssectionTabs.scrollWidth;
     let tabClientWidth = tabssectionTabs.clientWidth;
-    let maxScrollLeft = tabScrollWidth - tabClientWidth;
 
     sectionContainer.addEventListener('scroll', (event) => {
       this.sectionScroll = sectionContainer.scrollLeft;
       GlobalVariables.currentSection = this.sectionScroll / screenWidth;
-
-      if (Math.round( GlobalVariables.currentSection) >= ((tabsCount - 1) / 2) && !scrolledAtMax){
-        tabssectionTabs.scrollLeft = maxScrollLeft;
-        scrolledAtMax = true;
-        scrolledAtBegin = false;
-      }
-      else if (Math.round( GlobalVariables.currentSection) < ((tabsCount - 1) / 2) &&!scrolledAtBegin){
-        tabssectionTabs.scrollLeft = 0;
-        scrolledAtMax = false;
-        scrolledAtBegin = true;
-      }
     })
 
     window.addEventListener('resize', (e) => {
       screenWidth = window.innerWidth;
       tabScrollWidth = tabssectionTabs.scrollWidth;
       tabClientWidth = tabssectionTabs.clientWidth;
-      maxScrollLeft = tabScrollWidth - tabClientWidth;
       this.getTabsWidth();
-      this.getTabsLeft();
     })
-  }
-
-  indicatorWidth() {
-    return `${this.tabsWidth[this.roundedCurrentSection]}px`;
-  }
-
-  indicatorLeft() {
-    return `calc(5vw + ${this.tabsLeft[this.roundedCurrentSection]}px)`;
   }
 
 }

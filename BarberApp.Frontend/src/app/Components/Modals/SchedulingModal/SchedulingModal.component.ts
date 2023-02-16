@@ -4,6 +4,7 @@ import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import * as moment from 'moment';
 import { SchedulingService } from 'src/app/Services/SchedulingService.service';
+import { LoaderComponent } from '../../Loader/Loader.component';
 
 @Component({
   selector: 'app-SchedulingModal',
@@ -31,15 +32,21 @@ export class SchedulingModalComponent implements OnInit {
     var schedule = new ScheduleModel(form.value);
     this.schedulingService.registerSchedule(schedule).subscribe({
       next: (data: any) => {
-        console.log(data);
-        GlobalVariables.schedules.push(schedule);
-        this.showModal = false;
-        form.resetForm({
-          date: this.currentDay
-        });
+        LoaderComponent.SetOptions(false, true, true);
+        setTimeout(() => {
+          GlobalVariables.schedules.push(schedule);
+          this.showModal = false;
+          form.resetForm({
+            date: this.currentDay
+          });
+        }, LoaderComponent.timeoutOffset);
       },
       error: (err) => {
         console.log(err.message);
+        LoaderComponent.SetOptions(false, false, true);
+        setTimeout(() => {
+          console.log(err.message);
+        }, LoaderComponent.timeoutOffset);
       }
     })
   }

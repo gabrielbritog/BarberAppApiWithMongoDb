@@ -5,4 +5,7 @@ export class GlobalVariables {
   public static currentSection = 0;
   public static schedules: ScheduleModel[] = [];
   public static currentDay = moment();
+  public static loader = false;
+  public static isLoaderSuccess = false;
+  public static showLoaderSuccess = true;
 }

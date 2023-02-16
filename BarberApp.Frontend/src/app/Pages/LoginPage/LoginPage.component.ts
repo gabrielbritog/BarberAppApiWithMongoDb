@@ -7,6 +7,8 @@ import { UserModel } from 'src/app/Models/UserModel';
 import { FormValidationService } from 'src/app/Services/FormValidation.service';
 import { AuthService } from '../../Services/Auth.service';
 import { TokenStorageService } from '../../Services/token-storage.service';
+import { GlobalVariables } from '../../Helpers/GlobalVariables';
+import { LoaderComponent } from '../../Components/Loader/Loader.component';
 
 @Component({
   selector: 'app-LoginPage',
@@ -45,15 +47,23 @@ export class LoginPageComponent implements OnInit {
       next: (data: any) => {
         this.tokenStorage.saveToken(data.data.accessToken);
         this.tokenStorage.saveUser(data.data.dados);
-        this.toastr.success(successString);
-        this.router.navigateByUrl('/Home');
+        LoaderComponent.SetOptions(false, true, true);
+
+        setTimeout(() => {
+          this.toastr.success(successString);
+          this.router.navigateByUrl('/Home');
+        }, LoaderComponent.timeoutOffset);
       },
       error: (err) => {
-        console.log(err);
-        if (err.error.data)
-          this.toastr.error(err.error.data);
-        else
-          this.toastr.error("Algo deu errado, tente novamente.");
+        LoaderComponent.SetOptions(false, false, true);
+
+        setTimeout(() => {
+          console.log(err);
+          if (err.error.data)
+            this.toastr.error(err.error.data);
+          else
+            this.toastr.error("Algo deu errado, tente novamente.");
+        }, LoaderComponent.timeoutOffset);
       }
     })
 

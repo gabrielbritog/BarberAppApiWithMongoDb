@@ -2,6 +2,7 @@
 <div class="section_container">
   <div class="cards_container">
     <app-CalendarCard></app-CalendarCard>
+    <hr>
     <app-ScheduleCard *ngFor="let item of currentDaySchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
   </div>
   <div class="btn_container">

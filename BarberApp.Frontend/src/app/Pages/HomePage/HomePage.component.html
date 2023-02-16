@@ -1,21 +1,19 @@
 <div class="home_container">
-<app-NavBar></app-NavBar>
+  <app-NavBar></app-NavBar>
 
-<ul id="tab_sections">
-  <li class="tab" [class.active]="roundedCurrentSection == 0"
-  id="today_tab" (click)="setToSection(0)">Agendamentos</li>
-  <li class="tab" [class.active]="roundedCurrentSection == 1"
-  id="clients_tab" (click)="setToSection(1)">Clientes</li>
-  <li class="tab" [class.active]="roundedCurrentSection == 2"
-  id="account_tab" (click)="setToSection(2)">Serviços</li>
-  <div id="indicator_line"
-  [ngStyle]="{'width': indicatorWidth(), 'left': indicatorLeft()}"
-  ></div>
-</ul>
+  <ul id="tab_sections">
+    <li class="tab" [class.active]="roundedCurrentSection == 0"
+    id="today_tab" (click)="setToSection(0)">Agenda</li>
+    <li class="tab" [class.active]="roundedCurrentSection == 1"
+    id="clients_tab" (click)="setToSection(1)">Clientes</li>
+    <li class="tab" [class.active]="roundedCurrentSection == 2"
+    id="account_tab" (click)="setToSection(2)">Serviços</li>
+    <div id="indicator_line"></div>
+  </ul>
 
-<section id="section_container">
-  <app-SchedulesSection class="nav_section" id="schedules_section"></app-SchedulesSection>
-  <app-ClientListSection class="nav_section" id="clients_section"></app-ClientListSection>
-  <app-ServiceTypesSection class="nav_section" id="serviceTypes_section"></app-ServiceTypesSection>
-</section>
+  <section id="section_container">
+    <app-SchedulesSection class="nav_section" id="schedules_section"></app-SchedulesSection>
+    <app-ClientListSection class="nav_section" id="clients_section"></app-ClientListSection>
+    <app-ServiceTypesSection class="nav_section" id="serviceTypes_section"></app-ServiceTypesSection>
+  </section>
 </div>
