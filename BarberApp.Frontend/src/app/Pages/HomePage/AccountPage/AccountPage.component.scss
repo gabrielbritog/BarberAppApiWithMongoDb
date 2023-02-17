@@ -1,0 +1,72 @@
+*{
+  transition: all 1s ease-in-out, opacity .75s ease-in-out;
+}
+.account_container{
+  background-color: black;
+  width: 100vw;
+  height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  &.show{
+    background-color: var(--app-color-bg);
+    height: 100svh;
+    .container{
+      opacity: 1;
+    }
+  }
+  .container{
+    opacity: 0;
+  }
+}
+
+.header{
+  flex-shrink: 0;
+  height: 5.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .btn_return{
+    width: 50px;
+    height: 50px;
+    border-radius: 50% 50%;
+    background-color: var(--app-color-input-bg);
+    border: none;
+    color: var(--app-color-text);
+  }
+}
+
+.update_form{
+  flex-shrink: 0;
+  flex-grow: 1;
+  gap: .5rem;
+  position: relative;
+  .form_group{
+    gap: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    >*{
+      flex-grow: 1;
+    }
+    .input_icon{
+      position: absolute;
+    }
+  }
+  .profile_pic{
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: var(--app-color-input-bg);
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+  }
+  .btn_submit{
+    position: absolute;
+    width: 100%;
+    bottom: 5vw;
+  }
+}

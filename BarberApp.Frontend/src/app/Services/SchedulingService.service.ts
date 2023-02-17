@@ -4,9 +4,11 @@ import { Observable } from 'rxjs';
 import { LoaderComponent } from '../Components/Loader/Loader.component';
 import { ScheduleModel } from '../Models/ScheduleModel';
 import { ServiceTypeModel } from '../Models/ServiceTypeModel';
+import { GlobalVariables } from '../Helpers/GlobalVariables';
+
 
 // IP DA MÁQUINA
-const MACHINE_IP = "192.168.1.83"
+const MACHINE_IP = GlobalVariables.MACHINE_IP;
 // const BASE_URL_API = 'http://localhost:5066/api/'
 const BASE_URL_API = `http://${MACHINE_IP}:5066/api/`
 const URL_SERVICETYPE = 'ServiceType/'

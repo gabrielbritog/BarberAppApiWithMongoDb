@@ -50,37 +50,6 @@
   }
 }
 
-form{
-  margin-top: .75rem;
-  gap: .5rem;
-  .btn_submit{
-    margin-top: 1.2rem;
-  }
-}
-.form_group{
-  position: relative;
-  label{
-    input{
-      width: 100%;
-      &.no-icon{
-        padding-right: 8px;
-      }
-      &:focus~i{
-        color: var(--app-color-primary);
-      }
-    }
-    i{
-      pointer-events: none;
-      color: var(--app-color-input-text);
-      position: absolute;
-      right: 0;
-      background-color: var(--app-color-input-bg);
-      height: 100%;
-      width: 38px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--global-border-radius);
-    }
-  }
+.btn_submit{
+  margin-top: 1.2rem;
 }

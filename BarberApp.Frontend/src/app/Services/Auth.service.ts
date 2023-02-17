@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoaderComponent } from '../Components/Loader/Loader.component';
+import { GlobalVariables } from '../Helpers/GlobalVariables';
 
 
 // IP DA MÁQUINA
-const MACHINE_IP = "192.168.1.83"
-const AUTH_API = `http://${MACHINE_IP}:5066/api/User`
+const MACHINE_IP = GlobalVariables.MACHINE_IP;
+const AUTH_API = `http://${MACHINE_IP}:5066/api/User/`
 
 
 const LOGIN_ROUTE = 'Login';

@@ -21,6 +21,7 @@ import { ScheduleCardComponent } from './Components/ScheduleCard/ScheduleCard.co
 import { CalendarCardComponent } from './Components/CalendarCard/CalendarCard.component';
 import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
 import { LoaderComponent } from './Components/Loader/Loader.component';
+import { AccountPageComponent } from './Pages/HomePage/AccountPage/AccountPage.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoaderComponent } from './Components/Loader/Loader.component';
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
+    AccountPageComponent,
 
     // HOME SECTIONS
     SchedulesSectionComponent,

@@ -32,21 +32,21 @@ export class SchedulingModalComponent implements OnInit {
     var schedule = new ScheduleModel(form.value);
     this.schedulingService.registerSchedule(schedule).subscribe({
       next: (data: any) => {
-        LoaderComponent.SetOptions(false, true, true);
+        LoaderComponent.SetOptions(false);
         setTimeout(() => {
           GlobalVariables.schedules.push(schedule);
           this.showModal = false;
           form.resetForm({
             date: this.currentDay
           });
-        }, LoaderComponent.timeoutOffset);
+        }, 20);
       },
       error: (err) => {
         console.log(err.message);
-        LoaderComponent.SetOptions(false, false, true);
+        LoaderComponent.SetOptions(false);
         setTimeout(() => {
           console.log(err.message);
-        }, LoaderComponent.timeoutOffset);
+        }, 20);
       }
     })
   }

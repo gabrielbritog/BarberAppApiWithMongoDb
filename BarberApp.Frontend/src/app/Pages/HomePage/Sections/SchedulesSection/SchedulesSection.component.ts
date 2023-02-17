@@ -9,6 +9,10 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 })
 export class SchedulesSectionComponent implements OnInit {
 
+  get isTodayDate() {
+    return GlobalVariables.currentDay.format('L') >= moment().format('L');
+  }
+
   get currentDaySchedules() {
     var result = GlobalVariables.schedules
                 .filter(p => moment(p.date).format('L') == GlobalVariables.currentDay.format('L'))
@@ -24,6 +28,18 @@ export class SchedulesSectionComponent implements OnInit {
 
     return result;
   };
+
+  get morningSchedules() {
+    return this.currentDaySchedules.filter(p=>p.time < "12:00");
+  }
+
+  get afternoonSchedules() {
+    return this.currentDaySchedules.filter(p=>p.time >= "12:00" && p.time < "18:00");
+  }
+
+  get nightSchedules() {
+    return this.currentDaySchedules.filter(p=>p.time > "18:00");
+  }
 
   constructor() { }
 
