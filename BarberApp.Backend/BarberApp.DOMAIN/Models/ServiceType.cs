@@ -6,6 +6,10 @@ namespace BarberApp.Domain.Models
 {
     public class ServiceType
     {
+
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+       public string ServiceTypeId { get; set; }
         [BsonElement("UserId")]
         [JsonIgnore]
         public string UserId { get; set; }

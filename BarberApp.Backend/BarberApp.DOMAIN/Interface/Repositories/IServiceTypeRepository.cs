@@ -12,6 +12,8 @@ namespace BarberApp.Domain.Interface.Repositories
     public interface IServiceTypeRepository
     {
         public Task<ServiceType> Register(ServiceType serviceType, string UserId);
+        public Task<ServiceType> GetById(string userId, string idService);
+        public Task<List<ServiceType>> GetAll(string userId);
         public Task<ServiceType> Delete(ServiceType serviceType, string UserId);
         public Task<ServiceType> Update(ServiceType serviceType, string UserId);
 

@@ -31,6 +31,16 @@ namespace BarberApp.Service.Service
             throw new NotImplementedException();
         }
 
+        public async Task<List<ServiceType>> GetAll(string userId)
+        {
+            return await _serviceTypeRepository.GetAll(userId);
+        }
+
+        public async Task<ServiceType> GetById(string userId, string idService)
+        {
+            return await _serviceTypeRepository.GetById(userId, idService);
+        }
+
         public async Task<RegisterServiceTypeDto> Register(RegisterServiceTypeDto serviceType, string UserId)
         {
             

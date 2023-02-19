@@ -26,6 +26,39 @@ namespace BarberApp.Infra.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<List<ServiceType>> GetAll(string userId)
+        {
+            try
+            {
+                var filter = Builders<ServiceType>.Filter.Eq(u => u.UserId, userId);
+                var teste =  _serviceTypeCollection.Find(filter);
+                return await teste.ToListAsync();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+                  }
+
+        public async Task<ServiceType> GetById(string userId, string idService)
+        {
+            try
+            {
+                var filter = Builders<ServiceType>.Filter.And(
+                    Builders<ServiceType>.Filter.Eq(u => u.UserId, userId),
+                    Builders<ServiceType>.Filter.Eq(u => u.ServiceTypeId, idService)
+                    );
+                return await _serviceTypeCollection.Find(filter).FirstOrDefaultAsync();
+
+            }
+            catch (Exception e )
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<ServiceType> Register(ServiceType serviceType, string UserId)
         {
             try

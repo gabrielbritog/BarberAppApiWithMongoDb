@@ -45,8 +45,6 @@ namespace BarberApp.Infra.Repository
         {
             try
             {
-                //var schedulingOfUser = this.GetAll(userId);
-
                 var filter = Builders<Scheduling>.Filter.And(
            Builders<Scheduling>.Filter.Eq(u => u.UserId, userId),
            Builders<Scheduling>.Filter.Eq(u => u.SchedulingId, schedulingId)
