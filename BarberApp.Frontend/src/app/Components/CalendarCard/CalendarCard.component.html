@@ -1,25 +1,22 @@
-<input class="hide" type="date" id="datepicker" [(ngModel)]="currentDay">
-<div class="section_container card primary_card header_card">
+<div class="section_container">
 
-  <div class="month_day" (click)="openDatepicker()">
-    {{currentMonthDay}}
+  <div class="section_title">
+    <div class="left">Próximos Horários</div>
+    <button class="btn card choose_date">Escolher data</button>
   </div>
-
-  <div class="calendar_date flex_column" (click)="openDatepicker()">
-    <div class="month">
-      {{currentMonth}}
-    </div>
-    <div class="week_day">
-      {{currentWeekDay}}
-    </div>
-  </div>
-
-  <div class="calendar_controls">
-    <button class="btn btn_control control_left" (click)="previousDay()">
-      <i class="fa-solid fa-chevron-left"></i>
-    </button>
-    <button class="btn btn_control control_right" (click)="nextDay()">
-      <i class="fa-solid fa-chevron-right"></i>
+  <div class="cards_wrapper">
+    <button
+    *ngFor="let item of thisWeek"
+    class="card card_day flex_column"
+    [class.active]="getFormatedMoment(item) == currentDay"
+    (click)="setDay(item)"
+    >
+      <div class="month_day">
+        {{getMomentMonthDay(item)}}
+      </div>
+      <div class="week_day">
+        {{getMomentWeekDay(item)}}
+      </div>
     </button>
   </div>
 

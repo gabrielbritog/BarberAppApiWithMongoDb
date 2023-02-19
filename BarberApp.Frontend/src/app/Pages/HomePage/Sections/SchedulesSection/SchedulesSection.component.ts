@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ScheduleModel } from '../../../../Models/ScheduleModel';
@@ -6,18 +6,18 @@ import { ScheduleModel } from '../../../../Models/ScheduleModel';
 @Component({
   selector: 'app-SchedulesSection',
   templateUrl: './SchedulesSection.component.html',
-  styleUrls: ['./SchedulesSection.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./SchedulesSection.component.scss']
 })
 export class SchedulesSectionComponent implements OnInit {
 
   get isTodayDate() {
-    return GlobalVariables.currentDay.format('L') >= moment().format('L');
+    return GlobalVariables.currentDay.format('L') == moment().format('L');
   }
 
   get currentDaySchedules() {
     var result = GlobalVariables.schedules
-                .filter(p => moment(p.date).format('L') == GlobalVariables.currentDay.format('L'))
+                .filter(p => p.date == GlobalVariables.currentDay.format('L'))
+                .filter(p=> this.isTodayDate? p.time >=  GlobalVariables.currentDay.format('HH:mm') : p)
                 .sort((n1, n2) => {
                   if (n1.time > n2.time) {
                       return 1;
@@ -27,7 +27,6 @@ export class SchedulesSectionComponent implements OnInit {
                   }
                   return 0;
                 });
-
     return result;
   };
 

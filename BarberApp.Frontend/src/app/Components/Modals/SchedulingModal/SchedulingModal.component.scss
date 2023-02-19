@@ -8,9 +8,9 @@
   visibility: hidden;
   background-color: rgba($color: #000000, $alpha: 0);
   padding: 5vw 0;
-  display: flex;
-  align-items: center;
   transition: all .2s ease;
+  display: grid;
+  place-items: center;
   .modal_container{
     transform: translateY(100%);
     opacity: 0;
@@ -70,16 +70,17 @@ form{
       }
     }
     i{
+      padding: 0;
       pointer-events: none;
       color: var(--app-color-input-text);
       position: absolute;
       right: 0;
+      top: 0;
       background-color: var(--app-color-input-bg);
       height: 100%;
       width: 38px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
       border-radius: var(--global-border-radius);
     }
   }

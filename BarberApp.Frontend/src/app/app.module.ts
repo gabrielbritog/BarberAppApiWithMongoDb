@@ -61,7 +61,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot({timeOut: 10000, preventDuplicates: true})
+    ToastrModule.forRoot({timeOut: 2000, preventDuplicates: true})
   ],
   providers: [FormValidationService, authInterceptorProviders],
   bootstrap: [AppComponent]

@@ -1,6 +1,10 @@
 nav{
+  position: sticky;
   height: 5.5rem;
-  background-color: var(--app-color-bg);
+  background-color: var(--app-color-bg-alt);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0px 3px 5px 0px var(--app-color-bg);
+  z-index: var(--nav-zindex);
 }
 
 .nav_container{
@@ -67,6 +71,37 @@ nav{
       height: .9rem;
       font-size: .5rem;
       background-color: var(--app-color-text);
+    }
+  }
+}
+
+.nav_list_container {
+  width: 100vw;
+  height: 4rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background-color: var(--app-color-bg-alt);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0px -3px 5px 0px var(--app-color-bg);
+  transition: all .5s ease-in-out;
+  &.hide{
+    transform: translateY(100vh);
+  }
+  .nav_list{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: .5rem;
+    padding: .5rem;
+    .nav_item{
+      flex-grow: 1;
+      &.active{
+        color: var(--app-color-primary);
+      }
     }
   }
 }

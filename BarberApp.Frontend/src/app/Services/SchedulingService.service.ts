@@ -27,7 +27,7 @@ export class SchedulingService {
 
   registerServiceType(serviceType: ServiceTypeModel): Observable<any> {
     LoaderComponent.SetOptions(true);
-    return this.http.post<any>(BASE_URL_API + URL_SERVICETYPE + ROUTE_REGISTER, {
+    return this.http.post(BASE_URL_API + URL_SERVICETYPE + ROUTE_REGISTER, {
       nameService: serviceType.nameService,
       valueService: serviceType.valueService
     });
@@ -38,7 +38,7 @@ export class SchedulingService {
   }
 
   registerSchedule(schedule: ScheduleModel): Observable<any> {
-    LoaderComponent.SetOptions(true);
+    // LoaderComponent.SetOptions(true);
     return this.http.post<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_REGISTER, {
       clientName: schedule.clientName,
       serviceType: schedule.serviceType,

@@ -20,7 +20,7 @@
 #section_container{
   position: relative;
   width: 100%;
-  max-height: 100%;
+  max-height: calc(100% - 9.5rem);
   flex-grow: 1;
   display: flex;
   overflow-x: auto;
@@ -36,45 +36,4 @@
   scroll-snap-align: start;
   scroll-snap-stop: always;
   flex: none;
-}
-
-#tab_sections{
-  --padding-left: 5vw;
-  position: relative;
-  padding: 0 5vw;
-  width: 100vw;
-  height: 2.5rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  text-align: center;
-  flex-shrink: 0;
-  flex-grow: 0;
-}
-
-.tab{
-  cursor: pointer;
-  padding: .5rem 0;
-  border-radius: 0px;
-}
-
-.tab.active{
-  color: var(--app-color-primary);
-}
-
-.indicator_line{
-  transition-delay: .1s;
-  position: absolute;
-  background-color: transparent;
-  border-bottom: 2px solid var(--app-color-primary);
-  bottom: 0;
-  width: var(--tab-width);
-  &[data-indicator="0"]{
-    left: var(--padding-left);
-  }
-  &[data-indicator="1"]{
-    left: calc(var(--padding-left) + var(--tab-width));
-  }
-  &[data-indicator="2"]{
-    left: calc(var(--padding-left) + var(--tab-width) * 2);
-  }
 }

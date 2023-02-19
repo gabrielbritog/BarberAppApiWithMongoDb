@@ -9,9 +9,10 @@ import { ScheduleModel } from '../../Models/ScheduleModel';
 export class ScheduleCardComponent implements OnInit {
 
   @Input('scheduleModel') scheduleModel!: ScheduleModel;
-  @Input('fullWidth') fullWidth = false;
+  @Input('isSchedule') isSchedule = true;
   @Input('showDate') showDate = false;
   @Input('showPhone') showPhone = false;
+
 
   constructor() { }
 
