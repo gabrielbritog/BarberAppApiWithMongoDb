@@ -1,8 +1,12 @@
 <div class="my_loader" [class.show]="showLoader">
-  <div class="spinner" [class.show_success]="showSuccess" [class.error]="success == false" [class.success]="success">
-    <div class="filled_bg">
-      <i class="fa-solid fa-check icon success" [class.show]="success && showSuccess"></i>
-      <i class="fa-solid fa-xmark icon error" [class.show]="!success && showSuccess"></i>
-    </div>
+  <div class="spinner" [class.show_success]="showSuccess">
+
   </div>
+
+  <div class="filled" [class.show_success]="showSuccess" [class.error]="!success" [class.success]="success">
+    <i class="fa-solid fa-check icon success" [class.show]="success && showSuccess"></i>
+    <i class="fa-solid fa-xmark icon error" [class.show]="!success && showSuccess"></i>
+  </div>
+
+
 </div>

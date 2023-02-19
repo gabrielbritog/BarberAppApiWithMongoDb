@@ -108,7 +108,7 @@ a{
 
 .form_group{
   position: relative;
-  i{
+  input~i{
     position: absolute;
     padding-left: 0.5rem;
     height: 100%;
@@ -128,6 +128,17 @@ input{
   border: none;
   padding: .5rem 1rem;
   border-radius: var(--global-border-radius);
+  &:disabled::before{
+    content: " ";
+    font-family: "Font Awesome 6 free";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: grid;
+    place-items: center;
+    z-index: 1;
+  }
   &~i{
     transition: all .3s var(--default-transition) !important;
   }
@@ -172,7 +183,7 @@ img.app-logo{
 }
 
 h1,h2,h3,h4{
-  font-family: 'Bebas Neue', cursive;
+  font-family: 'Bebas Neue', 'Poppins', sans-serif;
 }
 
 h1{
@@ -248,90 +259,6 @@ h3{
   }
 }
 
-.my_loader{
-  --spinner-border-width: 6px;
-  --spinner-size: 60px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--loader-zindex);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(35, 33, 41, 0.85);
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  .spinner{
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: var(--spinner-size);
-    height: var(--spinner-size);
-    border: var(--spinner-border-width) solid;
-    border-radius: 50%;
-    color: white;
-    border-top: var(--spinner-border-width) solid transparent;
-    animation: 2s rotate linear infinite;
-    &.show_success{
-      animation: none;
-      .filled_bg{
-        width: calc(var(--spinner-size) + 5px);
-        height: calc(var(--spinner-size) + 5px);
-        .icon.show{
-          font-size: 2.5rem;
-        }
-      }
-      &.success{
-        border-top: var(--spinner-border-width) solid;
-        color: transparent;
-        .filled_bg{
-          background-color: green;
-        }
-      }
-      &.error{
-        border-top: var(--spinner-border-width) solid;
-        color: transparent;
-        .filled_bg{
-          background-color: red;
-        }
-      }
-    }
-    .filled_bg{
-      flex: none;
-      border-radius: 50%;
-      background-color: var(--app-color-text);
-      color: var(--app-color-text);
-      width: 0px;
-      height: 0px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      .icon{
-        font-size: 0;
-      }
-    }
-  }
-  &.show{
-    opacity: 1;
-    visibility:visible;
-    pointer-events: all;
-    .spinner{
-      display: flex;
-    }
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes tilt-shaking {
   0% { transform: rotate(0deg); }
   25% { transform: rotate(5deg); }
@@ -370,3 +297,6 @@ h3{
   }
 
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

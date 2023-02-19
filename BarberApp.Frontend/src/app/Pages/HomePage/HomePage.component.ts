@@ -1,29 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { Router } from '@angular/router';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { SchedulingService } from 'src/app/Services/SchedulingService.service';
 import { ScheduleModel } from '../../Models/ScheduleModel';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
+import { fromEvent, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-HomePage',
   templateUrl: './HomePage.component.html',
   styleUrls: ['./HomePage.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, AfterViewInit {
 
-  sectionContainerId = 'section_container';
-  sectionTabsId = 'tab_sections';
-  indicatorId = 'indicator_line';
+  @ViewChild('sectionContainer') sectionContainer!: ElementRef;
+  @ViewChild('sectionTabs') sectionTabs!: ElementRef;
+  private requestId: number = 0;
 
-
-  scrollingLeft = false;
-  sectionScroll = 0;
+  screenWidth = window.innerWidth;
+  get sectionScroll() { return this.sectionContainer.nativeElement.scrollLeft };
 
   get currentSection(){ return GlobalVariables.currentSection };
-  get roundedCurrentSection() { return Math.round(GlobalVariables.currentSection) };
+  get roundedCurrentSection() { return Math.round(GlobalVariables.currentSection)};
 
+
+  loadedSchedules = false;
   tabsWidth: number[] = [];
   tabsLeft: number[] = [];
 
@@ -36,9 +38,14 @@ export class HomePageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
+    this.getSchedules();
+    this.screenWidth = window.innerWidth;
+
+  }
+
+  ngAfterViewInit() {
     this.scrollEventListener();
     this.getTabsWidth();
-    this.getSchedules();
   }
 
   getSchedules() {
@@ -51,6 +58,7 @@ export class HomePageComponent implements OnInit {
         });
         GlobalVariables.schedules = schedules;
         LoaderComponent.SetOptions(false);
+        this.loadedSchedules = true;
       },
       error: (err) => {
         console.log(err);
@@ -60,36 +68,32 @@ export class HomePageComponent implements OnInit {
   }
 
   getTabsWidth() {
-    const sectionTabs = document.getElementById(this.sectionTabsId)!;
-    const tab = sectionTabs.childNodes[0] as HTMLElement;
+    let sectionTabs = this.sectionTabs.nativeElement;
+    let tab = sectionTabs.childNodes[0] as HTMLElement;
     let tabsWidth = tab.clientWidth;
 
     sectionTabs.style.setProperty('--tab-width', `${tabsWidth}px`)
   }
 
-  setToSection(index: number) {
-    const sectionContainer = document.getElementById(this.sectionContainerId)!;
-    sectionContainer.scrollLeft = window.innerWidth * index;
+  scrollToSection(index: number) {
+    this.sectionContainer.nativeElement.scrollLeft = this.screenWidth * index;
   }
 
   scrollEventListener() {
-    let sectionContainer = document.getElementById(this.sectionContainerId)!;
-    let tabssectionTabs = document.getElementById(this.sectionTabsId)!;
-    let screenWidth = window.innerWidth;
-    let tabScrollWidth = tabssectionTabs.scrollWidth;
-    let tabClientWidth = tabssectionTabs.clientWidth;
 
-    sectionContainer.addEventListener('scroll', (event) => {
-      this.sectionScroll = sectionContainer.scrollLeft;
-      GlobalVariables.currentSection = this.sectionScroll / screenWidth;
-    })
+    fromEvent(this.sectionContainer.nativeElement, 'scroll').subscribe(() => {
+      this.requestId = requestAnimationFrame(() => {
+        GlobalVariables.currentSection = this.sectionScroll / this.screenWidth;
+      });
+    });
+  }
 
-    window.addEventListener('resize', (e) => {
-      screenWidth = window.innerWidth;
-      tabScrollWidth = tabssectionTabs.scrollWidth;
-      tabClientWidth = tabssectionTabs.clientWidth;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    setTimeout(() => {
+      this.screenWidth = window.innerWidth;
       this.getTabsWidth();
-    })
+    }, 300);
   }
 
 }

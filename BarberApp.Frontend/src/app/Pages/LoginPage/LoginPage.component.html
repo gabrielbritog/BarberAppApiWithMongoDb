@@ -1,5 +1,5 @@
 <section class="container-fluid">
-  <div class="container login_container flex_column">
+  <div class="container login_container flex_column" [class.hide]="hide">
     <div class="container_header">
       <h1 class="app-logo-text text_color_primary">BarberShop</h1>
     </div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="container_footer">
-      <a routerLink="/Register"class="primary" id="new_user">
+      <a (click)="goToRoute('/Register')"  class="primary" id="new_user">
         <i class="fa-solid fa-right-to-bracket mr-1"></i>
         <span>Criar Conta</span>
       </a>

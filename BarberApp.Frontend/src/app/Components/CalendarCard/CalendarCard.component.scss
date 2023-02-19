@@ -12,6 +12,7 @@
     color: var(--app-color-text);
     padding: 0.5rem;
     font-size: 1.8rem;
+    border: none;
   }
   .calendar_date{
     flex-grow: 1;
@@ -39,4 +40,12 @@
       justify-content: center;
     }
   }
+}
+
+input.hide{
+  margin: 0;
+  padding: 0;
+  height: 0;
+  visibility: hidden;
+  display: block;
 }

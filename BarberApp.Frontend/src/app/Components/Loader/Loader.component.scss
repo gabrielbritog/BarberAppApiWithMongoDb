@@ -1,0 +1,124 @@
+
+.my_loader{
+  --spinner-border-width: 6px;
+  --spinner-size: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--loader-zindex);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(35, 33, 41, 0.85);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  &.show{
+    opacity: 1;
+    visibility:visible;
+    pointer-events: all;
+    .spinner{
+      display: block;
+    }
+  }
+  .spinner{
+    display: none;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    border: var(--spinner-border-width) solid;
+    border-radius: 50%;
+    color: white;
+    border-top: var(--spinner-border-width) solid transparent;
+    animation: 2s rotate linear infinite;
+    &.show_success{
+      animation: .2s scaleDown linear forwards;
+    }
+  }
+  .filled{
+    position: absolute;
+    font-size: 2.5rem;
+    width: calc(var(--spinner-size) + 5px);
+    height: calc(var(--spinner-size) + 5px);
+    flex: none;
+    border-radius: 50%;
+    background-color: var(--app-color-text);
+    color: var(--app-color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    // opacity: 0;
+    transform: scale(0);
+    transition: none;
+    i{
+      display: none;
+      &.show{
+        display: block;
+      }
+    }
+    &.show_success{
+      transition: all .3s var(--default-transition);
+      transform: scale(1);
+      z-index: 1;
+      &::before{
+        content: " ";
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: inherit;
+        z-index: -1;
+        position: absolute;
+        border-radius: 50%;
+        animation: 2s pulse infinite;
+      }
+    }
+    &.success{
+      background-color: green;
+    }
+    &.error{
+      background-color: red;
+    }
+  }
+}
+
+
+@keyframes rotate {
+  0% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleDown {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to{
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0);
+  }
+  to{
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(.9);
+    opacity: .8;
+  }
+  to{
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-CalendarCard',
@@ -7,6 +8,15 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
   styleUrls: ['./CalendarCard.component.scss']
 })
 export class CalendarCardComponent implements OnInit {
+
+  get currentDay() {
+    return GlobalVariables.currentDay.format('YYYY-MM-DD');
+  }
+
+  set currentDay(value: any) {
+    console.log(value);
+    GlobalVariables.currentDay = moment(value);
+  }
 
   get currentMomentDay() {
     return GlobalVariables.currentDay;
@@ -60,6 +70,11 @@ export class CalendarCardComponent implements OnInit {
 
   previousDay() {
     GlobalVariables.currentDay = GlobalVariables.currentDay.subtract(1, 'days');
+  }
+
+  openDatepicker() {
+    const datePickerInput = document.getElementById('datepicker') as HTMLInputElement;
+    datePickerInput.click();
   }
 
 }

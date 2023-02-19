@@ -12,7 +12,8 @@ export class ClientListSectionComponent implements OnInit {
   get clientList() {
     return GlobalVariables.schedules
       .map(p => new ScheduleModel({ clientName: p.clientName }))
-      .filter((cName, index, self) => self.map(p=>p.clientName).includes(cName.clientName, index + 1) === false);
+      .filter((cName, index, self) => self.map(p => p.clientName).includes(cName.clientName, index + 1) === false)
+      .sort((a, b) => a.clientName.localeCompare(b.clientName));
   }
 
   constructor() { }

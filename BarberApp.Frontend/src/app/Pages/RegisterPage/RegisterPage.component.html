@@ -1,5 +1,5 @@
 <section class="container-fluid">
-  <div class="container register_container flex_column">
+  <div class="container register_container flex_column" [class.hide]="hide">
     <div class="container_header">
       <h1 class="app-logo-text text_color_primary">BarberShop</h1>
     </div>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="container_footer">
-      <a routerLink="/Login" class="primary">
+      <a (click)="goToRoute('/Login')" class="primary">
         <i class="fa-solid fa-arrow-left mr-1"></i>
         <span>Voltar</span>
       </a>

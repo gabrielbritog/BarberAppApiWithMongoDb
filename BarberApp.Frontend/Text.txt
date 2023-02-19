@@ -7,3 +7,16 @@ PHONE NBR
 
 EMAIL
 PASSWORD
+
+
+
+
+
+Admin:
+
+nome da empresa
+
+Horários - abertura e fechamento
+
+Paleta de cores
+

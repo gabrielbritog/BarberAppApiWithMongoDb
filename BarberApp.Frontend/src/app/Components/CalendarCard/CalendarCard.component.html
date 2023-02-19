@@ -1,10 +1,11 @@
+<input class="hide" type="date" id="datepicker" [(ngModel)]="currentDay">
 <div class="section_container card primary_card header_card">
 
-  <div class="month_day">
+  <div class="month_day" (click)="openDatepicker()">
     {{currentMonthDay}}
   </div>
 
-  <div class="calendar_date flex_column">
+  <div class="calendar_date flex_column" (click)="openDatepicker()">
     <div class="month">
       {{currentMonth}}
     </div>

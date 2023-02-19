@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { ScheduleModel } from '../../../../Models/ScheduleModel';
 
 @Component({
   selector: 'app-SchedulesSection',
   templateUrl: './SchedulesSection.component.html',
-  styleUrls: ['./SchedulesSection.component.scss']
+  styleUrls: ['./SchedulesSection.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SchedulesSectionComponent implements OnInit {
 
@@ -49,5 +51,4 @@ export class SchedulesSectionComponent implements OnInit {
   newSchedule() {
     GlobalVariables.showScheduleModal = true;
   }
-
 }

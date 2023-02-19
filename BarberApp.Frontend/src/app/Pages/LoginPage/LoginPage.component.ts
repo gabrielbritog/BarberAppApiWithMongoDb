@@ -18,6 +18,7 @@ import { LoaderComponent } from '../../Components/Loader/Loader.component';
 export class LoginPageComponent implements OnInit {
 
   submited = false;
+  hide = false;
 
   constructor(
     private toastr: ToastrService,
@@ -50,7 +51,6 @@ export class LoginPageComponent implements OnInit {
         LoaderComponent.SetOptions(false, true, true);
 
         setTimeout(() => {
-          this.toastr.success(successString);
           this.router.navigateByUrl('/Home');
         }, LoaderComponent.timeoutOffset);
       },
@@ -97,6 +97,13 @@ export class LoginPageComponent implements OnInit {
       return true;
 
     return (element.validity.valid && elementBase && element.value != "");
+  }
+
+  goToRoute(route: string) {
+    this.hide = true;
+    setTimeout(() => {
+      this.router.navigateByUrl(route);
+    }, 200);
   }
 
 }
