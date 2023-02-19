@@ -9,6 +9,8 @@ import * as moment from 'moment';
 })
 export class CalendarCardComponent implements OnInit {
 
+  thisWeek: moment.Moment[] = [];
+
   get currentDay() {
     return GlobalVariables.currentDay.format('YYYY-MM-DD');
   }
@@ -34,6 +36,10 @@ export class CalendarCardComponent implements OnInit {
     return this.weekdays[this.currentMomentDay.day()];
   }
 
+  get currentShortWeekDay() {
+    return this.shortWeekdays[this.currentMomentDay.day()];
+  }
+
   weekdays = [
     'Domingo',
     'Segunda-Feira',
@@ -42,7 +48,17 @@ export class CalendarCardComponent implements OnInit {
     'Quinta-Feira',
     'Sexta-Feira',
     'Sábado'
-  ]
+  ];
+
+  shortWeekdays = [
+    'Dom',
+    'Seg',
+    'Ter',
+    'Qua',
+    'Qui',
+    'Sex',
+    'Sáb'
+  ];
 
   months = [
     'Janeiro',
@@ -57,24 +73,34 @@ export class CalendarCardComponent implements OnInit {
     'Outubro',
     'Novembro',
     'Dezembro'
-  ]
+  ];
 
   constructor() { }
 
   ngOnInit() {
+    this.loadWeek()
   }
 
-  nextDay() {
-    GlobalVariables.currentDay = GlobalVariables.currentDay.add(1, 'days');
+  setDay(element: moment.Moment) {
+    GlobalVariables.currentDay = element;
   }
 
-  previousDay() {
-    GlobalVariables.currentDay = GlobalVariables.currentDay.subtract(1, 'days');
+  loadWeek() {
+    for (let index = 0; index < 7; index++) {
+      this.thisWeek.push(moment().add(index, 'days'));
+    }
   }
 
-  openDatepicker() {
-    const datePickerInput = document.getElementById('datepicker') as HTMLInputElement;
-    datePickerInput.click();
+  getMomentMonthDay(element: moment.Moment) {
+    return element.format('D');
+  }
+
+  getMomentWeekDay(element: moment.Moment) {
+    return this.shortWeekdays[element.day()];
+  }
+
+  getFormatedMoment(element: moment.Moment) {
+    return element.format('YYYY-MM-DD');
   }
 
 }

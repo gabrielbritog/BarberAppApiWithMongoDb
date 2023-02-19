@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
-import * as moment from 'moment';
-import { SchedulingService } from 'src/app/Services/SchedulingService.service';
+import { SchedulingService } from '../../../Services/SchedulingService.service';
 import { LoaderComponent } from '../../Loader/Loader.component';
 
 @Component({
@@ -34,6 +33,7 @@ export class SchedulingModalComponent implements OnInit {
       next: (data: any) => {
         LoaderComponent.SetOptions(false);
         setTimeout(() => {
+          console.log(schedule, data.data)
           GlobalVariables.schedules.push(schedule);
           this.showModal = false;
           form.resetForm({

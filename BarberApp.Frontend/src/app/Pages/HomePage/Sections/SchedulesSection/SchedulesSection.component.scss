@@ -13,7 +13,6 @@
 }
 
 .container_header{
-  font-size: 1.2rem;
   margin-top: 1rem;
 }
 
@@ -23,7 +22,6 @@
   position: sticky;
   bottom: 0;
   transform: translateY(5vw);
-  overflow: hidden;
   .btn_bg{
     width: 100%;
     border-bottom: 5vw solid var(--app-color-bg);
@@ -34,6 +32,7 @@
     }
   }
   &.hide {
+    overflow: hidden;
     height: 0px;
     .btn_bg{
       transform: translateY(50%);

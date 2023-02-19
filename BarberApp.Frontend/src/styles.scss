@@ -206,17 +206,28 @@ h3{
   color: var(--app-color-primary);
 }
 
+.section_title{
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
 .card{
-  border-radius: var(--global-border-radius);
+  position: relative;
+  border-radius: 5px;
   background-color: var(--app-color-bg-alt);
   margin: 0 auto;
-  width: 95%;
   padding: .5rem;
   display: flex;
   gap: .75rem;
   align-items: flex-start;
-  &.header_card{
+  overflow: hidden;
+  border: 1px solid #ffffff17;
+  &.schedule{
     width: 100%;
+    border-left-color: var(--app-color-primary);
+    border-left-width: 5px;
+  }
+  &.header_card{
     margin-bottom: .5rem;
   }
   &.primary_card{
@@ -297,6 +308,3 @@ h3{
   }
 
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

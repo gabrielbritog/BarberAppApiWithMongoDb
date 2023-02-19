@@ -26,6 +26,10 @@ export class NavBarComponent implements OnInit {
     return GlobalVariables.currentSection;
   }
 
+  set currentSection(value) {
+    GlobalVariables.currentSection = value;
+  }
+
   get loggedUser() {
     return this.tokenStorage.getUserModel();
   }

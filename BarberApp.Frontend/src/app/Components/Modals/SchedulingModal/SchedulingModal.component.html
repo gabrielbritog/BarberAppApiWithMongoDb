@@ -1,3 +1,4 @@
+
 <div class="modal_container_bg" [class.active]="showModal">
   <div class="container modal_container">
     <div class="header">
@@ -7,11 +8,7 @@
       </button>
     </div>
     <hr />
-    <form
-      #scheduleForm="ngForm"
-      (ngSubmit)="onSubmit(scheduleForm)"
-      class="flex_column"
-    >
+    <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)" class="flex_column">
       <div class="form_group">
         <label for="clientName">
           <input

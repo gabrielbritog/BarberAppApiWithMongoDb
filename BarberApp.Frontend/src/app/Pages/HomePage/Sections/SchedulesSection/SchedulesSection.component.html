@@ -4,30 +4,33 @@
     <app-CalendarCard></app-CalendarCard>
     <div class="cards_container">
 
+      <div class="container_header">
+
+      </div>
       <div class="cards_container no_grow" *ngIf="morningSchedules.length > 0">
-        <div class="container_header">
-          <span class="title">Manhã</span>
-        </div>
+        <!-- <div class="container_header">
+          <span class="section_title">Manhã</span>
+        </div> -->
         <app-ScheduleCard *ngFor="let item of morningSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
       </div>
 
       <div class="cards_container no_grow" *ngIf="afternoonSchedules.length > 0">
-        <div class="container_header">
-          <span class="title">Tarde</span>
-        </div>
+        <!-- <div class="container_header">
+          <span class="section_title">Tarde</span>
+        </div> -->
         <app-ScheduleCard *ngFor="let item of afternoonSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
       </div>
 
       <div class="cards_container no_grow" *ngIf="nightSchedules.length > 0">
-        <div class="container_header">
-          <span class="title">Noite</span>
-          <app-ScheduleCard *ngFor="let item of nightSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
-        </div>
+        <!-- <div class="container_header">
+          <span class="section_title">Noite</span>
+        </div> -->
+        <app-ScheduleCard *ngFor="let item of nightSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
       </div>
 
     </div>
   </div>
-  <div class="btn_container" [class.hide]="!isTodayDate">
+  <div class="btn_container">
     <div class="btn_bg">
       <button class="btn btn_new" (click)="newSchedule()">
         Novo Agendamento
