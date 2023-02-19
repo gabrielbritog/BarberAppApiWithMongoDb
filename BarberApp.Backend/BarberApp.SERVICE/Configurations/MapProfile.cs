@@ -34,6 +34,7 @@ namespace BarberApp.Service.Configurations
                 .ReverseMap();
 
             CreateMap<ResponseSchedulingDto, UpdateSchedulingDto>().ReverseMap();
+            CreateMap<ResponseServiceTypeDto, UpdateServiceTypeDto>().ReverseMap();
 
 
         }

@@ -10,6 +10,7 @@ namespace BarberApp.Domain.Dto.ServiceType
 {
     public class UpdateServiceTypeDto
     {
+        public string ServiceTypeId { get; set; }
         [BsonElement("UserId")]
         [JsonIgnore]
         public string UserId { get; set; }
@@ -17,5 +18,7 @@ namespace BarberApp.Domain.Dto.ServiceType
         public string NameService { get; set; }
         [BsonElement("valueService")]
         public decimal ValueService { get; set; }
+        [BsonElement("on")]
+        public bool On { get; set; }
     }
 }

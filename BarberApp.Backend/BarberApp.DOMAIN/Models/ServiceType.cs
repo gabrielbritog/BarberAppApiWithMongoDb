@@ -17,5 +17,7 @@ namespace BarberApp.Domain.Models
         public string NameService { get; set; }
         [BsonElement("valueService")]
         public decimal ValueService { get; set; }
+        [BsonElement("on")]
+        public bool On { get; set; }
     }
 }

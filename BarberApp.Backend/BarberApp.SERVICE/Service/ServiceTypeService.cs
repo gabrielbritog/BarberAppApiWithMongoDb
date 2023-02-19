@@ -43,7 +43,7 @@ namespace BarberApp.Service.Service
 
         public async Task<RegisterServiceTypeDto> Register(RegisterServiceTypeDto serviceType, string UserId)
         {
-            
+                serviceType.On = true;
                 serviceType.UserId = UserId;
             var serviceMap = _mapper.Map<ServiceType>(serviceType);
             await _serviceTypeRepository.Register(serviceMap, UserId);
@@ -51,9 +51,16 @@ namespace BarberApp.Service.Service
             
         }
 
-        public Task<ServiceType> Update(RegisterServiceTypeDto serviceType, string UserId)
+        public async Task<ResponseServiceTypeDto> Update(UpdateServiceTypeDto serviceType, string userId)
         {
-            throw new NotImplementedException();
+            var serviceTypeDb = await GetById(userId, serviceType.ServiceTypeId);
+            if (string.IsNullOrWhiteSpace(serviceType.NameService))
+                serviceType.NameService = serviceTypeDb.NameService;
+            if (serviceType.ValueService == 0)
+                serviceType.ValueService = serviceTypeDb.ValueService;
+            
+           await _serviceTypeRepository.Update(_mapper.Map<ServiceType>(serviceType), serviceType.ServiceTypeId, userId);
+            return _mapper.Map<ResponseServiceTypeDto>(serviceType);
         }
     }
 }

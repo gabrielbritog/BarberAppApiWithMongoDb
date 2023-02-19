@@ -84,10 +84,10 @@ namespace BarberApp.Service.Service
             if (string.IsNullOrEmpty(user.UrlImage))
                 user.UrlImage = userDb.UrlImage;
             if (string.IsNullOrEmpty(user.PhoneNumber))
-                user.PhoneNumber= userDb.PhoneNumber;
+                user.PhoneNumber = userDb.PhoneNumber;
             if (string.IsNullOrEmpty(user.Cep))
                 user.Cep = userDb.Cep;
-
+         
             var result = await _userRepository.Update(_mapper.Map<User>(user) , email);
             return _mapper.Map<ResponseUserDto>(result);
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace BarberApp.Domain.Dto.User
 {
@@ -15,5 +16,7 @@ namespace BarberApp.Domain.Dto.User
         [StringLength(30, MinimumLength = 8, ErrorMessage = "Senha deve conter minimo de 8 caracteres")]
         public string Password { get; set; } = null!;
         public int? Plano { get; set; }
+         [BsonElement("disabled")]
+        public bool Disabled { get; set; }
     }
 }

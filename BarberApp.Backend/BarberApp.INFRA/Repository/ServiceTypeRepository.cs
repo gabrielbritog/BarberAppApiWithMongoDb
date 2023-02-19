@@ -31,8 +31,8 @@ namespace BarberApp.Infra.Repository
             try
             {
                 var filter = Builders<ServiceType>.Filter.Eq(u => u.UserId, userId);
-                var teste =  _serviceTypeCollection.Find(filter);
-                return await teste.ToListAsync();
+                var services =  _serviceTypeCollection.Find(filter);
+                return await services.ToListAsync();
             }
             catch (Exception e)
             {
@@ -73,9 +73,17 @@ namespace BarberApp.Infra.Repository
             }
         }
 
-        public Task<ServiceType> Update(ServiceType serviceType, string UserId)
+        public async Task<ServiceType> Update(ServiceType serviceType,string serviceTypeId, string userId)
         {
-            throw new NotImplementedException();
+            var filter = Builders<ServiceType>.Filter.And(
+                Builders<ServiceType>.Filter.Eq(u => u.UserId, userId),
+                Builders<ServiceType>.Filter.Eq(u => u.ServiceTypeId, serviceTypeId));
+            var update = Builders<ServiceType>.Update
+                .Set(s => s.NameService, serviceType.NameService)
+                .Set(s => s.ValueService, serviceType.ValueService)
+                .Set(s => s.On, serviceType.On);
+            var result = await _serviceTypeCollection.UpdateOneAsync(filter, update);
+            return serviceType;
         }
     }
 }

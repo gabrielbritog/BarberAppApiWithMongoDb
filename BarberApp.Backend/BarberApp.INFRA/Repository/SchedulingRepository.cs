@@ -103,7 +103,6 @@ namespace BarberApp.Infra.Repository
 
         public async Task<Scheduling> Update(Scheduling scheduling, string schedulingId,string userId)
        {
-            var teste = GetById(schedulingId,userId);
             var filter = Builders<Scheduling>.Filter.Eq(s => s.SchedulingId, scheduling.SchedulingId);
             var update = Builders<Scheduling>.Update
                 .Set(s => s.ClientName, scheduling.ClientName)

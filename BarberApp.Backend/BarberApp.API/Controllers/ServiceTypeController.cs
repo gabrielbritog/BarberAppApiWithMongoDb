@@ -66,5 +66,21 @@ namespace BarberApp.Api.Controllers
 
             }
         }
+        [HttpPut("Update")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseServiceTypeDto>>> Update(UpdateServiceTypeDto serviceType)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.Update(serviceType, Id)));
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+
+            }
+        }
     }
 }

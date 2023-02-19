@@ -17,7 +17,7 @@ namespace BarberApp.Domain.Models
         public List<ServiceType> ServiceType { get; set; }
         [BsonElement("schedulingDate")]
         public DateTime SchedulingDate { get; set; }
-
+        
 
 
     }

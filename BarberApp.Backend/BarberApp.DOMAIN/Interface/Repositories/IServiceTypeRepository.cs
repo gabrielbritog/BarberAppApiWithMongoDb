@@ -15,7 +15,7 @@ namespace BarberApp.Domain.Interface.Repositories
         public Task<ServiceType> GetById(string userId, string idService);
         public Task<List<ServiceType>> GetAll(string userId);
         public Task<ServiceType> Delete(ServiceType serviceType, string UserId);
-        public Task<ServiceType> Update(ServiceType serviceType, string UserId);
+        public Task<ServiceType> Update(ServiceType serviceType, string serviceTypeId, string userId);
 
 
 
