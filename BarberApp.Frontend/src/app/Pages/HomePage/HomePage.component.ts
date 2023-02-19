@@ -5,6 +5,7 @@ import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { SchedulingService } from 'src/app/Services/SchedulingService.service';
 import { ScheduleModel } from '../../Models/ScheduleModel';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
+import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 
 @Component({
   selector: 'app-HomePage',
@@ -27,10 +28,10 @@ export class HomePageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
 
     this.getSchedules();
+    this.getServiceTypes();
   }
 
   getSchedules() {
-
     this.schedulingService.getAllSchedule().subscribe({
       next: (data: any) => {
         let schedules: ScheduleModel[] = data.data.map((element: any) => new ScheduleModel(element));
@@ -41,6 +42,18 @@ export class HomePageComponent implements OnInit {
       error: (err) => {
         console.log(err);
         LoaderComponent.SetOptions(false);
+      }
+    })
+  }
+
+  getServiceTypes() {
+    this.schedulingService.getAllServiceType().subscribe({
+      next: (data: any) => {
+        let serviceTypes: ServiceTypeModel[] = data.data.map((element: any) => new ServiceTypeModel(element));
+        GlobalVariables.serviceTypes = serviceTypes;
+      },
+      error: (err) => {
+        console.log(err.data.message);
       }
     })
   }

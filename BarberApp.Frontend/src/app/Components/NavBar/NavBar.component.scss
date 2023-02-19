@@ -99,8 +99,22 @@ nav{
     padding: .5rem;
     .nav_item{
       flex-grow: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      line-height: 1;
+      font-weight: 600;
+      .nav_item_title{
+        font-size: 0;
+      }
       &.active{
         color: var(--app-color-primary);
+        .nav_item_title{
+          font-size: .7em;
+        }
       }
     }
   }

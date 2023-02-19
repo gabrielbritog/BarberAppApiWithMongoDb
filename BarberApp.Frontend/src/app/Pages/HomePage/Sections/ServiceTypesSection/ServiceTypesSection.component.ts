@@ -1,3 +1,4 @@
+import { GlobalVariables } from './../../../../Helpers/GlobalVariables';
 import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../../Services/SchedulingService.service';
 import { ServiceTypeModel } from '../../../../Models/ServiceTypeModel';
@@ -9,22 +10,27 @@ import { ServiceTypeModel } from '../../../../Models/ServiceTypeModel';
 })
 export class ServiceTypesSectionComponent implements OnInit {
 
-  allServiceTypes: ServiceTypeModel[] = [];
+  get allServiceTypes() {
+    return GlobalVariables.serviceTypes;
+  };
 
-  constructor(private schedulingService: SchedulingService) { }
+  set allServiceTypes(value) {
+    GlobalVariables.serviceTypes = value;
+  };
+
+  constructor() { }
 
   ngOnInit() {
   }
 
-  getAllServiceTypes() {
-    this.schedulingService.getAllServiceType().subscribe({
-      next: (serviceTypes: ServiceTypeModel[]) => {
-        this.allServiceTypes = serviceTypes;
-      },
-      error: (err) => {
-        console.log(err.data.message);
-      }
-    })
+  formatToMoney(value: string | number) {
+    return `R$${value},00`;
   }
+
+  newServiceType() {
+    GlobalVariables.showServiceTypeModal = true;
+  }
+
+
 
 }

@@ -1,0 +1,19 @@
+.section_container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .5rem;
+}
+
+.service_card{
+  width: 100%;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  gap: 0;
+  .title{
+    font-weight: 600;
+  }
+  .price{
+    font-size: .8em;
+  }
+}

@@ -9,6 +9,20 @@
     display: flex;
     flex-direction: column;
     gap: .25rem;
+    margin-top: -1.3rem;
+  }
+
+  .search_bar_container{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 1rem 0;
+    transform: translateY(-1.2rem);
+    background-color: var(--app-color-bg);
+  }
+
+  #search_bar{
+    width: 100%;
   }
 
   .btn_container{

@@ -1,4 +1,5 @@
 <app-SchedulingModal></app-SchedulingModal>
+<app-PlusButton [onClickEvent]="newSchedule"></app-PlusButton>
 <div class="section_container">
   <div class="cards_container">
     <app-CalendarCard></app-CalendarCard>
@@ -8,33 +9,18 @@
 
       </div>
       <div class="cards_container no_grow" *ngIf="morningSchedules.length > 0">
-        <!-- <div class="container_header">
-          <span class="section_title">Manhã</span>
-        </div> -->
         <app-ScheduleCard *ngFor="let item of morningSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
       </div>
 
       <div class="cards_container no_grow" *ngIf="afternoonSchedules.length > 0">
-        <!-- <div class="container_header">
-          <span class="section_title">Tarde</span>
-        </div> -->
         <app-ScheduleCard *ngFor="let item of afternoonSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
       </div>
 
       <div class="cards_container no_grow" *ngIf="nightSchedules.length > 0">
-        <!-- <div class="container_header">
-          <span class="section_title">Noite</span>
-        </div> -->
         <app-ScheduleCard *ngFor="let item of nightSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
       </div>
+    </div>
 
-    </div>
   </div>
-  <div class="btn_container">
-    <div class="btn_bg">
-      <button class="btn btn_new" (click)="newSchedule()">
-        Novo Agendamento
-      </button>
-    </div>
-  </div>
+
 </div>

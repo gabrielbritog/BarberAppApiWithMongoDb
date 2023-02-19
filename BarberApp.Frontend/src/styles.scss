@@ -112,6 +112,7 @@ a{
     position: absolute;
     padding-left: 0.5rem;
     height: 100%;
+    top: 0;
     width: 32px;
     display: flex;
     align-items: center;
@@ -267,6 +268,21 @@ h3{
     align-items: start;
     justify-content: end;
     padding: 0.25rem;
+  }
+}
+
+.section_container{
+  animation: .2s sectionShow forwards;
+}
+
+@keyframes sectionShow {
+  from{
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 

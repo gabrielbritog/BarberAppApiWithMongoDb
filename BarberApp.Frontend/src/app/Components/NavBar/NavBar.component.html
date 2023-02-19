@@ -1,8 +1,7 @@
 <nav class="container_fluid" [class.today_section]="currentSection == 0">
   <div class="container nav_container">
-    <button class="nav_profile" (click)="expanded = !expanded" >
-      <img *ngIf="profilePic"
-      src="{{profilePic}}" alt="" srcset="">
+    <button class="nav_profile" (click)="expanded = !expanded">
+      <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
       <i class="fa-solid fa-user placeholder_icon"></i>
       <div class="btn nav_button">
         <i class="fa-solid fa-edit"></i>
@@ -10,16 +9,39 @@
     </button>
     <div class="nav_text">
       <span class="welcome">Bem vindo, </span>
-      <span class="user_name">{{loggedUser.firstName + ' ' + loggedUser.lastName}}</span>
+      <span class="user_name">{{
+        loggedUser.firstName + " " + loggedUser.lastName
+      }}</span>
     </div>
     <div class="nav_list_container" [class.hide]="expanded">
       <ul class="nav_list">
-        <li class="nav_item" [class.active]="currentSection == 0" (click)="currentSection = 0">Agenda</li>
-        <li class="nav_item" [class.active]="currentSection == 1" (click)="currentSection = 1">Clientes</li>
-        <li class="nav_item" [class.active]="currentSection == 2" (click)="currentSection = 2">Serviços</li>
+        <li
+          class="nav_item"
+          [class.active]="currentSection == 0"
+          (click)="currentSection = 0"
+        >
+          <i class="fa-solid fa-calendar-week"></i>
+          <div class="nav_item_title">Agenda</div>
+        </li>
+        <li
+          class="nav_item"
+          [class.active]="currentSection == 1"
+          (click)="currentSection = 1"
+        >
+        <i class="fa-solid fa-user-group"></i>
+          <div class="nav_item_title">Clientes</div>
+        </li>
+        <li
+          class="nav_item"
+          [class.active]="currentSection == 2"
+          (click)="currentSection = 2"
+        >
+        <i class="fa-solid fa-scissors"></i>
+          <div class="nav_item_title">Serviços</div>
+        </li>
       </ul>
     </div>
-    <button class="sidebar_toogle" (click)="logout()" >
+    <button class="sidebar_toogle" (click)="logout()">
       <!-- <i class="fa-solid fa-bars"></i> -->
       <i class="fa-solid fa-power-off"></i>
     </button>

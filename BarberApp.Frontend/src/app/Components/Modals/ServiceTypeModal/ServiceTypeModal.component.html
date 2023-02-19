@@ -1,0 +1,39 @@
+<div class="modal_container_bg" [class.active]="showModal">
+
+  <div class="container modal_container">
+    <div class="header">
+      <h3>Novo Serviço</h3>
+      <button class="btn_close" (click)="onCancel(scheduleForm)">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <hr />
+    <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)" class="flex_column">
+
+      <div class="form_group">
+        <label for="nameService">
+          <input
+            type="text"
+            name="nameService"
+            id="nameService"
+            placeholder="Nome do serviço"
+            ngModel
+          />
+        </label>
+      </div>
+      <div class="form_group">
+        <label for="valueService">
+          <input
+            type="number"
+            name="valueService"
+            id="valueService"
+            placeholder="Valor do serviço"
+            ngModel
+          />
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn_submit">Adicionar</button>
+    </form>
+  </div>
+</div>

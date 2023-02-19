@@ -20,12 +20,16 @@ import { authInterceptorProviders } from './Helpers/AuthInterceptor';
 // COMPONENTS
 import { NavBarComponent } from './Components/NavBar/NavBar.component';
 import { ClientListSectionComponent } from './Pages/HomePage/Sections/ClientListSection/ClientListSection.component';
-import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
 import { ServiceTypesSectionComponent } from './Pages/HomePage/Sections/ServiceTypesSection/ServiceTypesSection.component';
 import { ScheduleCardComponent } from './Components/ScheduleCard/ScheduleCard.component';
 import { CalendarCardComponent } from './Components/CalendarCard/CalendarCard.component';
 import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
 import { LoaderComponent } from './Components/Loader/Loader.component';
+import { PlusButtonComponent } from './Components/PlusButton/PlusButton.component';
+
+// MODALS
+import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
+import { ServiceTypeModalComponent } from './Components/Modals/ServiceTypeModal/ServiceTypeModal.component';
 
 // MISC
 import { ToastrModule } from 'ngx-toastr';
@@ -50,9 +54,11 @@ import { ToastrModule } from 'ngx-toastr';
     ScheduleCardComponent,
     CalendarCardComponent,
     LoaderComponent,
+    PlusButtonComponent,
 
     // MODAL
-    SchedulingModalComponent
+    SchedulingModalComponent,
+    ServiceTypeModalComponent
   ],
   imports: [
     BrowserAnimationsModule,

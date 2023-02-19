@@ -33,7 +33,6 @@ export class SchedulingModalComponent implements OnInit {
       next: (data: any) => {
         LoaderComponent.SetOptions(false);
         setTimeout(() => {
-          console.log(schedule, data.data)
           GlobalVariables.schedules.push(schedule);
           this.showModal = false;
           form.resetForm({

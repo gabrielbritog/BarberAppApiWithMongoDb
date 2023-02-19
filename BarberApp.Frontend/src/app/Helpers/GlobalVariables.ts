@@ -1,14 +1,17 @@
 import * as moment from 'moment';
 import { ScheduleModel } from '../Models/ScheduleModel';
+import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 export class GlobalVariables {
   // MODALS
   public static showScheduleModal = false;
+  public static showServiceTypeModal = false;
 
   // HOME SECTIONS
   public static currentSection = 0;
 
   // SCHEDULES
   public static schedules: ScheduleModel[] = [];
+  public static serviceTypes: ServiceTypeModel[] = [];
   public static currentDay = moment();
 
   // LOADER

@@ -6,8 +6,7 @@
     <div class="title">
       <span>{{scheduleModel.clientName}}</span>
     </div>
-    <div class="desc" *ngIf="scheduleModel.date != '' && showDate">
-      <i class="fa-regular fa-calendar"></i>
+    <div class="desc date" *ngIf="scheduleModel.date != '' && showDate">
       <span>{{scheduleModel.date}}</span>
     </div>
     <div class="desc" *ngIf="scheduleModel.time != ''">
