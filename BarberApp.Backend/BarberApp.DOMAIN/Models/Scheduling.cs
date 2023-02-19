@@ -8,7 +8,6 @@ namespace BarberApp.Domain.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [JsonIgnore]
         public string SchedulingId { get; set; }
         [BsonElement("userId")]
         public string UserId { get; set; }
