@@ -1,5 +1,6 @@
 ﻿using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace BarberApp.Domain.Interface.Services
     {
         public Task<RegisterSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId);
         public Task<Scheduling> GetById(string schedulingId, string userId);
-        public Task<Scheduling> Delete(string schedulingId, string userId);
+        public Task<DeleteResult> DeleteAll(string userId);
         public Task<List<Scheduling>> GetAll(string userId);
-        public Task<UpdateSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId);
+        public Task<Scheduling> Update(Scheduling scheduling, string userId);
 
     }
 }

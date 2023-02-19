@@ -6,6 +6,7 @@ using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,9 @@ namespace BarberApp.Service.Service
             _mapper = mapper;
         }
 
-        public Task<Scheduling> Delete(string schedulingId, string userId)
+        public async Task<DeleteResult> DeleteAll(string userId)
         {
-            throw new NotImplementedException();
+            return await _schedulingRepository.DeleteAll(userId);
         }
 
         public async Task<List<Scheduling>> GetAll(string userId)
@@ -41,9 +42,16 @@ namespace BarberApp.Service.Service
 
         public async Task<RegisterSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
         {
-
+            var count = scheduling.ServiceType.Count();
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);
+            for (int i = 0; i < count; i++)
+            {
+                scheduling.ServiceType[i].UserId = UserId;
+            }
+
+            
             schedulingMap.UserId = UserId;
+            
             var quantity = scheduling.ServiceType.Count;
             for (int i = 0; i < quantity;)
             {
@@ -55,22 +63,19 @@ namespace BarberApp.Service.Service
             return scheduling;
         }
 
-        public async Task<UpdateSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId)
+        public async Task<Scheduling> Update(Scheduling scheduling, string userId)
         {
-            var schedulingDb = await GetById(scheduling.SchedulingId, userId);
-            var schedulingConvert = _mapper.Map<UpdateSchedulingDto>(schedulingDb);
-
-
-            if (string.IsNullOrEmpty(scheduling.ClientName))
-                scheduling.ClientName = schedulingDb.ClientName;
+            var userDb = await this.GetById(scheduling.SchedulingId, userId);
+            if (string.IsNullOrWhiteSpace(scheduling.ClientName))
+                scheduling.ClientName = userDb.ClientName;
             if (scheduling.ServiceType == null)
-                scheduling.ServiceType = schedulingConvert.ServiceType;
-            if (scheduling.SchedulingDate == DateTime.MinValue)
-                scheduling.SchedulingDate = schedulingDb.SchedulingDate;
+                scheduling.ServiceType = userDb.ServiceType;
+            if(scheduling.SchedulingDate == null)
+                scheduling.SchedulingDate = userDb.SchedulingDate;
 
+            var result = await _schedulingRepository.Update(scheduling, scheduling.SchedulingId, userId);
 
-            var result = await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), userId);
-            return _mapper.Map<UpdateSchedulingDto>(result);
+            return result;
         }
     }
 }
