@@ -9,6 +9,7 @@ namespace BarberApp.Domain.Dto.ServiceType
 {
     public class ResponseServiceTypeDto
     {
+        public string ServiceTypeId { get; set; }
         [BsonElement("nameService")]
         public string NameService { get; set; }
         [BsonElement("valueService")]
