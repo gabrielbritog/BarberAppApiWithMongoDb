@@ -34,13 +34,13 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpGet("GetAll")]
+        [HttpGet("GetMany")]
         [Authorize("Bearer")]
-        public async Task<ActionResult<ResponseViewModel<ResponseServiceTypeDto>>> GetAll()
+        public async Task<ActionResult<ResponseViewModel<ResponseServiceTypeDto>>> GetMany([FromQuery] int start, [FromQuery] int count)
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.GetAll(Id)));
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.GetMany(Id,start,count)));
 
             }
             catch (Exception e )

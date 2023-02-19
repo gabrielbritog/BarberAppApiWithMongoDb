@@ -3,6 +3,7 @@ using BarberApp.Domain.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,12 +27,12 @@ namespace BarberApp.Infra.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<List<ServiceType>> GetAll(string userId)
+        public async Task<List<ServiceType>> GetMany(string userId, int start, int count)
         {
             try
             {
                 var filter = Builders<ServiceType>.Filter.Eq(u => u.UserId, userId);
-                var services =  _serviceTypeCollection.Find(filter);
+                var services =  _serviceTypeCollection.Find(filter).Skip(start - 1).Limit(count);
                 return await services.ToListAsync();
             }
             catch (Exception e)

@@ -32,13 +32,13 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpGet("GetAll")]
+        [HttpGet("GetMany")]
         [Authorize("Bearer")]
-        public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> GetAll()
+        public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> GetMany([FromQuery]int start, [FromQuery] int count)
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.GetAll(Id)));
+                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.GetMany(Id,start,count)));
             }
             catch (Exception e)
             {

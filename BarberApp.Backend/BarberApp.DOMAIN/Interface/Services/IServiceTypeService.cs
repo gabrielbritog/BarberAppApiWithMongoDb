@@ -12,7 +12,7 @@ namespace BarberApp.Domain.Interface.Services
     {
         public Task<RegisterServiceTypeDto> Register(RegisterServiceTypeDto serviceType, string UserId);
         public Task<ServiceType> GetById(string userId, string idService);
-        public Task<List<ServiceType>> GetAll(string userId);
+        public Task<List<ServiceType>> GetMany(string userId, int start, int count);
         public Task<ServiceType> Delete(RegisterServiceTypeDto serviceType, string UserId);
         public Task<ResponseServiceTypeDto> Update(UpdateServiceTypeDto serviceType, string userId);
     }

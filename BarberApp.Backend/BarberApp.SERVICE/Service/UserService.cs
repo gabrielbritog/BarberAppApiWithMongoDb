@@ -23,9 +23,9 @@ namespace BarberApp.Service.Service
             _tokenConfiguration = tokenConfiguration;
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<User>> GetMany(int start, int count)
         {
-            return await _userRepository.GetAll();
+            return await _userRepository.GetMany(start, count);
         }
 
         public async Task<User> GetByEmail(string userEmail)
