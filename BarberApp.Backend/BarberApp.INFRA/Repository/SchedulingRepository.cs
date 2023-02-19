@@ -57,12 +57,12 @@ namespace BarberApp.Infra.Repository
            
         }
 
-        public async Task<List<Scheduling>> GetAll(string userId)
+        public async Task<List<Scheduling>> GetMany(string userId, int start, int count)
         {
             try
             {
                 var filter = Builders<Scheduling>.Filter.Eq(u => u.UserId, userId);
-                return await _schedulingCollection.Find(filter).ToListAsync();
+                return await _schedulingCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
             }
             catch (Exception e)
             {

@@ -21,12 +21,12 @@ namespace BarberApp.Infra.Repository
                 (userServices.Value.CollectionName);
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<User>> GetMany(int start, int count)
         {
             try
             {
                 var filter = Builders<User>.Filter.Exists(x => x.Email);
-                var results = await _userCollection.Find(filter).ToListAsync();
+                var results = await _userCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
                 return results;
             }
             catch (Exception e)

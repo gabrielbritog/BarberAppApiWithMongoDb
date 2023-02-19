@@ -36,9 +36,9 @@ namespace BarberApp.Service.Service
             return await _schedulingRepository.DeleteById(userId, schedulingId);
         }
 
-        public async Task<List<ResponseSchedulingDto>> GetAll(string userId)
+        public async Task<List<ResponseSchedulingDto>> GetMany(string userId, int start, int count)
         {
-            var result = await _schedulingRepository.GetAll(userId);
+            var result = await _schedulingRepository.GetMany(userId,start,count);
             return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
 
