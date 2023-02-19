@@ -93,11 +93,6 @@ namespace BarberApp.Infra.Repository
 
             var result = await _schedulingCollection.UpdateOneAsync(filter, update);
 
-            if (result.ModifiedCount == 0)
-            {
-                throw new Exception("Agendamento não encontrado.");
-            }
-
             return scheduling;
         }
     }

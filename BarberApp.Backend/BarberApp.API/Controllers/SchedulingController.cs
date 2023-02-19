@@ -62,7 +62,7 @@ namespace BarberApp.Api.Controllers
         }
         [HttpPut("Update")]
         [Authorize("Bearer")]
-        public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> Update([FromBody] Scheduling scheduling)
+        public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> Update([FromBody] UpdateSchedulingDto scheduling)
         {
             try
             {
