@@ -8,7 +8,6 @@ namespace BarberApp.Domain.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [JsonIgnore]
         public string SchedulingId { get; set; }
         [BsonElement("userId")]
         public string UserId { get; set; }
@@ -18,7 +17,7 @@ namespace BarberApp.Domain.Models
         public List<ServiceType> ServiceType { get; set; }
         [BsonElement("schedulingDate")]
         public DateTime SchedulingDate { get; set; }
-
+        
 
 
     }

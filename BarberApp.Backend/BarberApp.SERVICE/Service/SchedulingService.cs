@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Dto.ServiceType;
+using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,53 +26,56 @@ namespace BarberApp.Service.Service
             _mapper = mapper;
         }
 
-        public Task<Scheduling> Delete(string schedulingId, string userId)
+        public async Task<DeleteResult> DeleteAll(string userId)
         {
-            throw new NotImplementedException();
+            return await _schedulingRepository.DeleteAll(userId);
         }
 
-        public async Task<List<Scheduling>> GetAll(string userId)
+        public async Task<DeleteResult> DeleteById(string userId, string schedulingId)
         {
-            return await _schedulingRepository.GetAll(userId);
+            return await _schedulingRepository.DeleteById(userId, schedulingId);
         }
 
-        public async Task<Scheduling> GetById(string schedulingId,string userId)
+        public async Task<List<ResponseSchedulingDto>> GetAll(string userId)
         {
-            return await _schedulingRepository.GetById(schedulingId, userId);
+            var result = await _schedulingRepository.GetAll(userId);
+            return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
 
-        public async Task<RegisterSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
+        public async Task<ResponseSchedulingDto> GetById(string schedulingId,string userId)
         {
+           
+            var result = await _schedulingRepository.GetById(schedulingId, userId);
+            return _mapper.Map<ResponseSchedulingDto>(result);
+        }
 
-            var schedulingMap = _mapper.Map<Scheduling>(scheduling);
-            schedulingMap.UserId = UserId;
-            var quantity = scheduling.ServiceType.Count;
+        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
+        {
+            var schedulingMap = _mapper.Map<Scheduling>(scheduling);           
+            schedulingMap.UserId = UserId;            
+            var quantity = scheduling.ServiceType.Count();
             for (int i = 0; i < quantity;)
             {
-                scheduling.ServiceType[i].UserId = UserId;
+                schedulingMap.ServiceType[i].UserId = UserId;
                 i++;
-            }
-            
+            }          
             await _schedulingRepository.Register(schedulingMap, UserId);
-            return scheduling;
+            return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
         }
 
-        public async Task<UpdateSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId)
+        public async Task<ResponseSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId)
         {
-            var schedulingDb = await GetById(scheduling.SchedulingId, userId);
-            var schedulingConvert = _mapper.Map<UpdateSchedulingDto>(schedulingDb);
-
-
-            if (string.IsNullOrEmpty(scheduling.ClientName))
+            var schedulingDb = await this.GetById(scheduling.SchedulingId, userId);
+            if (string.IsNullOrWhiteSpace(scheduling.ClientName))
                 scheduling.ClientName = schedulingDb.ClientName;
             if (scheduling.ServiceType == null)
-                scheduling.ServiceType = schedulingConvert.ServiceType;
-            if (scheduling.SchedulingDate == DateTime.MinValue)
+                scheduling.ServiceType = _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
+            if(scheduling.SchedulingDate == null)
                 scheduling.SchedulingDate = schedulingDb.SchedulingDate;
 
+            await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), scheduling.SchedulingId, userId);
 
-            var result = await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), userId);
-            return _mapper.Map<UpdateSchedulingDto>(result);
+            return _mapper.Map<ResponseSchedulingDto>(scheduling);
         }
     }
 }

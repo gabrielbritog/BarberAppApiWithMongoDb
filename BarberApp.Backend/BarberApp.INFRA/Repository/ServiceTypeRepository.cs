@@ -26,6 +26,39 @@ namespace BarberApp.Infra.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<List<ServiceType>> GetAll(string userId)
+        {
+            try
+            {
+                var filter = Builders<ServiceType>.Filter.Eq(u => u.UserId, userId);
+                var services =  _serviceTypeCollection.Find(filter);
+                return await services.ToListAsync();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+                  }
+
+        public async Task<ServiceType> GetById(string userId, string idService)
+        {
+            try
+            {
+                var filter = Builders<ServiceType>.Filter.And(
+                    Builders<ServiceType>.Filter.Eq(u => u.UserId, userId),
+                    Builders<ServiceType>.Filter.Eq(u => u.ServiceTypeId, idService)
+                    );
+                return await _serviceTypeCollection.Find(filter).FirstOrDefaultAsync();
+
+            }
+            catch (Exception e )
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<ServiceType> Register(ServiceType serviceType, string UserId)
         {
             try
@@ -40,9 +73,17 @@ namespace BarberApp.Infra.Repository
             }
         }
 
-        public Task<ServiceType> Update(ServiceType serviceType, string UserId)
+        public async Task<ServiceType> Update(ServiceType serviceType,string serviceTypeId, string userId)
         {
-            throw new NotImplementedException();
+            var filter = Builders<ServiceType>.Filter.And(
+                Builders<ServiceType>.Filter.Eq(u => u.UserId, userId),
+                Builders<ServiceType>.Filter.Eq(u => u.ServiceTypeId, serviceTypeId));
+            var update = Builders<ServiceType>.Update
+                .Set(s => s.NameService, serviceType.NameService)
+                .Set(s => s.ValueService, serviceType.ValueService)
+                .Set(s => s.On, serviceType.On);
+            var result = await _serviceTypeCollection.UpdateOneAsync(filter, update);
+            return serviceType;
         }
     }
 }

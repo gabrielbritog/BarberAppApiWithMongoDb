@@ -1,6 +1,7 @@
 ﻿using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Dto.ServiceType;
 using BarberApp.Domain.Interface.Services;
+using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +33,54 @@ namespace BarberApp.Api.Controllers
                 return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
             }
 
+        }
+        [HttpGet("GetAll")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseServiceTypeDto>>> GetAll()
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.GetAll(Id)));
+
+            }
+            catch (Exception e )
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+
+            }
+        }
+        [HttpGet("GetById")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseServiceTypeDto>>> GetById([FromQuery]string serviceTypeId)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.GetById(Id, serviceTypeId)));
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+
+            }
+        }
+        [HttpPut("Update")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseServiceTypeDto>>> Update(UpdateServiceTypeDto serviceType)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.Update(serviceType, Id)));
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+
+            }
         }
     }
 }

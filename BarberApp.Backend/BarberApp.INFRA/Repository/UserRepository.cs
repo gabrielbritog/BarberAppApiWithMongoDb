@@ -25,8 +25,9 @@ namespace BarberApp.Infra.Repository
         {
             try
             {
-                var filter = Builders<User>.Filter.Empty;
-                return await _userCollection.Find(filter).ToListAsync();
+                var filter = Builders<User>.Filter.Exists(x => x.Email);
+                var results = await _userCollection.Find(filter).ToListAsync();
+                return results;
             }
             catch (Exception e)
             {
@@ -86,7 +87,8 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.UrlImage, user.UrlImage)
                     .Set(u => u.Cep, user.Cep)
                     .Set(u => u.Email, user.Email)
-                    .Set(u => u.PhoneNumber, user.PhoneNumber);
+                    .Set(u => u.PhoneNumber, user.PhoneNumber)
+                    .Set(u => u.Disabled, user.Disabled);
                 var result = await _userCollection.UpdateOneAsync(filter, update);
                 if (result.MatchedCount == 0)
                     throw new Exception("Usuário não encontrado.");

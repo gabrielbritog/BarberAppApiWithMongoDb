@@ -1,5 +1,6 @@
 ﻿using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Interface.Services;
+using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +67,36 @@ namespace BarberApp.Api.Controllers
             try
             {
                 return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Update(scheduling, Id)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
+        [HttpDelete("DeleteAll")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> DeleteAll()
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.DeleteAll(Id)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
+        [HttpDelete("DeleteById")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> DeleteById([FromQuery] string schedulingId)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.DeleteById(Id, schedulingId)));
             }
             catch (Exception e)
             {

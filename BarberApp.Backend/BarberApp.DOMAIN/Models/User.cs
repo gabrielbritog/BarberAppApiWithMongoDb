@@ -6,10 +6,11 @@ namespace BarberApp.Domain.Models
 {
     public class User
     {
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         [JsonIgnore]
-        public string? UserId { get; set; }
+        public string UserId { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
         [BsonElement("lastName")]
@@ -31,6 +32,9 @@ namespace BarberApp.Domain.Models
         [JsonIgnore]
         [BsonElement("passwordSalt")]
         public string PasswordSalt { get; set; }
+        [BsonElement("disabled")]
+        public bool Disabled { get; set; }
+
 
 
     }

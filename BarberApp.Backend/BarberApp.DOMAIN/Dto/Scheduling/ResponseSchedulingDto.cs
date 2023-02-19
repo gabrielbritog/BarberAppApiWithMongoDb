@@ -11,6 +11,7 @@ namespace BarberApp.Domain.Dto.Scheduling
 {
     public class ResponseSchedulingDto
     {
+        public string SchedulingId { get; set; }
         [BsonElement("clientName")]
         public string ClientName { get; set; }
         [BsonElement("serviceType")]

@@ -1,15 +1,16 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace BarberApp.Domain.Models
+namespace BarberApp.Domain.Dto.ServiceType
 {
-    public class ServiceType
+    public class UpdateServiceTypeDto
     {
-
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-       public string ServiceTypeId { get; set; }
+        public string ServiceTypeId { get; set; }
         [BsonElement("UserId")]
         [JsonIgnore]
         public string UserId { get; set; }
