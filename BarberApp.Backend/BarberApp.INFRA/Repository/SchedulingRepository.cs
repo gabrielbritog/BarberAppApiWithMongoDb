@@ -38,6 +38,25 @@ namespace BarberApp.Infra.Repository
             }
         }
 
+        public async Task<DeleteResult> DeleteById(string userId, string schedulingId)
+        {
+            try
+            {
+                var filter = Builders<Scheduling>.Filter.And(
+               Builders<Scheduling>.Filter.Eq(u => u.UserId, userId),
+               Builders<Scheduling>.Filter.Eq(u => u.SchedulingId, schedulingId));
+                var result = await _schedulingCollection.DeleteOneAsync(filter);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+           
+        }
+
         public async Task<List<Scheduling>> GetAll(string userId)
         {
             try

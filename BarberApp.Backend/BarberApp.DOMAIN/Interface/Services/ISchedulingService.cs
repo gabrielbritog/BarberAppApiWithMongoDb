@@ -15,6 +15,7 @@ namespace BarberApp.Domain.Interface.Services
         public Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId);
         public Task<ResponseSchedulingDto> GetById(string schedulingId, string userId);
         public Task<DeleteResult> DeleteAll(string userId);
+        public Task<DeleteResult> DeleteById(string userId, string schedulingId);
         public Task<List<ResponseSchedulingDto>> GetAll(string userId);
         public Task<ResponseSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId);
 

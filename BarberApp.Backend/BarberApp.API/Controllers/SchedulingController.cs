@@ -90,5 +90,20 @@ namespace BarberApp.Api.Controllers
             }
 
         }
+        [HttpDelete("DeleteById")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> DeleteById([FromQuery] string schedulingId)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.DeleteById(Id, schedulingId)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
     }
 }
