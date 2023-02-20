@@ -7,7 +7,7 @@ namespace BarberApp.Domain.Dto.ServiceType
     public class RegisterServiceTypeDto
     {
         [BsonElement("serviceTypeId")]
-
+        [JsonIgnore]
         public string ServiceTypeId { get; set; }
         [BsonElement("UserId")]
         [JsonIgnore]
