@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
-import { ScheduleModel } from '../../../../Models/ScheduleModel';
 
 @Component({
   selector: 'app-SchedulesSection',
@@ -12,6 +11,10 @@ export class SchedulesSectionComponent implements OnInit {
 
   get isTodayDate() {
     return GlobalVariables.currentDay.format('L') == moment().format('L');
+  }
+
+  get showModal() {
+    return GlobalVariables.showScheduleModal;
   }
 
   get currentDaySchedules() {

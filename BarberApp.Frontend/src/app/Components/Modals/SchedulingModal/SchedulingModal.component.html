@@ -1,13 +1,15 @@
 
-<div class="modal_container_bg" [class.active]="showModal">
+<div class="modal_container_bg">
   <div class="container modal_container">
     <div class="header">
-      <h3>Novo Agendamento</h3>
+      <h3>{{isEditModal? 'Editar ' : 'Novo '}} Agendamento</h3>
       <button class="btn_close" (click)="onCancel(scheduleForm)">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
     <hr />
+
+
     <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)" class="flex_column">
       <div class="form_group">
         <label for="clientName">
@@ -16,7 +18,7 @@
             name="clientName"
             id="clientName"
             placeholder="Nome do cliente"
-            ngModel
+            [(ngModel)]="scheduleModel.clientName"
           />
         </label>
       </div>
@@ -35,7 +37,7 @@
       </div>
       <div class="form_group">
         <label for="time">
-          <input class="no-icon" type="time" name="time" id="time" ngModel />
+          <input class="no-icon" type="time" name="time" id="time" [ngModel]="currentTime" />
           <i class="fa-solid fa-clock"></i>
         </label>
       </div>
@@ -46,7 +48,7 @@
         </div>
         <div *ngFor="let item of serviceTypes"
         class="card mini_card service_type"
-        [class.active]="selectedServiceTypes.includes(item)"
+        [class.active]="hasService(item)"
         (click)="addToList(item)" >
           <div class="title">
             {{item.nameService}}
@@ -63,5 +65,7 @@
 
       <button type="submit" class="btn btn_submit">Agendar</button>
     </form>
+
+
   </div>
 </div>

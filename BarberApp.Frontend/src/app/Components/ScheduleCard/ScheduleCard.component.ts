@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ScheduleModel } from '../../Models/ScheduleModel';
+import { GlobalVariables } from '../../Helpers/GlobalVariables';
 
 @Component({
   selector: 'app-ScheduleCard',
@@ -19,6 +20,13 @@ export class ScheduleCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  editSchedule() {
+    GlobalVariables.modalAsEdit = true;
+    GlobalVariables.editSchedule = this.scheduleModel;
+
+    GlobalVariables.showScheduleModal = true;
   }
 
 }

@@ -47,8 +47,24 @@ export class SchedulingService {
     });
   }
 
+
+
+
+
+
+
+
   registerSchedule(schedule: ScheduleModel): Observable<any> {
     return this.http.post<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_REGISTER, {
+      clientName: schedule.clientName,
+      serviceType: schedule.serviceType,
+      schedulingDate: schedule.schedulingDate
+    });
+  }
+
+  updateSchedule(schedule: ScheduleModel): Observable<any>{
+    return this.http.put<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_UPDATE, {
+      schedulingId: schedule.schedulingId,
       clientName: schedule.clientName,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate
@@ -69,7 +85,11 @@ export class SchedulingService {
   }
 
   getScheduleById(id: number): Observable<any> {
-    return this.http.get<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_GETBYID + id);
+    return this.http.get<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_GETBYID, {
+      params: {
+        schedulingId: id
+      }
+    });
   }
 
   deleteAllSchedules(): Observable<any> {

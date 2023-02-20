@@ -5,6 +5,11 @@ export class GlobalVariables {
   // MODALS
   public static showScheduleModal = false;
   public static showServiceTypeModal = false;
+  public static modalAsEdit = false;
+
+  // EDIT MODALS VARIABLES
+  public static editSchedule: ScheduleModel | undefined;
+  public static editServiceType: ServiceTypeModel | undefined;
 
   // HOME SECTIONS
   public static currentSection = 0;
