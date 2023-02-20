@@ -13,8 +13,9 @@ const MACHINE_IP = GlobalVariables.MACHINE_IP;
 const BASE_URL_API = `http://${MACHINE_IP}:5066/api/`
 const URL_SERVICETYPE = 'ServiceType/'
 const URL_SCHEDULING = 'Scheduling/'
+const ROUTE_DELETEALL= 'DeleteAll/'
 const ROUTE_REGISTER = 'Register'
-const ROUTE_GETALL = 'GetAll'
+const ROUTE_GETMANY = 'GetMany'
 const ROUTE_GETBYID = 'GetById/'
 const ROUTE_UPDATE = 'Update'
 
@@ -34,11 +35,19 @@ export class SchedulingService {
   }
 
   getAllServiceType(): Observable<any> {
-    return this.http.get<any>(BASE_URL_API + URL_SERVICETYPE + ROUTE_GETALL);
+    return this.getManyServiceType(1, 50);
+  }
+
+  getManyServiceType(skip: number = 1, take: number = 10): Observable<any> {
+    return this.http.get<any>(BASE_URL_API + URL_SERVICETYPE + ROUTE_GETMANY, {
+      params: {
+        start: skip,
+        count: take
+      }
+    });
   }
 
   registerSchedule(schedule: ScheduleModel): Observable<any> {
-    // LoaderComponent.SetOptions(true);
     return this.http.post<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_REGISTER, {
       clientName: schedule.clientName,
       serviceType: schedule.serviceType,
@@ -47,11 +56,24 @@ export class SchedulingService {
   }
 
   getAllSchedule(): Observable<any> {
-    return this.http.get<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_GETALL);
+    return this.getManySchedule(1, 50);
+  }
+
+  getManySchedule(skip: number = 1, take: number = 10): Observable<any> {
+    return this.http.get<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_GETMANY, {
+      params: {
+        start: skip,
+        count: take
+      }
+    });
   }
 
   getScheduleById(id: number): Observable<any> {
     return this.http.get<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_GETBYID + id);
+  }
+
+  deleteAllSchedules(): Observable<any> {
+    return this.http.delete(BASE_URL_API + URL_SCHEDULING + ROUTE_DELETEALL);
   }
 
 }

@@ -4,7 +4,7 @@ import { ScheduleModel } from '../../Models/ScheduleModel';
 @Component({
   selector: 'app-ScheduleCard',
   templateUrl: './ScheduleCard.component.html',
-  styleUrls: ['./ScheduleCard.component.css']
+  styleUrls: ['./ScheduleCard.component.scss']
 })
 export class ScheduleCardComponent implements OnInit {
 
@@ -12,7 +12,9 @@ export class ScheduleCardComponent implements OnInit {
   @Input('isSchedule') isSchedule = true;
   @Input('showDate') showDate = false;
   @Input('showPhone') showPhone = false;
+  @Input('showOptions') showOptions = true;
 
+  expand = false;
 
   constructor() { }
 

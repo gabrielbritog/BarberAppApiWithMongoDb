@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import * as moment from 'moment';
+import { SchedulingService } from '../../Services/SchedulingService.service';
 
 @Component({
   selector: 'app-CalendarCard',
@@ -75,7 +76,7 @@ export class CalendarCardComponent implements OnInit {
     'Dezembro'
   ];
 
-  constructor() { }
+  constructor(private schedulesService: SchedulingService) { }
 
   ngOnInit() {
     this.loadWeek()
@@ -101,6 +102,17 @@ export class CalendarCardComponent implements OnInit {
 
   getFormatedMoment(element: moment.Moment) {
     return element.format('YYYY-MM-DD');
+  }
+
+  deleteAll() {
+    // this.schedulesService.deleteAllSchedules().subscribe({
+    //   next: (data: any) => {
+    //     console.log(data);
+    //   },
+    //   error(err) {
+    //     console.log(err);
+    //   },
+    // })
   }
 
 }

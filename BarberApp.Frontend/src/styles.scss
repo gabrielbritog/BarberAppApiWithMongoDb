@@ -221,7 +221,6 @@ h3{
   display: flex;
   gap: .75rem;
   align-items: flex-start;
-  overflow: hidden;
   border: 1px solid #ffffff17;
   &.schedule{
     width: 100%;
@@ -239,10 +238,11 @@ h3{
     width: 50px;
     height: 50px;
     background-color: var(--app-color-input-bg);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+    font-size: 1.5em;
+    flex-shrink: 0;
   }
   .content{
     flex-grow: 1;
@@ -254,9 +254,11 @@ h3{
       margin-top: .25rem;
       i{
         color: var(--app-color-primary);
+        text-align: center;
+        font-size: 1.2em;
+        padding: 0 .2rem;
       }
       span{
-        margin-left: .5rem;
         opacity: .45;
       }
     }
@@ -265,9 +267,12 @@ h3{
     width: 32px;
     height: 32px;
     display: flex;
-    align-items: start;
-    justify-content: end;
+    align-items: center;
+    justify-content: center;
     padding: 0.25rem;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 
