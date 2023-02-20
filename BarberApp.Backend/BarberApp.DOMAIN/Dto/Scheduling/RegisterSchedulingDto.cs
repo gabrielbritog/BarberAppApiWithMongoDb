@@ -17,5 +17,7 @@ namespace BarberApp.Domain.Dto.Scheduling
         public List<RegisterServiceTypeDto> ServiceType { get; set; }
         [BsonElement("schedulingDate")]
         public DateTime SchedulingDate { get; set; }
+        [BsonElement("barberId")]
+        public string barberId { get; set; } = null!;
     }
 }

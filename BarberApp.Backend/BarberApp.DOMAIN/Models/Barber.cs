@@ -1,39 +1,45 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace BarberApp.Domain.Dto.User
+namespace BarberApp.Domain.Models
 {
-    public class RegisterUserDto
+    public class Barber
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         [JsonIgnore]
+        [BsonElement("barberId")]
+        public string BarberId { get; set; }
         [BsonElement("userId")]
         public string UserId { get; set; }
         [BsonElement("firstName")]
-        [Required(ErrorMessage = "Primeiro nome é obrigatório")]
         public string FirstName { get; set; } = null!;
         [BsonElement("lastName")]
-        [Required(ErrorMessage = "Último nome é obrigatório")]
         public string LastName { get; set; } = null!;
         [BsonElement("cep")]
-        [Required(ErrorMessage = "Cep é obrigatório")]
         public string Cep { get; set; } = null!;
         [BsonElement("email")]
-        [Required(ErrorMessage = "Email é obrigatório")]
-        [EmailAddress(ErrorMessage = "Email inválido")]
         public string Email { get; set; } = null!;
+        [BsonElement("urlImage")]
+        public string UrlImage { get; set; } = null!;
         [BsonElement("password")]
-        [Required(ErrorMessage = "Senha é obrigatório")]
-        [StringLength(30, MinimumLength = 8, ErrorMessage = "Senha deve conter minimo de 8 caracteres")]
         public string Password { get; set; } = null!;
         [BsonElement("phoneNumber")]
-        [Required(ErrorMessage = "Telefone é obrigatório")]
         public string PhoneNumber { get; set; } = null!;
-        [BsonElement("passwordSalt")]
+        [BsonElement("userRegistration")]
+        public DateTime UserRegistration { get; set; }
         [JsonIgnore]
+        [BsonElement("passwordSalt")]
         public string PasswordSalt { get; set; }
+        [BsonElement("disabled")]
+        public bool Disabled { get; set; }
+ 
+
     }
 }

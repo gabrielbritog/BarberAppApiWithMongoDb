@@ -51,9 +51,11 @@ namespace BarberApp.Service.Service
 
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
         {
+            
+                
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);           
-            schedulingMap.UserId = UserId;            
-            var quantity = scheduling.ServiceType.Count();
+            schedulingMap.UserId = UserId;
+                var quantity = scheduling.ServiceType.Count();
             for (int i = 0; i < quantity;)
             {
                 schedulingMap.ServiceType[i].UserId = UserId;

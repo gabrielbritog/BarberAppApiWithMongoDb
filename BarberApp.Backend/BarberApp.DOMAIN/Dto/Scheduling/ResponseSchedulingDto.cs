@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BarberApp.Domain.Dto.Scheduling
@@ -18,5 +19,8 @@ namespace BarberApp.Domain.Dto.Scheduling
         public List<RegisterServiceTypeDto> ServiceType { get; set; }
         [BsonElement("schedulingDate")]
         public DateTime SchedulingDate { get; set; }
+        [BsonElement("barberId")]
+        [JsonIgnore] 
+        public string barberId { get; set; } = null!;
     }
 }

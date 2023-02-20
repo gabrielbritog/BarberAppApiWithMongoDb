@@ -13,6 +13,8 @@ namespace BarberApp.Domain.Models
         [BsonElement("UserId")]
         [JsonIgnore]
         public string UserId { get; set; }
+        [BsonElement("barberId")]
+        public string? barberId { get; set; }
         [BsonElement("nameService")]
         public string NameService { get; set; }
         [BsonElement("valueService")]

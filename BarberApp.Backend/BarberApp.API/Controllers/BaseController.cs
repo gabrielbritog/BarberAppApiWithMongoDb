@@ -21,5 +21,13 @@ namespace BarberApp.Api.Controllers
                 return this.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value;
             }
         }
+        public string BarberId
+        {
+            get
+            {
+                return this.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value;
+            }
+        }
+
     }
 }
