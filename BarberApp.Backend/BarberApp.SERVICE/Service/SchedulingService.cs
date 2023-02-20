@@ -29,6 +29,10 @@ namespace BarberApp.Service.Service
         public async Task<DeleteResult> DeleteAll(string userId)
         {
             return await _schedulingRepository.DeleteAll(userId);
+        }  
+        public async Task<DeleteResult> DeleteAll(string userId,string barberId)
+        {
+            return await _schedulingRepository.DeleteAll(userId, barberId);
         }
 
         public async Task<DeleteResult> DeleteById(string userId, string schedulingId)
@@ -39,6 +43,12 @@ namespace BarberApp.Service.Service
         public async Task<List<ResponseSchedulingDto>> GetMany(string userId, int start, int count)
         {
             var result = await _schedulingRepository.GetMany(userId,start,count);
+            return _mapper.Map<List<ResponseSchedulingDto>>(result);
+        } 
+
+        public async Task<List<ResponseSchedulingDto>> GetMany(string userId, string barberId, int start, int count)
+        {
+            var result = await _schedulingRepository.GetMany(userId,barberId,start,count);
             return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
 
@@ -61,6 +71,22 @@ namespace BarberApp.Service.Service
                 schedulingMap.ServiceType[i].UserId = UserId;
                 i++;
             }          
+            await _schedulingRepository.Register(schedulingMap, UserId);
+            return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
+        }
+
+        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId,string barberId)
+        {
+            scheduling.barberId = barberId;
+            var schedulingMap = _mapper.Map<Scheduling>(scheduling);
+            schedulingMap.UserId = UserId;
+            var quantity = scheduling.ServiceType.Count();
+            for (int i = 0; i < quantity;)
+            {
+                schedulingMap.ServiceType[i].BarberId = barberId;
+                schedulingMap.ServiceType[i].UserId = UserId;
+                i++;
+            }
             await _schedulingRepository.Register(schedulingMap, UserId);
             return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
         }

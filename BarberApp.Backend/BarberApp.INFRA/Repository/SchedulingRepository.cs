@@ -20,7 +20,7 @@ namespace BarberApp.Infra.Repository
             var mongoDatabase = mongoClient.GetDatabase(schedulingCollection.Value.DatabaseName);
 
             _schedulingCollection = mongoDatabase.GetCollection<Scheduling>
-                (schedulingCollection.Value.CollectionName);
+                (schedulingCollection.Value.SchedulingCollectionName);
         }
 
         public async Task<DeleteResult> DeleteAll(string userId)
@@ -28,6 +28,22 @@ namespace BarberApp.Infra.Repository
             try
             {
                 var filter = Builders<Scheduling>.Filter.Eq(u => u.UserId, userId);
+                var result = await _schedulingCollection.DeleteManyAsync(filter);
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+        public async Task<DeleteResult> DeleteAll(string userId,string barberId)
+        {
+            try
+            {
+                var filter = Builders<Scheduling>.Filter.And(
+               Builders<Scheduling>.Filter.Eq(u => u.UserId, userId),
+               Builders<Scheduling>.Filter.Eq(u => u.BarberId, barberId));
                 var result = await _schedulingCollection.DeleteManyAsync(filter);
                 return result;
             }
@@ -51,10 +67,8 @@ namespace BarberApp.Infra.Repository
             }
             catch (Exception e)
             {
-
                 throw new Exception(e.Message);
-            }
-           
+            }         
         }
 
         public async Task<List<Scheduling>> GetMany(string userId, int start, int count)
@@ -62,6 +76,21 @@ namespace BarberApp.Infra.Repository
             try
             {
                 var filter = Builders<Scheduling>.Filter.Eq(u => u.UserId, userId);
+                return await _schedulingCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public async Task<List<Scheduling>> GetMany(string userId,string barberId, int start, int count)
+        {
+            try
+            {
+                var filter = Builders<Scheduling>.Filter.And(
+            Builders<Scheduling>.Filter.Eq(u => u.UserId, userId),
+            Builders<Scheduling>.Filter.Eq(u => u.BarberId, barberId)
+        );
                 return await _schedulingCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
             }
             catch (Exception e)
