@@ -1,24 +1,34 @@
-<div class="card" [class.schedule]="isSchedule" >
+<div class="card" [class.schedule]="isSchedule" [class.expand]="expand" >
   <div class="picture">
+    <!-- <i class="fa-brands fa-whatsapp"></i> -->
     <i class="fa-solid fa-scissors"></i>
   </div>
   <div class="content">
     <div class="title">
       <span>{{scheduleModel.clientName}}</span>
     </div>
-    <div class="desc date" *ngIf="scheduleModel.date != '' && showDate">
-      <span>{{scheduleModel.date}}</span>
-    </div>
-    <div class="desc" *ngIf="scheduleModel.time != ''">
-      <i class="fa-regular fa-clock"></i>
-      <span>{{scheduleModel.time}}</span>
-    </div>
-    <div class="desc" *ngIf="showPhone">
-      <i class="fa-solid fa-phone"></i>
-      <span>(21) 99757-1234</span>
+    <div class="desc_area">
+      <div class="desc date" *ngIf="scheduleModel.date != '' && showDate">
+        <i class="fa-brands fa-calendar"></i>
+        <span>{{scheduleModel.date}}</span>
+      </div>
+      <div class="desc phone" *ngIf="showPhone">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>(21) 99757-1234</span>
+      </div>
+      <div class="desc_column desc_time" *ngIf="scheduleModel.time != ''">
+        <span class="desc_title">Horário</span>
+        <span class="desc_content">{{scheduleModel.time}}</span>
+      </div>
+      <div class="desc_column desc_services" *ngIf="scheduleModel.serviceType.length > 0">
+        <span class="desc_title">Serviços</span>
+        <span class="desc_content" *ngFor="let item of scheduleModel.serviceType; let i = index">
+          {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}
+        </span>
+      </div>
     </div>
   </div>
-  <div class="edit_btn">
+  <div class="edit_btn" *ngIf="showOptions" (click)="expand = !expand">
     <i class="fa-solid fa-ellipsis-vertical"></i>
   </div>
 </div>

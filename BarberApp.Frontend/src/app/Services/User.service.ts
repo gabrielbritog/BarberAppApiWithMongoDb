@@ -2,6 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
+// Enum UserLevel
+//
+// ClientLevel = 0  => CLIENTE
+// BarberLevel = 1  => BARBEIRO
+// AdminLevel = 2   => EMPRESA
+
 const API_URL = 'https://localhost:7026/api/User/'
 const USER_BOARD = 'user';
 const ADMIN_BOARD = 'admin';

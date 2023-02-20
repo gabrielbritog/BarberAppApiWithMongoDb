@@ -40,6 +40,27 @@
         </label>
       </div>
 
+      <div class="cards_group">
+        <div class="group_title">
+          Serviços:
+        </div>
+        <div *ngFor="let item of serviceTypes"
+        class="card mini_card service_type"
+        [class.active]="selectedServiceTypes.includes(item)"
+        (click)="addToList(item)" >
+          <div class="title">
+            {{item.nameService}}
+          </div>
+          <div class="desc">
+            R${{item.valueService}},00
+          </div>
+        </div>
+        <div class="services_total">
+          <span>Total:</span>
+          <span>R${{totalServices}},00</span>
+        </div>
+      </div>
+
       <button type="submit" class="btn btn_submit">Agendar</button>
     </form>
   </div>

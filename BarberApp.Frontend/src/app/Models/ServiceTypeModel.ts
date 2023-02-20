@@ -1,6 +1,8 @@
 export class ServiceTypeModel {
-  nameService: string = "";
-  valueService: number = 0;
+  serviceTypeId = "";
+  nameService = "";
+  valueService = 0;
+  on = true;
 
   constructor(params?: Partial<ServiceTypeModel>) {
     if (!params)
