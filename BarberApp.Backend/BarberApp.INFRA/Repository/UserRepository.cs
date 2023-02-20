@@ -16,7 +16,6 @@ namespace BarberApp.Infra.Repository
         {
             var mongoClient = new MongoClient(userServices.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(userServices.Value.DatabaseName);
-
             _userCollection = mongoDatabase.GetCollection<User>
                 (userServices.Value.CollectionName);
         }

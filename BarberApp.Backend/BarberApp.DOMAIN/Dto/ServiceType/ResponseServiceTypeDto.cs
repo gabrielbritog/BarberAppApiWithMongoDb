@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BarberApp.Domain.Dto.ServiceType
@@ -16,5 +17,8 @@ namespace BarberApp.Domain.Dto.ServiceType
         public decimal ValueService { get; set; }
         [BsonElement("on")]
         public bool On { get; set; }
+        [BsonElement("barberId")]
+        [JsonIgnore]
+        public string? barberId { get; set; }
     }
 }

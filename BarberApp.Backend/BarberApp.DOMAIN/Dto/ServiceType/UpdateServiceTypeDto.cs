@@ -20,5 +20,7 @@ namespace BarberApp.Domain.Dto.ServiceType
         public decimal ValueService { get; set; }
         [BsonElement("on")]
         public bool On { get; set; }
+        [BsonElement("barberId")]
+        public string? barberId { get; set; }
     }
 }

@@ -10,5 +10,6 @@ namespace BarberApp.Domain.Interface.Services
     public interface ITokenService
     {
         string GenerateToken(User user);
+        string GenerateTokenBarber(Barber barber);
     }
 }
