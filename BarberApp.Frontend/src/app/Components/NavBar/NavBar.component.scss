@@ -104,14 +104,17 @@ nav{
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
       line-height: 1;
       font-weight: 600;
       .nav_item_title{
         font-size: 0;
       }
       &.active{
+        gap: 0.5rem;
         color: var(--app-color-primary);
+        i{
+          font-size: 1.2rem;
+        }
         .nav_item_title{
           font-size: .7em;
         }

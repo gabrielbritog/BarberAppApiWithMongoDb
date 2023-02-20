@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import { ServiceTypeModel } from './ServiceTypeModel';
 export class ScheduleModel {
+  schedulingId: string = "";
   clientName: string = "";
   serviceType: ServiceTypeModel[] = [];
   schedulingDate: string = "";

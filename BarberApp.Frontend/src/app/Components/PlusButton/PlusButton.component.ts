@@ -19,4 +19,9 @@ export class PlusButtonComponent implements OnInit {
   ngOnInit() {
   }
 
+  disableEditModal() {
+    GlobalVariables.editSchedule = undefined;
+    GlobalVariables.modalAsEdit = false;
+  }
+
 }
