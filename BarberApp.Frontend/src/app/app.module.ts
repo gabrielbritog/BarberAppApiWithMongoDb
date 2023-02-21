@@ -14,7 +14,6 @@ import { AccountPageComponent } from './Pages/HomePage/AccountPage/AccountPage.c
 import { HomePageComponent } from './Pages/HomePage/HomePage.component';
 
 // SERVICES
-import { AuthService } from './Services/Auth.service';
 import { FormValidationService } from './Services/FormValidation.service';
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
 
@@ -29,6 +28,7 @@ import { LoaderComponent } from './Components/Loader/Loader.component';
 import { PlusButtonComponent } from './Components/PlusButton/PlusButton.component';
 import { ServiceTypeCardComponent } from './Components/ServiceTypeCard/ServiceTypeCard.component';
 import { ClientCardComponent } from './Components/ClientCard/ClientCard.component';
+import { CarouselAvailableTimeComponent } from './Components/Carousels/CarouselAvailableTime/CarouselAvailableTime.component';
 
 // MODALS
 import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
@@ -60,6 +60,7 @@ import { ToastrModule } from 'ngx-toastr';
     ServiceTypeCardComponent,
     LoaderComponent,
     PlusButtonComponent,
+    CarouselAvailableTimeComponent,
 
     // MODAL
     SchedulingModalComponent,

@@ -1,3 +1,4 @@
+import { WorkingDays } from './WorkingDays';
 export class UserModel {
   userId?: string;
   firstName!: string;
@@ -10,6 +11,7 @@ export class UserModel {
   userLevel?: number;
   urlImagem?: string;
   userRegistration?: string;
+  workingDays?: WorkingDays[];
 
   constructor(params?: Partial<UserModel>) {
     if (params)

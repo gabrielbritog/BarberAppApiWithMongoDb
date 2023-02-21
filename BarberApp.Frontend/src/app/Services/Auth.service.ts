@@ -43,12 +43,12 @@ export class AuthService {
 
   update(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
-    return this.http.put(AUTH_API + UPDATE_ROUTE, {
+    return this.http.put<any>(AUTH_API + UPDATE_ROUTE, {
       firstname: credentials.firstname,
       Lastname: credentials.lastname,
       cep: credentials.cep,
+      phoneNumber: credentials.phoneNumber
       // email: credentials.email,
-      phoneNumber: credentials.phonenumber
     });
   }
 }

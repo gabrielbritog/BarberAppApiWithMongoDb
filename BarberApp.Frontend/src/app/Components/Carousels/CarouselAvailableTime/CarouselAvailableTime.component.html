@@ -1,0 +1,23 @@
+<div class="section_container">
+
+  <div class="section_title">
+    Horário
+  </div>
+  <div class="cards_wrapper">
+    <ng-container
+    *ngFor="let item of availableTime"
+    >
+      <div
+      class="card card_item"
+      [class.active]="selectedItem == item"
+      (click)="setCurrent(item)"
+      >
+      <div class="picture">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+      {{item.time}}
+      </div>
+    </ng-container>
+  </div>
+
+</div>

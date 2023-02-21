@@ -1,5 +1,5 @@
 import { ServiceTypeModel } from './../../../Models/ServiceTypeModel';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
@@ -19,6 +19,12 @@ export class SchedulingModalComponent implements OnInit {
 
   selectedServiceTypes: ServiceTypeModel[] = [];
 
+  currentDay = this.isEditModal ?
+      moment.utc(this.scheduleModel.schedulingDate).format('YYYY-MM-DD') :
+      GlobalVariables.currentDay.format('YYYY-MM-DD');
+
+  currentTime = moment.utc(this.scheduleModel.schedulingDate).format('HH:mm');
+
   get totalServices() {
     return this.selectedServiceTypes
       .map(p => p.valueService)
@@ -37,15 +43,49 @@ export class SchedulingModalComponent implements OnInit {
 
   get serviceTypes() { return GlobalVariables.serviceTypes; }
 
-  get currentDay() {
-    return this.isEditModal ?
-      moment.utc(this.scheduleModel.schedulingDate).format('YYYY-MM-DD') :
-      GlobalVariables.currentDay.format('YYYY-MM-DD');
+  get isTodayDate() {
+    return this.currentDay == moment().format('YYYY-MM-DD');
   }
 
-  get currentTime() {
-    return moment.utc(this.scheduleModel.schedulingDate).format('HH:mm');
+  get currentDaySchedules() {
+    var result = GlobalVariables.schedules
+                .filter(p => p.date == GlobalVariables.currentDay.format('L'))
+                .sort((n1, n2) => {
+                  if (n1.time > n2.time) {
+                      return 1;
+                  }
+                  if (n1.time < n2.time) {
+                      return -1;
+                  }
+                  return 0;
+                });
+    return result;
+  };
+
+  get availableSchedules() {
+    const emptySchedulesTemplate = GlobalVariables.emptySchedules;
+    let currentDaySchedules = this.currentDaySchedules;
+    let schedules: ScheduleModel[] = [];
+
+    for (let index = 0; index < emptySchedulesTemplate.length; index++) {
+      let newSchedule = new ScheduleModel({
+        date: GlobalVariables.currentDay.format('YYYY-MM-DD'),
+        time: emptySchedulesTemplate[index].time
+      })
+
+      let schedule = currentDaySchedules.find(p => p.time == newSchedule.time);
+
+      if (!schedule)
+        schedules.push(newSchedule);
+    }
+
+    if (this.isTodayDate)
+      schedules = schedules.filter(p=> p.time >=  moment().format('HH:mm'))
+
+    return schedules;
   }
+
+
 
   constructor(private schedulingService: SchedulingService) {
   }
