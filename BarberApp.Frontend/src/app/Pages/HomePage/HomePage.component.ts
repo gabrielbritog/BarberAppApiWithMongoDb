@@ -27,6 +27,7 @@ export class HomePageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
+    GlobalVariables.FillProperties();
     this.getSchedules();
     this.getServiceTypes();
   }
@@ -37,6 +38,7 @@ export class HomePageComponent implements OnInit {
         let schedules: ScheduleModel[] = data.data.map((element: any) => new ScheduleModel(element));
         GlobalVariables.schedules = schedules;
         LoaderComponent.SetOptions(false);
+
         this.loadedSchedules = true;
       },
       error: (err) => {

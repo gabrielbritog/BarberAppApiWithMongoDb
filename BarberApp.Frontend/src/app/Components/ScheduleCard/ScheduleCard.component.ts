@@ -9,13 +9,12 @@ import { GlobalVariables } from '../../Helpers/GlobalVariables';
 })
 export class ScheduleCardComponent implements OnInit {
 
-  @Input('scheduleModel') scheduleModel!: ScheduleModel;
-  @Input('isSchedule') isSchedule = true;
-  @Input('showDate') showDate = false;
-  @Input('showPhone') showPhone = false;
+  @Input('model') scheduleModel = new ScheduleModel();
   @Input('showOptions') showOptions = true;
 
-  expand = false;
+  get isEmptyModel() {
+    return this.scheduleModel.clientName == '' && this.scheduleModel.serviceType.length == 0;
+  }
 
   constructor() { }
 
@@ -24,6 +23,13 @@ export class ScheduleCardComponent implements OnInit {
 
   editSchedule() {
     GlobalVariables.modalAsEdit = true;
+    GlobalVariables.editSchedule = this.scheduleModel;
+
+    GlobalVariables.showScheduleModal = true;
+  }
+
+  newSchedule() {
+    GlobalVariables.modalAsEdit = false;
     GlobalVariables.editSchedule = this.scheduleModel;
 
     GlobalVariables.showScheduleModal = true;

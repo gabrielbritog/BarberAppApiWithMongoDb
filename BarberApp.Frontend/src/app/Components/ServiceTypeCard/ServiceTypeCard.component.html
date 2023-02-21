@@ -1,0 +1,18 @@
+<div class="card service_type" (click)="editService()">
+
+  <div class="picture">
+    <!-- <i class="fa-brands fa-whatsapp"></i> -->
+    <i class="fa-solid fa-scissors"></i>
+  </div>
+  <div class="content">
+    <div class="title">
+      <span>{{serviceModel.nameService}}</span>
+    </div>
+    <div class="desc_area">
+      <div class="desc price">
+        <span>{{formatToMoney(serviceModel.valueService)}}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

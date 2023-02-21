@@ -1,14 +1,9 @@
-<app-ServiceTypeModal></app-ServiceTypeModal>
+<app-ServiceTypeModal *ngIf="showModal"></app-ServiceTypeModal>
 <app-PlusButton [onClickEvent]="newServiceType"></app-PlusButton>
 <div class="section_container">
 
-  <div *ngFor="let item of allServiceTypes" class="card service_card">
-    <div class="title">
-      {{item.nameService}}
-    </div>
-    <div class="price">
-      {{formatToMoney(item.valueService)}}
-    </div>
-  </div>
+  <ng-container *ngFor="let item of allServiceTypes" >
+    <app-ServiceTypeCard [model]="item"></app-ServiceTypeCard>
+  </ng-container>
 
 </div>

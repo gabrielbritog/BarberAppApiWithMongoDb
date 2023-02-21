@@ -34,6 +34,15 @@ export class SchedulingService {
     });
   }
 
+  updateServiceType(serviceType: ServiceTypeModel): Observable<any>{
+    return this.http.put<any>(BASE_URL_API + URL_SERVICETYPE + ROUTE_UPDATE, {
+      serviceTypeId: serviceType.serviceTypeId,
+      nameService: serviceType.nameService,
+      valueService: serviceType.valueService,
+      on: serviceType.on
+    });
+  }
+
   getAllServiceType(): Observable<any> {
     return this.getManyServiceType(1, 50);
   }
