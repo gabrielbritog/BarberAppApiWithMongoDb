@@ -13,7 +13,6 @@ namespace BarberApp.Domain.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [JsonIgnore]
         [BsonElement("barberId")]
         public string BarberId { get; set; }
         [BsonElement("userId")]
@@ -39,7 +38,8 @@ namespace BarberApp.Domain.Models
         public string PasswordSalt { get; set; }
         [BsonElement("disabled")]
         public bool Disabled { get; set; }
- 
+        [BsonElement("workingDays")]
+        public List<WeekDays> WorkingDays { get; set; }
 
     }
 }

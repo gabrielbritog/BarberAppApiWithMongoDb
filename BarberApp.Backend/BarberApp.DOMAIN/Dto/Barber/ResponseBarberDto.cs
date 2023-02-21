@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using BarberApp.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,7 @@ namespace BarberApp.Domain.Dto.Barber
         public DateTime UserRegistration { get; set; }
         [BsonElement("disbled")]
         public bool Disabled { get; set; }
+        [BsonElement("workingDays")]
+        public List<WeekDays> WorkingDays { get; set; }
     }
 }

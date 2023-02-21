@@ -35,6 +35,10 @@ namespace BarberApp.Service.Service
         {
             return await _serviceTypeRepository.GetMany(userId,start,count);
         }
+        public async Task<List<ServiceType>> GetMany(string userId,string barberId, int start, int count)
+        {
+            return await _serviceTypeRepository.GetMany(userId,barberId, start, count);
+        }
 
         public async Task<ServiceType> GetById(string userId, string idService)
         {
@@ -50,6 +54,16 @@ namespace BarberApp.Service.Service
                 return serviceType;       
             
         }
+        public async Task<RegisterServiceTypeDto> Register(RegisterServiceTypeDto serviceType, string UserId, string barberId)
+        {
+            serviceType.barberId = barberId;
+            serviceType.On = true;
+            serviceType.UserId = UserId;
+            var serviceMap = _mapper.Map<ServiceType>(serviceType);
+            await _serviceTypeRepository.Register(serviceMap, UserId);
+            return serviceType;
+
+        }
 
         public async Task<ResponseServiceTypeDto> Update(UpdateServiceTypeDto serviceType, string userId)
         {
@@ -58,8 +72,12 @@ namespace BarberApp.Service.Service
                 serviceType.NameService = serviceTypeDb.NameService;
             if (serviceType.ValueService == 0)
                 serviceType.ValueService = serviceTypeDb.ValueService;
-            
-           await _serviceTypeRepository.Update(_mapper.Map<ServiceType>(serviceType), serviceType.ServiceTypeId, userId);
+            if (string.IsNullOrWhiteSpace(serviceType.barberId))
+                serviceType.barberId = serviceTypeDb.BarberId;
+            if (string.IsNullOrWhiteSpace(serviceType.Duration))
+                serviceType.Duration = serviceTypeDb.Duration;
+
+            await _serviceTypeRepository.Update(_mapper.Map<ServiceType>(serviceType), serviceType.ServiceTypeId, userId);
             return _mapper.Map<ResponseServiceTypeDto>(serviceType);
         }
     }

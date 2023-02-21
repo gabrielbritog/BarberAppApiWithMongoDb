@@ -1,18 +1,11 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Scheduling;
-using BarberApp.Domain.Dto.ServiceType;
-using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
-using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BarberApp.Service.Service
 {
@@ -29,6 +22,10 @@ namespace BarberApp.Service.Service
         public async Task<DeleteResult> DeleteAll(string userId)
         {
             return await _schedulingRepository.DeleteAll(userId);
+        }  
+        public async Task<DeleteResult> DeleteAll(string userId,string barberId)
+        {
+            return await _schedulingRepository.DeleteAll(userId, barberId);
         }
 
         public async Task<DeleteResult> DeleteById(string userId, string schedulingId)
@@ -40,6 +37,12 @@ namespace BarberApp.Service.Service
         {
             var result = await _schedulingRepository.GetMany(userId,start,count);
             return _mapper.Map<List<ResponseSchedulingDto>>(result);
+        } 
+
+        public async Task<List<ResponseSchedulingDto>> GetMany(string userId, string barberId, int start, int count)
+        {
+            var result = await _schedulingRepository.GetMany(userId,barberId,start,count);
+            return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
 
         public async Task<ResponseSchedulingDto> GetById(string schedulingId,string userId)
@@ -50,14 +53,14 @@ namespace BarberApp.Service.Service
         }
 
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
-        {
-            
-                
+        {           
+               
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);           
             schedulingMap.UserId = UserId;
                 var quantity = scheduling.ServiceType.Count();
             for (int i = 0; i < quantity;)
             {
+                schedulingMap.Total += schedulingMap.ServiceType[i].ValueService;
                 schedulingMap.ServiceType[i].UserId = UserId;
                 i++;
             }          
@@ -65,15 +68,41 @@ namespace BarberApp.Service.Service
             return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
         }
 
+        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId,string barberId)
+        {
+            scheduling.barberId = barberId;
+            var schedulingMap = _mapper.Map<Scheduling>(scheduling);
+            schedulingMap.UserId = UserId;
+            var quantity = scheduling.ServiceType.Count();
+            for (int i = 0; i < quantity;)
+            {
+                schedulingMap.Total += schedulingMap.ServiceType[i].ValueService;
+                schedulingMap.ServiceType[i].BarberId = barberId;
+                schedulingMap.ServiceType[i].UserId = UserId;
+                i++;
+            }
+            await _schedulingRepository.Register(schedulingMap, UserId);
+            return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
+        }
+
         public async Task<ResponseSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId)
         {
+            var quantity = scheduling.ServiceType.Count();
+            for (int i = 0; i < quantity;)
+            {
+                scheduling.Total += scheduling.ServiceType[i].ValueService;
+                i++;
+            }
+
             var schedulingDb = await this.GetById(scheduling.SchedulingId, userId);
             if (string.IsNullOrWhiteSpace(scheduling.ClientName))
                 scheduling.ClientName = schedulingDb.ClientName;
             if (scheduling.ServiceType == null)
                 scheduling.ServiceType = _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
-            if(scheduling.SchedulingDate == null)
+            if(scheduling.SchedulingDate == null || scheduling.SchedulingDate == DateTime.MinValue)
                 scheduling.SchedulingDate = schedulingDb.SchedulingDate;
+            if (scheduling.EndOfSchedule == null || scheduling.SchedulingDate == DateTime.MinValue)
+                scheduling.EndOfSchedule = schedulingDb.EndOfSchedule;
 
             await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), scheduling.SchedulingId, userId);
 

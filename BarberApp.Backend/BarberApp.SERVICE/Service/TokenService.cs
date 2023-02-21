@@ -46,6 +46,7 @@ namespace BarberApp.Service.Service
                 Subject = new ClaimsIdentity(new Claim[]{
                     new Claim("UserId", barber.UserId.ToString()),
                     new Claim("BarberId", barber.BarberId.ToString()),
+                    new Claim("Email", barber.Email.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Aud, _configuration.Audience),
                     new Claim(JwtRegisteredClaimNames.Iss, _configuration.Issuer)

@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using BarberApp.Domain.Models;
+using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace BarberApp.Domain.Dto.User
@@ -15,8 +16,8 @@ namespace BarberApp.Domain.Dto.User
         public string PhoneNumber { get; set; } = null!;
         [StringLength(30, MinimumLength = 8, ErrorMessage = "Senha deve conter minimo de 8 caracteres")]
         public string Password { get; set; } = null!;
-        public int? Plano { get; set; }
-         [BsonElement("disabled")]
+        [BsonElement("workingDays")]
+        public List<WeekDays> WorkingDays { get; set; }
         public bool Disabled { get; set; }
     }
 }

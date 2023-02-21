@@ -20,7 +20,7 @@ namespace BarberApp.Infra.Repository
             var mongoDatabase = mongoClient.GetDatabase(serviceTypeCollection.Value.DatabaseName);
 
             _serviceTypeCollection = mongoDatabase.GetCollection<ServiceType>
-                (serviceTypeCollection.Value.CollectionName);
+                (serviceTypeCollection.Value.ServiceTypeCollectionName);
         }
         public Task<ServiceType> Delete(ServiceType serviceType, string UserId)
         {
@@ -32,6 +32,24 @@ namespace BarberApp.Infra.Repository
             try
             {
                 var filter = Builders<ServiceType>.Filter.Eq(u => u.UserId, userId);
+                var services =  _serviceTypeCollection.Find(filter).Skip(start - 1).Limit(count);
+                return await services.ToListAsync();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+                  } 
+
+        public async Task<List<ServiceType>> GetMany(string userId,string barberId, int start, int count)
+        {
+            try
+            {
+                var filter = Builders<ServiceType>.Filter.And(
+            Builders<ServiceType>.Filter.Eq(u => u.UserId, userId),
+            Builders<ServiceType>.Filter.Eq(u => u.BarberId, barberId)
+        );
                 var services =  _serviceTypeCollection.Find(filter).Skip(start - 1).Limit(count);
                 return await services.ToListAsync();
             }
@@ -82,7 +100,8 @@ namespace BarberApp.Infra.Repository
             var update = Builders<ServiceType>.Update
                 .Set(s => s.NameService, serviceType.NameService)
                 .Set(s => s.ValueService, serviceType.ValueService)
-                .Set(s => s.On, serviceType.On);
+                .Set(s => s.On, serviceType.On)
+                .Set(s=> s.Duration,serviceType.Duration);
             var result = await _serviceTypeCollection.UpdateOneAsync(filter, update);
             return serviceType;
         }

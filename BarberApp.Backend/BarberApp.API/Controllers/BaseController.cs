@@ -25,9 +25,18 @@ namespace BarberApp.Api.Controllers
         {
             get
             {
-                return this.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value;
+                return this.User.Claims.FirstOrDefault(c => c.Type == "BarberId").Value;
             }
         }
+        public string BarberEmail
+        {
+            get
+            {
+                return this.User.Claims.FirstOrDefault(c => c.Type == "Email").Value;
+            }
+        }
+
+
 
     }
 }

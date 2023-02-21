@@ -7,7 +7,7 @@ namespace BarberApp.Domain.Dto.ServiceType
     public class RegisterServiceTypeDto
     {
         [BsonElement("serviceTypeId")]
-
+        [JsonIgnore]
         public string ServiceTypeId { get; set; }
         [BsonElement("UserId")]
         [JsonIgnore]
@@ -22,5 +22,7 @@ namespace BarberApp.Domain.Dto.ServiceType
         [BsonElement("barberId")]
         [JsonIgnore]
         public string? barberId { get; set; }
+        [BsonElement("duration")]
+        public string Duration { get; set; }
     }
 }

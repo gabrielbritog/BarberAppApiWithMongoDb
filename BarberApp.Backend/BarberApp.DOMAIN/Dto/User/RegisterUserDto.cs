@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using BarberApp.Domain.Models;
 
 namespace BarberApp.Domain.Dto.User
 {
@@ -35,5 +36,7 @@ namespace BarberApp.Domain.Dto.User
         [BsonElement("passwordSalt")]
         [JsonIgnore]
         public string PasswordSalt { get; set; }
+        [BsonElement("workingDays")]
+        public List<WeekDays> WorkingDays { get; set; }
     }
 }

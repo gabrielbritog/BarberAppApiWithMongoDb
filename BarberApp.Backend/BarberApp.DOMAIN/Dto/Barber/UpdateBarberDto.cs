@@ -1,23 +1,19 @@
-﻿using MongoDB.Bson;
+﻿using BarberApp.Domain.Models;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace BarberApp.Domain.Models
+namespace BarberApp.Domain.Dto.Barber
 {
-    public class User
+    public class UpdateBarberDto
     {
-
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        [JsonIgnore]
-        [BsonElement("userId")]
-        public string UserId { get; set; }
-        [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
         [BsonElement("lastName")]
         public string LastName { get; set; } = null!;
-        [BsonElement("cep")]
-        public string Cep { get; set; } = null!;
         [BsonElement("email")]
         public string Email { get; set; } = null!;
         [BsonElement("urlImage")]
@@ -26,17 +22,16 @@ namespace BarberApp.Domain.Models
         public string Password { get; set; } = null!;
         [BsonElement("phoneNumber")]
         public string PhoneNumber { get; set; } = null!;
-        [BsonElement("userLevel")]
-        public int UserLevel { get; set; }
         [BsonElement("userRegistration")]
+        [JsonIgnore]
         public DateTime UserRegistration { get; set; }
         [JsonIgnore]
         [BsonElement("passwordSalt")]
         public string PasswordSalt { get; set; }
         [BsonElement("disabled")]
-        public bool Disabled { get; set; } 
+        [JsonIgnore]
+        public bool Disabled { get; set; }
         [BsonElement("workingDays")]
         public List<WeekDays> WorkingDays { get; set; }
-
     }
 }
