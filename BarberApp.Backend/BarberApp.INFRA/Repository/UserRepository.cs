@@ -63,6 +63,7 @@ namespace BarberApp.Infra.Repository
             try
             {
                 user.Email = user.Email.ToLower();
+                user.CompanyName = user.CompanyName.ToLower();
                 await _userCollection.InsertOneAsync(user);
                 return user;
             }
@@ -99,6 +100,24 @@ namespace BarberApp.Infra.Repository
 
                 throw new Exception(e.Message);
             }
+        }
+
+        public async Task<User> GetByCompanyName(string companyName)
+        {
+            try
+            {
+                var filter = Builders<User>.Filter.Eq(u => u.CompanyName, companyName.ToLower());
+                var result = await _userCollection.Find(filter).FirstOrDefaultAsync();
+                if (result == null)
+                    throw new Exception("Empresa não encontrada.");
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+           
         }
     }
 }

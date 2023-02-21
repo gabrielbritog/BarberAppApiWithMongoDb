@@ -14,6 +14,8 @@ namespace BarberApp.Domain.Dto.User
         public string UserId { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
+        [BsonElement("companyName")]
+        public string CompanyName { get; set; }
         public string LastName { get; set; } = null!;
         [JsonIgnore]
         public DateTime UserRegistration { get; set; }

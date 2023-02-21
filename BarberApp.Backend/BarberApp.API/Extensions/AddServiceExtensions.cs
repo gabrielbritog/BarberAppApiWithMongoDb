@@ -25,6 +25,9 @@ namespace BarberApp.Api.Extensions
             services.AddScoped<IBarberRepository, BarberRepository>();
             services.AddScoped<IBarberService, BarberService>();
 
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IClientService, ClientService>();
+
             return services;
         }
     }

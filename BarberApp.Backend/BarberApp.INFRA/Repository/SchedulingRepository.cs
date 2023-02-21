@@ -134,7 +134,7 @@ namespace BarberApp.Infra.Repository
        {
             var filter = Builders<Scheduling>.Filter.Eq(s => s.SchedulingId, scheduling.SchedulingId);
             var update = Builders<Scheduling>.Update
-                .Set(s => s.ClientName, scheduling.ClientName)
+                .Set(s => s.Client, scheduling.Client)
                 .Set(s => s.ServiceType, scheduling.ServiceType)
                 .Set(s => s.SchedulingDate, scheduling.SchedulingDate)
                 .Set(s => s.EndOfSchedule, scheduling.EndOfSchedule); 

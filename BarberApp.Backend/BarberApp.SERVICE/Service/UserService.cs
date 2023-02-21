@@ -58,8 +58,12 @@ namespace BarberApp.Service.Service
         public async Task<ResponseUserDto> Register(RegisterUserDto user)
         {
             var checkEmail = await this.GetByEmail($"{user.Email}");
+            var checkCompany = await this.GetByCompanyName($"{user.CompanyName}");
+
             if (checkEmail != null)             
                 throw new Exception("Email já está sendo usado");
+            if (checkCompany != null)
+                throw new Exception("Nome da empresa já está sendo usado");
             user.PasswordSalt = new Random().Next().GetHashCode().ToString();
             user.Password = EncryptPassword(user.Password+user.PasswordSalt);  
             var UserMap = _mapper.Map<User>(user);
@@ -72,7 +76,7 @@ namespace BarberApp.Service.Service
         {
 
             var userDb = await this.GetByEmail($"{email}");
-            var checkEmail = await this.GetByEmail($"{user.Email}");
+            var checkEmail = await this.GetByCompanyName($"{user.CompanyName}");
             user.UserId = userDb.UserId;
             user.UserRegistration = userDb.UserRegistration;
             if (checkEmail != null)
@@ -94,6 +98,11 @@ namespace BarberApp.Service.Service
                 user.WorkingDays = userDb.WorkingDays;
             var result = await _userRepository.Update(_mapper.Map<User>(user) , email);
             return _mapper.Map<ResponseUserDto>(result);
+        }
+
+        public async Task<User> GetByCompanyName(string companyName)
+        {
+            return await _userRepository.GetByCompanyName(companyName);
         }
     }
 }

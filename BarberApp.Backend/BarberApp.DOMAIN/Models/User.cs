@@ -9,9 +9,10 @@ namespace BarberApp.Domain.Models
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [JsonIgnore]
         [BsonElement("UserId")]
         public string UserId { get; set; }
+        [BsonElement("companyName")]
+        public string CompanyName { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
         [BsonElement("lastName")]

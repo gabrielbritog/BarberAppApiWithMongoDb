@@ -16,6 +16,9 @@ namespace BarberApp.Domain.Dto.User
         [BsonElement("firstName")]
         [Required(ErrorMessage = "Primeiro nome é obrigatório")]
         public string FirstName { get; set; } = null!;
+        [BsonElement("companyName")]
+        [Required(ErrorMessage = "Nome da Empresa é obrigatório")]
+        public string CompanyName { get; set; }
         [BsonElement("lastName")]
         [Required(ErrorMessage = "Último nome é obrigatório")]
         public string LastName { get; set; } = null!;

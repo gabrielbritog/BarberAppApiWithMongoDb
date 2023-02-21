@@ -11,8 +11,8 @@ namespace BarberApp.Domain.Models
         public string SchedulingId { get; set; }
         [BsonElement("userId")]
         public string UserId { get; set; }
-        [BsonElement("clientName")]
-        public string ClientName { get; set; } = null!;
+        [BsonElement("client")]
+        public Client Client { get; set; } = null!;
         [BsonElement("serviceType")]
         public List<ServiceType> ServiceType { get; set; }
         [BsonElement("total")]

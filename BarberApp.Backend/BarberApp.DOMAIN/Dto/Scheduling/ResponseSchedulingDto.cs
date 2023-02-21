@@ -1,4 +1,5 @@
-﻿using BarberApp.Domain.Dto.ServiceType;
+﻿using BarberApp.Domain.Dto.Client;
+using BarberApp.Domain.Dto.ServiceType;
 using BarberApp.Domain.Models;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
@@ -12,9 +13,9 @@ namespace BarberApp.Domain.Dto.Scheduling
 {
     public class ResponseSchedulingDto
     {
+        [BsonElement("client")]
+        public RegisterClientDto Client { get; set; } = null!;
         public string SchedulingId { get; set; }
-        [BsonElement("clientName")]
-        public string ClientName { get; set; }
         [BsonElement("serviceType")]
         public List<RegisterServiceTypeDto> ServiceType { get; set; }
         [BsonElement("total")]
