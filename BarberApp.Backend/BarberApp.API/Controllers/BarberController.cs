@@ -82,7 +82,6 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-
         [HttpPost("RegisterScheduling")]
         [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> RegisterScheduling([FromBody] RegisterSchedulingDto scheduling)

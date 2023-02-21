@@ -16,6 +16,9 @@ namespace BarberApp.Domain.Dto.Scheduling
         public string ClientName { get; set; } = null!;
         [BsonElement("serviceType")]
         public List<RegisterServiceTypeDto> ServiceType { get; set; }
+        [BsonElement("total")]
+        [JsonIgnore]
+        public decimal Total { get; set; }
         [BsonElement("schedulingDate")]
         public DateTime? SchedulingDate { get; set; }
         [BsonElement("endOfSchedule")]

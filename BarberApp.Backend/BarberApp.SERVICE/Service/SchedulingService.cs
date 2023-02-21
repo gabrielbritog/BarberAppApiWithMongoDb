@@ -53,14 +53,14 @@ namespace BarberApp.Service.Service
         }
 
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
-        {
-            
-                
+        {           
+               
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);           
             schedulingMap.UserId = UserId;
                 var quantity = scheduling.ServiceType.Count();
             for (int i = 0; i < quantity;)
             {
+                schedulingMap.Total += schedulingMap.ServiceType[i].ValueService;
                 schedulingMap.ServiceType[i].UserId = UserId;
                 i++;
             }          
@@ -76,6 +76,7 @@ namespace BarberApp.Service.Service
             var quantity = scheduling.ServiceType.Count();
             for (int i = 0; i < quantity;)
             {
+                schedulingMap.Total += schedulingMap.ServiceType[i].ValueService;
                 schedulingMap.ServiceType[i].BarberId = barberId;
                 schedulingMap.ServiceType[i].UserId = UserId;
                 i++;
@@ -86,6 +87,13 @@ namespace BarberApp.Service.Service
 
         public async Task<ResponseSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId)
         {
+            var quantity = scheduling.ServiceType.Count();
+            for (int i = 0; i < quantity;)
+            {
+                scheduling.Total += scheduling.ServiceType[i].ValueService;
+                i++;
+            }
+
             var schedulingDb = await this.GetById(scheduling.SchedulingId, userId);
             if (string.IsNullOrWhiteSpace(scheduling.ClientName))
                 scheduling.ClientName = schedulingDb.ClientName;
