@@ -100,7 +100,8 @@ namespace BarberApp.Infra.Repository
             var update = Builders<ServiceType>.Update
                 .Set(s => s.NameService, serviceType.NameService)
                 .Set(s => s.ValueService, serviceType.ValueService)
-                .Set(s => s.On, serviceType.On);
+                .Set(s => s.On, serviceType.On)
+                .Set(s=> s.Duration,serviceType.Duration);
             var result = await _serviceTypeCollection.UpdateOneAsync(filter, update);
             return serviceType;
         }

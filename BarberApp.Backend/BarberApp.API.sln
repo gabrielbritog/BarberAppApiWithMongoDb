@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberApp.Api", "BarberApp.API\BarberApp.Api.csproj", "{58D9B91A-33D8-48DF-8CFF-DC3CB06C7A86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberApp.Api", "BarberApp.API\BarberApp.Api.csproj", "{58D9B91A-33D8-48DF-8CFF-DC3CB06C7A86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberApp.Domain", "BarberApp.DOMAIN\BarberApp.Domain.csproj", "{93A9479F-EBED-4D53-B7A5-C0CB0FF11ACF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberApp.Domain", "BarberApp.DOMAIN\BarberApp.Domain.csproj", "{93A9479F-EBED-4D53-B7A5-C0CB0FF11ACF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberApp.Infra", "BarberApp.INFRA\BarberApp.Infra.csproj", "{D8E22944-CC57-4C98-84AD-E61D86F98B4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberApp.Infra", "BarberApp.INFRA\BarberApp.Infra.csproj", "{D8E22944-CC57-4C98-84AD-E61D86F98B4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberApp.Service", "BarberApp.SERVICE\BarberApp.Service.csproj", "{555C660C-7F9E-4CE5-9825-5CD0D6B28DFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberApp.Service", "BarberApp.SERVICE\BarberApp.Service.csproj", "{555C660C-7F9E-4CE5-9825-5CD0D6B28DFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DDACE0D5-4602-4568-9A6B-B0F0FA552433}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

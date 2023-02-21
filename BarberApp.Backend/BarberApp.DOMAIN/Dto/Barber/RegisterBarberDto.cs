@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using BarberApp.Domain.Models;
 
 namespace BarberApp.Domain.Dto.Barber
 {
@@ -39,6 +40,8 @@ namespace BarberApp.Domain.Dto.Barber
         [BsonElement("disabled")]
         [JsonIgnore]
         public bool Disabled { get; set; }
+        [BsonElement("workingDays")]
+        public List<WeekDays> WorkingDays { get; set; }
     }
 
 }

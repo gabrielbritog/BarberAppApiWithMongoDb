@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using BarberApp.Domain.Models;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace BarberApp.Domain.Dto.User
         public string UrlImagem { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         public int UserLevel { get; set; }
+        public List<WeekDays> WorkingDays { get; set; }
         public DateTime UserRegistration { get; set; }
     }
 }

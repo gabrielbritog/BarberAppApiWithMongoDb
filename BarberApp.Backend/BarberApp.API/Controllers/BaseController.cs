@@ -28,8 +28,15 @@ namespace BarberApp.Api.Controllers
                 return this.User.Claims.FirstOrDefault(c => c.Type == "BarberId").Value;
             }
         }
+        public string BarberEmail
+        {
+            get
+            {
+                return this.User.Claims.FirstOrDefault(c => c.Type == "Email").Value;
+            }
+        }
 
-     
+
 
     }
 }

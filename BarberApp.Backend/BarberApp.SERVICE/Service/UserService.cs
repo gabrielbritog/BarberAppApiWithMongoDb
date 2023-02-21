@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
@@ -87,7 +88,8 @@ namespace BarberApp.Service.Service
                 user.PhoneNumber = userDb.PhoneNumber;
             if (string.IsNullOrEmpty(user.Cep))
                 user.Cep = userDb.Cep;
-         
+            if (user.WorkingDays == null)
+                user.WorkingDays = userDb.WorkingDays;
             var result = await _userRepository.Update(_mapper.Map<User>(user) , email);
             return _mapper.Map<ResponseUserDto>(result);
         }

@@ -55,7 +55,19 @@ namespace BarberApp.Api.Controllers
             }
 
         }
+        [HttpPut("Update")]
+        public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> update([FromBody] UpdateBarberDto barber)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.Update(barber,BarberEmail,BarberId)));
+            }
+            catch (Exception e)
+            {
 
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+        }
         [HttpGet("GetMany")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> GetMany([FromQuery] int start, [FromQuery] int count)
         {
@@ -135,6 +147,34 @@ namespace BarberApp.Api.Controllers
             try
             {
                 return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.DeleteAll(Id, BarberId)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
+        [HttpPut("UpdateScheduling")]
+        public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> UpdateScheduling(UpdateSchedulingDto scheduling)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Update(scheduling, Id)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
+        [HttpPut("UpdateServiceType")]
+        public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> UpdateServiceType(UpdateServiceTypeDto serviceType)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceTypeService.Update(serviceType, Id)));
             }
             catch (Exception e)
             {

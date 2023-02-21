@@ -77,9 +77,27 @@ namespace BarberApp.Service.Service
             return _mapper.Map<ResponseBarberDto>(BarberMap);
         }
 
-        public Task<ResponseBarberDto> Update(Barber barber, string userId)
+        public async Task<ResponseBarberDto> Update(UpdateBarberDto barber, string email, string barberId)
         {
-            throw new NotImplementedException();
+            var barberDb = await this.GetByEmail($"{email}");
+            var checkEmail = await this.GetByEmail($"{barber.Email}");
+            if (checkEmail != null)
+                throw new Exception("Email já está sendo usado");
+            if (string.IsNullOrEmpty(barber.FirstName))
+                barber.FirstName = barberDb.FirstName;
+            if (string.IsNullOrEmpty(barber.LastName))
+                barber.LastName = barberDb.LastName;
+            barber.Password = string.IsNullOrEmpty(barber.Password) ? barberDb.Password : EncryptPassword(barber.Password + barberDb.PasswordSalt);
+            if (string.IsNullOrEmpty(barber.Email))
+                barber.Email = barberDb.Email;
+            if (string.IsNullOrEmpty(barber.UrlImage))
+                barber.UrlImage = barberDb.UrlImage;
+            if (string.IsNullOrEmpty(barber.PhoneNumber))
+                barber.PhoneNumber = barberDb.PhoneNumber;
+            if (barber.WorkingDays == null)
+                barber.WorkingDays = barberDb.WorkingDays;
+            var result = await _barberRepository.Update(_mapper.Map<Barber>(barber), barberId);
+            return _mapper.Map<ResponseBarberDto>(result);
         }
     }
 }

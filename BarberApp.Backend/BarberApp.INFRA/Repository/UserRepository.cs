@@ -87,7 +87,8 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.Cep, user.Cep)
                     .Set(u => u.Email, user.Email)
                     .Set(u => u.PhoneNumber, user.PhoneNumber)
-                    .Set(u => u.Disabled, user.Disabled);
+                    .Set(u => u.Disabled, user.Disabled)
+                    .Set(u => u.WorkingDays, user.WorkingDays);
                 var result = await _userCollection.UpdateOneAsync(filter, update);
                 if (result.MatchedCount == 0)
                     throw new Exception("Usuário não encontrado.");

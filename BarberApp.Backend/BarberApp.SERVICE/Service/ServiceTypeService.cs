@@ -72,8 +72,12 @@ namespace BarberApp.Service.Service
                 serviceType.NameService = serviceTypeDb.NameService;
             if (serviceType.ValueService == 0)
                 serviceType.ValueService = serviceTypeDb.ValueService;
-            
-           await _serviceTypeRepository.Update(_mapper.Map<ServiceType>(serviceType), serviceType.ServiceTypeId, userId);
+            if (string.IsNullOrWhiteSpace(serviceType.barberId))
+                serviceType.barberId = serviceTypeDb.BarberId;
+            if (string.IsNullOrWhiteSpace(serviceType.Duration))
+                serviceType.Duration = serviceTypeDb.Duration;
+
+            await _serviceTypeRepository.Update(_mapper.Map<ServiceType>(serviceType), serviceType.ServiceTypeId, userId);
             return _mapper.Map<ResponseServiceTypeDto>(serviceType);
         }
     }

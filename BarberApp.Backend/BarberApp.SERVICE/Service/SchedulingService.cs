@@ -1,18 +1,11 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Scheduling;
-using BarberApp.Domain.Dto.ServiceType;
-using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
-using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BarberApp.Service.Service
 {
@@ -98,8 +91,10 @@ namespace BarberApp.Service.Service
                 scheduling.ClientName = schedulingDb.ClientName;
             if (scheduling.ServiceType == null)
                 scheduling.ServiceType = _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
-            if(scheduling.SchedulingDate == null)
+            if(scheduling.SchedulingDate == null || scheduling.SchedulingDate == DateTime.MinValue)
                 scheduling.SchedulingDate = schedulingDb.SchedulingDate;
+            if (scheduling.EndOfSchedule == null || scheduling.SchedulingDate == DateTime.MinValue)
+                scheduling.EndOfSchedule = schedulingDb.EndOfSchedule;
 
             await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), scheduling.SchedulingId, userId);
 

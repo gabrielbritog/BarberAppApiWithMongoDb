@@ -68,9 +68,32 @@ namespace BarberApp.Infra.Repository
             }
         }
 
-        public Task<Barber> Update(Barber barber, string userId)
+        public async Task<Barber> Update(Barber barber, string barberId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Barber>.Filter.Eq(u => u.BarberId, barberId);
+                var update = Builders<Barber>.Update
+                    .Set(u => u.FirstName, barber.FirstName)
+                    .Set(u => u.LastName, barber.LastName)
+                    .Set(u => u.Password, barber.Password)
+                    .Set(u => u.UrlImage, barber.UrlImage)
+                    .Set(u => u.Cep, barber.Cep)
+                    .Set(u => u.Email, barber.Email)
+                    .Set(u => u.PhoneNumber, barber.PhoneNumber)
+                    .Set(u => u.Disabled, barber.Disabled)
+                    .Set(u => u.WorkingDays, barber.WorkingDays);
+
+                var result = await _barberCollection.UpdateOneAsync(filter, update);
+                if (result.MatchedCount == 0)
+                    throw new Exception("Usuário não encontrado.");
+                return barber;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
     }
 }
