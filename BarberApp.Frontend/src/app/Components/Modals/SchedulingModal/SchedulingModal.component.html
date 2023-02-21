@@ -30,17 +30,20 @@
             name="date"
             id="date"
             [min]="currentDay"
-            [ngModel]="currentDay"
+            [(ngModel)]="currentDay"
           />
           <i class="fa-solid fa-calendar"></i>
         </label>
       </div>
-      <div class="form_group">
+
+      <!-- <div class="form_group">
         <label for="time">
           <input class="no-icon" type="time" name="time" id="time" [ngModel]="currentTime" />
           <i class="fa-solid fa-clock"></i>
         </label>
-      </div>
+      </div> -->
+
+      <app-CarouselAvailableTime [availableTime]="availableSchedules" ></app-CarouselAvailableTime>
 
       <div class="cards_group">
         <div class="group_title">

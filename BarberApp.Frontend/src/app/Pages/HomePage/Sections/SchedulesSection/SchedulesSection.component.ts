@@ -21,7 +21,6 @@ export class SchedulesSectionComponent implements OnInit {
   get currentDaySchedules() {
     var result = GlobalVariables.schedules
                 .filter(p => p.date == GlobalVariables.currentDay.format('L'))
-                .filter(p=> this.isTodayDate? p.time >=  GlobalVariables.currentDay.format('HH:mm') : p)
                 .sort((n1, n2) => {
                   if (n1.time > n2.time) {
                       return 1;

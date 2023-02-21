@@ -33,19 +33,18 @@ export class AccountPageComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-
-    let userModel = new UserModel(form.value);
-    console.log(form, userModel);
+    const userModel = new UserModel(form.value);
 
     this.authService.update(userModel).subscribe({
       next: (data: any) => {
-        LoaderComponent.SetOptions(false);
+        LoaderComponent.SetOptions(false, true, true);
+        this.tokenStorage.saveUser(data.data);
         console.log(data);
-        // this.tokenStorage.saveUser(data.data.dados);
         this.expanded = false;
       },
       error: (err) => {
-        LoaderComponent.SetOptions(false);
+        LoaderComponent.SetOptions(false, false, true);
+
         console.log(err);
       }
     })
