@@ -1,9 +1,9 @@
-<div class="modal_container_bg" [class.active]="showModal">
+<div class="modal_container_bg">
 
   <div class="container modal_container">
     <div class="header">
       <h3>Novo Serviço</h3>
-      <button class="btn_close" (click)="onCancel(scheduleForm)">
+      <button class="btn_close" (click)="onCancel()">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -17,7 +17,7 @@
             name="nameService"
             id="nameService"
             placeholder="Nome do serviço"
-            ngModel
+            [(ngModel)]="serviceModel.nameService"
           />
         </label>
       </div>
@@ -28,7 +28,7 @@
             name="valueService"
             id="valueService"
             placeholder="Valor do serviço"
-            ngModel
+            [(ngModel)]="serviceModel.valueService"
           />
         </label>
       </div>

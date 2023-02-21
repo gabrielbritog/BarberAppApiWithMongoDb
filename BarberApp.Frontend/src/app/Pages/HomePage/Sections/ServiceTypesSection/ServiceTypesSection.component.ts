@@ -10,6 +10,10 @@ import { ServiceTypeModel } from '../../../../Models/ServiceTypeModel';
 })
 export class ServiceTypesSectionComponent implements OnInit {
 
+  get showModal() {
+    return GlobalVariables.showServiceTypeModal;
+  }
+
   get allServiceTypes() {
     return GlobalVariables.serviceTypes;
   };
@@ -23,14 +27,8 @@ export class ServiceTypesSectionComponent implements OnInit {
   ngOnInit() {
   }
 
-  formatToMoney(value: string | number) {
-    return `R$${value},00`;
-  }
-
   newServiceType() {
     GlobalVariables.showServiceTypeModal = true;
   }
-
-
 
 }

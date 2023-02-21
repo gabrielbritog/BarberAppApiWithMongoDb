@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,6 +27,8 @@ import { CalendarCardComponent } from './Components/CalendarCard/CalendarCard.co
 import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
 import { LoaderComponent } from './Components/Loader/Loader.component';
 import { PlusButtonComponent } from './Components/PlusButton/PlusButton.component';
+import { ServiceTypeCardComponent } from './Components/ServiceTypeCard/ServiceTypeCard.component';
+import { ClientCardComponent } from './Components/ClientCard/ClientCard.component';
 
 // MODALS
 import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
@@ -53,6 +56,8 @@ import { ToastrModule } from 'ngx-toastr';
     NavBarComponent,
     ScheduleCardComponent,
     CalendarCardComponent,
+    ClientCardComponent,
+    ServiceTypeCardComponent,
     LoaderComponent,
     PlusButtonComponent,
 

@@ -2,6 +2,13 @@ import * as moment from 'moment';
 import { ScheduleModel } from '../Models/ScheduleModel';
 import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 export class GlobalVariables {
+
+
+  public static startTime = 9;
+  public static endTime = 17;
+
+  public static emptySchedules: ScheduleModel[] = [];
+
   // MODALS
   public static showScheduleModal = false;
   public static showServiceTypeModal = false;
@@ -29,4 +36,26 @@ export class GlobalVariables {
 
   // IP DA MÁQUINA
   public static readonly MACHINE_IP = "192.168.1.12";
+
+
+  public static FillProperties() {
+    GlobalVariables.getEmptySchedulesBase();
+  }
+
+  static getEmptySchedulesBase() {
+    const startTime = GlobalVariables.startTime;
+    const endTime = GlobalVariables.endTime;
+    const currentDay = moment(GlobalVariables.currentDay);
+    let schedules: ScheduleModel[] = [];
+    for (let index = startTime; index <= endTime; index++){
+      schedules.push(new ScheduleModel({
+        date: currentDay.format('yyyy-MM-DD'),
+        time: currentDay.hour(index).minute(0).format('HH:mm')
+      }));
+    }
+
+    GlobalVariables.emptySchedules = schedules;
+
+    return schedules;
+  }
 }

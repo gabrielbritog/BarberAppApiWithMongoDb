@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from '../../../../Helpers/GlobalVariables';
 import { ScheduleModel } from '../../../../Models/ScheduleModel';
+import { UserModel } from 'src/app/Models/UserModel';
 
 @Component({
   selector: 'app-ClientListSection',
@@ -13,13 +14,13 @@ export class ClientListSectionComponent implements OnInit {
 
   get clientList() {
     return GlobalVariables.schedules
-    .map(p => new ScheduleModel({ clientName: p.clientName }))
-    .filter(p => p.clientName != null)
-      .filter(p =>
-        p.clientName.toLowerCase().includes(this.searchValue.toLowerCase())
-      )
-    .filter((cName, index, self) => self.map(p => p.clientName).includes(cName.clientName, index + 1) === false)
-    .sort((a, b) => a.clientName.localeCompare(b.clientName));
+    .map(p => new UserModel({ firstName: p.clientName, phoneNumber: '21 99999-9999'}))
+    .filter(p => p.firstName != "")
+    .filter(p =>
+      p.firstName.toLowerCase().includes(this.searchValue.toLowerCase())
+    )
+    .filter((cName, index, self) => self.map(p => p.firstName).includes(cName.firstName, index + 1) === false)
+    .sort((a, b) => a.firstName.localeCompare(b.firstName));
   };
 
   constructor() { }

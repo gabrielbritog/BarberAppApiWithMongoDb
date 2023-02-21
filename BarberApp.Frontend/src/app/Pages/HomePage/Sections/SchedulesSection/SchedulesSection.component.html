@@ -1,25 +1,20 @@
 <app-SchedulingModal *ngIf="showModal"></app-SchedulingModal>
 <app-PlusButton [onClickEvent]="newSchedule"></app-PlusButton>
 <div class="section_container">
-  <div class="cards_container">
+  <div class="cards_container margin_bot">
     <app-CalendarCard></app-CalendarCard>
-    <div class="cards_container">
 
-      <div class="container_header">
+    <div class="container_header">
 
-      </div>
-      <div class="cards_container no_grow" *ngIf="morningSchedules.length > 0">
-        <app-ScheduleCard *ngFor="let item of morningSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
-      </div>
-
-      <div class="cards_container no_grow" *ngIf="afternoonSchedules.length > 0">
-        <app-ScheduleCard *ngFor="let item of afternoonSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
-      </div>
-
-      <div class="cards_container no_grow" *ngIf="nightSchedules.length > 0">
-        <app-ScheduleCard *ngFor="let item of nightSchedules" [showDate]="false" [scheduleModel]="item" ></app-ScheduleCard>
-      </div>
     </div>
+
+    <ng-container *ngFor="let item of schedules" >
+
+      <div class="cards_container no_grow">
+        <app-ScheduleCard [model]="item" ></app-ScheduleCard>
+      </div>
+
+    </ng-container>
 
   </div>
 

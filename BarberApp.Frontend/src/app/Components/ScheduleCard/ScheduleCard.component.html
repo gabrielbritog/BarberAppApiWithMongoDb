@@ -1,34 +1,37 @@
-<div class="card" [class.schedule]="isSchedule" [class.expand]="expand" >
-  <div class="picture">
-    <!-- <i class="fa-brands fa-whatsapp"></i> -->
-    <i class="fa-solid fa-scissors"></i>
-  </div>
-  <div class="content">
-    <div class="title">
-      <span>{{scheduleModel.clientName}}</span>
+<div class="card schedule" [class.empty]="isEmptyModel"  (click)="!isEmptyModel? editSchedule() : newSchedule()">
+
+  <ng-container *ngIf="!isEmptyModel">
+    <div class="picture">
+      <!-- <i class="fa-brands fa-whatsapp"></i> -->
+      <i class="fa-solid fa-business-time"></i>
     </div>
-    <div class="desc_area">
-      <div class="desc date" *ngIf="scheduleModel.date != '' && showDate">
-        <i class="fa-brands fa-calendar"></i>
-        <span>{{scheduleModel.date}}</span>
+    <div class="content">
+      <div class="title">
+        <span>{{scheduleModel.clientName}}</span>
       </div>
-      <div class="desc phone" *ngIf="showPhone">
-        <i class="fa-brands fa-whatsapp"></i>
-        <span>(21) 99757-1234</span>
-      </div>
-      <div class="desc_column desc_time" *ngIf="scheduleModel.time != ''">
-        <span class="desc_title">Horário</span>
-        <span class="desc_content">{{scheduleModel.time}}</span>
-      </div>
-      <div class="desc_column desc_services" *ngIf="scheduleModel.serviceType.length > 0">
-        <span class="desc_title">Serviços</span>
-        <span class="desc_content" *ngFor="let item of scheduleModel.serviceType; let i = index">
-          {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}
-        </span>
+      <div class="desc_area">
+        <div class="desc_column desc_time">
+          <span class="desc_title">Horário</span>
+          <span class="desc_content">{{scheduleModel.time}}</span>
+        </div>
+        <div class="desc_column desc_services">
+          <span class="desc_title">Serviços</span>
+          <span class="desc_content" *ngFor="let item of scheduleModel.serviceType; let i = index">
+            {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="edit_btn" *ngIf="showOptions" (click)="editSchedule()">
-    <i class="fa-regular fa-pen-to-square"></i>
-  </div>
+  </ng-container>
+
+  <ng-container *ngIf="isEmptyModel">
+    <div class="content empty">
+      <div class="time">
+        <i class="fa-regular fa-clock"></i>
+        <span>{{scheduleModel.time}}</span>
+      </div>
+      <p>Disponível</p>
+    </div>
+  </ng-container>
+
 </div>

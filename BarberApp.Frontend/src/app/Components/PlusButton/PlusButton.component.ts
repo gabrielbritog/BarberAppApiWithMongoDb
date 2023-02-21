@@ -21,6 +21,7 @@ export class PlusButtonComponent implements OnInit {
 
   disableEditModal() {
     GlobalVariables.editSchedule = undefined;
+    GlobalVariables.editServiceType = undefined;
     GlobalVariables.modalAsEdit = false;
   }
 

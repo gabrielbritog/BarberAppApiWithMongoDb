@@ -1,3 +1,5 @@
+import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
+import { AuthService } from './../../../Services/Auth.service';
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import { NgForm } from '@angular/forms';
@@ -20,16 +22,34 @@ export class AccountPageComponent implements OnInit {
   }
 
   get userInfo() {
-    return this.tokenStorageService.getUserModel();
+    return this.tokenStorage.getUserModel();
   }
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(
+    private tokenStorage: TokenStorageService,
+    private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   onSubmit(form: NgForm) {
-    this.expanded = false;
+
+    let userModel = new UserModel(form.value);
+    console.log(form, userModel);
+
+    this.authService.update(userModel).subscribe({
+      next: (data: any) => {
+        LoaderComponent.SetOptions(false);
+        console.log(data);
+        // this.tokenStorage.saveUser(data.data.dados);
+        this.expanded = false;
+      },
+      error: (err) => {
+        LoaderComponent.SetOptions(false);
+        console.log(err);
+      }
+    })
+
   }
 
   onCancel() {

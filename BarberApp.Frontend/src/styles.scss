@@ -10,6 +10,7 @@
   --app-color-bg-alt: #3e3b47;
   --app-color-input-bg: #232129;
   --app-color-input-text: #5e5b59;
+  --app-color-light-border: #ffffff20;
 
   --nav-color-bg: #28262e;
 
@@ -143,6 +144,9 @@ input{
   &~i{
     transition: all .3s var(--default-transition) !important;
   }
+  &:not(:placeholder-shown){
+    color: var(--app-color-text);
+  }
   &:focus{
     outline: none;
     box-shadow: 0px 0px 0px 2px var(--app-color-primary);
@@ -221,12 +225,7 @@ h3{
   display: flex;
   gap: .75rem;
   align-items: flex-start;
-  border: 1px solid #ffffff17;
-  &.schedule{
-    width: 100%;
-    border-left-color: var(--app-color-primary);
-    border-left-width: 5px;
-  }
+  border: 1px solid  var(--app-color-light-border);
   &.header_card{
     margin-bottom: .5rem;
   }
@@ -266,13 +265,13 @@ h3{
   .edit_btn{
     width: 32px;
     height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
     padding: 0.25rem;
     position: absolute;
     right: 0;
     top: 0;
+    font-size: .8rem;
   }
 }
 

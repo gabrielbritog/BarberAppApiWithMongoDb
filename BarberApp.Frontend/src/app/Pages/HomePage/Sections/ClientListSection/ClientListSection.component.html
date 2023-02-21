@@ -7,6 +7,9 @@
       </label>
     </div>
 
-    <app-ScheduleCard *ngFor="let item of clientList" [showOptions]="false" [showPhone]="true" [showDate]="false" [isSchedule]="false" [scheduleModel]="item" ></app-ScheduleCard>
+    <ng-container *ngFor="let item of clientList" >
+      <app-ClientCard [showOptions]="false" [model]="item" ></app-ClientCard>
+    </ng-container>
+
   </div>
 </div>
