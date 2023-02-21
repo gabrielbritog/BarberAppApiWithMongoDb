@@ -45,23 +45,23 @@ namespace BarberApp.Service.Service
             return await _serviceTypeRepository.GetById(userId, idService);
         }
 
-        public async Task<RegisterServiceTypeDto> Register(RegisterServiceTypeDto serviceType, string UserId)
+        public async Task<ResponseServiceTypeDto> Register(RegisterServiceTypeDto serviceType, string UserId)
         {
                 serviceType.On = true;
                 serviceType.UserId = UserId;
             var serviceMap = _mapper.Map<ServiceType>(serviceType);
-            await _serviceTypeRepository.Register(serviceMap, UserId);
-                return serviceType;       
+            var result = await _serviceTypeRepository.Register(serviceMap, UserId);
+                return _mapper.Map<ResponseServiceTypeDto>(result);       
             
         }
-        public async Task<RegisterServiceTypeDto> Register(RegisterServiceTypeDto serviceType, string UserId, string barberId)
+        public async Task<ResponseServiceTypeDto> Register(RegisterServiceTypeDto serviceType, string UserId, string barberId)
         {
             serviceType.barberId = barberId;
             serviceType.On = true;
             serviceType.UserId = UserId;
             var serviceMap = _mapper.Map<ServiceType>(serviceType);
-            await _serviceTypeRepository.Register(serviceMap, UserId);
-            return serviceType;
+            var result = await _serviceTypeRepository.Register(serviceMap, UserId);
+            return _mapper.Map<ResponseServiceTypeDto>(result);
 
         }
 

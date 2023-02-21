@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Text.Json.Serialization;
 
 
@@ -6,8 +7,9 @@ namespace BarberApp.Domain.Dto.ServiceType
 {
     public class RegisterServiceTypeDto
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         [BsonElement("serviceTypeId")]
-        [JsonIgnore]
         public string ServiceTypeId { get; set; }
         [BsonElement("UserId")]
         [JsonIgnore]

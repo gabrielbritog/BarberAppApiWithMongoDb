@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,9 @@ namespace BarberApp.Domain.Dto.ServiceType
 {
     public class ResponseServiceTypeDto
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("serviceTypeId")]
         public string ServiceTypeId { get; set; }
         [BsonElement("nameService")]
         public string NameService { get; set; }

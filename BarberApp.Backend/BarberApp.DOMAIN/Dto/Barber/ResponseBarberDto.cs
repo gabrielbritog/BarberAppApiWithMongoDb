@@ -12,6 +12,10 @@ namespace BarberApp.Domain.Dto.Barber
 {
     public class ResponseBarberDto
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("barberId")]
+        public string BarberId { get; set; }
         [BsonElement("userId")]
         public string UserId { get; set; }
         [BsonElement("firstName")]

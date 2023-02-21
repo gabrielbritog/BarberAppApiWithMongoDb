@@ -11,7 +11,7 @@ namespace BarberApp.Domain.Dto.User
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         [JsonIgnore]
-        [BsonElement("userId")]
+        [BsonElement("UserId")]
         public string UserId { get; set; }
         [BsonElement("firstName")]
         [Required(ErrorMessage = "Primeiro nome é obrigatório")]

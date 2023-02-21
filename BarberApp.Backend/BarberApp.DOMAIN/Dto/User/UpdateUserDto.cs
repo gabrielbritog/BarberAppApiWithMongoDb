@@ -1,14 +1,22 @@
 ﻿using BarberApp.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BarberApp.Domain.Dto.User
 {
     public class UpdateUserDto
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("UserId")]
+        public string UserId { get; set; }
+        [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
-
+        [JsonIgnore]
+        public DateTime UserRegistration { get; set; }
         [EmailAddress(ErrorMessage = "Email inválido!")]
         public string Email { get; set; } = null!;
         public string UrlImage { get; set; } = null!;

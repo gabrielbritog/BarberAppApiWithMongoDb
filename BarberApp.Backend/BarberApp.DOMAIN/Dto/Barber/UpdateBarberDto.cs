@@ -1,4 +1,5 @@
 ﻿using BarberApp.Domain.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ namespace BarberApp.Domain.Dto.Barber
 {
     public class UpdateBarberDto
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("barberId")]
+        public string BarberId { get; set; }
+        [BsonElement("userId")]
+        public string UserId { get; set; }
         public string FirstName { get; set; } = null!;
         [BsonElement("lastName")]
         public string LastName { get; set; } = null!;

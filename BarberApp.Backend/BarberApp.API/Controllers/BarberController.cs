@@ -1,12 +1,9 @@
 ﻿using BarberApp.Domain.Dto.Barber;
 using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Dto.ServiceType;
-using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.ViewModels;
-using BarberApp.Service.Service;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarberApp.Api.Controllers
