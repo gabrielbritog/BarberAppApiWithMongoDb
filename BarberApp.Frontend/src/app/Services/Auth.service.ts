@@ -32,6 +32,7 @@ export class AuthService {
   register(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + REGISTER_ROUTE, {
+      companyName: "Moisés Teste",
       firstname: credentials.firstname,
       Lastname: credentials.lastname,
       cep: 'Não definido',

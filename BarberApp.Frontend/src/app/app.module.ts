@@ -18,17 +18,25 @@ import { FormValidationService } from './Services/FormValidation.service';
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
 
 // COMPONENTS
+import { LoaderComponent } from './Components/Loader/Loader.component';
 import { NavBarComponent } from './Components/NavBar/NavBar.component';
+import { PlusButtonComponent } from './Components/PlusButton/PlusButton.component';
+
+// COMPONENTS - CARDS
+import { ScheduleCardComponent } from './Components/Cards/ScheduleCard/ScheduleCard.component';
+import { CalendarCardComponent } from './Components/Cards/CalendarCard/CalendarCard.component';
+import { ServiceTypeCardComponent } from './Components/Cards/ServiceTypeCard/ServiceTypeCard.component';
+import { ClientCardComponent } from './Components/Cards/ClientCard/ClientCard.component';
+
+// COMPONENTS - CAROUSELS
+import { CarouselAvailableTimeComponent } from './Components/Carousels/CarouselAvailableTime/CarouselAvailableTime.component';
+import { CarouselServiceTypesComponent } from './Components/Carousels/CarouselServiceTypes/CarouselServiceTypes.component';
+
+
+// SECTIONS
 import { ClientListSectionComponent } from './Pages/HomePage/Sections/ClientListSection/ClientListSection.component';
 import { ServiceTypesSectionComponent } from './Pages/HomePage/Sections/ServiceTypesSection/ServiceTypesSection.component';
-import { ScheduleCardComponent } from './Components/ScheduleCard/ScheduleCard.component';
-import { CalendarCardComponent } from './Components/CalendarCard/CalendarCard.component';
 import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
-import { LoaderComponent } from './Components/Loader/Loader.component';
-import { PlusButtonComponent } from './Components/PlusButton/PlusButton.component';
-import { ServiceTypeCardComponent } from './Components/ServiceTypeCard/ServiceTypeCard.component';
-import { ClientCardComponent } from './Components/ClientCard/ClientCard.component';
-import { CarouselAvailableTimeComponent } from './Components/Carousels/CarouselAvailableTime/CarouselAvailableTime.component';
 
 // MODALS
 import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
@@ -61,6 +69,7 @@ import { ToastrModule } from 'ngx-toastr';
     LoaderComponent,
     PlusButtonComponent,
     CarouselAvailableTimeComponent,
+    CarouselServiceTypesComponent,
 
     // MODAL
     SchedulingModalComponent,

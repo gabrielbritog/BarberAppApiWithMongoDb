@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import * as moment from 'moment';
-import { SchedulingService } from '../../Services/SchedulingService.service';
+import { SchedulingService } from '../../../Services/SchedulingService.service';
 
 @Component({
   selector: 'app-CalendarCard',
   templateUrl: './CalendarCard.component.html',
-  styleUrls: ['./CalendarCard.component.scss']
+  styleUrls: ['../baseCard.scss', './CalendarCard.component.scss']
 })
 export class CalendarCardComponent implements OnInit {
 

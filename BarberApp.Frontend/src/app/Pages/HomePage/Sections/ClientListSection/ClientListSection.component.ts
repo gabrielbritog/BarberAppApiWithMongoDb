@@ -14,7 +14,7 @@ export class ClientListSectionComponent implements OnInit {
 
   get clientList() {
     return GlobalVariables.schedules
-    .map(p => new UserModel({ firstName: p.clientName, phoneNumber: '21 99999-9999'}))
+    .map(p => new UserModel({ firstName: p.client.name, phoneNumber: p.client.phone}))
     .filter(p => p.firstName != "")
     .filter(p =>
       p.firstName.toLowerCase().includes(this.searchValue.toLowerCase())
