@@ -1,19 +1,11 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Barber;
-using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
-using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using BarberApp.Service.Global;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BarberApp.Service.Service
 {
@@ -66,7 +58,7 @@ namespace BarberApp.Service.Service
             BarberMap.UserRegistration = DateTime.Now;
             BarberMap.UserId = userId;
             BarberMap.Disabled= false;
-            BarberMap.AssociatedCompany = associatedCompany.CompanyName;
+            BarberMap.CompanyName = associatedCompany.CompanyName;
             await _barberRepository.Register(BarberMap);
             return _mapper.Map<ResponseBarberDto>(BarberMap);
         }

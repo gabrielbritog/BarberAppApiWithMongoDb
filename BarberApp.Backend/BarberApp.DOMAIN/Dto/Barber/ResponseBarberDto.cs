@@ -1,12 +1,6 @@
 ﻿using BarberApp.Domain.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BarberApp.Domain.Dto.Barber
 {
@@ -18,8 +12,8 @@ namespace BarberApp.Domain.Dto.Barber
         public string BarberId { get; set; }
         [BsonElement("userId")]
         public string UserId { get; set; }
-        [BsonElement("associatedCompany")]
-        public string AssociatedCompany { get; set; }
+        [BsonElement("companyName")]
+        public string CompanyName { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
         [BsonElement("lastName")]
