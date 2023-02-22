@@ -19,6 +19,9 @@ namespace BarberApp.Domain.Dto.Barber
         [BsonElement("userId")]
         [JsonIgnore]
         public string UserId { get; set; }
+        [BsonElement("associatedCompany")]
+        [JsonIgnore]
+        public string AssociatedCompany { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
         [BsonElement("lastName")]

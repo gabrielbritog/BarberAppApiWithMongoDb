@@ -17,6 +17,8 @@ namespace BarberApp.Domain.Models
         public string BarberId { get; set; }
         [BsonElement("userId")]
         public string UserId { get; set; }
+        [BsonElement("associatedCompany")]
+       public string AssociatedCompany { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
         [BsonElement("lastName")]

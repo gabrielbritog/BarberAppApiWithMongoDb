@@ -88,6 +88,6 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-
+        
     }
 }

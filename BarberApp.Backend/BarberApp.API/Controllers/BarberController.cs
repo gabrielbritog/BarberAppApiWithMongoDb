@@ -53,6 +53,7 @@ namespace BarberApp.Api.Controllers
 
         }
         [HttpPut("Update")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> update([FromBody] UpdateBarberDto barber)
         {
             try
@@ -66,11 +67,12 @@ namespace BarberApp.Api.Controllers
             }
         }
         [HttpGet("GetMany")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> GetMany([FromQuery] int start, [FromQuery] int count)
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.GetMany(start, count)));
+                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.GetMany(start, count,Id)));
             }
             catch (Exception e)
             {
@@ -110,6 +112,7 @@ namespace BarberApp.Api.Controllers
 
         }
         [HttpGet("Scheduling/GetMany")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> GetManyScheduling([FromQuery] int start, [FromQuery] int count)
         {
             try
@@ -124,6 +127,7 @@ namespace BarberApp.Api.Controllers
 
         }
         [HttpGet("ServiceType/GetMany")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> GetManyServiceType([FromQuery] int start, [FromQuery] int count)
         {
             try
@@ -138,6 +142,7 @@ namespace BarberApp.Api.Controllers
 
         }
         [HttpDelete("Scheduling/DeleteAll")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> DeleteAllScheduling()
         {
             try
@@ -152,6 +157,7 @@ namespace BarberApp.Api.Controllers
 
         }
         [HttpPut("Scheduling/Update")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> UpdateScheduling(UpdateSchedulingDto scheduling)
         {
             try
@@ -166,6 +172,7 @@ namespace BarberApp.Api.Controllers
 
         }
         [HttpPut("ServiceType/Update")]
+        [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> UpdateServiceType(UpdateServiceTypeDto serviceType)
         {
             try

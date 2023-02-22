@@ -103,6 +103,6 @@ namespace BarberApp.Service.Service
         public async Task<User> GetByCompanyName(string companyName)
         {
             return await _userRepository.GetByCompanyName(companyName);
-        }
+        }       
     }
 }

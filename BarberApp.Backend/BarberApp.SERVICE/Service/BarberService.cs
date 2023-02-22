@@ -21,14 +21,16 @@ namespace BarberApp.Service.Service
     {
         private readonly IBarberRepository _barberRepository;
         private readonly ITokenService _tokenService;
+        private readonly IUserRepository _userRepository;
         private readonly TokenConfiguration _tokenConfiguration;
         private readonly IMapper _mapper;
-        public BarberService(IBarberRepository barberRepository, IMapper mapper, ITokenService tokenService, TokenConfiguration tokenConfiguration)
+        public BarberService(IBarberRepository barberRepository, IMapper mapper, ITokenService tokenService, IUserRepository userRepository, TokenConfiguration tokenConfiguration)
         {
             _mapper = mapper;
             _barberRepository = barberRepository;
             _tokenService = tokenService;
             _tokenConfiguration = tokenConfiguration;
+            _userRepository = userRepository;
         }
         public async Task<Barber> GetByEmail(string barberEmail)
         {
@@ -40,9 +42,9 @@ namespace BarberApp.Service.Service
             throw new NotImplementedException();
         }
 
-        public async Task<List<Barber>> GetMany(int start, int count)
+        public async Task<List<Barber>> GetMany(int start, int count,string userId)
         {
-            return await _barberRepository.GetMany(start, count);
+            return await _barberRepository.GetMany(start, count, userId);
         }
 
         public async Task<TokenViewModel> Login(LoginBarberDto barber)
@@ -65,6 +67,7 @@ namespace BarberApp.Service.Service
         public async Task<ResponseBarberDto> Register(RegisterBarberDto barber,string userId)
         {
             var checkEmail = await this.GetByEmail($"{barber.Email}");
+            var associatedCompany = await _userRepository.GetById(userId);
             if (checkEmail != null)
             throw new Exception("Email já está sendo usado");
             barber.PasswordSalt = new Random().Next().GetHashCode().ToString();
@@ -73,6 +76,7 @@ namespace BarberApp.Service.Service
             BarberMap.UserRegistration = DateTime.Now;
             BarberMap.UserId = userId;
             BarberMap.Disabled= false;
+            BarberMap.AssociatedCompany = associatedCompany.CompanyName;
             await _barberRepository.Register(BarberMap);
             return _mapper.Map<ResponseBarberDto>(BarberMap);
         }
