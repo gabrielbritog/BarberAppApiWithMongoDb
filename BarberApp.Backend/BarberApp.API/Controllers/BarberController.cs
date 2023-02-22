@@ -79,7 +79,7 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpPost("RegisterScheduling")]
+        [HttpPost("Scheduling/Register")]
         [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> RegisterScheduling([FromBody] RegisterSchedulingDto scheduling)
         {
@@ -94,7 +94,7 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpPost("RegisterServiceType")]
+        [HttpPost("ServiceType/Register")]
         [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> RegisterServiceType([FromBody] RegisterServiceTypeDto serviceType)
         {
@@ -109,7 +109,7 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpGet("GetManyScheduling")]
+        [HttpGet("Scheduling/GetMany")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> GetManyScheduling([FromQuery] int start, [FromQuery] int count)
         {
             try
@@ -123,7 +123,7 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpGet("GetManyServiceType")]
+        [HttpGet("ServiceType/GetMany")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> GetManyServiceType([FromQuery] int start, [FromQuery] int count)
         {
             try
@@ -137,7 +137,7 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpDelete("DeleteAllScheduling")]
+        [HttpDelete("Scheduling/DeleteAll")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> DeleteAllScheduling()
         {
             try
@@ -151,7 +151,7 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpPut("UpdateScheduling")]
+        [HttpPut("Scheduling/Update")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> UpdateScheduling(UpdateSchedulingDto scheduling)
         {
             try
@@ -165,7 +165,7 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        [HttpPut("UpdateServiceType")]
+        [HttpPut("ServiceType/Update")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> UpdateServiceType(UpdateServiceTypeDto serviceType)
         {
             try
