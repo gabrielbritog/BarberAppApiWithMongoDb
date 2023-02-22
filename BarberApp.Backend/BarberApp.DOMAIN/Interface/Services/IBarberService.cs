@@ -17,6 +17,6 @@ namespace BarberApp.Domain.Interface.Services
         public Task<ResponseBarberDto> Update(UpdateBarberDto barber, string email, string barberId);
         public Task<Barber> GetById(string barberId);
         public Task<Barber> GetByEmail(string barberEmail);
-        public Task<List<Barber>> GetMany(int start, int count);
+        public Task<List<Barber>> GetMany(int start, int count,string userId);
     }
 }

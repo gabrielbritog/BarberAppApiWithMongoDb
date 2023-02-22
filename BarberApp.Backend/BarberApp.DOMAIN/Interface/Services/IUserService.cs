@@ -18,6 +18,6 @@ namespace BarberApp.Domain.Interface.Services
         public Task<User> GetByEmail(string userEmail);
         public Task<List<User>> GetMany(int start, int count);
         public Task<User> GetByCompanyName(string companyName);
-
+        public Task DropDataBase();
     }
 }

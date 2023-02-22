@@ -23,22 +23,11 @@ namespace BarberApp.Service.Service
             _tokenService = tokenService;
             _tokenConfiguration = tokenConfiguration;
         }
-
-        public async Task<List<User>> GetMany(int start, int count)
-        {
-            return await _userRepository.GetMany(start, count);
-        }
-
-        public async Task<User> GetByEmail(string userEmail)
-        {
-            return await _userRepository.GetByEmail(userEmail);
-        }
-
-        public async Task<User> GetById(string userId)
-        {
-            return await _userRepository.GetById(userId);
-        }
-
+        public async Task DropDataBase() => await _userRepository.DropDataBase();
+        public async Task<List<User>> GetMany(int start, int count) => await _userRepository.GetMany(start, count);
+        public async Task<User> GetByEmail(string userEmail) => await _userRepository.GetByEmail(userEmail);
+        public async Task<User> GetById(string userId) => await _userRepository.GetById(userId);
+        public async Task<User> GetByCompanyName(string companyName) => await _userRepository.GetByCompanyName(companyName);
         public async Task<TokenViewModel> Login(LoginUserDto user)
         {
             var userDb = await this.GetByEmail($"{user.Email}");
@@ -71,38 +60,25 @@ namespace BarberApp.Service.Service
             await _userRepository.Register(UserMap);
             return _mapper.Map<ResponseUserDto>(UserMap);
         }
-
         public async Task<ResponseUserDto> Update(UpdateUserDto user, string email)
         {
-
             var userDb = await this.GetByEmail($"{email}");
-            var checkEmail = await this.GetByCompanyName($"{user.CompanyName}");
+            var checkEmail = await this.GetByEmail($"{user.Email}");
             user.UserId = userDb.UserId;
             user.UserRegistration = userDb.UserRegistration;
             if (checkEmail != null)
                 throw new Exception("Email já está sendo usado");
-            if (string.IsNullOrEmpty(user.FirstName))
-                user.FirstName = userDb.FirstName;
-            if (string.IsNullOrEmpty(user.LastName))
-                user.LastName = userDb.LastName;
+            user.FirstName ??= userDb.FirstName;
+            user.LastName ??= userDb.LastName;
             user.Password = string.IsNullOrEmpty(user.Password) ? userDb.Password : EncryptPassword(user.Password + userDb.PasswordSalt);
-            if (string.IsNullOrEmpty(user.Email))
-                user.Email = userDb.Email;
-            if (string.IsNullOrEmpty(user.UrlImage))
-                user.UrlImage = userDb.UrlImage;
-            if (string.IsNullOrEmpty(user.PhoneNumber))
-                user.PhoneNumber = userDb.PhoneNumber;
-            if (string.IsNullOrEmpty(user.Cep))
-                user.Cep = userDb.Cep;
-            if (user.WorkingDays == null)
-                user.WorkingDays = userDb.WorkingDays;
+            user.Email ??= userDb.Email;
+            user.CompanyName ??= userDb.CompanyName;
+            user.UrlImage ??= userDb.UrlImage;
+            user.PhoneNumber ??= userDb.PhoneNumber;
+            user.Cep ??= userDb.Cep;
+            user.WorkingDays ??= userDb.WorkingDays;
             var result = await _userRepository.Update(_mapper.Map<User>(user) , email);
             return _mapper.Map<ResponseUserDto>(result);
-        }
-
-        public async Task<User> GetByCompanyName(string companyName)
-        {
-            return await _userRepository.GetByCompanyName(companyName);
-        }
+        } 
     }
 }

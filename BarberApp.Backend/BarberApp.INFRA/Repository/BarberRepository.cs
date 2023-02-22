@@ -49,11 +49,11 @@ namespace BarberApp.Infra.Repository
             }
         }
 
-        public async Task<List<Barber>> GetMany(int start, int count)
+        public async Task<List<Barber>> GetMany(int start, int count, string userId)
         {
             try
-            {
-                var filter = Builders<Barber>.Filter.Exists(x => x.Email);
+            {          
+               var filter = Builders<Barber>.Filter.Eq(x => x.UserId, userId);
                 var results = await _barberCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
                 return results;
             }
