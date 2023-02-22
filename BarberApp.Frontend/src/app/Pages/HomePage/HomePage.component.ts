@@ -1,3 +1,4 @@
+import { ServiceTypeService } from './../../Services/ServiceType.service';
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { Router } from '@angular/router';
@@ -17,10 +18,13 @@ export class HomePageComponent implements OnInit {
   get currentSection(){ return GlobalVariables.currentSection };
 
   loadedSchedules = false;
+  loadedServiceTypes = false;
+  appLoaded = false;
 
   constructor(
     private tokenStorage: TokenStorageService,
     private schedulingService: SchedulingService,
+    private serviceTypeService: ServiceTypeService,
     private router: Router) { }
 
   ngOnInit() {
@@ -37,22 +41,32 @@ export class HomePageComponent implements OnInit {
       next: (data: any) => {
         let schedules: ScheduleModel[] = data.data.map((element: any) => new ScheduleModel(element));
         GlobalVariables.schedules = schedules;
-        LoaderComponent.SetOptions(false);
 
         this.loadedSchedules = true;
+
+        if(this.loadedSchedules && this.loadedServiceTypes){
+          this.appLoaded = true;
+          LoaderComponent.SetOptions(false);
+        }
       },
       error: (err) => {
         console.log(err);
-        LoaderComponent.SetOptions(false);
       }
     })
   }
 
   getServiceTypes() {
-    this.schedulingService.getAllServiceType().subscribe({
+    this.serviceTypeService.getAllServiceType().subscribe({
       next: (data: any) => {
         let serviceTypes: ServiceTypeModel[] = data.data.map((element: any) => new ServiceTypeModel(element));
         GlobalVariables.serviceTypes = serviceTypes;
+
+        this.loadedServiceTypes = true;
+
+        if(this.loadedSchedules && this.loadedServiceTypes){
+          this.appLoaded = true;
+          LoaderComponent.SetOptions(false);
+        }
       },
       error: (err) => {
         console.log(err.data.message);

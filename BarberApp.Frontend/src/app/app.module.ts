@@ -41,6 +41,7 @@ import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSe
 // MODALS
 import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
 import { ServiceTypeModalComponent } from './Components/Modals/ServiceTypeModal/ServiceTypeModal.component';
+import { BarbersSectionComponent } from './Pages/HomePage/Sections/BarbersSection/BarbersSection.component';
 
 // MISC
 import { ToastrModule } from 'ngx-toastr';
@@ -59,6 +60,7 @@ import { ToastrModule } from 'ngx-toastr';
     SchedulesSectionComponent,
     ClientListSectionComponent,
     ServiceTypesSectionComponent,
+    BarbersSectionComponent,
 
     // COMPONENTS
     NavBarComponent,

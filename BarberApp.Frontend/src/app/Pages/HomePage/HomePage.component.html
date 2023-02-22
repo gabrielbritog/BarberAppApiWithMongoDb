@@ -3,8 +3,8 @@
   <app-NavBar></app-NavBar>
 
   <section id="section_container" #sectionContainer>
-    <app-SchedulesSection *ngIf="loadedSchedules && currentSection == 0" class="nav_section" id="schedules_section"></app-SchedulesSection>
-    <app-ClientListSection *ngIf="loadedSchedules && currentSection == 1" class="nav_section" id="clients_section"></app-ClientListSection>
-    <app-ServiceTypesSection *ngIf="loadedSchedules && currentSection == 2" class="nav_section" id="serviceTypes_section"></app-ServiceTypesSection>
+    <app-SchedulesSection *ngIf="appLoaded && currentSection == 0" class="nav_section" id="schedules_section"></app-SchedulesSection>
+    <app-ClientListSection *ngIf="appLoaded && currentSection == 1" class="nav_section" id="clients_section"></app-ClientListSection>
+    <app-ServiceTypesSection *ngIf="appLoaded && currentSection == 2" class="nav_section" id="serviceTypes_section"></app-ServiceTypesSection>
   </section>
 </div>

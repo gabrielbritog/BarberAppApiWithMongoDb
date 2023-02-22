@@ -1,10 +1,9 @@
 import { GlobalVariables } from './../../../Helpers/GlobalVariables';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ScheduleModel } from 'src/app/Models/ScheduleModel';
-import { SchedulingService } from 'src/app/Services/SchedulingService.service';
 import { LoaderComponent } from '../../Loader/Loader.component';
 import { ServiceTypeModel } from '../../../Models/ServiceTypeModel';
+import { ServiceTypeService } from 'src/app/Services/ServiceType.service';
 
 @Component({
   selector: 'app-ServiceTypeModal',
@@ -25,7 +24,7 @@ export class ServiceTypeModalComponent implements OnInit {
 
   get isEditModal() { return GlobalVariables.modalAsEdit; }
 
-  constructor(private schedulingService: SchedulingService) { }
+  constructor(private serviceTypeService: ServiceTypeService) { }
 
   ngOnInit() {
     this.serviceModel = new ServiceTypeModel(GlobalVariables.editServiceType);
@@ -45,7 +44,7 @@ export class ServiceTypeModalComponent implements OnInit {
 
     let index = this.isEditModal? GlobalVariables.serviceTypes.indexOf(GlobalVariables.editServiceType!) : -1;
 
-    const apiCall = this.isEditModal ? this.schedulingService.updateServiceType(serviceType) : this.schedulingService.registerServiceType(serviceType);
+    const apiCall = this.isEditModal ? this.serviceTypeService.updateServiceType(serviceType) : this.serviceTypeService.registerServiceType(serviceType);
 
     apiCall.subscribe({
       next: (data: any) => {

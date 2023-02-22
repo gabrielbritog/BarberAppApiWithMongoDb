@@ -1,5 +1,6 @@
 export class ServiceTypeModel {
-  serviceTypeId = "";
+  barberId?: string;
+  serviceTypeId?: string;
   nameService = "";
   valueService = 0;
   duration = "";
