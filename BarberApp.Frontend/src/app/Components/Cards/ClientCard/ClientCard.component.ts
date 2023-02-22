@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserModel } from '../../Models/UserModel';
+import { UserModel } from '../../../Models/UserModel';
 
 @Component({
   selector: 'app-ClientCard',
   templateUrl: './ClientCard.component.html',
-  styleUrls: ['./ClientCard.component.scss']
+  styleUrls: ['../baseCard.scss', './ClientCard.component.scss']
 })
 export class ClientCardComponent implements OnInit {
 

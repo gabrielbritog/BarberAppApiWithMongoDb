@@ -1,11 +1,11 @@
-import { ServiceTypeModel } from './../../Models/ServiceTypeModel';
+import { ServiceTypeModel } from '../../../Models/ServiceTypeModel';
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalVariables } from '../../Helpers/GlobalVariables';
+import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 
 @Component({
   selector: 'app-ServiceTypeCard',
   templateUrl: './ServiceTypeCard.component.html',
-  styleUrls: ['./ServiceTypeCard.component.scss']
+  styleUrls: ['../baseCard.scss', './ServiceTypeCard.component.scss']
 })
 export class ServiceTypeCardComponent implements OnInit {
 

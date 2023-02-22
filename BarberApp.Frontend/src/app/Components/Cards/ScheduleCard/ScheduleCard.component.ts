@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ScheduleModel } from '../../Models/ScheduleModel';
-import { GlobalVariables } from '../../Helpers/GlobalVariables';
+import { ScheduleModel } from '../../../Models/ScheduleModel';
+import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 
 @Component({
   selector: 'app-ScheduleCard',
   templateUrl: './ScheduleCard.component.html',
-  styleUrls: ['./ScheduleCard.component.scss']
+  styleUrls: ['../baseCard.scss', './ScheduleCard.component.scss']
 })
 export class ScheduleCardComponent implements OnInit {
 
