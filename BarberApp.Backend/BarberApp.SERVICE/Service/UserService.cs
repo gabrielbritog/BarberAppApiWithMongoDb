@@ -23,7 +23,10 @@ namespace BarberApp.Service.Service
             _tokenService = tokenService;
             _tokenConfiguration = tokenConfiguration;
         }
-
+        public async Task DropDataBase()
+        {
+           await _userRepository.DropDataBase();
+        }
         public async Task<List<User>> GetMany(int start, int count)
         {
             return await _userRepository.GetMany(start, count);

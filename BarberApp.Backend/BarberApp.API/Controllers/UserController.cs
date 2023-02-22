@@ -88,6 +88,21 @@ namespace BarberApp.Api.Controllers
             }
 
         }
-        
+        [HttpDelete("DropDataBase")]
+        public async Task DropDatabase()
+        {
+            try
+            {
+                await _userServices.DropDataBase();
+                 Ok("Base de dados deletada");
+            }
+            catch (Exception e)
+            {
+
+                 BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
+
     }
 }
