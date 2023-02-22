@@ -1,81 +1,12 @@
-.modal_container_bg{
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100svh;
-  padding: 5vw 0;
-  transition: all .2s ease;
-  animation: .15s modalShow forwards;
-}
-
 .modal_container{
-  padding: .75rem;
-  background-color: var(--app-color-bg-alt);
-  border-radius: var(--global-border-radius);
-  line-height: 1;
   height: 100%;
   overflow: auto;
-  animation: .2s containerShow forwards var(--default-transition);
-  border: 1px solid  var(--app-color-light-border);
   display: flex;
   flex-direction: column;
-  .header{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    .btn_close{
-      width: 30px;
-      height: 30px;
-      border: none;
-      background-color: transparent;
-      color: var(--app-color-text);
-      border-radius: 50%;
-      text-align: center;
-      font-size: 1.2rem;
-      display: grid;
-      align-content: center;
-    }
-  }
 }
 
-form{
-  margin-top: .75rem;
-  gap: .5rem;
-  flex-grow: 1;
-  .btn_submit{
-    margin-top: auto;
-  }
-}
-.form_group{
-  position: relative;
-  label{
-    input{
-      width: 100%;
-      &.no-icon{
-        padding-right: 8px;
-      }
-      &:focus~i{
-        color: var(--app-color-primary);
-      }
-    }
-    i{
-      padding: 0;
-      pointer-events: none;
-      color: var(--app-color-input-text);
-      position: absolute;
-      right: 0;
-      top: 0;
-      background-color: var(--app-color-input-bg);
-      height: 100%;
-      width: 38px;
-      display: grid;
-      place-items: center;
-      border-radius: var(--global-border-radius);
-    }
-  }
+form .btn.btn_submit{
+  margin-top: auto;
 }
 
 .cards_group{
@@ -107,22 +38,4 @@ form{
   justify-content: space-between;
   padding: 0.5rem;
   border-top: 1px solid var(--app-color-input-text);
-}
-
-@keyframes modalShow {
-  from{
-    background-color: rgba($color: #000000, $alpha: 0);
-  }
-  to{
-    background-color: rgba($color: #000000, $alpha: 0.75);
-  }
-}
-
-@keyframes containerShow {
-  from{
-    transform: translateY(50px);
-  }
-  to{
-    transform: translateY(0);
-  }
 }

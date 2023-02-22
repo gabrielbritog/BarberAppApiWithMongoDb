@@ -33,6 +33,9 @@ export class AccountPageComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+
+    console.log(form.value)
+    return;
     const userModel = new UserModel(form.value);
 
     this.authService.update(userModel).subscribe({

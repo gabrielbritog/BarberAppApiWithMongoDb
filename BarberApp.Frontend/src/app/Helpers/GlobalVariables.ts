@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import { ScheduleModel } from '../Models/ScheduleModel';
 import { ServiceTypeModel } from '../Models/ServiceTypeModel';
+import { BarberModel } from '../Models/BarberModel';
 export class GlobalVariables {
 
 
@@ -12,18 +13,21 @@ export class GlobalVariables {
   // MODALS
   public static showScheduleModal = false;
   public static showServiceTypeModal = false;
+  public static showBarberModal = false;
   public static modalAsEdit = false;
 
   // EDIT MODALS VARIABLES
   public static editSchedule: ScheduleModel | undefined;
   public static editServiceType: ServiceTypeModel | undefined;
+  public static editBarber: BarberModel | undefined;
 
   // HOME SECTIONS
   public static currentSection = 0;
 
-  // SCHEDULES
+  // SCHEDULES / SERVICE TYPES / BARBERS
   public static schedules: ScheduleModel[] = [];
   public static serviceTypes: ServiceTypeModel[] = [];
+  public static barbers: BarberModel[] = [];
   public static currentDay = moment();
 
   // LOADER

@@ -1,5 +1,4 @@
 import { WorkingDays } from "./WorkingDays";
-
 export class BarberModel {
   barberId?: string;
   userId?: string;

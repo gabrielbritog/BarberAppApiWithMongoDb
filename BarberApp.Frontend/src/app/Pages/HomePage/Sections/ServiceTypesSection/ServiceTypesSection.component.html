@@ -2,8 +2,10 @@
 <app-PlusButton [onClickEvent]="newServiceType"></app-PlusButton>
 <div class="section_container">
 
-  <ng-container *ngFor="let item of allServiceTypes" >
-    <app-ServiceTypeCard [model]="item"></app-ServiceTypeCard>
-  </ng-container>
+  <div class="cards_container">
+    <ng-container *ngFor="let item of allServiceTypes" >
+      <app-ServiceTypeCard [model]="item"></app-ServiceTypeCard>
+    </ng-container>
+  </div>
 
 </div>

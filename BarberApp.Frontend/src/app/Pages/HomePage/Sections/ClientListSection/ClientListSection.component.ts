@@ -6,7 +6,7 @@ import { UserModel } from 'src/app/Models/UserModel';
 @Component({
   selector: 'app-ClientListSection',
   templateUrl: './ClientListSection.component.html',
-  styleUrls: ['./ClientListSection.component.scss']
+  styleUrls: ['../baseSection.scss', './ClientListSection.component.scss']
 })
 export class ClientListSectionComponent implements OnInit {
 
