@@ -34,9 +34,19 @@ namespace BarberApp.Infra.Repository
             }
         }
 
-        public Task<Barber> GetById(string barberId)
+        public async Task<Barber> GetById(string barberId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Barber>.Filter.Eq(u => u.BarberId, barberId);
+                var result = await _barberCollection.Find(filter).FirstOrDefaultAsync();
+                return result;
+            
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<List<Barber>> GetMany(int start, int count)

@@ -14,6 +14,8 @@ namespace BarberApp.Domain.Models
         public string BarberCollectionName { get; set; } = null;
         public string SchedulingCollectionName { get; set; } = null;
         public string ServiceTypeCollectionName { get; set; } = null;
+        public string ClientTypeCollectionName { get; set; } = null;
+
         
     }
 }

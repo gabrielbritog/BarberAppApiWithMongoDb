@@ -15,5 +15,6 @@ namespace BarberApp.Domain.Interface.Repositories
         public Task<User> GetById(string userId);
         public Task<User> GetByEmail(string email);
         public Task<List<User>> GetMany(int start, int count);
+        public Task<User> GetByCompanyName(string companyName);
     }
 }

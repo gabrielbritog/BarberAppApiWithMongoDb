@@ -13,10 +13,14 @@ namespace BarberApp.Service.Service
     {
         private readonly ISchedulingRepository _schedulingRepository;
         private readonly IMapper _mapper;
-        public SchedulingService(ISchedulingRepository schedulingRepository, ITokenService tokenService, TokenConfiguration tokenConfiguration, IMapper mapper)
+        private readonly IBarberRepository _barberRepository;
+        private readonly IUserRepository _userRepository;
+        public SchedulingService(ISchedulingRepository schedulingRepository, IMapper mapper, IBarberRepository barberRepository, IUserRepository userRepository)
         {
             _schedulingRepository = schedulingRepository;
             _mapper = mapper;
+            _barberRepository = barberRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<DeleteResult> DeleteAll(string userId)
@@ -70,6 +74,17 @@ namespace BarberApp.Service.Service
 
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId,string barberId)
         {
+
+            var checkBarber = await _barberRepository.GetById(barberId);
+            var checkUser = await _userRepository.GetById(UserId);
+
+            if (checkBarber == null)
+                throw new Exception("Funcionario não encontrado");
+            if (checkUser == null)
+                throw new Exception("Empresa não encontrada");
+            if (checkBarber.UserId != checkUser.UserId)
+                throw new Exception("Funcionário não localizado na empresa");
+
             scheduling.barberId = barberId;
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);
             schedulingMap.UserId = UserId;
@@ -95,8 +110,8 @@ namespace BarberApp.Service.Service
             }
 
             var schedulingDb = await this.GetById(scheduling.SchedulingId, userId);
-            if (string.IsNullOrWhiteSpace(scheduling.ClientName))
-                scheduling.ClientName = schedulingDb.ClientName;
+            if (scheduling.Client == null)
+                scheduling.Client = _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
             if (scheduling.ServiceType == null)
                 scheduling.ServiceType = _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
             if(scheduling.SchedulingDate == null || scheduling.SchedulingDate == DateTime.MinValue)
