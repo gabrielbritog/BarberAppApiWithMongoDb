@@ -3,6 +3,7 @@ using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
+using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using MongoDB.Driver;
 
@@ -23,20 +24,9 @@ namespace BarberApp.Service.Service
             _userRepository = userRepository;
         }
 
-        public async Task<DeleteResult> DeleteAll(string userId)
-        {
-            return await _schedulingRepository.DeleteAll(userId);
-        }  
-        public async Task<DeleteResult> DeleteAll(string userId,string barberId)
-        {
-            return await _schedulingRepository.DeleteAll(userId, barberId);
-        }
-
-        public async Task<DeleteResult> DeleteById(string userId, string schedulingId)
-        {
-            return await _schedulingRepository.DeleteById(userId, schedulingId);
-        }
-
+        public async Task<DeleteResult> DeleteAll(string userId) =>  await _schedulingRepository.DeleteAll(userId); 
+        public async Task<DeleteResult> DeleteAll(string userId,string barberId) => await _schedulingRepository.DeleteAll(userId, barberId);
+        public async Task<DeleteResult> DeleteById(string userId, string schedulingId) => await _schedulingRepository.DeleteById(userId, schedulingId);
         public async Task<List<ResponseSchedulingDto>> GetMany(string userId, int start, int count)
         {
             var result = await _schedulingRepository.GetMany(userId,start,count);
@@ -74,10 +64,8 @@ namespace BarberApp.Service.Service
 
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId,string barberId)
         {
-
             var checkBarber = await _barberRepository.GetById(barberId);
             var checkUser = await _userRepository.GetById(UserId);
-
             if (checkBarber == null)
                 throw new Exception("Funcionario não encontrado");
             if (checkUser == null)
@@ -102,23 +90,21 @@ namespace BarberApp.Service.Service
 
         public async Task<ResponseSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId)
         {
-            var quantity = scheduling.ServiceType.Count();
+            var quantity = 0;
+            if (scheduling.ServiceType != null)
+            quantity = scheduling.ServiceType.Count();
             for (int i = 0; i < quantity;)
             {
                 scheduling.Total += scheduling.ServiceType[i].ValueService;
                 i++;
             }
-
             var schedulingDb = await this.GetById(scheduling.SchedulingId, userId);
-            if (scheduling.Client == null)
-                scheduling.Client = _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
-            if (scheduling.ServiceType == null)
-                scheduling.ServiceType = _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
-            if(scheduling.SchedulingDate == null || scheduling.SchedulingDate == DateTime.MinValue)
-                scheduling.SchedulingDate = schedulingDb.SchedulingDate;
-            if (scheduling.EndOfSchedule == null || scheduling.SchedulingDate == DateTime.MinValue)
-                scheduling.EndOfSchedule = schedulingDb.EndOfSchedule;
-
+            if (schedulingDb == null)
+                throw new Exception("Informar Id");
+                scheduling.Client ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
+                scheduling.ServiceType ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
+                scheduling.SchedulingDate ??= schedulingDb.SchedulingDate;
+                scheduling.EndOfSchedule ??= schedulingDb.EndOfSchedule;
             await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), scheduling.SchedulingId, userId);
 
             return _mapper.Map<ResponseSchedulingDto>(scheduling);
