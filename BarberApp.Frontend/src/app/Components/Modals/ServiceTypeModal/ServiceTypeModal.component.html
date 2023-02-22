@@ -2,7 +2,7 @@
 
   <div class="container modal_container">
     <div class="header">
-      <h3>Novo Serviço</h3>
+      <h3>{{isEditModal? 'Editar' : 'Novo'}} Serviço</h3>
       <button class="btn_close" (click)="onCancel()">
         <i class="fa-solid fa-xmark"></i>
       </button>

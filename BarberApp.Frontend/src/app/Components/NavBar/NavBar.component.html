@@ -18,27 +18,35 @@
         <li
           class="nav_item"
           [class.active]="currentSection == 0"
-          (click)="currentSection = 0"
-        >
+          (click)="currentSection = 0" >
           <i class="fa-solid fa-calendar-week"></i>
           <div class="nav_item_title">Agenda</div>
         </li>
+
         <li
           class="nav_item"
           [class.active]="currentSection == 1"
-          (click)="currentSection = 1"
-        >
-        <i class="fa-solid fa-user-group"></i>
+          (click)="currentSection = 1" >
+          <i class="fa-solid fa-user-group"></i>
           <div class="nav_item_title">Clientes</div>
         </li>
+
         <li
           class="nav_item"
           [class.active]="currentSection == 2"
-          (click)="currentSection = 2"
-        >
-        <i class="fa-solid fa-scissors"></i>
+          (click)="currentSection = 2" >
+          <i class="fa-solid fa-scissors"></i>
           <div class="nav_item_title">Serviços</div>
         </li>
+
+        <li
+          class="nav_item"
+          [class.active]="currentSection == 3"
+          (click)="currentSection = 3" >
+          <i class="fa-solid fa-people-group"></i>
+          <div class="nav_item_title">Barbeiros</div>
+        </li>
+
       </ul>
     </div>
     <button class="sidebar_toogle" (click)="logout()">

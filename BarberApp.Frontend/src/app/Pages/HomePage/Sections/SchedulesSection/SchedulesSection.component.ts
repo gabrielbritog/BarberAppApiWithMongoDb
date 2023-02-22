@@ -6,7 +6,7 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 @Component({
   selector: 'app-SchedulesSection',
   templateUrl: './SchedulesSection.component.html',
-  styleUrls: ['./SchedulesSection.component.scss']
+  styleUrls: ['../baseSection.scss', './SchedulesSection.component.scss']
 })
 export class SchedulesSectionComponent implements OnInit {
 
@@ -48,7 +48,7 @@ export class SchedulesSectionComponent implements OnInit {
 
   get schedules() {
     const emptySchedulesTemplate = GlobalVariables.emptySchedules;
-    let currentDaySchedules = this.currentDaySchedules;
+    const currentDaySchedules = this.currentDaySchedules;
     let schedules: ScheduleModel[] = [];
 
     for (let index = 0; index < emptySchedulesTemplate.length; index++) {
@@ -68,11 +68,11 @@ export class SchedulesSectionComponent implements OnInit {
     if (this.isTodayDate)
       schedules = schedules.filter(p => p.time >= moment().format('HH:mm'));
 
-      if (!this.showAvailable)
-        schedules = schedules.filter(p => currentDaySchedules.map(b => b.time).includes(p.time));
+    if (!this.showAvailable)
+      schedules = schedules.filter(p => currentDaySchedules.map(b => b.time).includes(p.time));
 
-      if (!this.showFilled)
-        schedules = schedules.filter(p => !currentDaySchedules.map(b => b.time).includes(p.time));
+    if (!this.showFilled)
+      schedules = schedules.filter(p => !currentDaySchedules.map(b => b.time).includes(p.time));
 
     return schedules;
   }

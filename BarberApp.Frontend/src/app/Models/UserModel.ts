@@ -1,6 +1,8 @@
 import { WorkingDays } from './WorkingDays';
 export class UserModel {
+  barberId?: string;
   userId?: string;
+  companyName?: string;
   firstName!: string;
   lastName!: string;
   cep?: string;

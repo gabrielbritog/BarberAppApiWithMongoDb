@@ -18,14 +18,12 @@
       </button>
     </div>
 
-    <ng-container *ngFor="let item of schedules" >
 
-      <div class="cards_container animate_show no_grow">
-        <app-ScheduleCard [model]="item" ></app-ScheduleCard>
-      </div>
-
-    </ng-container>
-
+    <div class="cards_container no_grow">
+      <ng-container *ngFor="let item of schedules; let i = index" >
+          <app-ScheduleCard [model]="item" class="animate_show" ></app-ScheduleCard>
+      </ng-container>
+    </div>
   </div>
 
 </div>

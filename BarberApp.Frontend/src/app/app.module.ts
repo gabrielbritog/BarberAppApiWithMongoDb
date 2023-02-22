@@ -27,6 +27,7 @@ import { ScheduleCardComponent } from './Components/Cards/ScheduleCard/ScheduleC
 import { CalendarCardComponent } from './Components/Cards/CalendarCard/CalendarCard.component';
 import { ServiceTypeCardComponent } from './Components/Cards/ServiceTypeCard/ServiceTypeCard.component';
 import { ClientCardComponent } from './Components/Cards/ClientCard/ClientCard.component';
+import { BarberCardComponent } from './Components/Cards/BarberCard/BarberCard.component';
 
 // COMPONENTS - CAROUSELS
 import { CarouselAvailableTimeComponent } from './Components/Carousels/CarouselAvailableTime/CarouselAvailableTime.component';
@@ -37,11 +38,12 @@ import { CarouselServiceTypesComponent } from './Components/Carousels/CarouselSe
 import { ClientListSectionComponent } from './Pages/HomePage/Sections/ClientListSection/ClientListSection.component';
 import { ServiceTypesSectionComponent } from './Pages/HomePage/Sections/ServiceTypesSection/ServiceTypesSection.component';
 import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
+import { BarbersSectionComponent } from './Pages/HomePage/Sections/BarbersSection/BarbersSection.component';
 
 // MODALS
 import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
 import { ServiceTypeModalComponent } from './Components/Modals/ServiceTypeModal/ServiceTypeModal.component';
-import { BarbersSectionComponent } from './Pages/HomePage/Sections/BarbersSection/BarbersSection.component';
+import { BarberModalComponent } from './Components/Modals/BarberModal/BarberModal.component';
 
 // MISC
 import { ToastrModule } from 'ngx-toastr';
@@ -64,10 +66,13 @@ import { ToastrModule } from 'ngx-toastr';
 
     // COMPONENTS
     NavBarComponent,
+
     ScheduleCardComponent,
     CalendarCardComponent,
     ClientCardComponent,
     ServiceTypeCardComponent,
+    BarberCardComponent,
+
     LoaderComponent,
     PlusButtonComponent,
     CarouselAvailableTimeComponent,
@@ -75,7 +80,8 @@ import { ToastrModule } from 'ngx-toastr';
 
     // MODAL
     SchedulingModalComponent,
-    ServiceTypeModalComponent
+    ServiceTypeModalComponent,
+    BarberModalComponent
   ],
   imports: [
     BrowserAnimationsModule,

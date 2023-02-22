@@ -8,7 +8,7 @@ import { ServiceTypeService } from 'src/app/Services/ServiceType.service';
 @Component({
   selector: 'app-ServiceTypeModal',
   templateUrl: './ServiceTypeModal.component.html',
-  styleUrls: ['./ServiceTypeModal.component.scss']
+  styleUrls: ['../baseModal.scss', './ServiceTypeModal.component.scss']
 })
 export class ServiceTypeModalComponent implements OnInit {
 

@@ -1,0 +1,72 @@
+<div class="modal_container_bg">
+
+  <div class="container modal_container">
+    <div class="header">
+      <h3>{{isEditModal? 'Editar' : 'Novo'}} Barbeiro</h3>
+      <button class="btn_close" (click)="onCancel()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <hr />
+    <form #barberForm="ngForm" (ngSubmit)="onSubmit(barberForm)" class="flex_column">
+
+      <div class="form_group">
+        <label for="barberfirstName">
+          <input
+            type="text"
+            name="firstName"
+            id="barberfirstName"
+            placeholder="Nome"
+            [(ngModel)]="barberModel.firstName"
+          />
+        </label>
+      </div>
+      <div class="form_group">
+        <label for="barberlastName">
+          <input
+            type="text"
+            name="lastName"
+            id="barberlastName"
+            placeholder="Sobrenome"
+            [(ngModel)]="barberModel.lastName"
+          />
+        </label>
+      </div>
+      <div class="form_group">
+        <label for="barberphoneNumber">
+          <input
+            type="text"
+            name="phoneNumber"
+            id="barberphoneNumber"
+            placeholder="Celular"
+            [(ngModel)]="barberModel.phoneNumber"
+          />
+        </label>
+      </div>
+      <div class="form_group">
+        <label for="barberemail">
+          <input
+            type="email"
+            name="email"
+            id="barberemail"
+            placeholder="Email"
+            [(ngModel)]="barberModel.email"
+          />
+        </label>
+      </div>
+      <div class="form_group">
+        <label for="barberpassword">
+          <input
+            type="password"
+            name="password"
+            id="barberpassword"
+            placeholder="Senha"
+            [(ngModel)]="barberModel.password"
+          />
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn_submit">Adicionar</button>
+    </form>
+  </div>
+</div>

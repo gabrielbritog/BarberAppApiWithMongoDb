@@ -31,7 +31,7 @@ export class BarberService {
     return this.http.post<any>(BASE_URL_API + ROUTE_REGISTER, {
       firstName: credentials.firstName,
       lastName: credentials.lastName,
-      email: credentials.lastName,
+      email: credentials.email,
       urlImage: credentials.urlImage,
       password: credentials.password,
       phoneNumber: credentials.phoneNumber,

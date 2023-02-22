@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-SchedulingModal',
   templateUrl: './SchedulingModal.component.html',
-  styleUrls: ['./SchedulingModal.component.scss']
+  styleUrls: ['../baseModal.scss', './SchedulingModal.component.scss']
 })
 export class SchedulingModalComponent implements OnInit {
 

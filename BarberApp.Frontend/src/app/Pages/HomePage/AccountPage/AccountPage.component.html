@@ -16,6 +16,12 @@
     </div>
 
     <div class="form_group ">
+      <input class="with_icon" type="text" name="companyName"
+      id="form-companyName" placeholder="Empresa" [ngModel]="userInfo.companyName" [disabled]="userInfo.barderId != null">
+      <i class="fa-solid fa-lock"></i>
+    </div>
+
+    <div class="form_group ">
       <input class="with_icon" type="text" name="firstname"
       id="form-firstname" placeholder="Nome" [ngModel]="userInfo.firstName">
       <i class="fa-solid fa-lock"></i>
@@ -33,7 +39,7 @@
       <i class="fa-solid fa-envelope"></i>
     </div>
 
-    <label for="form-cep" class="form_group">
+    <label for="form-cep" class="form_group" *ngIf="userInfo.barderId == null">
       <input class="with_icon" type="text" name="cep"
       id="form-cep" placeholder="Cep" [ngModel]="removeUndefinedStrings(userInfo.cep)">
       <i class="fa-solid fa-location-dot"></i>

@@ -6,7 +6,7 @@ import { ServiceTypeModel } from '../../../../Models/ServiceTypeModel';
 @Component({
   selector: 'app-ServiceTypesSection',
   templateUrl: './ServiceTypesSection.component.html',
-  styleUrls: ['./ServiceTypesSection.component.scss']
+  styleUrls: ['../baseSection.scss', './ServiceTypesSection.component.scss']
 })
 export class ServiceTypesSectionComponent implements OnInit {
 

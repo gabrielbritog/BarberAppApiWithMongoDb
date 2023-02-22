@@ -32,7 +32,7 @@ export class AuthService {
   register(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + REGISTER_ROUTE, {
-      companyName: "Moisés Teste",
+      companyName: `Empresa de ${credentials.firstname} ${credentials.lastname}`,
       firstname: credentials.firstname,
       Lastname: credentials.lastname,
       cep: 'Não definido',
@@ -45,6 +45,7 @@ export class AuthService {
   update(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.put<any>(AUTH_API + UPDATE_ROUTE, {
+      companyName: credentials.companyName,
       firstname: credentials.firstname,
       Lastname: credentials.lastname,
       cep: credentials.cep,
