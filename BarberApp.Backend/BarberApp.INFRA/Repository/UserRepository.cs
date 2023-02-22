@@ -108,8 +108,7 @@ namespace BarberApp.Infra.Repository
             {
                 var filter = Builders<User>.Filter.Eq(u => u.CompanyName, companyName.ToLower());
                 var result = await _userCollection.Find(filter).FirstOrDefaultAsync();
-                if (result == null)
-                    throw new Exception("Empresa não encontrada.");
+      
                 return result;
             }
             catch (Exception e)

@@ -10,7 +10,6 @@ namespace BarberApp.Domain.Dto.ServiceType
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         [BsonElement("serviceTypeId")]
-        [JsonIgnore]
         public string ServiceTypeId { get; set; }
         [BsonElement("UserId")]
         [JsonIgnore]
