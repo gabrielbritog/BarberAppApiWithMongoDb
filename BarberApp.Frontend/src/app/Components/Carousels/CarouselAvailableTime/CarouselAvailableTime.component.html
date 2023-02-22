@@ -1,7 +1,11 @@
-<div class="section_container">
+<div class="base_container" [class.expand]="expand">
 
-  <div class="section_title">
+  <div class="section_title" (click)="expand = !expand"  >
     Horário
+    <div class="icon_area" [class.expand]="expand">
+      {{selectedTime}}
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
   </div>
   <div class="cards_wrapper">
     <ng-container
@@ -9,8 +13,9 @@
     >
       <div
       class="card card_item"
-      [class.active]="selectedItem == item"
-      (click)="setCurrent(item)"
+      [class.inactive]="selectedTime != item.time"
+      [class.active]="selectedTime == item.time"
+      (click)="selectedTime = item.time"
       >
       <div class="picture">
         <i class="fa-solid fa-clock"></i>

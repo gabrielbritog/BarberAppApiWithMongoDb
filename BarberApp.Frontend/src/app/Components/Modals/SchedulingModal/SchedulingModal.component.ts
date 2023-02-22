@@ -19,9 +19,9 @@ export class SchedulingModalComponent implements OnInit {
 
   selectedServiceTypes: ServiceTypeModel[] = [];
 
-  currentDay = this.isEditModal ?
-      moment.utc(this.scheduleModel.schedulingDate).format('YYYY-MM-DD') :
-      GlobalVariables.currentDay.format('YYYY-MM-DD');
+  globalCurrentDay = moment().format('YYYY-MM-DD');
+
+  currentDay = "";
 
   currentTime = moment.utc(this.scheduleModel.schedulingDate).format('HH:mm');
 
@@ -49,7 +49,7 @@ export class SchedulingModalComponent implements OnInit {
 
   get currentDaySchedules() {
     var result = GlobalVariables.schedules
-                .filter(p => p.date == GlobalVariables.currentDay.format('L'))
+                .filter(p => moment.utc(p.schedulingDate).format('YYYY-MM-DD') == this.currentDay)
                 .sort((n1, n2) => {
                   if (n1.time > n2.time) {
                       return 1;
@@ -63,42 +63,32 @@ export class SchedulingModalComponent implements OnInit {
   };
 
   get availableSchedules() {
-    const emptySchedulesTemplate = GlobalVariables.emptySchedules;
-    let currentDaySchedules = this.currentDaySchedules;
-    let schedules: ScheduleModel[] = [];
-
-    for (let index = 0; index < emptySchedulesTemplate.length; index++) {
-      let newSchedule = new ScheduleModel({
-        date: GlobalVariables.currentDay.format('YYYY-MM-DD'),
-        time: emptySchedulesTemplate[index].time
-      })
-
-      let schedule = currentDaySchedules.find(p => p.time == newSchedule.time);
-
-      if (!schedule)
-        schedules.push(newSchedule);
-    }
-
-    if (this.isTodayDate)
-      schedules = schedules.filter(p=> p.time >=  moment().format('HH:mm'))
-
-    return schedules;
-  }
-
-
+    return this.setAvailableSchedules();
+  };
 
   constructor(private schedulingService: SchedulingService) {
   }
 
   ngOnInit() {
     this.scheduleModel = new ScheduleModel(GlobalVariables.editSchedule);
+    this.currentDay = this.isEditModal ?
+      moment.utc(this.scheduleModel.schedulingDate).format('YYYY-MM-DD') :
+      GlobalVariables.currentDay.format('YYYY-MM-DD');
     this.selectedServiceTypes = this.isEditModal ? [...this.scheduleModel.serviceType] : [];
+    this.currentTime = this.scheduleModel.time;
+  }
+
+  setCurrentTime(element: ScheduleModel) {
+    this.scheduleModel.time = element.time;
   }
 
   onSubmit(form: NgForm) {
-    let schedule = new ScheduleModel(form.value);
-    schedule.schedulingId = this.isEditModal ? this.scheduleModel.schedulingId : schedule.schedulingId;
-    schedule.serviceType = this.selectedServiceTypes;
+    const scheduleForm = form.value;
+    scheduleForm.time = this.currentTime;
+    scheduleForm.schedulingId = this.isEditModal ? this.scheduleModel.schedulingId : scheduleForm.schedulingId;
+    scheduleForm.serviceType = this.selectedServiceTypes;
+
+    let schedule = new ScheduleModel(scheduleForm);
 
     let index = this.isEditModal? GlobalVariables.schedules.indexOf(GlobalVariables.editSchedule!) : -1;
 
@@ -147,5 +137,31 @@ export class SchedulingModalComponent implements OnInit {
     else
       this.selectedServiceTypes.push(element);
   }
+
+  setAvailableSchedules() {
+    const emptySchedulesTemplate = GlobalVariables.emptySchedules;
+    const editScheduleModel = this.scheduleModel;
+    let currentDaySchedules = this.currentDaySchedules;
+    let schedules: ScheduleModel[] = [];
+
+    for (let index = 0; index < emptySchedulesTemplate.length; index++) {
+      let newSchedule = new ScheduleModel({
+        date: this.currentDay,
+        time: emptySchedulesTemplate[index].time
+      })
+
+      let schedule = currentDaySchedules.find(p => p.time == newSchedule.time);
+      let editSchedule = editScheduleModel.time == newSchedule.time;
+
+      if (!schedule || (this.isEditModal && editSchedule))
+        schedules.push(newSchedule);
+    }
+
+    if (this.isTodayDate)
+      schedules = schedules.filter(p=> p.time >=  moment().format('HH:mm'))
+
+    return schedules;
+  }
+
 
 }

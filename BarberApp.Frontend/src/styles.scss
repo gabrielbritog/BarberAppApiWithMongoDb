@@ -5,6 +5,7 @@
 
 :root{
   --app-color-primary: #ff9000;
+  --app-color-blue: #518fa3;
   --app-color-text: #f4ede8;
   --app-color-bg: #312e38;
   --app-color-bg-alt: #3e3b47;
@@ -28,6 +29,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   text-decoration: none;
   list-style: none;
   font-family: 'Poppins', sans-serif;
@@ -275,7 +278,54 @@ h3{
   }
 }
 
+.btn_chip {
+  position: relative;
+  background-color: var(--app-color-bg-alt);
+  border-radius: 50px;
+  flex-shrink: 1;
+  padding: 0.2rem 0.8rem;
+  margin: 0;
+  font-weight: 400;
+  font-size: .7rem;
+  color: var(--app-color-text);
+  cursor: pointer;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  border: 1px solid var(--app-color-light-border);
+  opacity: .5;
+  &.active{
+    opacity: 1;
+    .close_icon{
+      display: block;
+    }
+  }
+  &.with_circle{
+    padding-left: .25rem;
+  }
+  .circle{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    &.primary{
+      background-color: var(--app-color-primary);
+    }
+    &.blue{
+      background-color:  var(--app-color-blue);
+    }
+  }
+  .close_icon{
+    display: none;
+    margin-left: 0.5rem;
+    width: 5px;
+  }
+}
+
 .section_container{
+  animation: .2s sectionShow forwards;
+}
+
+.animate_show{
   animation: .2s sectionShow forwards;
 }
 

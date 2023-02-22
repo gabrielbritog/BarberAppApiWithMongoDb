@@ -4,7 +4,9 @@ export class ScheduleModel {
   schedulingId: string = "";
   clientName: string = "";
   serviceType: ServiceTypeModel[] = [];
+  total?: number;
   schedulingDate: string = "";
+  endOfSchedule: string = "";
   date: string = "";
   time: string = "";
 
@@ -25,7 +27,7 @@ export class ScheduleModel {
       if (momentDateString == "")
         return;
 
-      let momentFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+      let momentFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
       let momentDate = moment(momentDateString, momentFormat);
 
       let dotNetDate = momentDate.toISOString();
@@ -37,7 +39,7 @@ export class ScheduleModel {
       this.time = dotNetDateRedo.format('HH:mm');
 
     } else {
-      let dotNetDate = moment.utc(this.schedulingDate);
+      const dotNetDate = moment.utc(this.schedulingDate);
       this.date = dotNetDate.format('L');
       this.time = dotNetDate.format('HH:mm');
     }

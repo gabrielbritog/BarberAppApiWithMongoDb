@@ -29,21 +29,14 @@
             type="date"
             name="date"
             id="date"
-            [min]="currentDay"
+            [min]="globalCurrentDay"
             [(ngModel)]="currentDay"
           />
           <i class="fa-solid fa-calendar"></i>
         </label>
       </div>
 
-      <!-- <div class="form_group">
-        <label for="time">
-          <input class="no-icon" type="time" name="time" id="time" [ngModel]="currentTime" />
-          <i class="fa-solid fa-clock"></i>
-        </label>
-      </div> -->
-
-      <app-CarouselAvailableTime [availableTime]="availableSchedules" ></app-CarouselAvailableTime>
+      <app-CarouselAvailableTime [scheduleModal]="this" ></app-CarouselAvailableTime>
 
       <div class="cards_group">
         <div class="group_title">
