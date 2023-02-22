@@ -1,8 +1,9 @@
 import * as moment from 'moment';
+import { ClientModel } from './ClientModel';
 import { ServiceTypeModel } from './ServiceTypeModel';
 export class ScheduleModel {
   schedulingId: string = "";
-  clientName: string = "";
+  client = new ClientModel();
   serviceType: ServiceTypeModel[] = [];
   total?: number;
   schedulingDate: string = "";

@@ -89,9 +89,13 @@ export class SchedulingModalComponent implements OnInit {
     scheduleForm.serviceType = this.selectedServiceTypes;
 
     let schedule = new ScheduleModel(scheduleForm);
+    schedule.client.name = this.scheduleModel.client.name;
+    schedule.client.phone = this.scheduleModel.client.phone;
 
     let index = this.isEditModal? GlobalVariables.schedules.indexOf(GlobalVariables.editSchedule!) : -1;
 
+    // console.log(schedule, form.value);
+    // return;
     const apiCall = this.isEditModal ? this.schedulingService.updateSchedule(schedule) : this.schedulingService.registerSchedule(schedule);
 
     apiCall.subscribe({

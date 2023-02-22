@@ -18,7 +18,18 @@
             name="clientName"
             id="clientName"
             placeholder="Nome do cliente"
-            [(ngModel)]="scheduleModel.clientName"
+            [(ngModel)]="scheduleModel.client.name"
+          />
+        </label>
+      </div>
+      <div class="form_group">
+        <label for="clientPhone">
+          <input
+            type="text"
+            name="clientPhone"
+            id="clientPhone"
+            placeholder="Celular"
+            [(ngModel)]="scheduleModel.client.phone"
           />
         </label>
       </div>

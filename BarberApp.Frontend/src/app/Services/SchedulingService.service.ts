@@ -65,7 +65,7 @@ export class SchedulingService {
 
   registerSchedule(schedule: ScheduleModel): Observable<any> {
     return this.http.post<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_REGISTER, {
-      clientName: schedule.clientName,
+      client: schedule.client,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate
     });
@@ -74,7 +74,7 @@ export class SchedulingService {
   updateSchedule(schedule: ScheduleModel): Observable<any>{
     return this.http.put<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_UPDATE, {
       schedulingId: schedule.schedulingId,
-      clientName: schedule.clientName,
+      client: schedule.client,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate
     });
