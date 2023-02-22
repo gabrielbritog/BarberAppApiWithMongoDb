@@ -35,7 +35,6 @@ export class HomePageComponent implements OnInit {
   getSchedules() {
     this.schedulingService.getAllSchedule().subscribe({
       next: (data: any) => {
-        console.log(data.data)
         let schedules: ScheduleModel[] = data.data.map((element: any) => new ScheduleModel(element));
         GlobalVariables.schedules = schedules;
         LoaderComponent.SetOptions(false);

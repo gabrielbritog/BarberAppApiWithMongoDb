@@ -1,3 +1,4 @@
+import { CarouselServiceTypesComponent } from './Components/Carousels/CarouselServiceTypes/CarouselServiceTypes.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -61,6 +62,7 @@ import { ToastrModule } from 'ngx-toastr';
     LoaderComponent,
     PlusButtonComponent,
     CarouselAvailableTimeComponent,
+    CarouselServiceTypesComponent,
 
     // MODAL
     SchedulingModalComponent,

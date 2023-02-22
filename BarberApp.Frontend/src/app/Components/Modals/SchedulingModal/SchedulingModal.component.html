@@ -49,7 +49,9 @@
 
       <app-CarouselAvailableTime [scheduleModal]="this" ></app-CarouselAvailableTime>
 
-      <div class="cards_group">
+      <app-CarouselServiceTypes [scheduleModal]="this" ></app-CarouselServiceTypes>
+
+      <!-- <div class="cards_group">
         <div class="group_title">
           Serviços:
         </div>
@@ -68,7 +70,7 @@
           <span>Total:</span>
           <span>R${{totalServices}},00</span>
         </div>
-      </div>
+      </div> -->
 
       <button type="submit" class="btn btn_submit">Agendar</button>
     </form>

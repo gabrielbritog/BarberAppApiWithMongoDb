@@ -94,8 +94,6 @@ export class SchedulingModalComponent implements OnInit {
 
     let index = this.isEditModal? GlobalVariables.schedules.indexOf(GlobalVariables.editSchedule!) : -1;
 
-    // console.log(schedule, form.value);
-    // return;
     const apiCall = this.isEditModal ? this.schedulingService.updateSchedule(schedule) : this.schedulingService.registerSchedule(schedule);
 
     apiCall.subscribe({
@@ -126,20 +124,6 @@ export class SchedulingModalComponent implements OnInit {
 
   onCancel(form: NgForm) {
     this.showModal = false;
-    form.resetForm({
-      date: this.currentDay
-    });
-  }
-
-  hasService(serviceType: ServiceTypeModel): boolean {
-    return this.selectedServiceTypes.some(p => p.serviceTypeId === serviceType.serviceTypeId);
-  }
-
-  addToList(element: ServiceTypeModel) {
-    if (this.hasService(element))
-      this.selectedServiceTypes = this.selectedServiceTypes.filter(p => p.serviceTypeId != element.serviceTypeId);
-    else
-      this.selectedServiceTypes.push(element);
   }
 
   setAvailableSchedules() {
