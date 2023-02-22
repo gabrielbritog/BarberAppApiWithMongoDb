@@ -10,6 +10,9 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 })
 export class SchedulesSectionComponent implements OnInit {
 
+  showAvailable = true;
+  showFilled = true;
+
   get isTodayDate() {
     return GlobalVariables.currentDay.format('L') == moment().format('L');
   }
@@ -63,7 +66,13 @@ export class SchedulesSectionComponent implements OnInit {
     }
 
     if (this.isTodayDate)
-      schedules = schedules.filter(p=> p.time >=  moment().format('HH:mm'))
+      schedules = schedules.filter(p => p.time >= moment().format('HH:mm'));
+
+      if (!this.showAvailable)
+        schedules = schedules.filter(p => currentDaySchedules.map(b => b.time).includes(p.time));
+
+      if (!this.showFilled)
+        schedules = schedules.filter(p => !currentDaySchedules.map(b => b.time).includes(p.time));
 
     return schedules;
   }

@@ -39,12 +39,9 @@ export class AccountPageComponent implements OnInit {
       next: (data: any) => {
         LoaderComponent.SetOptions(false, true, true);
         this.tokenStorage.saveUser(data.data);
-        console.log(data);
-        this.expanded = false;
       },
       error: (err) => {
         LoaderComponent.SetOptions(false, false, true);
-
         console.log(err);
       }
     })

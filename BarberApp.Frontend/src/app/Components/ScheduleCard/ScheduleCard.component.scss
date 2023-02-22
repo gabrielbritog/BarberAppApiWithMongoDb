@@ -11,7 +11,7 @@
 
 .card.empty{
   padding-left: 0.5rem;
-  border-left-color: var(--app-color-light-border);
+  border-left-color: var(--app-color-blue);
 }
 
 .content.empty{
@@ -21,8 +21,6 @@
   align-items: center;
   height: 100%;
   line-height: 1;
-  opacity: .6;
-  font-weight: 600;
   .time{
     font-size: .8rem;
     display: flex;
@@ -37,8 +35,9 @@
       display: grid;
       place-items: center;
     }
-    span{
-    }
+  }
+  p{
+    font-weight: 600;
   }
 }
 

@@ -4,13 +4,23 @@
   <div class="cards_container margin_bot">
     <app-CalendarCard></app-CalendarCard>
 
-    <div class="container_header">
 
+    <div class="container_header">
+      <button type="button" class="btn_chip with_circle" [class.active]="showAvailable" (click)="showAvailable = !showAvailable"  >
+        <div class="circle blue"></div>
+        Disponíveis
+        <i class="fa-solid fa-xmark close_icon"></i>
+      </button>
+      <button type="button" class="btn_chip with_circle" [class.active]="showFilled" (click)="showFilled = !showFilled"  >
+        <div class="circle primary"></div>
+        Agendados
+        <i class="fa-solid fa-xmark close_icon"></i>
+      </button>
     </div>
 
     <ng-container *ngFor="let item of schedules" >
 
-      <div class="cards_container no_grow">
+      <div class="cards_container animate_show no_grow">
         <app-ScheduleCard [model]="item" ></app-ScheduleCard>
       </div>
 
