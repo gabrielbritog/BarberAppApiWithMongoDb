@@ -22,7 +22,6 @@ namespace BarberApp.Domain.Models
         [BsonElement("endOfSchedule")]
         public DateTime? EndOfSchedule { get; set; }
         [BsonElement("barberId")]
-        [JsonIgnore]
         public string BarberId { get; set; }
 
 

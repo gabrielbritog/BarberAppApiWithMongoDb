@@ -101,6 +101,7 @@ namespace BarberApp.Service.Service
             var schedulingDb = await this.GetById(scheduling.SchedulingId, userId);
             if (schedulingDb == null)
                 throw new Exception("Informar Id");
+                scheduling.BarberId ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).BarberId;
                 scheduling.Client ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
                 scheduling.ServiceType ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
                 scheduling.SchedulingDate ??= schedulingDb.SchedulingDate;
