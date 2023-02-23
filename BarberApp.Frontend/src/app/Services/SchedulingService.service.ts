@@ -10,13 +10,15 @@ import { GlobalVariables } from '../Helpers/GlobalVariables';
 // IP DA MÁQUINA
 const MACHINE_IP = GlobalVariables.MACHINE_IP;
 // const BASE_URL_API = 'http://localhost:5066/api/'
-const BASE_URL_API = `http://${MACHINE_IP}:5066/api/`
+const URL_BARBER = 'Barber/'
 const URL_SCHEDULING = 'Scheduling/'
 const ROUTE_DELETEALL= 'DeleteAll/'
 const ROUTE_REGISTER = 'Register'
 const ROUTE_GETMANY = 'GetMany'
 const ROUTE_GETBYID = 'GetById/'
 const ROUTE_UPDATE = 'Update'
+
+const BASE_URL_API = `http://${MACHINE_IP}:5066/api/`;
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,7 @@ export class SchedulingService {
 
   registerSchedule(schedule: ScheduleModel): Observable<any> {
     return this.http.post<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_REGISTER, {
+      barberId: schedule.barberId,
       client: schedule.client,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate
@@ -34,7 +37,7 @@ export class SchedulingService {
   }
 
   updateSchedule(schedule: ScheduleModel): Observable<any>{
-    return this.http.put<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_UPDATE, {
+    return this.http.put<any>(BASE_URL_API + (GlobalVariables.isBarberUser ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_UPDATE, {
       schedulingId: schedule.schedulingId,
       client: schedule.client,
       serviceType: schedule.serviceType,
@@ -48,7 +51,7 @@ export class SchedulingService {
 
   getManySchedule(skip: number = 1, take: number = 10): Observable<any> {
     LoaderComponent.SetOptions(true);
-    return this.http.get<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_GETMANY, {
+    return this.http.get<any>(BASE_URL_API + (GlobalVariables.isBarberUser ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_GETMANY, {
       params: {
         start: skip,
         count: take

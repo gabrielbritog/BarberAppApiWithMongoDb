@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
+  get isBarberUser() {
+    return GlobalVariables.isBarberUser;
+  }
+
   get profilePic() {
     return this.loggedUser.urlImagem;
   }
@@ -34,6 +38,32 @@ export class NavBarComponent implements OnInit {
     return this.tokenStorage.getUserModel();
   }
 
+  get barberList() {
+    return GlobalVariables.barbers.sort((a, b) => {
+      const aMatches = a == this.selectedBarber;
+      const bMatches = b == this.selectedBarber;
+      if (aMatches && !bMatches) {
+        return -1;
+      } else if (!aMatches && bMatches) {
+        return 1;
+      } else {
+        return a.firstName.localeCompare(b.firstName);
+      }
+    });
+  }
+
+  get isBarber() {
+    return GlobalVariables.isBarberUser;
+  }
+
+  get selectedBarber() {
+    return GlobalVariables.selectedBarber;
+  }
+
+  set selectedBarber(value) {
+    GlobalVariables.selectedBarber = value;
+  }
+
   constructor(private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit() {
@@ -42,6 +72,18 @@ export class NavBarComponent implements OnInit {
   logout() {
     this.tokenStorage.signOut();
     this.router.navigateByUrl('/')
+  }
+
+  agendaExpanded = false;
+
+  setAgenda(barber: any) {
+    if (this.selectedBarber == barber){
+      this.agendaExpanded = !this.agendaExpanded;
+      return;
+    }
+
+    this.selectedBarber = barber;
+    this.agendaExpanded = false;
   }
 
 }

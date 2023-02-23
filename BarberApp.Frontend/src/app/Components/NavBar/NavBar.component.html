@@ -1,4 +1,4 @@
-<nav class="container_fluid" [class.today_section]="currentSection == 0">
+<nav class="container_fluid">
   <div class="container nav_container">
     <button class="nav_profile" (click)="expanded = !expanded">
       <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
@@ -42,7 +42,8 @@
         <li
           class="nav_item"
           [class.active]="currentSection == 3"
-          (click)="currentSection = 3" >
+          (click)="currentSection = 3"
+          *ngIf="!isBarberUser">
           <i class="fa-solid fa-people-group"></i>
           <div class="nav_item_title">Barbeiros</div>
         </li>
@@ -55,3 +56,14 @@
     </button>
   </div>
 </nav>
+
+
+<div class="barber_container card" [class.expand]="agendaExpanded" *ngIf="!isBarber && currentSection == 0">
+  <div class="title">Agenda do funcionário:</div>
+  <div class="barber_cards flex_column">
+    <div class="barber_card card" *ngFor="let item of barberList" [class.active]="selectedBarber == item" (click)="setAgenda(item)" >
+      {{item.firstName}} {{item.lastName}}
+      <i class="fa-solid fa-chevron-down" [class.expand]="agendaExpanded"></i>
+    </div>
+  </div>
+</div>

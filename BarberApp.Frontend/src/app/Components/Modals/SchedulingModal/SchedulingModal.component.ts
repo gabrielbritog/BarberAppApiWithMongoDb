@@ -7,6 +7,7 @@ import { SchedulingService } from '../../../Services/SchedulingService.service';
 import { LoaderComponent } from '../../Loader/Loader.component';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { TokenStorageService } from '../../../Services/token-storage.service';
 
 @Component({
   selector: 'app-SchedulingModal',
@@ -66,7 +67,9 @@ export class SchedulingModalComponent implements OnInit {
     return this.setAvailableSchedules();
   };
 
-  constructor(private schedulingService: SchedulingService) {
+  constructor(
+    private schedulingService: SchedulingService,
+    private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit() {
@@ -85,6 +88,7 @@ export class SchedulingModalComponent implements OnInit {
   onSubmit(form: NgForm) {
     const scheduleForm = form.value;
     scheduleForm.time = this.currentTime;
+    scheduleForm.barberId = GlobalVariables.isBarberUser? this.tokenStorageService.getUserModel().barberId : GlobalVariables.selectedBarber?.barberId;
     scheduleForm.schedulingId = this.isEditModal ? this.scheduleModel.schedulingId : scheduleForm.schedulingId;
     scheduleForm.serviceType = this.selectedServiceTypes;
 

@@ -38,6 +38,8 @@ export class HomePageComponent implements OnInit {
     this.appLoaded = false;
     LoaderComponent.SetOptions(true);
 
+    GlobalVariables.isBarberUser = this.tokenStorage.getUserModel().barberId != null;
+
     GlobalVariables.FillProperties();
     this.getSchedules();
     this.getServiceTypes();

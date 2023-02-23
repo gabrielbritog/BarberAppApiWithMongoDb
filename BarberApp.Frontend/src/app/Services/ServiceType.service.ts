@@ -8,12 +8,14 @@ import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 // IP DA MÁQUINA
 const MACHINE_IP = GlobalVariables.MACHINE_IP;
 // const BASE_URL_API = 'http://localhost:5066/api/'
-const BASE_URL_API = `http://${MACHINE_IP}:5066/api/`
+const URL_BARBER = 'Barber/'
 const URL_SERVICETYPE = 'ServiceType/'
 const ROUTE_REGISTER = 'Register'
 const ROUTE_GETMANY = 'GetMany'
 const ROUTE_GETBYID = 'GetById/'
 const ROUTE_UPDATE = 'Update'
+
+const BASE_URL_API = `http://${MACHINE_IP}:5066/api/`
 
 @Injectable({
   providedIn: 'root'

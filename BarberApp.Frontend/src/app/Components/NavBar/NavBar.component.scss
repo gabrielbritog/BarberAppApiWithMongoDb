@@ -122,3 +122,45 @@ nav{
     }
   }
 }
+
+
+.barber_container{
+  border-radius: 0;
+  width: 100%;
+  text-align: left;
+  font-size: .8rem;
+  gap: .2rem;
+  justify-content: space-between;
+  overflow: hidden;
+  height: 2.5rem;
+  padding: 0.35rem;
+  &.expand{
+    height: auto;
+  }
+  .title{
+    margin: 0.25rem;
+  }
+}
+
+.barber_cards{
+  gap: .35rem;
+  max-width: 50%;
+}
+
+.barber_card{
+  font-size: .7rem;
+  margin: 0;
+  border-radius: 50px;
+  padding: 0.25rem 0.75rem;
+  align-items: center;
+  i {
+    display: none;
+    color: var(--app-color-text);
+  }
+  &.active i{
+      display: block;
+  }
+}
+i.expand{
+  transform: rotate(180deg);
+}

@@ -13,6 +13,22 @@ export class SchedulesSectionComponent implements OnInit {
   showAvailable = true;
   showFilled = true;
 
+  get barberList() {
+    return GlobalVariables.barbers;
+  }
+
+  get isBarber() {
+    return GlobalVariables.isBarberUser;
+  }
+
+  get selectedBarber() {
+    return GlobalVariables.selectedBarber;
+  }
+
+  set selectedBarber(value) {
+    GlobalVariables.selectedBarber = value;
+  }
+
   get isTodayDate() {
     return GlobalVariables.currentDay.format('L') == moment().format('L');
   }
@@ -33,13 +49,21 @@ export class SchedulesSectionComponent implements OnInit {
                   }
                   return 0;
                 });
+
+    if (!this.isBarber)
+    result = result.filter(p=>p.barberId == this.selectedBarber?.barberId)
+
     return result;
   };
 
   constructor() { }
 
   ngOnInit() {
+    if (this.isBarber)
+      return;
 
+    if (this.selectedBarber == null && GlobalVariables.barbers.length > 0)
+      this.selectedBarber = GlobalVariables.barbers[0];
   }
 
   newSchedule() {
