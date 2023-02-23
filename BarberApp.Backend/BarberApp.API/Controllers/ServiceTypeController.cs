@@ -25,7 +25,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.Register(serviceType, Id)));
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.Register(serviceType, Id,serviceType.barberId)));
             }
             catch (Exception e)
             {
