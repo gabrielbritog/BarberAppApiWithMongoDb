@@ -4,12 +4,6 @@ using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
-using BarberApp.Service.Configurations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BarberApp.Service.Service
 {
@@ -21,14 +15,8 @@ namespace BarberApp.Service.Service
         {
             _mapper = mapper;
             _clientRepository = clientRepository;
-
         }
-
-        public async  Task<Client> GetByPhone(string phone)
-        {
-
-            return await _clientRepository.GetByPhone(phone);
-        }
+        public async  Task<Client> GetByPhone(string phone) => await _clientRepository.GetByPhone(phone);
 
         public async Task<ResponseClientDto> Register(RegisterClientDto client)
         {

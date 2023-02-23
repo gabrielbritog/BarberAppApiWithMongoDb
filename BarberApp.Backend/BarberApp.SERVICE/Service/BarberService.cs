@@ -1,18 +1,11 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Barber;
-using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
-using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using BarberApp.Service.Global;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BarberApp.Service.Service
 {
@@ -32,20 +25,9 @@ namespace BarberApp.Service.Service
             _tokenConfiguration = tokenConfiguration;
             _userRepository = userRepository;
         }
-        public async Task<Barber> GetByEmail(string barberEmail)
-        {
-            return await _barberRepository.GetByEmail(barberEmail);
-        }
-
-        public Task<Barber> GetById(string barberId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Barber>> GetMany(int start, int count,string userId)
-        {
-            return await _barberRepository.GetMany(start, count, userId);
-        }
+        public async Task<Barber> GetByEmail(string barberEmail) => await _barberRepository.GetByEmail(barberEmail);
+        public Task<Barber> GetById(string barberId) => throw new NotImplementedException();
+        public async Task<List<Barber>> GetMany(int start, int count,string userId) =>  await _barberRepository.GetMany(start, count, userId);
 
         public async Task<TokenViewModel> Login(LoginBarberDto barber)
         {
@@ -76,7 +58,7 @@ namespace BarberApp.Service.Service
             BarberMap.UserRegistration = DateTime.Now;
             BarberMap.UserId = userId;
             BarberMap.Disabled= false;
-            BarberMap.AssociatedCompany = associatedCompany.CompanyName;
+            BarberMap.CompanyName = associatedCompany.CompanyName;
             await _barberRepository.Register(BarberMap);
             return _mapper.Map<ResponseBarberDto>(BarberMap);
         }
@@ -90,19 +72,13 @@ namespace BarberApp.Service.Service
             barber.UserId = barberDb.UserId;
             if (checkEmail != null)
                 throw new Exception("Email já está sendo usado");
-            if (string.IsNullOrEmpty(barber.FirstName))
-                barber.FirstName = barberDb.FirstName;
-            if (string.IsNullOrEmpty(barber.LastName))
-                barber.LastName = barberDb.LastName;
-            barber.Password = string.IsNullOrEmpty(barber.Password) ? barberDb.Password : EncryptPassword(barber.Password + barberDb.PasswordSalt);
-            if (string.IsNullOrEmpty(barber.Email))
-                barber.Email = barberDb.Email;
-            if (string.IsNullOrEmpty(barber.UrlImage))
-                barber.UrlImage = barberDb.UrlImage;
-            if (string.IsNullOrEmpty(barber.PhoneNumber))
-                barber.PhoneNumber = barberDb.PhoneNumber;
-            if (barber.WorkingDays == null)
-                barber.WorkingDays = barberDb.WorkingDays;
+                barber.FirstName ??= barberDb.FirstName;
+                barber.LastName ??= barberDb.LastName;
+                barber.Password = string.IsNullOrEmpty(barber.Password) ? barberDb.Password : EncryptPassword(barber.Password + barberDb.PasswordSalt);
+                barber.Email ??= barberDb.Email;
+                barber.UrlImage ??= barberDb.UrlImage;
+                barber.PhoneNumber ??= barberDb.PhoneNumber;
+                barber.WorkingDays ??= barberDb.WorkingDays;
             var result = await _barberRepository.Update(_mapper.Map<Barber>(barber), barberId);
             return _mapper.Map<ResponseBarberDto>(result);
         }
