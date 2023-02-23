@@ -3,6 +3,7 @@ import { ClientModel } from './ClientModel';
 import { ServiceTypeModel } from './ServiceTypeModel';
 export class ScheduleModel {
   schedulingId: string = "";
+  barberId!: string;
   client = new ClientModel();
   serviceType: ServiceTypeModel[] = [];
   total?: number;

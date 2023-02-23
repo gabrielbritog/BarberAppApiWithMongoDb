@@ -42,7 +42,8 @@
         <li
           class="nav_item"
           [class.active]="currentSection == 3"
-          (click)="currentSection = 3" >
+          (click)="currentSection = 3"
+          *ngIf="!isBarberUser">
           <i class="fa-solid fa-people-group"></i>
           <div class="nav_item_title">Barbeiros</div>
         </li>

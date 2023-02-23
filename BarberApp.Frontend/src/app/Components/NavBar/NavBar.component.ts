@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
+  get isBarberUser() {
+    return GlobalVariables.isBarberUser;
+  }
+
   get profilePic() {
     return this.loggedUser.urlImagem;
   }

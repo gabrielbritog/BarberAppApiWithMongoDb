@@ -13,10 +13,25 @@ section{
   }
 }
 
+.container_header{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: -8%;
+  img{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+  }
+}
+
 .register_container{
   max-width: 400px;
   position: relative;
   height: 80%;
+  padding-top: 20%;
   align-items: center;
   justify-content: center;
   .container_content{

@@ -8,6 +8,8 @@ export class GlobalVariables {
   public static startTime = 9;
   public static endTime = 17;
 
+  public static isBarberUser = false;
+
   public static emptySchedules: ScheduleModel[] = [];
 
   // MODALS
