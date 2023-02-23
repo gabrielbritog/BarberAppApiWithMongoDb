@@ -7,8 +7,10 @@ import { GlobalVariables } from '../Helpers/GlobalVariables';
 
 // IP DA MÁQUINA
 const MACHINE_IP = GlobalVariables.MACHINE_IP;
-const AUTH_API = `http://${MACHINE_IP}:5066/api/User/`
+const AUTH_API = `http://${MACHINE_IP}:5066/api/`
 
+const ADMIN_ROUTE = 'User/';
+const BARBER_ROUTE = 'Barber/';
 
 const LOGIN_ROUTE = 'Login';
 const REGISTER_ROUTE = 'Register';
@@ -23,7 +25,15 @@ export class AuthService {
 
   login(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
-    return this.http.post(AUTH_API + LOGIN_ROUTE, {
+    return this.http.post(AUTH_API + ADMIN_ROUTE + LOGIN_ROUTE, {
+      email: credentials.email,
+      password: credentials.password,
+    });
+  }
+
+  loginBarber(credentials: any): Observable<any>{
+    LoaderComponent.SetOptions(true);
+    return this.http.post(AUTH_API + BARBER_ROUTE + LOGIN_ROUTE, {
       email: credentials.email,
       password: credentials.password,
     });
@@ -31,8 +41,8 @@ export class AuthService {
 
   register(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
-    return this.http.post(AUTH_API + REGISTER_ROUTE, {
-      companyName: `Empresa de ${credentials.firstname} ${credentials.lastname}`,
+    return this.http.post(AUTH_API + ADMIN_ROUTE + REGISTER_ROUTE, {
+      companyName: credentials.companyName,
       firstname: credentials.firstname,
       Lastname: credentials.lastname,
       cep: 'Não definido',
@@ -44,13 +54,12 @@ export class AuthService {
 
   update(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
-    return this.http.put<any>(AUTH_API + UPDATE_ROUTE, {
+    return this.http.put<any>(AUTH_API + ADMIN_ROUTE + UPDATE_ROUTE, {
       companyName: credentials.companyName,
       firstname: credentials.firstname,
       Lastname: credentials.lastname,
       cep: credentials.cep,
       phoneNumber: credentials.phoneNumber
-      // email: credentials.email,
     });
   }
 }

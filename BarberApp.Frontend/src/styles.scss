@@ -325,6 +325,11 @@ h3{
   animation: .2s sectionShow forwards;
 }
 
+.text_capitalize,
+.text_capitalize >*{
+  text-transform: capitalize;
+}
+
 .animate_show{
   animation: .2s sectionShow forwards;
 }

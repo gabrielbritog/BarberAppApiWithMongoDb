@@ -88,7 +88,6 @@ export class HomePageComponent implements OnInit {
         GlobalVariables.barbers = barbers;
 
         this.loadedBarbers = true;
-        console.log(data)
 
         this.loadedFunction();
       },

@@ -11,7 +11,14 @@
 
         <h3 class="form_title">Registrar</h3>
 
-        <div class="form_group group_fullname">
+
+        <div class="form_group text_capitalize">
+          <input type="text" name="companyName"
+          [ngClass]="isControlValid('form-companyName')?'':'form_invalid'"
+          id="form-companyName" placeholder="Nome da Empresa" ngModel required>
+        </div>
+
+        <div class="form_group text_capitalize group_fullname">
           <input type="text" name="firstname"
           [ngClass]="isControlValid('form-firstname')?'':'form_invalid'"
           id="form-firstname" placeholder="Nome" ngModel required>

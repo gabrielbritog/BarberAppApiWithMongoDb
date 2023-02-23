@@ -29,6 +29,7 @@ export class BarberService {
 
   register(credentials: BarberModel | any): Observable<any> {
     return this.http.post<any>(BASE_URL_API + ROUTE_REGISTER, {
+      companyName: credentials.associatedCompany,
       firstName: credentials.firstName,
       lastName: credentials.lastName,
       email: credentials.email,
