@@ -13,6 +13,8 @@ namespace BarberApp.Domain.Dto.Scheduling
     public class UpdateSchedulingDto
     {
         public string SchedulingId { get; set; }
+        [BsonElement("barberId")]
+        public string BarberId { get; set; }
         [BsonElement("client")]
         public RegisterClientDto Client { get; set; } = null!;
         [BsonElement("serviceType")]
@@ -23,8 +25,7 @@ namespace BarberApp.Domain.Dto.Scheduling
         public DateTime? SchedulingDate { get; set; }
         [BsonElement("endOfSchedule")]
         public DateTime? EndOfSchedule { get; set; }
-        [BsonElement("barberId")]
-        [JsonIgnore]
-        public string barberId { get; set; } = null!;
+
+
     }
 }
