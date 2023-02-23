@@ -42,14 +42,11 @@ namespace BarberApp.Service.Service
         public async Task<ResponseServiceTypeDto> Update(UpdateServiceTypeDto serviceType, string userId)
         {
             var serviceTypeDb = await GetById(userId, serviceType.ServiceTypeId);
-            if (string.IsNullOrWhiteSpace(serviceType.NameService))
-                serviceType.NameService = serviceTypeDb.NameService;
+                serviceType.NameService ??= serviceTypeDb.NameService;
             if (serviceType.ValueService == 0)
                 serviceType.ValueService = serviceTypeDb.ValueService;
-            if (string.IsNullOrWhiteSpace(serviceType.barberId))
-                serviceType.barberId = serviceTypeDb.BarberId;
-            if (string.IsNullOrWhiteSpace(serviceType.Duration))
-                serviceType.Duration = serviceTypeDb.Duration;
+                serviceType.barberId ??= serviceTypeDb.BarberId;
+                serviceType.Duration ??= serviceTypeDb.Duration;
 
             await _serviceTypeRepository.Update(_mapper.Map<ServiceType>(serviceType), serviceType.ServiceTypeId, userId);
             return _mapper.Map<ResponseServiceTypeDto>(serviceType);
