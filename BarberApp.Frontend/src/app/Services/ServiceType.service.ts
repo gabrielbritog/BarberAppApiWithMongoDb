@@ -9,11 +9,10 @@ import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 const MACHINE_IP = GlobalVariables.MACHINE_IP;
 // const BASE_URL_API = 'http://localhost:5066/api/'
 const URL_BARBER = 'Barber/'
-const URL_SERVICETYPE = 'ServiceType/'
-const ROUTE_REGISTER = 'Register'
-const ROUTE_GETMANY = 'GetMany'
-const ROUTE_GETBYID = 'GetById/'
-const ROUTE_UPDATE = 'Update'
+const ROUTE_REGISTER = 'ServiceType/Register'
+const ROUTE_GETMANY = 'ServiceType/GetMany'
+const ROUTE_GETBYID = 'ServiceType/GetById/'
+const ROUTE_UPDATE = 'ServiceType/Update'
 
 const BASE_URL_API = `http://${MACHINE_IP}:5066/api/`
 
@@ -26,14 +25,16 @@ export class ServiceTypeService {
 
   registerServiceType(serviceType: ServiceTypeModel): Observable<any> {
     LoaderComponent.SetOptions(true);
-    return this.http.post(BASE_URL_API + URL_SERVICETYPE + ROUTE_REGISTER, {
+    return this.http.post(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_REGISTER, {
+      barberId: serviceType.barberId,
       nameService: serviceType.nameService,
       valueService: serviceType.valueService
     });
   }
 
   updateServiceType(serviceType: ServiceTypeModel): Observable<any>{
-    return this.http.put<any>(BASE_URL_API + URL_SERVICETYPE + ROUTE_UPDATE, {
+    return this.http.put<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_UPDATE, {
+      barberId: serviceType.barberId,
       serviceTypeId: serviceType.serviceTypeId,
       nameService: serviceType.nameService,
       valueService: serviceType.valueService,
@@ -47,7 +48,7 @@ export class ServiceTypeService {
 
   getManyServiceType(skip: number = 1, take: number = 10): Observable<any> {
     LoaderComponent.SetOptions(true);
-    return this.http.get<any>(BASE_URL_API + URL_SERVICETYPE + ROUTE_GETMANY, {
+    return this.http.get<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_GETMANY, {
       params: {
         start: skip,
         count: take

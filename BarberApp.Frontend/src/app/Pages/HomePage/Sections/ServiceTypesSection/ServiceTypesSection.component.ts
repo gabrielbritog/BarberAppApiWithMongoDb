@@ -15,7 +15,11 @@ export class ServiceTypesSectionComponent implements OnInit {
   }
 
   get allServiceTypes() {
-    return GlobalVariables.serviceTypes;
+    const serviceTypes = GlobalVariables.serviceTypes;
+    if (!GlobalVariables.isAdmin)
+      return serviceTypes;
+
+    return serviceTypes.filter(p=>p.barberId == GlobalVariables.selectedBarber?.barberId)
   };
 
   set allServiceTypes(value) {

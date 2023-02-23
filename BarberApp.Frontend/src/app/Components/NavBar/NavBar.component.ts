@@ -10,10 +10,6 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
-  get isBarberUser() {
-    return GlobalVariables.isBarberUser;
-  }
-
   get profilePic() {
     return this.loggedUser.urlImagem;
   }
@@ -52,8 +48,8 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  get isBarber() {
-    return GlobalVariables.isBarberUser;
+  get isAdmin() {
+    return GlobalVariables.isAdmin;
   }
 
   get selectedBarber() {

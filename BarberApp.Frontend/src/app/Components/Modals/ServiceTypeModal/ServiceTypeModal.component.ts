@@ -24,7 +24,9 @@ export class ServiceTypeModalComponent implements OnInit {
 
   get isEditModal() { return GlobalVariables.modalAsEdit; }
 
-  constructor(private serviceTypeService: ServiceTypeService) { }
+  constructor(
+    private serviceTypeService: ServiceTypeService
+  ) { }
 
   ngOnInit() {
     this.serviceModel = new ServiceTypeModel(GlobalVariables.editServiceType);
@@ -40,6 +42,8 @@ export class ServiceTypeModalComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     let serviceType = new ServiceTypeModel(form.value);
+    if (GlobalVariables.isAdmin)
+      serviceType.barberId = GlobalVariables.selectedBarber?.barberId;
     serviceType.serviceTypeId = this.isEditModal ? this.serviceModel.serviceTypeId : serviceType.serviceTypeId;
 
     let index = this.isEditModal? GlobalVariables.serviceTypes.indexOf(GlobalVariables.editServiceType!) : -1;

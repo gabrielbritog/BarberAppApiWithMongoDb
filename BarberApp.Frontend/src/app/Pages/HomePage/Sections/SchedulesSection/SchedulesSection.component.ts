@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
@@ -6,7 +6,8 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 @Component({
   selector: 'app-SchedulesSection',
   templateUrl: './SchedulesSection.component.html',
-  styleUrls: ['../baseSection.scss', './SchedulesSection.component.scss']
+  styleUrls: ['../baseSection.scss', './SchedulesSection.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class SchedulesSectionComponent implements OnInit {
 
@@ -17,8 +18,8 @@ export class SchedulesSectionComponent implements OnInit {
     return GlobalVariables.barbers;
   }
 
-  get isBarber() {
-    return GlobalVariables.isBarberUser;
+  get isAdmin() {
+    return GlobalVariables.isAdmin;
   }
 
   get selectedBarber() {
@@ -30,7 +31,9 @@ export class SchedulesSectionComponent implements OnInit {
   }
 
   get isTodayDate() {
-    return GlobalVariables.currentDay.format('L') == moment().format('L');
+    const currentDay = GlobalVariables.currentDay.format('L');
+    const today = moment().format('L');
+    return currentDay === today;
   }
 
   get showModal() {
@@ -38,66 +41,67 @@ export class SchedulesSectionComponent implements OnInit {
   }
 
   get currentDaySchedules() {
-    var result = GlobalVariables.schedules
-                .filter(p => p.date == GlobalVariables.currentDay.format('L'))
-                .sort((n1, n2) => {
-                  if (n1.time > n2.time) {
-                      return 1;
-                  }
-                  if (n1.time < n2.time) {
-                      return -1;
-                  }
-                  return 0;
-                });
-
-    if (!this.isBarber)
-    result = result.filter(p=>p.barberId == this.selectedBarber?.barberId)
-
-    return result;
-  };
+    const currentDay = GlobalVariables.currentDay.format('L');
+    const filteredSchedules = GlobalVariables.schedules
+      .filter(p => p.date === currentDay)
+      .sort((n1, n2) => n1.time.localeCompare(n2.time));
+    return !this.isAdmin ? filteredSchedules : filteredSchedules.filter(p => p.barberId === this.selectedBarber?.barberId);
+  }
 
   constructor() { }
 
   ngOnInit() {
-    if (this.isBarber)
+    if (!this.isAdmin || this.selectedBarber != null || GlobalVariables.barbers.length == 0)
       return;
-
-    if (this.selectedBarber == null && GlobalVariables.barbers.length > 0)
-      this.selectedBarber = GlobalVariables.barbers[0];
+    this.selectedBarber = GlobalVariables.barbers[0];
   }
 
   newSchedule() {
     GlobalVariables.showScheduleModal = true;
   }
-
   get schedules() {
     const emptySchedulesTemplate = GlobalVariables.emptySchedules;
     const currentDaySchedules = this.currentDaySchedules;
-    let schedules: ScheduleModel[] = [];
+    const currentTime = moment().format('HH:mm');
+    const filledTimes: any = {};
+    const filteredSchedules = [];
 
-    for (let index = 0; index < emptySchedulesTemplate.length; index++) {
-      let newSchedule = new ScheduleModel({
-        date: GlobalVariables.currentDay.format('YYYY-MM-DD'),
-        time: emptySchedulesTemplate[index].time
-      })
-
-      let schedule = currentDaySchedules.find(p => p.time == newSchedule.time);
-
-      if (schedule)
-        newSchedule = schedule;
-
-      schedules.push(newSchedule);
+    for (const schedule of currentDaySchedules) {
+      filledTimes[schedule.time] = true;
     }
 
-    if (this.isTodayDate)
-      schedules = schedules.filter(p => p.time >= moment().format('HH:mm'));
+    for (const emptySchedule of emptySchedulesTemplate) {
+      let newSchedule = new ScheduleModel({
+        date: GlobalVariables.currentDay.format('YYYY-MM-DD'),
+        time: emptySchedule.time
+      });
 
-    if (!this.showAvailable)
-      schedules = schedules.filter(p => currentDaySchedules.map(b => b.time).includes(p.time));
+      const existingSchedule = currentDaySchedules.find(schedule => schedule.time === newSchedule.time);
 
-    if (!this.showFilled)
-      schedules = schedules.filter(p => !currentDaySchedules.map(b => b.time).includes(p.time));
+      if (existingSchedule) {
+        newSchedule = existingSchedule;
+      }
 
-    return schedules;
+      // if (this.isTodayDate && newSchedule.time < currentTime) {
+      //   continue;
+      // }
+
+      if (!this.showAvailable && !filledTimes[newSchedule.time]) {
+        continue;
+      }
+
+      if (!this.showFilled && filledTimes[newSchedule.time]) {
+        continue;
+      }
+
+      filteredSchedules.push(newSchedule);
+    }
+
+    return filteredSchedules;
   }
+
+
+
+
+
 }

@@ -5,7 +5,7 @@ import { SchedulingModalComponent } from '../../Modals/SchedulingModal/Schedulin
 @Component({
   selector: 'app-CarouselServiceTypes',
   templateUrl: './CarouselServiceTypes.component.html',
-  styleUrls: ['../baseCarousel.scss', './CarouselServiceTypes.component.css']
+  styleUrls: ['../baseCarousel.scss', './CarouselServiceTypes.component.scss']
 })
 export class CarouselServiceTypesComponent implements OnInit {
 
