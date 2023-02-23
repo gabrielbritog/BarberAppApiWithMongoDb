@@ -44,7 +44,6 @@ export class RegisterPageComponent implements OnInit {
     if(validationResult.length > 0)
       return;
 
-    console.log(userModel);
     this.authService.register(userModel).subscribe({
       next: (data: any) => {
         LoaderComponent.SetOptions(false, true, true);

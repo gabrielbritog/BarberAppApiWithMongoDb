@@ -34,7 +34,6 @@ export class LoginPageComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.submited = true;
 
-    const successString = 'Usuário logado com sucesso.';
     const errorString = 'Usuário ou senha incorretos.';
     const userModel = new UserModel(form.value);
 
@@ -45,25 +44,12 @@ export class LoginPageComponent implements OnInit {
 
 
     this.authService.login(userModel).subscribe({
-      next: (data: any) => {
-        this.tokenStorage.saveToken(data.data.accessToken);
-        this.tokenStorage.saveUser(data.data.dados);
-        LoaderComponent.SetOptions(false, true, true);
-
-        setTimeout(() => {
-          this.router.navigateByUrl('/Home');
-        }, LoaderComponent.timeoutOffset);
-      },
+      next: (data: any) => this.loginSuccess(data),
       error: (err) => {
-        LoaderComponent.SetOptions(false, false, true);
-
-        setTimeout(() => {
-          console.log(err);
-          if (err.error.data)
-            this.toastr.error(err.error.data);
-          else
-            this.toastr.error("Algo deu errado, tente novamente.");
-        }, LoaderComponent.timeoutOffset);
+        this.authService.loginBarber(userModel).subscribe({
+          next: (data: any) => this.loginSuccess(data),
+          error: (err) => this.loginError(err)
+        })
       }
     })
 
@@ -104,6 +90,27 @@ export class LoginPageComponent implements OnInit {
     setTimeout(() => {
       this.router.navigateByUrl(route);
     }, 200);
+  }
+
+  loginSuccess(data: any) {
+    this.tokenStorage.saveToken(data.data.accessToken);
+    this.tokenStorage.saveUser(data.data.dados);
+
+    setTimeout(() => {
+      this.router.navigateByUrl('/Home');
+    }, LoaderComponent.timeoutOffset);
+  }
+
+  loginError(error: any) {
+    LoaderComponent.SetOptions(false, false, true);
+
+    setTimeout(() => {
+      console.log(error.error);
+      if (error.error.data != null)
+        this.toastr.error(error.error.data);
+      else
+        this.toastr.error("Algo deu errado, tente novamente.");
+    }, LoaderComponent.timeoutOffset);
   }
 
 }

@@ -4,6 +4,7 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { BarberModel } from '../../../Models/BarberModel';
 import { BarberService } from '../../../Services/Barber.service';
 import { LoaderComponent } from '../../Loader/Loader.component';
+import { TokenStorageService } from '../../../Services/token-storage.service';
 
 @Component({
   selector: 'app-BarberModal',
@@ -24,7 +25,9 @@ export class BarberModalComponent implements OnInit {
     GlobalVariables.showBarberModal = value;
   };
 
-  constructor(private barberService: BarberService) { }
+  constructor(
+    private barberService: BarberService,
+    private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
   }
@@ -32,6 +35,7 @@ export class BarberModalComponent implements OnInit {
   onSubmit(form: NgForm) {
     const barberForm = form.value;
     let barber = new BarberModel(barberForm);
+    barber.associatedCompany = this.tokenStorage.getUserModel().companyName;
 
     let index = this.isEditModal? GlobalVariables.barbers.indexOf(GlobalVariables.editBarber!) : -1;
 
