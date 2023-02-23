@@ -9,6 +9,7 @@ export class GlobalVariables {
   public static endTime = 17;
 
   public static isBarberUser = false;
+  public static selectedBarber?: BarberModel;
 
   public static emptySchedules: ScheduleModel[] = [];
 

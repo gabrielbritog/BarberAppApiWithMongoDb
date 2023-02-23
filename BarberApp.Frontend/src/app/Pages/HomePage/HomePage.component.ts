@@ -40,7 +40,6 @@ export class HomePageComponent implements OnInit {
 
     GlobalVariables.isBarberUser = this.tokenStorage.getUserModel().barberId != null;
 
-    console.log(GlobalVariables.isBarberUser)
     GlobalVariables.FillProperties();
     this.getSchedules();
     this.getServiceTypes();
@@ -58,7 +57,6 @@ export class HomePageComponent implements OnInit {
         let schedules: ScheduleModel[] = data.data.map((element: any) => new ScheduleModel(element));
         GlobalVariables.schedules = schedules;
 
-        console.log(schedules);
         this.loadedSchedules = true;
 
         this.loadedFunction();

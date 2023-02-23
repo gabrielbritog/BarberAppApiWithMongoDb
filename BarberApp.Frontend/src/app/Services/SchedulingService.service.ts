@@ -29,6 +29,7 @@ export class SchedulingService {
 
   registerSchedule(schedule: ScheduleModel): Observable<any> {
     return this.http.post<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_REGISTER, {
+      barberId: schedule.barberId,
       client: schedule.client,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate
