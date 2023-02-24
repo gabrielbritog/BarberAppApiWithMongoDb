@@ -22,7 +22,7 @@ namespace BarberApp.Domain.Dto.ServiceType
         [JsonIgnore]
         public bool On { get; set; }
         [BsonElement("barberId")]
-        public string? barberId { get; set; }
+        public string barberId { get; set; }
         [BsonElement("duration")]
         public string Duration { get; set; }
     }
