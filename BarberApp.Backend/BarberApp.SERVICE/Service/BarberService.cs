@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Barber;
+using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
@@ -34,9 +35,18 @@ namespace BarberApp.Service.Service
             var barberDb = await  GetByEmail($"{barber.Email}");
             if (barberDb == null)
                 throw new Exception("Email ou senha inválidos.");
+            
+            
             barber.Password = EncryptPassword(barber.Password + barberDb.PasswordSalt);
             if (barberDb.Password != barber.Password)
                 throw new Exception("Email ou senha inválidos.");
+            if (barberDb.UserConfig.DueDate < DateTime.Now)
+            {
+                barberDb.Disabled = true;
+            }
+            else { barberDb.Disabled = false; }
+
+            await Update(_mapper.Map<UpdateBarberDto>(barberDb));
             return new TokenViewModel(
                true,
             DateTime.Now.ToString(),
@@ -74,12 +84,30 @@ namespace BarberApp.Service.Service
                 throw new Exception("Email já está sendo usado");
                 barber.FirstName ??= barberDb.FirstName;
                 barber.LastName ??= barberDb.LastName;
-                barber.Password = string.IsNullOrEmpty(barber.Password) ? barberDb.Password : EncryptPassword(barber.Password + barberDb.PasswordSalt);
+                barber.Password = barberDb.PasswordSalt;
                 barber.Email ??= barberDb.Email;
                 barber.UrlImage ??= barberDb.UrlImage;
                 barber.PhoneNumber ??= barberDb.PhoneNumber;
+                barber.UserConfig ??= barberDb.UserConfig;
                 barber.WorkingDays ??= barberDb.WorkingDays;
             var result = await _barberRepository.Update(_mapper.Map<Barber>(barber), barberId);
+            return _mapper.Map<ResponseBarberDto>(result);
+        }
+        public async Task<ResponseBarberDto> Update(UpdateBarberDto barber)
+        {
+            var barberDb = await this.GetByEmail($"{barber.Email}");
+            barber.UserRegistration = barberDb.UserRegistration;
+            barber.BarberId = barberDb.BarberId;
+            barber.UserId = barberDb.UserId;
+            barber.FirstName ??= barberDb.FirstName;
+            barber.LastName ??= barberDb.LastName;
+            barber.Password = barberDb.Password;
+            barber.Email ??= barberDb.Email;
+            barber.UrlImage ??= barberDb.UrlImage;
+            barber.PhoneNumber ??= barberDb.PhoneNumber;
+            barber.UserConfig ??= barberDb.UserConfig;
+            barber.WorkingDays ??= barberDb.WorkingDays;
+            var result = await _barberRepository.Update(_mapper.Map<Barber>(barber), barberDb.BarberId);
             return _mapper.Map<ResponseBarberDto>(result);
         }
     }

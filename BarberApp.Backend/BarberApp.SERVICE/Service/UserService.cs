@@ -32,13 +32,22 @@ namespace BarberApp.Service.Service
         {
             var userDb = await this.GetByEmail($"{user.Email}");
             if (userDb == null)
-                throw new Exception("Email ou senha inválidos.");
+                throw new Exception("Email ou senha inválidos.");                     
             user.Password = EncryptPassword(user.Password + userDb.PasswordSalt);
             if (userDb.Password != user.Password)
-                throw new Exception("Email ou senha inválidos.");          
+                throw new Exception("Email ou senha inválidos.");
+
+            if (userDb.UserConfig.DueDate < DateTime.Now)
+            {
+                userDb.Disabled = true;              
+            }
+            else { userDb.Disabled = false; }
+
+            await Update(_mapper.Map<UpdateUserDto>(userDb));
+
             return new TokenViewModel(
                true,
-            DateTime.Now.ToString(),
+            DateTime.Now.ToString(),          
                DateTime.Now.AddDays(_tokenConfiguration.TimeToExpiry).ToString(),
                _tokenService.GenerateToken(userDb),
                _mapper.Map<ResponseUserDto>(userDb)
@@ -77,8 +86,27 @@ namespace BarberApp.Service.Service
             user.PhoneNumber ??= userDb.PhoneNumber;
             user.Cep ??= userDb.Cep;
             user.WorkingDays ??= userDb.WorkingDays;
+            user.UserConfig??= userDb.UserConfig;
             var result = await _userRepository.Update(_mapper.Map<User>(user) , email);
             return _mapper.Map<ResponseUserDto>(result);
-        } 
+        }
+        public async Task<ResponseUserDto> Update(UpdateUserDto user)
+        {
+            var userDb = await this.GetByEmail($"{user.Email}");
+            user.UserId = userDb.UserId;
+            user.UserRegistration = userDb.UserRegistration;
+            user.FirstName ??= userDb.FirstName;
+            user.LastName ??= userDb.LastName;
+            user.Password = userDb.Password;
+            user.Email ??= userDb.Email;
+            user.CompanyName ??= userDb.CompanyName;
+            user.UrlImage ??= userDb.UrlImage;
+            user.PhoneNumber ??= userDb.PhoneNumber;
+            user.Cep ??= userDb.Cep;
+            user.WorkingDays ??= userDb.WorkingDays;
+            user.UserConfig ??= userDb.UserConfig;
+            var result = await _userRepository.Update(_mapper.Map<User>(user), userDb.Email);
+            return _mapper.Map<ResponseUserDto>(result);
+        }
     }
 }

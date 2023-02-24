@@ -28,6 +28,8 @@ namespace BarberApp.Domain.Dto.User
         public string Password { get; set; } = null!;
         [BsonElement("workingDays")]
         public List<WeekDays> WorkingDays { get; set; }
+        [BsonElement("userConfig")]
+        public UserConfig UserConfig { get; set; }
         public bool Disabled { get; set; }
     }
 }
