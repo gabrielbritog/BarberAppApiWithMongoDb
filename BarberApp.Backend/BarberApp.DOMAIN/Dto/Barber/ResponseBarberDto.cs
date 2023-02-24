@@ -30,5 +30,7 @@ namespace BarberApp.Domain.Dto.Barber
         public bool Disabled { get; set; }
         [BsonElement("workingDays")]
         public List<WeekDays> WorkingDays { get; set; }
+        [BsonElement("userConfig")]
+        public UserConfig UserConfig { get; set; }
     }
 }

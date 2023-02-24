@@ -99,6 +99,7 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.Password, user.Password)
                     .Set(u => u.UrlImage, user.UrlImage)
                     .Set(u => u.Cep, user.Cep)
+                    .Set(u => u.UserConfig, user.UserConfig)
                     .Set(u => u.Email, user.Email)
                     .Set(u => u.PhoneNumber, user.PhoneNumber)
                     .Set(u => u.Disabled, user.Disabled)

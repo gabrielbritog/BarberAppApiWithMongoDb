@@ -22,5 +22,6 @@ namespace BarberApp.Domain.Dto.User
         public List<WeekDays> WorkingDays { get; set; }
         public DateTime UserRegistration { get; set; }
         public bool Disabled { get; set; }
+        public UserConfig UserConfig { get; set; }
     }
 }
