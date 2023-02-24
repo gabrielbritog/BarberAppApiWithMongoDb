@@ -92,4 +92,12 @@ export class NavBarComponent implements OnInit {
     this.agendaExpanded = false;
   }
 
+  changeDarkMode() {
+    const _document = document.documentElement;
+    if (_document.classList.contains('light-mode'))
+      _document.classList.remove('light-mode');
+    else
+      _document.classList.add('light-mode');
+  }
+
 }

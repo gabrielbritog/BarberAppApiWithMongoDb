@@ -42,6 +42,7 @@ export class AuthService {
   register(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + ADMIN_ROUTE + REGISTER_ROUTE, {
+      userConfig: credentials.userConfig,
       companyName: credentials.companyName,
       firstname: credentials.firstname,
       Lastname: credentials.lastname,
@@ -55,6 +56,7 @@ export class AuthService {
   registerBarber(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + BARBER_ROUTE + REGISTER_ROUTE, {
+      userConfig: credentials.userConfig,
       companyName: credentials.associatedCompany,
       firstName: credentials.firstName,
       lastName: credentials.lastName,

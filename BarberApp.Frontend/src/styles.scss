@@ -6,12 +6,24 @@
 :root{
   --app-color-primary: #ff9000;
   --app-color-blue: #518fa3;
+
   --app-color-text: #f4ede8;
   --app-color-bg: #312e38;
   --app-color-bg-alt: #3e3b47;
   --app-color-input-bg: #232129;
   --app-color-input-text: #5e5b59;
   --app-color-light-border: #ffffff20;
+
+
+
+  --app-color-text-light: #000000;
+  --app-color-bg-light: #ffffff;
+  --app-color-bg-alt-light: #f9f9f9;
+  --app-color-input-bg-light: #f1f1f1;
+  --app-color-input-text-light: #5e5b59;
+  --app-color-light-border-light: #00000020;
+
+
 
   --nav-color-bg: #28262e;
 
@@ -23,6 +35,15 @@
 
   --default-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --default-transition-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1);
+
+  &.light-mode{
+    --app-color-text: var(--app-color-text-light);
+    --app-color-bg: var(--app-color-bg-light);
+    --app-color-bg-alt: var(--app-color-bg-alt-light);
+    --app-color-input-bg: var(--app-color-input-bg-light);
+    --app-color-input-text: var(--app-color-input-text-light);
+    --app-color-light-border: var(--app-color-light-border-light);
+  }
 }
 
 *{

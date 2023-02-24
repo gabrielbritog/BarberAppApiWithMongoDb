@@ -1,3 +1,4 @@
+import { UserConfig } from './UserConfig';
 import { WorkingDays } from './WorkingDays';
 export class UserModel {
   barberId?: string;
@@ -14,6 +15,8 @@ export class UserModel {
   urlImagem?: string;
   userRegistration?: string;
   workingDays?: WorkingDays[];
+  userConfig = new UserConfig();
+
 
   constructor(params?: Partial<UserModel>) {
     if (params)

@@ -102,18 +102,23 @@ export class HomePageComponent implements OnInit {
   }
 
   loadedFunction() {
-    if (this.isAppLoaded() == false || this.appLoaded)
+    if (!this.isAppLoaded() || this.appLoaded)
       return;
+    const delay = 200;
     setTimeout(() => {
       LoaderComponent.SetOptions(false);
+
       if (GlobalVariables.isAdmin && GlobalVariables.barbers.length > 0)
         GlobalVariables.selectedBarber = GlobalVariables.barbers[0];
       else
         GlobalVariables.selectedBarber = undefined;
-      setTimeout(() => {
-          this.appLoaded = true;
-      }, 200);
-    }, 200);
+
+      if (GlobalVariables.barbers.length == 0)
+        GlobalVariables.currentSection = 3;
+
+      setTimeout(() => this.appLoaded = true, delay);
+
+    }, delay);
   }
 
 }
