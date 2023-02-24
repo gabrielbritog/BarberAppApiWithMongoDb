@@ -14,6 +14,13 @@ export class SchedulesSectionComponent implements OnInit {
   showAvailable = true;
   showFilled = true;
 
+  get isBlocked() {
+    if (GlobalVariables.isAdmin && GlobalVariables.barbers.length == 0)
+      return true;
+
+    return false;
+  }
+
   get barberList() {
     return GlobalVariables.barbers;
   }
@@ -51,9 +58,6 @@ export class SchedulesSectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!this.isAdmin || this.selectedBarber != null || GlobalVariables.barbers.length == 0)
-      return;
-    this.selectedBarber = GlobalVariables.barbers[0];
   }
 
   newSchedule() {
@@ -71,10 +75,7 @@ export class SchedulesSectionComponent implements OnInit {
     }
 
     for (const emptySchedule of emptySchedulesTemplate) {
-      let newSchedule = new ScheduleModel({
-        date: GlobalVariables.currentDay.format('YYYY-MM-DD'),
-        time: emptySchedule.time
-      });
+      let newSchedule = emptySchedule;
 
       const existingSchedule = currentDaySchedules.find(schedule => schedule.time === newSchedule.time);
 
@@ -99,9 +100,4 @@ export class SchedulesSectionComponent implements OnInit {
 
     return filteredSchedules;
   }
-
-
-
-
-
 }

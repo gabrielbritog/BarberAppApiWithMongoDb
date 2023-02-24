@@ -1,3 +1,4 @@
+import { ClientModel } from './../../../Models/ClientModel';
 import { Component, Input, OnInit } from '@angular/core';
 import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
@@ -13,7 +14,7 @@ export class ScheduleCardComponent implements OnInit {
   @Input('showOptions') showOptions = true;
 
   get isEmptyModel() {
-    return this.scheduleModel.client.name == '' && this.scheduleModel.serviceType.length == 0;
+    return !this.scheduleModel?.client?.name ?? true;
   }
 
   constructor() { }

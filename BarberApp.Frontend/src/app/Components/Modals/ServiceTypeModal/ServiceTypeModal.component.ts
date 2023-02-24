@@ -64,7 +64,7 @@ export class ServiceTypeModalComponent implements OnInit {
         }, 20);
       },
       error: (err) => {
-        console.log(err.message);
+        console.log(err);
         LoaderComponent.SetOptions(false);
         setTimeout(() => {
           console.log(err.message);

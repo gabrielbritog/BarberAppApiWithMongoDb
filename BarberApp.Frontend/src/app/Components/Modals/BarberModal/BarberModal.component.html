@@ -54,7 +54,7 @@
           />
         </label>
       </div>
-      <div class="form_group">
+      <div class="form_group" *ngIf="!isEditModal"  >
         <label for="barberpassword">
           <input
             type="password"

@@ -42,25 +42,24 @@ export class SchedulingModalComponent implements OnInit {
 
   get isEditModal() { return GlobalVariables.modalAsEdit; }
 
-  get serviceTypes() { return GlobalVariables.serviceTypes; }
+  get serviceTypes() {
+    const serviceTypes = GlobalVariables.serviceTypes;
+    if (GlobalVariables.isAdmin)
+      return serviceTypes.filter(p => p.barberId == GlobalVariables.selectedBarber?.barberId);
+
+    return serviceTypes;
+  }
 
   get isTodayDate() {
     return this.currentDay == moment().format('YYYY-MM-DD');
   }
 
   get currentDaySchedules() {
-    var result = GlobalVariables.schedules
-                .filter(p => moment.utc(p.schedulingDate).format('YYYY-MM-DD') == this.currentDay)
-                .sort((n1, n2) => {
-                  if (n1.time > n2.time) {
-                      return 1;
-                  }
-                  if (n1.time < n2.time) {
-                      return -1;
-                  }
-                  return 0;
-                });
-    return result;
+    const currentDay = GlobalVariables.currentDay.format('L');
+    const filteredSchedules = GlobalVariables.schedules
+      .filter(p => p.date === currentDay)
+      .sort((n1, n2) => n1.time.localeCompare(n2.time));
+    return !GlobalVariables.isAdmin ? filteredSchedules : filteredSchedules.filter(p => p.barberId === GlobalVariables.selectedBarber?.barberId);
   };
 
   get availableSchedules() {
@@ -103,7 +102,7 @@ export class SchedulingModalComponent implements OnInit {
     apiCall.subscribe({
       next: (data: any) => {
         LoaderComponent.SetOptions(false);
-        console.log(data.data.message);
+        console.log(data.data);
         setTimeout(() => {
           if (index < 0)
             GlobalVariables.schedules.push(new ScheduleModel(data.data));
@@ -127,32 +126,39 @@ export class SchedulingModalComponent implements OnInit {
   }
 
   onCancel(form: NgForm) {
+    form.resetForm();
+    this.scheduleModel = new ScheduleModel(GlobalVariables.editSchedule);
     this.showModal = false;
   }
 
   setAvailableSchedules() {
     const emptySchedulesTemplate = GlobalVariables.emptySchedules;
-    const editScheduleModel = this.scheduleModel;
-    let currentDaySchedules = this.currentDaySchedules;
-    let schedules: ScheduleModel[] = [];
+    const currentDaySchedules = this.currentDaySchedules;
+    const currentTime = moment().format('HH:mm');
+    const filledTimes: any = {};
+    const filteredSchedules = [];
 
-    for (let index = 0; index < emptySchedulesTemplate.length; index++) {
-      let newSchedule = new ScheduleModel({
-        date: this.currentDay,
-        time: emptySchedulesTemplate[index].time
-      })
-
-      let schedule = currentDaySchedules.find(p => p.time == newSchedule.time);
-      let editSchedule = editScheduleModel.time == newSchedule.time;
-
-      if (!schedule || (this.isEditModal && editSchedule))
-        schedules.push(newSchedule);
+    for (const schedule of currentDaySchedules) {
+      filledTimes[schedule.time] = true;
     }
 
-    if (this.isTodayDate)
-      schedules = schedules.filter(p=> p.time >=  moment().format('HH:mm'))
+    for (const emptySchedule of emptySchedulesTemplate) {
+      let newSchedule = emptySchedule;
 
-    return schedules;
+      let editSchedule = this.scheduleModel.time == newSchedule.time;
+      const existingSchedule = currentDaySchedules.find(schedule => schedule.time === newSchedule.time);
+
+      if (existingSchedule) {
+        if (this.isEditModal && editSchedule)
+          newSchedule = existingSchedule;
+        else
+          continue;
+      }
+
+      filteredSchedules.push(newSchedule);
+    }
+
+    return filteredSchedules;
   }
 
 

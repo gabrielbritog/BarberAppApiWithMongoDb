@@ -60,6 +60,14 @@ export class NavBarComponent implements OnInit {
     GlobalVariables.selectedBarber = value;
   }
 
+  get isBlocked() {
+    if (GlobalVariables.isAdmin && GlobalVariables.barbers.length == 0)
+      return true;
+
+    return false;
+  }
+
+
   constructor(private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit() {
@@ -73,6 +81,8 @@ export class NavBarComponent implements OnInit {
   agendaExpanded = false;
 
   setAgenda(barber: any) {
+    if (this.barberList.length <= 1)
+      return;
     if (this.selectedBarber == barber){
       this.agendaExpanded = !this.agendaExpanded;
       return;

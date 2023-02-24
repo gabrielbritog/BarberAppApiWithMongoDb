@@ -106,13 +106,13 @@ export class HomePageComponent implements OnInit {
       return;
     setTimeout(() => {
       LoaderComponent.SetOptions(false);
-      console.log(GlobalVariables.barbers);
-      console.log(GlobalVariables.schedules);
-      console.log(GlobalVariables.serviceTypes);
-
-        setTimeout(() => {
-            this.appLoaded = true;
-        }, 200);
+      if (GlobalVariables.isAdmin && GlobalVariables.barbers.length > 0)
+        GlobalVariables.selectedBarber = GlobalVariables.barbers[0];
+      else
+        GlobalVariables.selectedBarber = undefined;
+      setTimeout(() => {
+          this.appLoaded = true;
+      }, 200);
     }, 200);
   }
 

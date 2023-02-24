@@ -25,7 +25,7 @@ export class ServiceTypeService {
 
   registerServiceType(serviceType: ServiceTypeModel): Observable<any> {
     LoaderComponent.SetOptions(true);
-    return this.http.post(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_REGISTER, {
+    return this.http.post(BASE_URL_API+ (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_REGISTER, {
       barberId: serviceType.barberId,
       nameService: serviceType.nameService,
       valueService: serviceType.valueService
@@ -33,7 +33,7 @@ export class ServiceTypeService {
   }
 
   updateServiceType(serviceType: ServiceTypeModel): Observable<any>{
-    return this.http.put<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_UPDATE, {
+    return this.http.put<any>(BASE_URL_API+ (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_UPDATE, {
       barberId: serviceType.barberId,
       serviceTypeId: serviceType.serviceTypeId,
       nameService: serviceType.nameService,

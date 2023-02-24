@@ -84,6 +84,7 @@ export class CalendarCardComponent implements OnInit {
 
   setDay(element: moment.Moment) {
     GlobalVariables.currentDay = element;
+    GlobalVariables.getEmptySchedulesBase();
   }
 
   loadWeek() {
