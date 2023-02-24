@@ -8,7 +8,7 @@ export class GlobalVariables {
   public static startTime = 9;
   public static endTime = 17;
 
-  public static isBarberUser = false;
+  public static isAdmin = false;
   public static selectedBarber?: BarberModel;
 
   public static emptySchedules: ScheduleModel[] = [];

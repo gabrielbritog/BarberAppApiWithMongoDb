@@ -88,7 +88,7 @@ export class SchedulingModalComponent implements OnInit {
   onSubmit(form: NgForm) {
     const scheduleForm = form.value;
     scheduleForm.time = this.currentTime;
-    scheduleForm.barberId = GlobalVariables.isBarberUser? this.tokenStorageService.getUserModel().barberId : GlobalVariables.selectedBarber?.barberId;
+    scheduleForm.barberId = GlobalVariables.isAdmin? GlobalVariables.selectedBarber?.barberId : this.tokenStorageService.getUserModel().barberId;
     scheduleForm.schedulingId = this.isEditModal ? this.scheduleModel.schedulingId : scheduleForm.schedulingId;
     scheduleForm.serviceType = this.selectedServiceTypes;
 
@@ -103,7 +103,7 @@ export class SchedulingModalComponent implements OnInit {
     apiCall.subscribe({
       next: (data: any) => {
         LoaderComponent.SetOptions(false);
-        console.log(data.data);
+        console.log(data.data.message);
         setTimeout(() => {
           if (index < 0)
             GlobalVariables.schedules.push(new ScheduleModel(data.data));

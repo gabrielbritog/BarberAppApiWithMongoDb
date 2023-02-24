@@ -43,7 +43,7 @@
           class="nav_item"
           [class.active]="currentSection == 3"
           (click)="currentSection = 3"
-          *ngIf="!isBarberUser">
+          *ngIf="isAdmin">
           <i class="fa-solid fa-people-group"></i>
           <div class="nav_item_title">Barbeiros</div>
         </li>
@@ -58,7 +58,7 @@
 </nav>
 
 
-<div class="barber_container card" [class.expand]="agendaExpanded" *ngIf="!isBarber && currentSection == 0">
+<div class="barber_container card" [class.expand]="agendaExpanded" *ngIf="isAdmin && (currentSection == 0 || currentSection == 2)">
   <div class="title">Agenda do funcionário:</div>
   <div class="barber_cards flex_column">
     <div class="barber_card card" *ngFor="let item of barberList" [class.active]="selectedBarber == item" (click)="setAgenda(item)" >

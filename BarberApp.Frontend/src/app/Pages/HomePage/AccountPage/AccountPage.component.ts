@@ -25,6 +25,10 @@ export class AccountPageComponent implements OnInit {
     return this.tokenStorage.getUserModel();
   }
 
+  get isAdmin() {
+    return GlobalVariables.isAdmin;
+  }
+
   constructor(
     private tokenStorage: TokenStorageService,
     private authService: AuthService) { }
@@ -34,11 +38,11 @@ export class AccountPageComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
-    console.log(form.value)
-    return;
     const userModel = new UserModel(form.value);
 
-    this.authService.update(userModel).subscribe({
+    const apiCall = this.isAdmin ? this.authService.update(userModel) : this.authService.updateBarber(userModel);
+
+    apiCall.subscribe({
       next: (data: any) => {
         LoaderComponent.SetOptions(false, true, true);
         this.tokenStorage.saveUser(data.data);

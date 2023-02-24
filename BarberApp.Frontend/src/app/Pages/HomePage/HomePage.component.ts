@@ -38,7 +38,9 @@ export class HomePageComponent implements OnInit {
     this.appLoaded = false;
     LoaderComponent.SetOptions(true);
 
-    GlobalVariables.isBarberUser = this.tokenStorage.getUserModel().barberId != null;
+    GlobalVariables.isAdmin = this.tokenStorage.getUserModel().barberId == null;
+
+    GlobalVariables.currentSection = 0;
 
     GlobalVariables.FillProperties();
     this.getSchedules();
@@ -103,7 +105,11 @@ export class HomePageComponent implements OnInit {
     if (this.isAppLoaded() == false || this.appLoaded)
       return;
     setTimeout(() => {
-        LoaderComponent.SetOptions(false);
+      LoaderComponent.SetOptions(false);
+      console.log(GlobalVariables.barbers);
+      console.log(GlobalVariables.schedules);
+      console.log(GlobalVariables.serviceTypes);
+
         setTimeout(() => {
             this.appLoaded = true;
         }, 200);

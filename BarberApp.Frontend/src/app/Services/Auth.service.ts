@@ -52,6 +52,20 @@ export class AuthService {
     });
   }
 
+  registerBarber(credentials: any): Observable<any>{
+    LoaderComponent.SetOptions(true);
+    return this.http.post(AUTH_API + BARBER_ROUTE + REGISTER_ROUTE, {
+      companyName: credentials.associatedCompany,
+      firstName: credentials.firstName,
+      lastName: credentials.lastName,
+      email: credentials.email,
+      urlImage: credentials.urlImage,
+      password: credentials.password,
+      phoneNumber: credentials.phoneNumber,
+      workingDays: credentials.workingDays
+    });
+  }
+
   update(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.put<any>(AUTH_API + ADMIN_ROUTE + UPDATE_ROUTE, {
@@ -60,6 +74,21 @@ export class AuthService {
       Lastname: credentials.lastname,
       cep: credentials.cep,
       phoneNumber: credentials.phoneNumber
+    });
+  }
+
+  updateBarber(credentials: any): Observable<any>{
+    LoaderComponent.SetOptions(true);
+    return this.http.put<any>(AUTH_API + BARBER_ROUTE + UPDATE_ROUTE, {
+      barberId: credentials.barberId,
+      userId: credentials.userId,
+      firstName: credentials.firstName,
+      lastName: credentials.lastName,
+      email: credentials.email,
+      urlImage: credentials.urlImage,
+      password: credentials.password,
+      phoneNumber: credentials.phoneNumber,
+      workingDays: credentials.workingDays
     });
   }
 }

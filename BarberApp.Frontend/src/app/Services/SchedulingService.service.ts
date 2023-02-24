@@ -37,7 +37,7 @@ export class SchedulingService {
   }
 
   updateSchedule(schedule: ScheduleModel): Observable<any>{
-    return this.http.put<any>(BASE_URL_API + (GlobalVariables.isBarberUser ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_UPDATE, {
+    return this.http.put<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_UPDATE, {
       schedulingId: schedule.schedulingId,
       client: schedule.client,
       serviceType: schedule.serviceType,
@@ -51,7 +51,7 @@ export class SchedulingService {
 
   getManySchedule(skip: number = 1, take: number = 10): Observable<any> {
     LoaderComponent.SetOptions(true);
-    return this.http.get<any>(BASE_URL_API + (GlobalVariables.isBarberUser ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_GETMANY, {
+    return this.http.get<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_GETMANY, {
       params: {
         start: skip,
         count: take
