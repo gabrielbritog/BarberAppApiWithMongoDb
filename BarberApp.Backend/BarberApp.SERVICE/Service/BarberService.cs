@@ -84,8 +84,8 @@ namespace BarberApp.Service.Service
                 throw new Exception("Email já está sendo usado");
                 barber.FirstName ??= barberDb.FirstName;
                 barber.LastName ??= barberDb.LastName;
-                barber.Password = barberDb.PasswordSalt;
-                barber.Email ??= barberDb.Email;
+            barber.Password = string.IsNullOrEmpty(barber.Password) ? barberDb.Password : EncryptPassword(barber.Password + barberDb.PasswordSalt);
+            barber.Email ??= barberDb.Email;
                 barber.UrlImage ??= barberDb.UrlImage;
                 barber.PhoneNumber ??= barberDb.PhoneNumber;
                 barber.UserConfig ??= barberDb.UserConfig;

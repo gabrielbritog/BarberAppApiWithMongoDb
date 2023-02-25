@@ -75,8 +75,7 @@ namespace BarberApp.Infra.Repository
         {
             try
             {
-                user.Email = user.Email.ToLower();
-                user.CompanyName = user.CompanyName.ToLower();
+                
                 await _userCollection.InsertOneAsync(user);
                 return user;
             }
