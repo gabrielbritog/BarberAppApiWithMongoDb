@@ -16,10 +16,6 @@ export class NavBarComponent implements OnInit {
     return this.loggedUser.urlImagem;
   }
 
-  get accountExpanded() {
-    return GlobalVariables.accountExpanded;
-  }
-
   get currentSection() {
     return GlobalVariables.currentSection;
   }

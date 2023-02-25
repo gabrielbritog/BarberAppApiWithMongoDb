@@ -5,6 +5,7 @@ import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import { NgForm } from '@angular/forms';
 import { TokenStorageService } from '../../../Services/token-storage.service';
 import { UserModel } from '../../../Models/UserModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-AccountPage',
@@ -12,14 +13,6 @@ import { UserModel } from '../../../Models/UserModel';
   styleUrls: ['./AccountPage.component.scss']
 })
 export class AccountPageComponent implements OnInit {
-
-  get expanded() {
-    return GlobalVariables.accountExpanded;
-  }
-
-  set expanded(value) {
-    GlobalVariables.accountExpanded = value;
-  }
 
   get userInfo() {
     return this.tokenStorage.getUserModel();
@@ -31,9 +24,13 @@ export class AccountPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    if (!this.tokenStorage.getToken())
+      this.router.navigateByUrl('/Login');
   }
 
   onSubmit(form: NgForm) {
@@ -46,6 +43,7 @@ export class AccountPageComponent implements OnInit {
       next: (data: any) => {
         LoaderComponent.SetOptions(false, true, true);
         this.tokenStorage.saveUser(data.data);
+        this.router.navigateByUrl('/Home');
       },
       error: (err) => {
         LoaderComponent.SetOptions(false, false, true);
@@ -56,7 +54,7 @@ export class AccountPageComponent implements OnInit {
   }
 
   onCancel() {
-    this.expanded = false;
+    this.router.navigateByUrl('/Home');
   }
 
   removeUndefinedStrings(value: any) {

@@ -4,25 +4,11 @@
 .account_container{
   position: relative;
   width: 100vw;
-  height: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background-color: var(--app-color-bg);
-  .black_overlay{
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    position: absolute;
-    z-index: 1;
-  }
-  &.show{
-    height: 100vh;
-    .black_overlay{
-      pointer-events: none;
-      opacity: 0;
-    }
-  }
 }
 
 .header{

@@ -46,14 +46,6 @@ export class SidebarComponent implements OnInit {
     this.updateUserConfig();
   }
 
-  get accountPageExpanded() {
-    return GlobalVariables.accountExpanded;
-  }
-
-  set accountPageExpanded(value) {
-    GlobalVariables.accountExpanded = value;
-  }
-
   get loggedUser() {
     return this.tokenStorage.getUserModel();
   }
@@ -75,6 +67,10 @@ export class SidebarComponent implements OnInit {
     this.tokenStorage.signOut();
     GlobalVariables.loadUserConfig(new UserConfig());
     this.router.navigateByUrl('/')
+  }
+
+  editAccountPage() {
+    this.router.navigateByUrl('/Account')
   }
 
   updateUserConfig() {

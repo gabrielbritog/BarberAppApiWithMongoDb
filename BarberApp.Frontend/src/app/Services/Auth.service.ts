@@ -83,8 +83,9 @@ export class AuthService {
   updateBarber(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.put<any>(AUTH_API + BARBER_ROUTE + UPDATE_ROUTE, {
-      firstName: credentials.firstname,
-      lastName: credentials.lastname,
+      barberId: credentials.barberId,
+      firstName: credentials.firstName,
+      lastName: credentials.lastName,
       urlImage: credentials.urlImage,
       phoneNumber: credentials.phoneNumber,
       workingDays: credentials.workingDays

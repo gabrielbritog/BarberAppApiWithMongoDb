@@ -39,9 +39,6 @@ export class GlobalVariables {
   public static isLoaderSuccess = false;
   public static showLoaderSuccess = true;
 
-  // ACCOUNT PAGE
-  public static accountExpanded = false;
-
   // IP DA MÁQUINA
   // public static readonly MACHINE_IP = "localhost";
   public static readonly MACHINE_IP = "192.168.1.2";
