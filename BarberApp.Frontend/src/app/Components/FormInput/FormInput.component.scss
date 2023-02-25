@@ -1,0 +1,24 @@
+label {
+  display: flex;
+  position: relative;
+  width: 100%;
+  .placeholder_title{
+    position: absolute;
+    top: 0.6rem;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+    margin-left: 1rem;
+  }
+  input{
+    width: 100%;
+  }
+  &.dirty input,
+  input:focus{
+    padding-top: 1.4rem;
+    font-size: 1.25rem;
+    +.placeholder_title{
+      font-size: .8rem;
+    }
+  }
+}

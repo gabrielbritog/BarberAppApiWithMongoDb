@@ -14,6 +14,29 @@ import { Router } from '@angular/router';
 })
 export class AccountPageComponent implements OnInit {
 
+  inputText = "";
+
+  get headerUrl() {
+    let headerText = 'Conta '
+    switch (this.router.url) {
+      case '/Account/Name':
+        headerText += '/ Editar Nome';
+        break;
+      case '/Account/Email':
+        headerText += '/ Editar Email';
+        break;
+      case '/Account/Phone':
+        headerText += '/ Editar Celular';
+        break;
+      case '/Account/Password':
+        headerText += '/ Alterar Senha';
+        break;
+
+    }
+
+    return headerText;
+  }
+
   get userInfo() {
     return this.tokenStorage.getUserModel();
   }
@@ -54,7 +77,10 @@ export class AccountPageComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateByUrl('/Home');
+    if (this.router.url == '/Account')
+      this.router.navigateByUrl('/Home');
+    else
+      this.router.navigateByUrl('/Account');
   }
 
   removeUndefinedStrings(value: any) {

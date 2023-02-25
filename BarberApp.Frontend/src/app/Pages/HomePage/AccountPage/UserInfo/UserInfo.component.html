@@ -1,0 +1,15 @@
+<div class="user_info container animate_show">
+  <div class="profile_pic">
+    <button type="button" class="btn edit_btn">
+      <i class="fa-solid fa-camera"></i>
+    </button>
+    <i class="fa-solid fa-user placeholder_icon"></i>
+  </div>
+
+  <app-AccountCard [title]="'Nome'" [content]="userInfo.firstName + ' ' + userInfo.lastName" (click)="goToRoute('Name')" ></app-AccountCard>
+  <app-AccountCard [title]="'Email'" [content]="userInfo.email" (click)="goToRoute('Email')" ></app-AccountCard>
+  <app-AccountCard [title]="'Telefone'" [content]="userInfo.phoneNumber" (click)="goToRoute('Phone')" ></app-AccountCard>
+  <app-AccountCard *ngIf="isAdmin" [title]="'Cep'" [content]="userInfo.cep" ></app-AccountCard>
+  <app-AccountCard [title]="'Senha'" [content]="'alterar senha'" (click)="goToRoute('Password')" ></app-AccountCard>
+
+</div>
