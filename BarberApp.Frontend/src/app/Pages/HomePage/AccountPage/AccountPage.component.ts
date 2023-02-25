@@ -1,11 +1,11 @@
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
-import { AuthService } from './../../../Services/Auth.service';
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import { NgForm } from '@angular/forms';
 import { TokenStorageService } from '../../../Services/token-storage.service';
 import { UserModel } from '../../../Models/UserModel';
 import { Router } from '@angular/router';
+import { UserService } from '../../../Services/User.service';
 
 @Component({
   selector: 'app-AccountPage',
@@ -47,7 +47,7 @@ export class AccountPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private authService: AuthService,
+    private userService: UserService,
     private router: Router
   ) { }
 
@@ -60,7 +60,7 @@ export class AccountPageComponent implements OnInit {
 
     const userModel = new UserModel(form.value);
 
-    const apiCall = this.isAdmin ? this.authService.update(userModel) : this.authService.updateBarber(userModel);
+    const apiCall = this.isAdmin ? this.userService.update(userModel) : this.userService.updateBarber(userModel);
 
     apiCall.subscribe({
       next: (data: any) => {

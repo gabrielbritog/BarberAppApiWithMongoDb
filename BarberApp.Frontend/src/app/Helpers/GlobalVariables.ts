@@ -43,7 +43,7 @@ export class GlobalVariables {
 
   // IP DA MÁQUINA
   // public static readonly MACHINE_IP = "localhost";
-  public static readonly MACHINE_IP = "192.168.1.2";
+  public static readonly MACHINE_IP = "192.168.1.83";
 
 
   public static FillProperties() {

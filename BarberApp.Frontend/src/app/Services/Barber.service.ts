@@ -2,9 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from '../Helpers/GlobalVariables';
-import { BarberModel } from '../Models/BarberModel';
-import { ScheduleModel } from '../Models/ScheduleModel';
-import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 
 // IP DA MÁQUINA
 const MACHINE_IP = GlobalVariables.MACHINE_IP;

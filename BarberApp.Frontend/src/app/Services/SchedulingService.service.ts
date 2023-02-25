@@ -32,7 +32,8 @@ export class SchedulingService {
       barberId: schedule.barberId,
       client: schedule.client,
       serviceType: schedule.serviceType,
-      schedulingDate: schedule.schedulingDate
+      schedulingDate: schedule.schedulingDate,
+      endOfSchedule: schedule.schedulingDate
     });
   }
 
@@ -41,7 +42,8 @@ export class SchedulingService {
       schedulingId: schedule.schedulingId,
       client: schedule.client,
       serviceType: schedule.serviceType,
-      schedulingDate: schedule.schedulingDate
+      schedulingDate: schedule.schedulingDate,
+      endOfSchedule: schedule.schedulingDate
     });
   }
 

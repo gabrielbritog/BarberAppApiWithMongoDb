@@ -5,6 +5,7 @@ import { BarberModel } from '../../../Models/BarberModel';
 import { LoaderComponent } from '../../Loader/Loader.component';
 import { TokenStorageService } from '../../../Services/token-storage.service';
 import { AuthService } from '../../../Services/Auth.service';
+import { UserService } from '../../../Services/User.service';
 
 @Component({
   selector: 'app-BarberModal',
@@ -27,6 +28,7 @@ export class BarberModalComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
@@ -42,7 +44,7 @@ export class BarberModalComponent implements OnInit {
 
     let index = this.isEditModal? GlobalVariables.barbers.indexOf(GlobalVariables.editBarber!) : -1;
 
-    const apiCall = this.isEditModal ? this.authService.updateBarber(barber) : this.authService.registerBarber(barber);
+    const apiCall = this.isEditModal ? this.userService.updateBarber(barber) : this.authService.registerBarber(barber);
 
     apiCall.subscribe({
       next: (data: any) => this.successResponse(data, index, form),

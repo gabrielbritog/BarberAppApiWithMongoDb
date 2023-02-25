@@ -15,7 +15,6 @@ const BARBER_ROUTE = 'Barber/';
 
 const LOGIN_ROUTE = 'Login';
 const REGISTER_ROUTE = 'Register';
-const UPDATE_ROUTE = 'Update';
 
 @Injectable({
   providedIn: 'root'
@@ -67,40 +66,5 @@ export class AuthService {
       phoneNumber: credentials.phoneNumber,
       workingDays: credentials.workingDays
     });
-  }
-
-  update(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
-    return this.http.put<any>(AUTH_API + ADMIN_ROUTE + UPDATE_ROUTE, {
-      companyName: credentials.companyName,
-      firstname: credentials.firstname,
-      Lastname: credentials.lastname,
-      cep: credentials.cep,
-      phoneNumber: credentials.phoneNumber
-    });
-  }
-
-  updateBarber(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
-    return this.http.put<any>(AUTH_API + BARBER_ROUTE + UPDATE_ROUTE, {
-      barberId: credentials.barberId,
-      firstName: credentials.firstName,
-      lastName: credentials.lastName,
-      urlImage: credentials.urlImage,
-      phoneNumber: credentials.phoneNumber,
-      workingDays: credentials.workingDays
-    });
-  }
-
-  updateBarberUserConfig(config: UserConfig): Observable<any>{
-    return this.http.put<any>(AUTH_API + BARBER_ROUTE + UPDATE_ROUTE, {
-      userConfig: config
-    })
-  }
-
-  updateAdminUserConfig(config: UserConfig): Observable<any>{
-    return this.http.put<any>(AUTH_API + ADMIN_ROUTE + UPDATE_ROUTE, {
-      userConfig: config
-    })
   }
 }

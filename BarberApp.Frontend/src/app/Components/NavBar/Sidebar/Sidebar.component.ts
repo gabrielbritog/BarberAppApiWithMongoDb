@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { NavBarComponent } from '../NavBar.component';
 import { UserConfig } from '../../../Models/UserConfig';
-import { AuthService } from '../../../Services/Auth.service';
+import { UserService } from '../../../Services/User.service';
 
 @Component({
   selector: 'app-Sidebar',
@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private tokenStorage: TokenStorageService,
     private router: Router,
-    private authService: AuthService
+    private userService: UserService
   ) {  }
 
   ngOnInit() {
@@ -74,7 +74,7 @@ export class SidebarComponent implements OnInit {
   }
 
   updateUserConfig() {
-    const API_CALL = GlobalVariables.isAdmin ? this.authService.updateAdminUserConfig(this.userConfig) : this.authService.updateBarberUserConfig(this.userConfig);
+    const API_CALL = this.userService.updateUserConfig(this.userConfig);
 
     API_CALL.subscribe({
       next: (data: any) => {
