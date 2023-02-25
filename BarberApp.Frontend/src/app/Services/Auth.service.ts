@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoaderComponent } from '../Components/Loader/Loader.component';
 import { GlobalVariables } from '../Helpers/GlobalVariables';
+import { UserConfig } from '../Models/UserConfig';
 
 
 // IP DA MÁQUINA
@@ -42,6 +43,7 @@ export class AuthService {
   register(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + ADMIN_ROUTE + REGISTER_ROUTE, {
+      userConfig: credentials.userConfig,
       companyName: credentials.companyName,
       firstname: credentials.firstname,
       Lastname: credentials.lastname,
@@ -55,6 +57,7 @@ export class AuthService {
   registerBarber(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + BARBER_ROUTE + REGISTER_ROUTE, {
+      userConfig: credentials.userConfig,
       companyName: credentials.associatedCompany,
       firstName: credentials.firstName,
       lastName: credentials.lastName,
@@ -80,15 +83,23 @@ export class AuthService {
   updateBarber(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.put<any>(AUTH_API + BARBER_ROUTE + UPDATE_ROUTE, {
-      barberId: credentials.barberId,
-      userId: credentials.userId,
-      firstName: credentials.firstName,
-      lastName: credentials.lastName,
-      email: credentials.email,
+      firstName: credentials.firstname,
+      lastName: credentials.lastname,
       urlImage: credentials.urlImage,
-      password: credentials.password,
       phoneNumber: credentials.phoneNumber,
       workingDays: credentials.workingDays
     });
+  }
+
+  updateBarberUserConfig(config: UserConfig): Observable<any>{
+    return this.http.put<any>(AUTH_API + BARBER_ROUTE + UPDATE_ROUTE, {
+      userConfig: config
+    })
+  }
+
+  updateAdminUserConfig(config: UserConfig): Observable<any>{
+    return this.http.put<any>(AUTH_API + ADMIN_ROUTE + UPDATE_ROUTE, {
+      userConfig: config
+    })
   }
 }

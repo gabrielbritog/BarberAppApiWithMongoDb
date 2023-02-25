@@ -17,9 +17,10 @@ export class ClientListSectionComponent implements OnInit {
     .map(p => new UserModel({ firstName: p.client.name, phoneNumber: p.client.phone}))
     .filter(p => p.firstName != "")
     .filter(p =>
-      p.firstName.toLowerCase().includes(this.searchValue.toLowerCase())
+      p.firstName.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      p.phoneNumber?.toLowerCase().includes(this.searchValue.toLowerCase())
     )
-    .filter((cName, index, self) => self.map(p => p.firstName).includes(cName.firstName, index + 1) === false)
+    .filter((cName, index, self) => self.map(p => p.phoneNumber).includes(cName.phoneNumber, index + 1) === false)
     .sort((a, b) => a.firstName.localeCompare(b.firstName));
   };
 

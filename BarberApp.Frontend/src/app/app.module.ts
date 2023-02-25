@@ -20,6 +20,8 @@ import { authInterceptorProviders } from './Helpers/AuthInterceptor';
 // COMPONENTS
 import { LoaderComponent } from './Components/Loader/Loader.component';
 import { NavBarComponent } from './Components/NavBar/NavBar.component';
+import { SidebarComponent } from './Components/NavBar/Sidebar/Sidebar.component';
+import { AdminBoardComponent } from './Components/NavBar/AdminBoard/AdminBoard.component';
 import { PlusButtonComponent } from './Components/PlusButton/PlusButton.component';
 
 // COMPONENTS - CARDS
@@ -66,6 +68,8 @@ import { ToastrModule } from 'ngx-toastr';
 
     // COMPONENTS
     NavBarComponent,
+    SidebarComponent,
+    AdminBoardComponent,
 
     ScheduleCardComponent,
     CalendarCardComponent,

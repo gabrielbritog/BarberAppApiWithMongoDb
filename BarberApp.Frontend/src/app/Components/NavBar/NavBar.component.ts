@@ -10,16 +10,14 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
+  sidebarExpanded = false;
+
   get profilePic() {
     return this.loggedUser.urlImagem;
   }
 
-  get expanded() {
+  get accountExpanded() {
     return GlobalVariables.accountExpanded;
-  }
-
-  set expanded(value) {
-    GlobalVariables.accountExpanded = value;
   }
 
   get currentSection() {
@@ -34,52 +32,21 @@ export class NavBarComponent implements OnInit {
     return this.tokenStorage.getUserModel();
   }
 
-  get barberList() {
-    return GlobalVariables.barbers.sort((a, b) => {
-      const aMatches = a == this.selectedBarber;
-      const bMatches = b == this.selectedBarber;
-      if (aMatches && !bMatches) {
-        return -1;
-      } else if (!aMatches && bMatches) {
-        return 1;
-      } else {
-        return a.firstName.localeCompare(b.firstName);
-      }
-    });
-  }
-
   get isAdmin() {
     return GlobalVariables.isAdmin;
   }
 
-  get selectedBarber() {
-    return GlobalVariables.selectedBarber;
+  get isBlocked() {
+    if (GlobalVariables.isAdmin && GlobalVariables.barbers.length == 0)
+      return true;
+
+    return false;
   }
 
-  set selectedBarber(value) {
-    GlobalVariables.selectedBarber = value;
-  }
-
-  constructor(private tokenStorage: TokenStorageService, private router: Router) { }
+  constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
   }
 
-  logout() {
-    this.tokenStorage.signOut();
-    this.router.navigateByUrl('/')
-  }
-
-  agendaExpanded = false;
-
-  setAgenda(barber: any) {
-    if (this.selectedBarber == barber){
-      this.agendaExpanded = !this.agendaExpanded;
-      return;
-    }
-
-    this.selectedBarber = barber;
-    this.agendaExpanded = false;
-  }
 
 }

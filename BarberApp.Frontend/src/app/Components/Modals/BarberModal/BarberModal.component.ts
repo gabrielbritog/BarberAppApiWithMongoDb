@@ -30,42 +30,51 @@ export class BarberModalComponent implements OnInit {
     private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
+    this.barberModel = new BarberModel(GlobalVariables.editBarber);
   }
 
   onSubmit(form: NgForm) {
     const barberForm = form.value;
+    barberForm.associatedCompany = this.tokenStorage.getUserModel().companyName;
+    barberForm.barberId = this.barberModel.barberId;
+    barberForm.userId = this.barberModel.userId;
     let barber = new BarberModel(barberForm);
-    barber.associatedCompany = this.tokenStorage.getUserModel().companyName;
 
     let index = this.isEditModal? GlobalVariables.barbers.indexOf(GlobalVariables.editBarber!) : -1;
 
     const apiCall = this.isEditModal ? this.authService.updateBarber(barber) : this.authService.registerBarber(barber);
 
     apiCall.subscribe({
-      next: (data: any) => {
-        LoaderComponent.SetOptions(false);
-        console.log(data);
-        setTimeout(() => {
-          if (index < 0)
-            GlobalVariables.barbers.push(new BarberModel(data.data));
-          else
-            GlobalVariables.barbers[index] = new BarberModel(data.data);
-          this.showModal = false;
-          form.resetForm();
-        }, 20);
-      },
-      error: (err) => {
-        console.log(err);
-        LoaderComponent.SetOptions(false);
-        setTimeout(() => {
-          console.log(err.message);
-        }, 20);
-      }
+      next: (data: any) => this.successResponse(data, index, form),
+      error: (err) => this.errorResponse(err)
     })
   }
 
   onCancel() {
     this.showModal = false;
+  }
+
+  successResponse(data: any, index: number, form: NgForm) {
+    LoaderComponent.SetOptions(false);
+    console.log(data.message);
+    setTimeout(() => {
+      if (index < 0)
+        GlobalVariables.barbers.push(new BarberModel(data.data));
+      else
+        GlobalVariables.barbers[index] = new BarberModel(data.data);
+
+      if (GlobalVariables.barbers.length == 1)
+        GlobalVariables.selectedBarber = GlobalVariables.barbers[0];
+      this.showModal = false;
+      form.resetForm();
+    }, 20);
+  }
+
+  errorResponse(err: any) {
+    LoaderComponent.SetOptions(false);
+    setTimeout(() => {
+      console.log(err.message);
+    }, 20);
   }
 
 }

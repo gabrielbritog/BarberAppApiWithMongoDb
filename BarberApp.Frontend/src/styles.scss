@@ -6,12 +6,26 @@
 :root{
   --app-color-primary: #ff9000;
   --app-color-blue: #518fa3;
+
   --app-color-text: #f4ede8;
   --app-color-bg: #312e38;
+  --app-color-bg-darker: #000;
   --app-color-bg-alt: #3e3b47;
   --app-color-input-bg: #232129;
   --app-color-input-text: #5e5b59;
   --app-color-light-border: #ffffff20;
+
+
+
+  --app-color-text-light: #000000;
+  --app-color-bg-darker-light: #e7e7e7;
+  --app-color-bg-light: #ffffff;
+  --app-color-bg-alt-light: #ffffff;
+  --app-color-input-bg-light: #f1f1f1;
+  --app-color-input-text-light: #5e5b59;
+  --app-color-light-border-light: #00000020;
+
+  --section-padding: 2vw 10vw;
 
   --nav-color-bg: #28262e;
 
@@ -23,6 +37,16 @@
 
   --default-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --default-transition-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1);
+
+  &.light-mode{
+    --app-color-text: var(--app-color-text-light);
+    --app-color-bg: var(--app-color-bg-light);
+    --app-color-bg-darker: var(--app-color-bg-darker-light);
+    --app-color-bg-alt: var(--app-color-bg-alt-light);
+    --app-color-input-bg: var(--app-color-input-bg-light);
+    --app-color-input-text: var(--app-color-input-text-light);
+    --app-color-light-border: var(--app-color-light-border-light);
+  }
 }
 
 *{
@@ -35,6 +59,10 @@
   list-style: none;
   font-family: 'Poppins', sans-serif;
   transition: all .3s var(--default-transition);
+}
+
+html.no_anim * {
+  transition: none !important;
 }
 
 html{
@@ -362,6 +390,9 @@ h3{
  }
 
  @media (max-width: 767px) {
+  :root{
+    --section-padding: 5vw;
+  }
   .container{
     width: 90%;
   }

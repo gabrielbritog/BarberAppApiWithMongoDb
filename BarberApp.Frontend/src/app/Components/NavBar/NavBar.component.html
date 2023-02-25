@@ -1,11 +1,9 @@
+<app-Sidebar *ngIf="sidebarExpanded" [navBar]="this"></app-Sidebar>
 <nav class="container_fluid">
   <div class="container nav_container">
-    <button class="nav_profile" (click)="expanded = !expanded">
+    <button class="nav_profile" (click)="sidebarExpanded = !sidebarExpanded">
       <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
       <i class="fa-solid fa-user placeholder_icon"></i>
-      <!-- <div class="btn nav_button">
-        <i class="fa-solid fa-edit"></i>
-      </div> -->
     </button>
     <div class="nav_text">
       <span class="welcome">Bem vindo, </span>
@@ -13,7 +11,7 @@
         loggedUser.firstName + " " + loggedUser.lastName
       }}</span>
     </div>
-    <div class="nav_list_container" [class.hide]="expanded">
+    <div class="nav_list_container" [class.hide]="accountExpanded">
       <ul class="nav_list">
         <li
           class="nav_item"
@@ -50,20 +48,9 @@
 
       </ul>
     </div>
-    <button class="sidebar_toogle" (click)="logout()">
-      <!-- <i class="fa-solid fa-bars"></i> -->
-      <i class="fa-solid fa-power-off"></i>
-    </button>
   </div>
 </nav>
 
-
-<div class="barber_container card" [class.expand]="agendaExpanded" *ngIf="isAdmin && (currentSection == 0 || currentSection == 2)">
-  <div class="title">Agenda do funcionário:</div>
-  <div class="barber_cards flex_column">
-    <div class="barber_card card" *ngFor="let item of barberList" [class.active]="selectedBarber == item" (click)="setAgenda(item)" >
-      {{item.firstName}} {{item.lastName}}
-      <i class="fa-solid fa-chevron-down" [class.expand]="agendaExpanded"></i>
-    </div>
-  </div>
-</div>
+<ng-container *ngIf="!isBlocked && isAdmin && (currentSection == 0 || currentSection == 2)">
+  <app-AdminBoard></app-AdminBoard>
+</ng-container>

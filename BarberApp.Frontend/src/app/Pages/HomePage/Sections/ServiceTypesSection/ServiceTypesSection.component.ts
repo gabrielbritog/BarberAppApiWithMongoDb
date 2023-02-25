@@ -10,16 +10,23 @@ import { ServiceTypeModel } from '../../../../Models/ServiceTypeModel';
 })
 export class ServiceTypesSectionComponent implements OnInit {
 
+  get isBlocked() {
+    if (GlobalVariables.isAdmin && GlobalVariables.barbers.length == 0)
+      return true;
+
+    return false;
+  }
+
   get showModal() {
     return GlobalVariables.showServiceTypeModal;
   }
 
   get allServiceTypes() {
     const serviceTypes = GlobalVariables.serviceTypes;
-    if (!GlobalVariables.isAdmin)
-      return serviceTypes;
+    if (GlobalVariables.isAdmin)
+      return serviceTypes.filter(p=>p.barberId == GlobalVariables.selectedBarber?.barberId)
 
-    return serviceTypes.filter(p=>p.barberId == GlobalVariables.selectedBarber?.barberId)
+    return serviceTypes;
   };
 
   set allServiceTypes(value) {

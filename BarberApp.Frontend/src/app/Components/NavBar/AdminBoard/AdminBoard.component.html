@@ -1,0 +1,11 @@
+<div class="barber_container animate_show card" [class.expand]="agendaExpanded">
+  <div class="container">
+    <div class="title">Visão do funcionário:</div>
+    <div class="barber_cards flex_column">
+      <div class="barber_card card" *ngFor="let item of barberList" [class.active]="selectedBarber == item" (click)="setAgenda(item)" >
+        {{item.firstName}} {{item.lastName}}
+        <i class="fa-solid fa-chevron-down" *ngIf="barberList.length > 1"></i>
+      </div>
+    </div>
+  </div>
+</div>

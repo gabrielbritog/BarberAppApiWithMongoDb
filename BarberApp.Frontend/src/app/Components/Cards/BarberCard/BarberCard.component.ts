@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { BarberModel } from '../../../Models/BarberModel';
 
 @Component({
@@ -13,6 +14,13 @@ export class BarberCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  editBarber() {
+    GlobalVariables.modalAsEdit = true;
+    GlobalVariables.editBarber = this.barberModel;
+
+    GlobalVariables.showBarberModal = true;
   }
 
 }
