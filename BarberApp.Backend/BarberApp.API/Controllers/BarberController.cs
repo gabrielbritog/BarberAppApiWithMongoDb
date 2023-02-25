@@ -126,6 +126,21 @@ namespace BarberApp.Api.Controllers
             }
 
         }
+        [HttpGet("Scheduling/GetManySchedulingByDate")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> GetManySchedulingByDate([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.GetManyByDate(Id, BarberId, startDate, endDate)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
         [HttpGet("ServiceType/GetMany")]
         [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> GetManyServiceType([FromQuery] int start, [FromQuery] int count)

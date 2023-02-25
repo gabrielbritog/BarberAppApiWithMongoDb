@@ -3,10 +3,8 @@ using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
-using BarberApp.Infra.Repository;
-using BarberApp.Service.Configurations;
 using MongoDB.Driver;
-
+using System.Globalization;
 
 namespace BarberApp.Service.Service
 {
@@ -31,7 +29,12 @@ namespace BarberApp.Service.Service
         {
             var result = await _schedulingRepository.GetMany(userId,start,count);
             return _mapper.Map<List<ResponseSchedulingDto>>(result);
-        } 
+        }
+        public async Task<List<ResponseSchedulingDto>> GetManyDesc(string userId, int start, int count)
+        {
+            var result = await _schedulingRepository.GetManyDesc(userId, start, count);
+            return _mapper.Map<List<ResponseSchedulingDto>>(result);
+        }
 
         public async Task<List<ResponseSchedulingDto>> GetMany(string userId, string barberId, int start, int count)
         {
@@ -45,7 +48,11 @@ namespace BarberApp.Service.Service
             var result = await _schedulingRepository.GetById(schedulingId, userId);
             return _mapper.Map<ResponseSchedulingDto>(result);
         }
-
+        public async Task<List<ResponseSchedulingDto>> GetManyByDate(string userId, DateTime startDate, DateTime endDate)
+        {
+            var result = await _schedulingRepository.GetManyByDate(userId,startDate, endDate);
+            return _mapper.Map<List<ResponseSchedulingDto>> (result);
+        }
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
         {           
                
@@ -109,6 +116,50 @@ namespace BarberApp.Service.Service
             await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), scheduling.SchedulingId, userId);
 
             return _mapper.Map<ResponseSchedulingDto>(scheduling);
+        }
+
+        public async Task<ResponseHistoricSchedulingDto> Historic(string userId, int start, int count)
+        {
+            var schedulingsDb = await _schedulingRepository.GetManyDesc(userId, start, count);
+            schedulingsDb = schedulingsDb.Where(s => s.SchedulingDate <= DateTime.Now).ToList();
+            var quantity = schedulingsDb.Count;
+            ResponseHistoricSchedulingDto result = new ResponseHistoricSchedulingDto();
+            List<HistoricSchedulingDto> historic = new List<HistoricSchedulingDto>();
+            decimal calc = 0;
+            for (int i = 0; i < quantity; i++)
+            {
+                var counting = schedulingsDb[i].ServiceType.Count();
+               
+                    Barber barber =  await _barberRepository.GetById(schedulingsDb[i].BarberId);
+                DateTime schedulingDate = schedulingsDb[i].SchedulingDate;
+                string clientName = schedulingsDb[i].Client.Name;
+                string barberName = barber.FirstName;
+                string total = schedulingsDb[i].Total.ToString("C", new CultureInfo("pt-BR"));
+                List<string> service = schedulingsDb[i].ServiceType.Select(s => $"{s.NameService} {s.ValueService.ToString("C", new CultureInfo("pt-BR"))}").ToList();
+
+
+                calc += schedulingsDb[i].Total;
+                historic.Add(new HistoricSchedulingDto
+                {
+                    SchedulingDate = schedulingDate.ToString("dd/MM/yyyy HH:mm:ss"),
+                    Client = clientName,
+                    Service = service,
+                    BarberName = barberName,
+                    Total = total
+
+                });
+
+                result.Historic = historic;
+                result.PeriodTotal = calc.ToString("C", new CultureInfo("pt-BR"));
+
+            }
+                return result;
+        }
+
+        public async Task<List<ResponseSchedulingDto>> GetManyByDate(string userId, string barberId, DateTime startDate, DateTime endDate)
+        {
+            var result = await _schedulingRepository.GetManyByDate(userId,barberId, startDate, endDate);
+            return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
     }
 }

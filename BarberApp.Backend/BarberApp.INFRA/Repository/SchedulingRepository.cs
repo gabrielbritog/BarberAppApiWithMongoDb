@@ -76,7 +76,62 @@ namespace BarberApp.Infra.Repository
             try
             {
                 var filter = Builders<Scheduling>.Filter.Eq(u => u.UserId, userId);
-                return await _schedulingCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
+                var sort = Builders<Scheduling>.Sort.Ascending(u => u.SchedulingDate);
+                return await _schedulingCollection.Find(filter).Sort(sort).Skip(start - 1).Limit(count).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public async Task<List<Scheduling>> GetManyByDate(string userId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+ 
+                var filter = Builders<Scheduling>.Filter.And(
+                    Builders<Scheduling>.Filter.Eq(s => s.UserId, userId),
+                    Builders<Scheduling>.Filter.Gte(s => s.SchedulingDate, startDate),
+                    Builders<Scheduling>.Filter.Lte(s => s.SchedulingDate, endDate)
+                );
+
+                var sort = Builders<Scheduling>.Sort.Ascending(s => s.SchedulingDate);
+
+                return await _schedulingCollection.Find(filter).Sort(sort).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public async Task<List<Scheduling>> GetManyByDate(string userId, string barberId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+
+                var filter = Builders<Scheduling>.Filter.And(
+                    Builders<Scheduling>.Filter.Eq(s => s.UserId, userId),
+                    Builders<Scheduling>.Filter.Eq(s => s.BarberId, barberId),
+                    Builders<Scheduling>.Filter.Gte(s => s.SchedulingDate, startDate),
+                    Builders<Scheduling>.Filter.Lte(s => s.SchedulingDate, endDate)
+                );
+
+                var sort = Builders<Scheduling>.Sort.Ascending(s => s.SchedulingDate);
+
+                return await _schedulingCollection.Find(filter).Sort(sort).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public async Task<List<Scheduling>> GetManyDesc(string userId, int start, int count)
+        {
+            try
+            {
+                var filter = Builders<Scheduling>.Filter.Eq(u => u.UserId, userId);
+                var sort = Builders<Scheduling>.Sort.Descending(u => u.SchedulingDate);
+                return await _schedulingCollection.Find(filter).Sort(sort).Skip(start - 1).Limit(count).ToListAsync();
             }
             catch (Exception e)
             {
@@ -90,8 +145,10 @@ namespace BarberApp.Infra.Repository
                 var filter = Builders<Scheduling>.Filter.And(
             Builders<Scheduling>.Filter.Eq(u => u.UserId, userId),
             Builders<Scheduling>.Filter.Eq(u => u.BarberId, barberId)
+
         );
-                return await _schedulingCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
+                var sort = Builders<Scheduling>.Sort.Ascending(u => u.SchedulingDate);
+                return await _schedulingCollection.Find(filter).Sort(sort).Skip(start - 1).Limit(count).ToListAsync();
             }
             catch (Exception e)
             {
@@ -144,5 +201,7 @@ namespace BarberApp.Infra.Repository
 
             return scheduling;
         }
+
+       
     }
 }

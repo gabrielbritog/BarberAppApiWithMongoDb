@@ -46,7 +46,7 @@ namespace BarberApp.Infra.Repository
                 throw new Exception(e.Message);
             }
         }
-
+        
         public async Task<User> GetByEmail(string email)
         {
             try
