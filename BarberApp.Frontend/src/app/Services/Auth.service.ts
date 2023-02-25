@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoaderComponent } from '../Components/Loader/Loader.component';
 import { GlobalVariables } from '../Helpers/GlobalVariables';
+import { UserConfig } from '../Models/UserConfig';
 
 
 // IP DA MÁQUINA
@@ -88,5 +89,17 @@ export class AuthService {
       phoneNumber: credentials.phoneNumber,
       workingDays: credentials.workingDays
     });
+  }
+
+  updateBarberUserConfig(config: UserConfig): Observable<any>{
+    return this.http.put<any>(AUTH_API + BARBER_ROUTE + UPDATE_ROUTE, {
+      userConfig: config
+    })
+  }
+
+  updateAdminUserConfig(config: UserConfig): Observable<any>{
+    return this.http.put<any>(AUTH_API + ADMIN_ROUTE + UPDATE_ROUTE, {
+      userConfig: config
+    })
   }
 }

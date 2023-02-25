@@ -2,6 +2,7 @@ import * as moment from 'moment';
 import { ScheduleModel } from '../Models/ScheduleModel';
 import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 import { BarberModel } from '../Models/BarberModel';
+import { UserConfig } from '../Models/UserConfig';
 export class GlobalVariables {
 
 
@@ -65,5 +66,28 @@ export class GlobalVariables {
     GlobalVariables.emptySchedules = schedules;
 
     return schedules;
+  }
+
+  static loadUserConfig(userConfig: UserConfig) {
+    const _document = document.documentElement;
+    const delay = 200;
+    const noAnimClass = 'no_anim';
+
+    _document.classList.add(noAnimClass);
+
+    if (!userConfig.darkmode){
+      if (!_document.classList.contains('light-mode'))
+        _document.classList.add('light-mode');
+    } else if (_document.classList.contains('light-mode')){
+      _document.classList.remove('light-mode');
+    }
+
+    _document.style.setProperty('font-size', userConfig.fontSize);
+    _document.style.setProperty('--app-color-primary', userConfig.primaryColor);
+    _document.style.setProperty('--app-color-blue', userConfig.secondaryColor);
+
+    setTimeout(() => _document.classList.remove(noAnimClass), delay);
+
+
   }
 }

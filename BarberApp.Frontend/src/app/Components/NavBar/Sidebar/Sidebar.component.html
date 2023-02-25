@@ -1,0 +1,100 @@
+<div class="base_bg">
+  <div class="base_container">
+    <div class="user_container">
+      <div class="profile_pic">
+        <i class="fa-solid fa-user placeholder_icon"></i>
+      </div>
+      <div class="user_info">
+        <div class="user_name">
+          {{loggedUser.firstName}} {{loggedUser.lastName}}
+        </div>
+        <div class="user_email">
+          {{loggedUser.email}}
+        </div>
+        <div class="company_name">
+          {{loggedUser.companyName}}
+        </div>
+      </div>
+    </div>
+    <hr>
+    <nav class="sidebar_nav">
+      <ul class="nav_list">
+        <div class="list_title">
+          Conta
+        </div>
+        <li class="nav_item" (click)="accountPageExpanded = true">
+          <i class="fa-solid fa-user-pen"></i>
+          <span>
+            Editar
+          </span>
+        </li>
+        <li class="nav_item" (click)="logout()" >
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>
+            Sair
+          </span>
+        </li>
+      </ul>
+      <hr>
+      <ul class="nav_list">
+        <div class="list_title">
+          Config. do Aplicativo
+        </div>
+        <li class="nav_item">
+          <label for="darkMode">
+            <i class="fa-solid fa-palette"></i>
+            <span>
+              Tema escuro
+            </span>
+            <input type="checkbox" id="darkMode" [(ngModel)]="darkMode">
+          </label>
+        </li>
+        <li class="nav_item">
+          <label for="primaryColor">
+            <i class="fa-solid fa-brush"></i>
+            <span>
+              Cor principal
+            </span>
+            <input type="color" id="primaryColor" [(ngModel)]="primaryColor">
+          </label>
+        </li>
+        <li class="nav_item">
+          <label for="secondaryColor">
+            <i class="fa-solid fa-brush"></i>
+            <span>
+              Cor secundária
+            </span>
+            <input type="color" id="secondaryColor" [(ngModel)]="secondaryColor">
+          </label>
+        </li>
+        <li class="nav_item">
+          <i class="fa-solid fa-text-height"></i>
+          <span>
+            Tamanho do texto
+          </span>
+          <input type="number" id="fontSize" name="fontSize" [(ngModel)]="fontsize" min="14" max="18">
+        </li>
+        <li class="nav_item disabled">
+          <i class="fa-solid fa-bell"></i>
+          <span>
+            Notificações
+          </span>
+        </li>
+      </ul>
+      <hr>
+      <ul class="nav_list">
+        <div class="list_title">
+          Suporte
+        </div>
+        <li class="nav_item disabled">
+          <i class="fa-solid fa-circle-question"></i>
+          Contato
+        </li>
+      </ul>
+      <hr>
+    </nav>
+  </div>
+  <div class="empty_area" (click)="closeSidebar()">
+
+  </div>
+</div>

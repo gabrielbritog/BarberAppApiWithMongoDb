@@ -42,7 +42,6 @@ export class BarberModalComponent implements OnInit {
 
     let index = this.isEditModal? GlobalVariables.barbers.indexOf(GlobalVariables.editBarber!) : -1;
 
-    console.log(barberForm, barber);
     const apiCall = this.isEditModal ? this.authService.updateBarber(barber) : this.authService.registerBarber(barber);
 
     apiCall.subscribe({
@@ -57,7 +56,7 @@ export class BarberModalComponent implements OnInit {
 
   successResponse(data: any, index: number, form: NgForm) {
     LoaderComponent.SetOptions(false);
-    console.log(data);
+    console.log(data.message);
     setTimeout(() => {
       if (index < 0)
         GlobalVariables.barbers.push(new BarberModel(data.data));
@@ -72,7 +71,6 @@ export class BarberModalComponent implements OnInit {
   }
 
   errorResponse(err: any) {
-    console.log(err);
     LoaderComponent.SetOptions(false);
     setTimeout(() => {
       console.log(err.message);

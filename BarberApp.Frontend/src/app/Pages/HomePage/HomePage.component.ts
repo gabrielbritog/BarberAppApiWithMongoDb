@@ -32,14 +32,17 @@ export class HomePageComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    if (!this.tokenStorage.getToken())
+    if (!this.tokenStorage.getToken()){
       this.router.navigateByUrl('/Login');
+      return;
+    }
+    const userModel = this.tokenStorage.getUserModel();
 
     this.appLoaded = false;
     LoaderComponent.SetOptions(true);
 
-    GlobalVariables.isAdmin = this.tokenStorage.getUserModel().barberId == null;
-
+    GlobalVariables.isAdmin = userModel.barberId == null;
+    GlobalVariables.loadUserConfig(userModel.userConfig);
     GlobalVariables.currentSection = 0;
 
     GlobalVariables.FillProperties();
@@ -63,9 +66,7 @@ export class HomePageComponent implements OnInit {
 
         this.loadedFunction();
       },
-      error: (err) => {
-        console.log(err);
-      }
+      error: (err) => console.log(err.data.message)
     })
   }
 
@@ -79,9 +80,7 @@ export class HomePageComponent implements OnInit {
 
         this.loadedFunction();
       },
-      error: (err) => {
-        console.log(err.data.message);
-      }
+      error: (err) => console.log(err.data.message)
     })
   }
 
@@ -95,9 +94,7 @@ export class HomePageComponent implements OnInit {
 
         this.loadedFunction();
       },
-      error: (err) => {
-        console.log(err.data.message);
-      }
+      error: (err) => console.log(err.data.message)
     })
   }
 
@@ -116,7 +113,7 @@ export class HomePageComponent implements OnInit {
       if (GlobalVariables.barbers.length == 0)
         GlobalVariables.currentSection = 3;
 
-      setTimeout(() => this.appLoaded = true, delay);
+      this.appLoaded = true;
 
     }, delay);
   }
