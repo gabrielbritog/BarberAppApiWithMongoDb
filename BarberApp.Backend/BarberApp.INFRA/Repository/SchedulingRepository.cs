@@ -76,7 +76,8 @@ namespace BarberApp.Infra.Repository
             try
             {
                 var filter = Builders<Scheduling>.Filter.Eq(u => u.UserId, userId);
-                return await _schedulingCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
+                var sort = Builders<Scheduling>.Sort.Ascending(u => u.SchedulingDate);
+                return await _schedulingCollection.Find(filter).Sort(sort).Skip(start - 1).Limit(count).ToListAsync();
             }
             catch (Exception e)
             {
