@@ -10,10 +10,6 @@ export class PlusButtonComponent implements OnInit {
 
   @Input('onClickEvent') onClickEvent = (): void => { };
 
-  get isAccountExpanded() {
-    return GlobalVariables.accountExpanded;
-  }
-
   constructor() { }
 
   ngOnInit() {

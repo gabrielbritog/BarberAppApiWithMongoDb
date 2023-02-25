@@ -1,14 +1,12 @@
 
 <ng-container *ngIf="appLoaded">
-  <app-AccountPage></app-AccountPage>
   <div class="home_container">
     <app-NavBar></app-NavBar>
-
-      <section id="section_container" #sectionContainer>
-          <app-SchedulesSection *ngIf="currentSection == 0" class="nav_section" id="schedules_section"></app-SchedulesSection>
-            <app-ClientListSection *ngIf="currentSection == 1" class="nav_section" id="clients_section"></app-ClientListSection>
-            <app-ServiceTypesSection *ngIf="currentSection == 2" class="nav_section" id="serviceTypes_section"></app-ServiceTypesSection>
-            <app-BarbersSection *ngIf="currentSection == 3" class="nav_section" id="serviceTypes_section"></app-BarbersSection>
-      </section>
+    <section id="section_container" #sectionContainer>
+        <app-SchedulesSection *ngIf="currentSection == 0" class="nav_section" id="schedules_section"></app-SchedulesSection>
+        <app-ClientListSection *ngIf="currentSection == 1" class="nav_section" id="clients_section"></app-ClientListSection>
+        <app-ServiceTypesSection *ngIf="currentSection == 2" class="nav_section" id="serviceTypes_section"></app-ServiceTypesSection>
+        <app-BarbersSection *ngIf="currentSection == 3" class="nav_section" id="serviceTypes_section"></app-BarbersSection>
+    </section>
   </div>
 </ng-container>
