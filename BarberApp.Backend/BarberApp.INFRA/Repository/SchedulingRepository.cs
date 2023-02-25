@@ -84,6 +84,47 @@ namespace BarberApp.Infra.Repository
                 throw new Exception(e.Message);
             }
         }
+        public async Task<List<Scheduling>> GetManyByDate(string userId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+ 
+                var filter = Builders<Scheduling>.Filter.And(
+                    Builders<Scheduling>.Filter.Eq(s => s.UserId, userId),
+                    Builders<Scheduling>.Filter.Gte(s => s.SchedulingDate, startDate),
+                    Builders<Scheduling>.Filter.Lte(s => s.SchedulingDate, endDate)
+                );
+
+                var sort = Builders<Scheduling>.Sort.Ascending(s => s.SchedulingDate);
+
+                return await _schedulingCollection.Find(filter).Sort(sort).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public async Task<List<Scheduling>> GetManyByDate(string userId, string barberId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+
+                var filter = Builders<Scheduling>.Filter.And(
+                    Builders<Scheduling>.Filter.Eq(s => s.UserId, userId),
+                    Builders<Scheduling>.Filter.Eq(s => s.BarberId, barberId),
+                    Builders<Scheduling>.Filter.Gte(s => s.SchedulingDate, startDate),
+                    Builders<Scheduling>.Filter.Lte(s => s.SchedulingDate, endDate)
+                );
+
+                var sort = Builders<Scheduling>.Sort.Ascending(s => s.SchedulingDate);
+
+                return await _schedulingCollection.Find(filter).Sort(sort).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
         public async Task<List<Scheduling>> GetManyDesc(string userId, int start, int count)
         {
             try
@@ -160,5 +201,7 @@ namespace BarberApp.Infra.Repository
 
             return scheduling;
         }
+
+       
     }
 }

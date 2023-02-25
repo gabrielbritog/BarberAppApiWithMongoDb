@@ -3,8 +3,6 @@ using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
-using BarberApp.Infra.Repository;
-using BarberApp.Service.Configurations;
 using MongoDB.Driver;
 using System.Globalization;
 
@@ -50,7 +48,11 @@ namespace BarberApp.Service.Service
             var result = await _schedulingRepository.GetById(schedulingId, userId);
             return _mapper.Map<ResponseSchedulingDto>(result);
         }
-
+        public async Task<List<ResponseSchedulingDto>> GetManyByDate(string userId, DateTime startDate, DateTime endDate)
+        {
+            var result = await _schedulingRepository.GetManyByDate(userId,startDate, endDate);
+            return _mapper.Map<List<ResponseSchedulingDto>> (result);
+        }
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
         {           
                
@@ -152,6 +154,12 @@ namespace BarberApp.Service.Service
 
             }
                 return result;
+        }
+
+        public async Task<List<ResponseSchedulingDto>> GetManyByDate(string userId, string barberId, DateTime startDate, DateTime endDate)
+        {
+            var result = await _schedulingRepository.GetManyByDate(userId,barberId, startDate, endDate);
+            return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
     }
 }
