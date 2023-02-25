@@ -63,7 +63,9 @@ namespace BarberApp.Service.Service
             if (checkCompany != null)
                 throw new Exception("Nome da empresa já está sendo usado");
             user.PasswordSalt = new Random().Next().GetHashCode().ToString();
-            user.Password = EncryptPassword(user.Password+user.PasswordSalt);  
+            user.Password = EncryptPassword(user.Password+user.PasswordSalt);
+            user.Email = user.Email.ToLower();
+            user.CompanyName = user.CompanyName.ToLower();
             var UserMap = _mapper.Map<User>(user);
             UserMap.UserRegistration= DateTime.Now;
             await _userRepository.Register(UserMap);
