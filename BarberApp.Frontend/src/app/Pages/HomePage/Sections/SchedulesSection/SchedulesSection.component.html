@@ -8,12 +8,12 @@
 
 
       <div class="container_header">
-        <button type="button" class="btn_chip with_circle" [class.active]="showAvailable" (click)="showAvailable = !showAvailable"  >
+        <button type="button" class="btn_chip with_circle" [class.active]="showAvailable" (click)="showAvailable = !showAvailable; updateSchedulesList()"  >
           <div class="circle blue"></div>
           Disponíveis
           <i class="fa-solid fa-xmark close_icon"></i>
         </button>
-        <button type="button" class="btn_chip with_circle" [class.active]="showFilled" (click)="showFilled = !showFilled"  >
+        <button type="button" class="btn_chip with_circle" [class.active]="showFilled" (click)="showFilled = !showFilled; updateSchedulesList()"  >
           <div class="circle primary"></div>
           Agendados
           <i class="fa-solid fa-xmark close_icon"></i>

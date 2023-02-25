@@ -63,6 +63,7 @@ export class SchedulesSectionComponent implements OnInit {
   newSchedule() {
     GlobalVariables.showScheduleModal = true;
   }
+
   get schedules() {
     const emptySchedulesTemplate = GlobalVariables.emptySchedules;
     const currentDaySchedules = this.currentDaySchedules;
@@ -99,5 +100,9 @@ export class SchedulesSectionComponent implements OnInit {
     }
 
     return filteredSchedules;
+  }
+
+  updateSchedulesList() {
+    GlobalVariables.getEmptySchedulesBase();
   }
 }

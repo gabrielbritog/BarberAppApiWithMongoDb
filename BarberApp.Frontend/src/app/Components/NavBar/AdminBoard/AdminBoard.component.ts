@@ -30,6 +30,9 @@ export class AdminBoardComponent implements OnInit {
   }
 
   set selectedBarber(value) {
+    if (value != GlobalVariables.selectedBarber)
+      GlobalVariables.getEmptySchedulesBase();
+
     GlobalVariables.selectedBarber = value;
   }
 
