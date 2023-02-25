@@ -14,6 +14,8 @@ export class GlobalVariables {
 
   public static emptySchedules: ScheduleModel[] = [];
 
+  public static appLoaded = false;
+
   // MODALS
   public static showScheduleModal = false;
   public static showServiceTypeModal = false;

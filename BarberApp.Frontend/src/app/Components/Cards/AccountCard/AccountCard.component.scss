@@ -1,0 +1,17 @@
+.user_item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5rem;
+  padding: 0.5rem 0.75rem;
+  .title{
+    font-weight: 600;
+  }
+  .content{
+    opacity: .5;
+    text-align: end;
+    i {
+      width: 1rem;
+    }
+  }
+}

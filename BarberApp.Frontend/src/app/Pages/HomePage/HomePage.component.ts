@@ -36,9 +36,14 @@ export class HomePageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
       return;
     }
+
+    if (GlobalVariables.appLoaded) {
+      this.appLoaded = true;
+      return;
+    }
+
     const userModel = this.tokenStorage.getUserModel();
 
-    this.appLoaded = false;
     LoaderComponent.SetOptions(true);
 
     GlobalVariables.isAdmin = userModel.barberId == null;
@@ -114,6 +119,7 @@ export class HomePageComponent implements OnInit {
         GlobalVariables.currentSection = 3;
 
       this.appLoaded = true;
+      GlobalVariables.appLoaded = true;
 
     }, delay);
   }

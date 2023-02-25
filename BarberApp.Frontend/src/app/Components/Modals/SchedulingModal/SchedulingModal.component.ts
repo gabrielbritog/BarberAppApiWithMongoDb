@@ -8,6 +8,7 @@ import { LoaderComponent } from '../../Loader/Loader.component';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '../../../Services/token-storage.service';
+import { ClientModel } from 'src/app/Models/ClientModel';
 
 @Component({
   selector: 'app-SchedulingModal',
@@ -73,6 +74,7 @@ export class SchedulingModalComponent implements OnInit {
 
   ngOnInit() {
     this.scheduleModel = new ScheduleModel(GlobalVariables.editSchedule);
+    this.scheduleModel.client = new ClientModel(GlobalVariables.editSchedule?.client);
     this.currentDay = this.isEditModal ?
       moment.utc(this.scheduleModel.schedulingDate).format('YYYY-MM-DD') :
       GlobalVariables.currentDay.format('YYYY-MM-DD');
@@ -102,7 +104,7 @@ export class SchedulingModalComponent implements OnInit {
     apiCall.subscribe({
       next: (data: any) => {
         LoaderComponent.SetOptions(false);
-        console.log(data.data);
+        console.log(data.message);
         setTimeout(() => {
           if (index < 0)
             GlobalVariables.schedules.push(new ScheduleModel(data.data));
@@ -115,7 +117,6 @@ export class SchedulingModalComponent implements OnInit {
         }, 20);
       },
       error: (err) => {
-        console.log(err.message);
         LoaderComponent.SetOptions(false);
         setTimeout(() => {
           console.log(err.message);
@@ -126,8 +127,9 @@ export class SchedulingModalComponent implements OnInit {
   }
 
   onCancel(form: NgForm) {
+    this.scheduleModel = new ScheduleModel();
+    this.scheduleModel.client = new ClientModel();
     form.resetForm();
-    this.scheduleModel = new ScheduleModel(GlobalVariables.editSchedule);
     this.showModal = false;
   }
 

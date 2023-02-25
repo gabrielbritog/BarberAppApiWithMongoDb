@@ -1,7 +1,4 @@
-*{
-  transition: all .5s ease-in-out, opacity .5s ease-in-out;
-}
-.account_container{
+.page_container{
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -11,53 +8,65 @@
   background-color: var(--app-color-bg);
 }
 
+.edit_container{
+  margin-top: 2rem;
+  display: grid;
+  gap: .5rem;
+}
+
+.btn.btn_submit{
+  margin-top: auto;
+}
+
+
 .header{
   flex-shrink: 0;
   height: 5.5rem;
   display: flex;
   align-items: center;
+  background-color: var(--app-color-input-bg);
   justify-content: space-between;
   .btn_return{
     width: 50px;
     height: 50px;
     border-radius: 50% 50%;
-    background-color: var(--app-color-input-bg);
     border: none;
+    background-color: var(--app-color-input-bg);
     color: var(--app-color-text);
   }
 }
 
-.update_form{
-  flex-shrink: 0;
-  gap: .5rem;
+.profile_pic{
+  height: 150px;
+  width: 150px;
+  margin: 2rem auto;
+  border-radius: 50%;
+  background-color: var(--app-color-input-bg);
+  border: 4px solid var(--app-color-input-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
   position: relative;
-  height: calc(100svh - 5.5rem);
-  .form_group{
-    gap: .5rem;
-    display: flex;
-    flex-wrap: wrap;
-    >*{
-      flex-grow: 1;
-    }
-    .input_icon{
-      position: absolute;
-    }
-  }
-  .profile_pic{
-    height: 150px;
-    width: 150px;
-    margin: 0 auto;
-    border-radius: 50%;
-    background-color: var(--app-color-input-bg);
-    margin-bottom: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 4rem;
-  }
-  .btn_submit{
+  .edit_btn{
     position: absolute;
-    width: 100%;
-    bottom: 5vw;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: var(--app-color-input-bg);
+    color: var(--app-color-text);
   }
 }
+
+.user_info{
+  font-size: .8rem;
+}
+
+
