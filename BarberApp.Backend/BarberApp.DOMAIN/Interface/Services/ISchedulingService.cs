@@ -20,7 +20,9 @@ namespace BarberApp.Domain.Interface.Services
         public Task<DeleteResult> DeleteById(string userId, string schedulingId);
         public Task<List<ResponseSchedulingDto>> GetMany(string userId, int start, int count);
         public Task<List<ResponseSchedulingDto>> GetMany(string userId, string barberId, int start, int count);
+        public Task<List<ResponseSchedulingDto>> GetManyDesc(string userId, int start, int count);
         public Task<ResponseSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId);
+        public Task<ResponseHistoricSchedulingDto> Historic(string userId, int start, int count);
 
     }
 }

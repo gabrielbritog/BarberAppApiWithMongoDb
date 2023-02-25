@@ -18,9 +18,9 @@ namespace BarberApp.Domain.Models
         [BsonElement("total")]
         public decimal Total { get; set; }
         [BsonElement("schedulingDate")]
-        public DateTime? SchedulingDate { get; set; }
+        public DateTime SchedulingDate { get; set; }
         [BsonElement("endOfSchedule")]
-        public DateTime? EndOfSchedule { get; set; }
+        public DateTime EndOfSchedule { get; set; }
         [BsonElement("barberId")]
         public string BarberId { get; set; }
 
