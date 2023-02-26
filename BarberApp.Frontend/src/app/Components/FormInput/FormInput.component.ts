@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IFormInput } from './IFormInput';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-FormInput',
@@ -7,13 +9,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class FormInputComponent implements OnInit {
 
-  @Input() label?: string;
-  @Input() inputValue: string = '';
-  @Input() type: string = 'text';
+  @Input() inputs: IFormInput[] = [];
+  @Output() submitAction = new EventEmitter<NgForm>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSubmit(form: NgForm) {
+    this.submitAction.emit(form);
   }
 
 }

@@ -60,7 +60,13 @@ export class SidebarComponent implements OnInit {
   }
 
   closeSidebar() {
-    this.navBar.sidebarExpanded = false;
+    const baseElement = document.getElementById('base-bg');
+    const animationDelay = 200;
+
+    if (baseElement)
+      baseElement.classList.add('collapse')
+
+    setTimeout(() => this.navBar.sidebarExpanded = false , animationDelay);
   }
 
   logout() {

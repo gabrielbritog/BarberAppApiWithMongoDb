@@ -1,8 +1,6 @@
 
   <div class="edit_container animate_show container">
 
-    <app-FormInput [label]="'Nome'" ></app-FormInput>
-    <button class="btn btn_submit">
-      Salvar
-    </button>
+    <app-FormInput [inputs]="[firstNameInput, lastNameInput]" (submitAction)="onSubmit($event)" ></app-FormInput>
+
   </div>

@@ -42,12 +42,12 @@ export class HomePageComponent implements OnInit {
       return;
     }
 
-    const userModel = this.tokenStorage.getUserModel();
-
     LoaderComponent.SetOptions(true);
 
-    GlobalVariables.isAdmin = userModel.barberId == null;
+    const userModel = this.tokenStorage.getUserModel();
     GlobalVariables.loadUserConfig(userModel.userConfig);
+
+    GlobalVariables.isAdmin = userModel.barberId == null;
     GlobalVariables.currentSection = 0;
 
     GlobalVariables.FillProperties();

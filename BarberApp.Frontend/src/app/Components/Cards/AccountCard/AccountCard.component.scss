@@ -4,13 +4,25 @@
   align-items: center;
   margin-bottom: .5rem;
   padding: 0.5rem 0.75rem;
+  height: 2.5rem;
   .title{
     font-weight: 600;
   }
   .content{
     opacity: .5;
+    display: flex;
     text-align: end;
+    align-items: center;
+    justify-content: end;
+    overflow: hidden;
+    .text{
+      flex-shrink: 1;
+      width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     i {
+      flex-shrink: 0;
       width: 1rem;
     }
   }

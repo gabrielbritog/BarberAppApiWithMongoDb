@@ -9,9 +9,12 @@
 }
 
 .edit_container{
-  margin-top: 2rem;
   display: grid;
   gap: .5rem;
+  padding: var(--section-padding);
+  padding-left: 0;
+  padding-right: 0;
+  height: calc(100svh - 5.5rem);
 }
 
 .btn.btn_submit{
@@ -24,8 +27,15 @@
   height: 5.5rem;
   display: flex;
   align-items: center;
-  background-color: var(--app-color-input-bg);
+  background-color: var(--app-color-bg-alt);
+  border-bottom: 1px solid  var(--app-color-light-border);
+  box-shadow: 0px 3px 5px 0px var(--app-color-bg);
   justify-content: space-between;
+  .container{
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
   .btn_return{
     width: 50px;
     height: 50px;
@@ -41,8 +51,8 @@
   width: 150px;
   margin: 2rem auto;
   border-radius: 50%;
-  background-color: var(--app-color-input-bg);
-  border: 4px solid var(--app-color-input-bg);
+  background-color: var(--app-color-bg-alt);
+  border: 2px solid var(--app-color-light-border);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +70,7 @@
     padding: 0;
     margin: 0;
     border: 0;
-    background-color: var(--app-color-input-bg);
+    background-color: var(--app-color-light-border);
     color: var(--app-color-text);
   }
 }

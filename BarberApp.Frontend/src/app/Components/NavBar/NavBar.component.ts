@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../../Services/token-storage.service';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-NavBar',
@@ -37,6 +38,14 @@ export class NavBarComponent implements OnInit {
       return true;
 
     return false;
+  }
+
+  get timeHours() {
+    return moment().format('HH');
+  }
+
+  get timeMinutes() {
+    return moment().format('mm');
   }
 
   constructor(private tokenStorage: TokenStorageService) { }

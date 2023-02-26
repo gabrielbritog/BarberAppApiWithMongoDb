@@ -1,6 +1,15 @@
-<div class="input_container w_100">
-  <label for="input_text1" [class.dirty]="inputValue != ''">
-    <input type="{{type}}" id="input_text1" [(ngModel)]="inputValue" >
-    <div class="placeholder_title">{{label}}</div>
-  </label>
-</div>
+<form #genericForm="ngForm" class="input_container w_100"(ngSubmit)="onSubmit(genericForm)">
+
+  <ng-container *ngFor="let item of inputs">
+    <label for="{{item.id}}" [class.dirty]="item.value != ''">
+      <input type="{{item.type}}" id="{{item.id}}" name="{{item.id}}" [(ngModel)]="item.value" >
+      <div class="placeholder_title">{{item.label}}</div>
+    </label>
+    <div class="alert" *ngIf="item.alert" >
+      {{item.alert}}
+    </div>
+  </ng-container>
+
+  <button class="btn btn_submit" type="submit">Salvar Info</button>
+
+</form>

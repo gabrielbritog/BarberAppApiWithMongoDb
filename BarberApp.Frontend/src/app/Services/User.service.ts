@@ -12,7 +12,11 @@ import { UserConfig } from '../Models/UserConfig';
 // BarberLevel = 1  => BARBEIRO
 // AdminLevel = 2   => EMPRESA
 
-const API_URL = 'https://localhost:7026/api/'
+// IP DA MÁQUINA
+const MACHINE_IP = GlobalVariables.MACHINE_IP;
+
+const API_URL = `http://${MACHINE_IP}:5066/api/`;
+
 const ADMIN_ROUTE = 'User/'
 const BARBER_ROUTE = 'Barber/'
 const UPDATE_ROUTE = 'Update';
@@ -51,8 +55,8 @@ export class UserService {
   updateName(credentials: any): Observable<any>{
     LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
-      firstname: credentials.firstname,
-      Lastname: credentials.lastname
+      firstname: credentials.firstName,
+      Lastname: credentials.lastName
     });
   }
 

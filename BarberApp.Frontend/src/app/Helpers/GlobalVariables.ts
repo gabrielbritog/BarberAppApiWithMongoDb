@@ -5,6 +5,12 @@ import { BarberModel } from '../Models/BarberModel';
 import { UserConfig } from '../Models/UserConfig';
 export class GlobalVariables {
 
+  // IP DA MÁQUINA
+  // public static readonly MACHINE_IP = "localhost";
+  public static readonly MACHINE_IP = "192.168.1.83";
+
+
+
 
   public static startTime = 9;
   public static endTime = 17;
@@ -40,10 +46,6 @@ export class GlobalVariables {
   public static loader = false;
   public static isLoaderSuccess = false;
   public static showLoaderSuccess = true;
-
-  // IP DA MÁQUINA
-  // public static readonly MACHINE_IP = "localhost";
-  public static readonly MACHINE_IP = "192.168.1.83";
 
 
   public static FillProperties() {

@@ -9,7 +9,7 @@ import { GlobalVariables } from '../Helpers/GlobalVariables';
 
 // IP DA MÁQUINA
 const MACHINE_IP = GlobalVariables.MACHINE_IP;
-// const BASE_URL_API = 'http://localhost:5066/api/'
+
 const URL_BARBER = 'Barber/'
 const URL_SCHEDULING = 'Scheduling/'
 const ROUTE_DELETEALL= 'DeleteAll/'

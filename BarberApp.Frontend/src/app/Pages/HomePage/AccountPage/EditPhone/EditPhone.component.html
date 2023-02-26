@@ -1,8 +1,6 @@
 
   <div class="edit_container animate_show container">
 
-    <app-FormInput [label]="'Celular'" ></app-FormInput>
-    <button class="btn btn_submit">
-      Salvar
-    </button>
+    <app-FormInput [inputs]="[phoneInput]"(submitAction)="onSubmit($event)" ></app-FormInput>
+
   </div>
