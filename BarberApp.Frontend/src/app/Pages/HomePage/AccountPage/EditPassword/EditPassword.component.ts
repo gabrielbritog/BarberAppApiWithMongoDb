@@ -21,7 +21,7 @@ export class EditPasswordComponent implements OnInit {
   };
 
   newPassword: IFormInput = {
-    id: 'newPassword',
+    id: 'password',
     label: 'Nova Senha',
     type: 'password',
     value: ''

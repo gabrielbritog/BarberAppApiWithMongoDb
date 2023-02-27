@@ -1,66 +1,12 @@
 <section class="container-fluid">
-  <div class="container register_container flex_column" [class.hide]="hide">
+  <div class="container base_container flex_column" [class.hide]="hide">
     <div class="container_header">
       <img src="../../../assets/Logo-White.svg" alt="" srcset="">
     </div>
 
-    <div class="container_content flex_column w_100">
-      <form #client_form="ngForm"
-      (ngSubmit)="onSubmit(client_form)"
-      class="register_form flex_column">
-
-        <h3 class="form_title">Registrar</h3>
-
-
-        <div class="form_group text_capitalize">
-          <input type="text" name="companyName"
-          [ngClass]="isControlValid('form-companyName')?'':'form_invalid'"
-          id="form-companyName" placeholder="Nome da Empresa" ngModel required>
-        </div>
-
-        <div class="form_group text_capitalize group_fullname">
-          <input type="text" name="firstname"
-          [ngClass]="isControlValid('form-firstname')?'':'form_invalid'"
-          id="form-firstname" placeholder="Nome" ngModel required>
-
-          <input type="text" name="lastname"
-          [ngClass]="isControlValid('form-lastname')?'':'form_invalid'"
-          id="form-lastname" placeholder="Sobrenome" ngModel required>
-        </div>
-
-        <div class="form_group">
-          <input type="email" name="email"
-          [ngClass]="isControlValid('form-email')?'':'form_invalid'"
-          id="form-email" placeholder="E-mail" ngModel required>
-        </div>
-
-        <div class="form_group">
-          <button type="button" class="show_password"
-          (pointerenter)="showPassword('form-password')"
-          (pointerleave)="showPassword('form-password')">
-            <i class="fa-solid show"
-            [ngClass]="isShowPassword('form-password')? ' fa-eye':' fa-eye-slash'"></i>
-          </button>
-          <input type="password" name="password"
-          [ngClass]="isControlValid('form-password')?'':'form_invalid'"
-          id="form-password" placeholder="Senha" ngModel minlength="8" required>
-        </div>
-
-        <div class="form_group">
-          <button type="button" class="show_password"
-          (pointerenter)="showPassword('form-confirmpassword')"
-          (pointerleave)="showPassword('form-confirmpassword')">
-            <i class="fa-solid show"
-            [ngClass]="isShowPassword('form-confirmpassword')? ' fa-eye':' fa-eye-slash'"></i>
-          </button>
-          <input type="password" name="confirmpassword"
-          [ngClass]="isControlValid('form-confirmpassword', 'form-password')?'':'form_invalid'"
-          id="form-confirmpassword" placeholder="Confirmar senha" ngModel>
-        </div>
-
-        <button class="btn btn_submit">Criar conta</button>
-
-      </form>
+    <div class="container_content flex_column">
+      <h3 class="form_title">Registrar</h3>
+      <app-FormInput [inputs]="registerForm" [submitText]="'Enviar'" (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>
 
     <div class="container_footer">

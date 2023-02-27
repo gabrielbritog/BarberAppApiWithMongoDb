@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { FormValidationService } from '../../Services/FormValidation.service';
 import { AuthService } from '../../Services/Auth.service';
 import { UserModel } from '../../Models/UserModel';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../Services/token-storage.service';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
+import { IFormInput } from '../../Components/FormInput/IFormInput';
 
 @Component({
   selector: 'app-RegisterPage',
@@ -16,12 +16,51 @@ import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 })
 export class RegisterPageComponent implements OnInit {
 
+  registerForm: IFormInput[] = [
+    { // Company Name
+      id: 'companyName',
+      label: 'Nome da Empresa',
+      type: 'text',
+      value: ''
+    },
+    { // First Name
+      id: 'firstName',
+      label: 'Nome',
+      type: 'text',
+      value: ''
+    },
+    { // First Name
+      id: 'lastName',
+      label: 'Sobrenome',
+      type: 'text',
+      value: ''
+    },
+    { // Email
+      id: 'email',
+      label: 'Email',
+      type: 'email',
+      value: ''
+    },
+    { // Password
+      id: 'password',
+      label: 'Senha',
+      type: 'password',
+      value: ''
+    },
+    { // Confirm Password
+      id: 'confirmPassword',
+      label: 'Confirmar Senha',
+      type: 'password',
+      value: ''
+    }
+  ]
+
+
   submited = false;
   hide = false;
 
   constructor(
     private toastr: ToastrService,
-    private formValidation: FormValidationService,
     private tokenStorage: TokenStorageService,
     private authService: AuthService,
     private router: Router) { }
@@ -35,14 +74,7 @@ export class RegisterPageComponent implements OnInit {
     this.submited = true;
 
     const toastrString = 'Usuário criado com sucesso.';
-    const validationResult = this.formValidation.checkValidation(form);
     const userModel = new UserModel(form.value);
-
-    for (let i = 0; i < validationResult.length; i++)
-      this.toastr.error(validationResult[i]);
-
-    if(validationResult.length > 0)
-      return;
 
     this.authService.register(userModel).subscribe({
       next: (data: any) => {

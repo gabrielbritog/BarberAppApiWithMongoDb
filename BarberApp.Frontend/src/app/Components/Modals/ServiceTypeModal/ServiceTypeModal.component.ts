@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { LoaderComponent } from '../../Loader/Loader.component';
 import { ServiceTypeModel } from '../../../Models/ServiceTypeModel';
 import { ServiceTypeService } from 'src/app/Services/ServiceType.service';
+import { IFormInput } from '../../FormInput/IFormInput';
 
 @Component({
   selector: 'app-ServiceTypeModal',
@@ -13,6 +14,22 @@ import { ServiceTypeService } from 'src/app/Services/ServiceType.service';
 export class ServiceTypeModalComponent implements OnInit {
 
   serviceModel = new ServiceTypeModel();
+
+  modalInputs: IFormInput[] = [
+    {
+      id: 'nameService',
+      label: 'Nome',
+      type: 'text',
+      value: ''
+    },
+    {
+      id: 'valueService',
+      label: 'Valor',
+      type: 'text',
+      value: '',
+      currency: true
+    }
+  ]
 
   get showModal() {
     return GlobalVariables.showServiceTypeModal;
@@ -30,15 +47,13 @@ export class ServiceTypeModalComponent implements OnInit {
 
   ngOnInit() {
     this.serviceModel = new ServiceTypeModel(GlobalVariables.editServiceType);
+
+    if (this.isEditModal){
+      this.modalInputs[0].value = this.serviceModel.nameService;
+      this.modalInputs[1].value = this.serviceModel.valueService.toString();
+    }
   }
 
-  get formatedMoney() {
-    return this.serviceModel.valueService.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-  }
-
-  set formatedMoney(value) {
-    this.serviceModel.valueService = parseFloat(value);
-  }
 
   onSubmit(form: NgForm) {
     let serviceType = new ServiceTypeModel(form.value);

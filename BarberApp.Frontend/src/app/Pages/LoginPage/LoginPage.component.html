@@ -1,35 +1,12 @@
 <section class="container-fluid">
-  <div class="container login_container flex_column" [class.hide]="hide">
+  <div class="container base_container" [class.hide]="hide">
     <div class="container_header">
       <img src="../../../assets/Logo-White.svg" alt="" srcset="">
     </div>
 
-    <div class="container_content flex_column w_100">
-      <form #client_form="ngForm"
-      (ngSubmit)="onSubmit(client_form)"
-      class="login_form flex_column">
-        <h3 class="form_title">Login</h3>
-        <div class="form_group">
-          <input class="w_100" type="email" name="email"
-          [ngClass]="isControlValid('form-email')?'':'form_invalid'"
-          id="form-email" placeholder="E-mail" ngModel required>
-        </div>
-        <div class="form_group">
-          <button type="button" class="show_password"
-          (pointerenter)="showPassword('form-password')"
-          (pointerleave)="showPassword('form-password')">
-            <i class="fa-solid show"
-            [ngClass]="isShowPassword('form-password')? ' fa-eye':' fa-eye-slash'"></i>
-          </button>
-          <input class="w_100" type="password" name="password"
-          [ngClass]="isControlValid('form-password')?'':'form_invalid'"
-          id="form-password" placeholder="Senha" ngModel required>
-        </div>
-
-        <button type="submit" class="btn btn_submit">Entrar</button>
-
-      </form>
-      <a href="#" id="reset_password">Esqueci minha senha</a>
+    <div class="container_content flex_column">
+      <h3 class="form_title">Login</h3>
+      <app-FormInput [inputs]="loginForm" [submitText]="'Entrar'" (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>
 
     <div class="container_footer">

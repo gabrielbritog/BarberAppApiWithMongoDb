@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '../../../Services/token-storage.service';
 import { ClientModel } from 'src/app/Models/ClientModel';
+import { IFormInput } from '../../FormInput/IFormInput';
 
 @Component({
   selector: 'app-SchedulingModal',

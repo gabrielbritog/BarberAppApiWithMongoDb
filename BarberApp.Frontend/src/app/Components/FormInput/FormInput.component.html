@@ -1,15 +1,55 @@
-<form #genericForm="ngForm" class="input_container w_100"(ngSubmit)="onSubmit(genericForm)">
+<form #genericForm="ngForm"
+class="input_container w_100"
+(ngSubmit)="onSubmit(genericForm)">
 
   <ng-container *ngFor="let item of inputs">
     <label for="{{item.id}}" [class.dirty]="item.value != ''">
-      <input type="{{item.type}}" id="{{item.id}}" name="{{item.id}}" [(ngModel)]="item.value" >
+
+
+      <input *ngIf="item.currency != true"
+      [class.form_invalid]="getValidationMessage(item) != null"
+      type="{{item.type}}"
+      id="{{item.id}}"
+      name="{{item.id}}"
+      [(ngModel)]="item.value"
+      required>
+
+      <input *ngIf="item.currency"
+      [class.form_invalid]="getValidationMessage(item) != null"
+      type="{{item.type}}"
+      id="{{item.id}}"
+      name="{{item.id}}"
+      [(ngModel)]="item.value"
+      currencyMask [options]="{
+        prefix: 'R$ ',
+        thousands: '.',
+        decimal: ',' ,
+        align: 'left',
+        allowNegative: false
+      }"
+      appCurrencyCursor
+      required>
+
+
       <div class="placeholder_title">{{item.label}}</div>
+      <button type="button"
+      *ngIf="item.type == 'password'"
+       class="show_password"
+      (pointerenter)="showPassword(item.id)"
+      (pointerleave)="showPassword(item.id)">
+        <i class="fa-solid show"
+        [ngClass]="isShowPassword(item.id)? ' fa-eye':' fa-eye-slash'"></i>
+      </button>
     </label>
+    <div class="alert validation-alert" *ngIf="getValidationMessage(item) != null" >
+      {{getValidationMessage(item)}}
+    </div>
     <div class="alert" *ngIf="item.alert" >
+
       {{item.alert}}
     </div>
   </ng-container>
 
-  <button class="btn btn_submit" type="submit">Salvar Info</button>
+  <button class="btn btn_submit" type="submit">{{submitText}}</button>
 
 </form>

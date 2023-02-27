@@ -1,44 +1,21 @@
-section{
-  height: 100vh;
-  background-color: var(--app-color-bg);
-  display: flex;
-  align-items: center;
-  img#banner_img{
-    display: none;
-    height: 100%;
-    width: 55%;
-    object-fit: cover;
-    mix-blend-mode: luminosity;
-    opacity: .7;
-  }
-}
-
-.container_header{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  top: -8%;
-  img{
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2/1;
-    object-fit: cover;
-  }
-}
+@import '../../Shared/Styles/LoginPage.scss';
 
 .login_container{
   max-width: 400px;
   position: relative;
-  height: 80%;
-  padding-top: 20%;
-  align-items: center;
-  justify-content: center;
+  height: 90%;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  grid-template-rows: 20% 70% 10%;
   .container_content{
     animation: show_content .3s var(--default-transition) forwards;
   }
   .container_footer{
     animation: show_footer .3s var(--default-transition) forwards;
+    display: grid;
+    place-items: center;
+    height: 100%;
   }
   &.hide{
     pointer-events: none;
@@ -49,12 +26,6 @@ section{
       animation: hide_footer .3s var(--default-transition) forwards;
     }
   }
-}
-
-.container_content{
-  align-items: center;
-  flex-grow: 1;
-  justify-content: center;
 }
 
 .login_form{
@@ -70,64 +41,5 @@ section{
   .btn_submit{
     margin: 1rem 0;
     font-weight: 600;
-  }
-}
-
-a{
-  cursor: pointer;
-  flex-grow: 0;
-  font-size: small;
-  width: fit-content;
-}
-
-@keyframes show_content {
-  0%{
-    transform: translateY(20%);
-    opacity: 0;
-  }
-  100%{
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes hide_content {
-  0%{
-    transform: translateY(0);
-    opacity: 1;
-  }
-  100%{
-    opacity: 0;
-    transform: translateY(20%);
-  }
-}
-
-@keyframes show_footer {
-  0%{
-    opacity: 0;
-  }
-  100%{
-    opacity: 1;
-  }
-}
-
-@keyframes hide_footer {
-  0%{
-    opacity: 1;
-  }
-  100%{
-    opacity: 0;
-  }
-}
-
-@media (min-width:768px) {
-  section img#banner_img{
-    display: block;
-  }
-}
-
-@media (min-width:1024px) {
-  section img#banner_img{
-    width: 60%;
   }
 }

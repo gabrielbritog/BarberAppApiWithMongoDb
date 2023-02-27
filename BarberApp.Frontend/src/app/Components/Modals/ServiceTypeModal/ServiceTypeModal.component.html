@@ -8,32 +8,8 @@
       </button>
     </div>
     <hr />
-    <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)" class="flex_column">
 
-      <div class="form_group">
-        <label for="nameService">
-          <input
-            type="text"
-            name="nameService"
-            id="nameService"
-            placeholder="Nome do serviço"
-            [(ngModel)]="serviceModel.nameService"
-          />
-        </label>
-      </div>
-      <div class="form_group">
-        <label for="valueService">
-          <input
-            type="number"
-            name="valueService"
-            id="valueService"
-            placeholder="Valor do serviço"
-            [(ngModel)]="serviceModel.valueService"
-          />
-        </label>
-      </div>
+    <app-FormInput [inputs]="modalInputs" [submitText]="isEditModal? 'Salvar' : 'Adicionar'" (submitAction)="onSubmit($event)" ></app-FormInput>
 
-      <button type="submit" class="btn btn_submit">Adicionar</button>
-    </form>
   </div>
 </div>

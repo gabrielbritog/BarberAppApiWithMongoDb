@@ -19,7 +19,6 @@ import { EditPasswordComponent } from './Pages/HomePage/AccountPage/EditPassword
 import { EditPhoneComponent } from './Pages/HomePage/AccountPage/EditPhone/EditPhone.component';
 
 // SERVICES
-import { FormValidationService } from './Services/FormValidation.service';
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
 
 // COMPONENTS
@@ -56,10 +55,13 @@ import { BarberModalComponent } from './Components/Modals/BarberModal/BarberModa
 
 // MISC
 import { ToastrModule } from 'ngx-toastr';
+import { NgxCurrencyModule } from 'ngx-currency';
+import { CurrencyCursorDirective } from './Shared/CurrencyCursor.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
+    CurrencyCursorDirective,
 
     // PAGES
     HomePageComponent,
@@ -103,6 +105,7 @@ import { ToastrModule } from 'ngx-toastr';
     BarberModalComponent
   ],
   imports: [
+    NgxCurrencyModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
@@ -111,7 +114,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     ToastrModule.forRoot({timeOut: 2000, preventDuplicates: true})
   ],
-  providers: [FormValidationService, authInterceptorProviders],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

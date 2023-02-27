@@ -1,0 +1,125 @@
+section{
+  height: 100svh;
+  background-color: var(--app-color-bg);
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  img#banner_img{
+    display: none;
+    height: 100%;
+    width: 55%;
+    object-fit: cover;
+    mix-blend-mode: luminosity;
+    opacity: .7;
+  }
+}
+
+.base_container{
+  max-width: 400px;
+  position: relative;
+  height: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  &.hide{
+    pointer-events: none;
+    .container_content{
+      animation: hide_content .3s var(--default-transition) forwards;
+    }
+    .container_footer{
+      animation: hide_footer .3s var(--default-transition) forwards;
+    }
+  }
+}
+
+.container_header{
+  width: 100%;
+  height: 20%;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  img{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+  }
+}
+
+.container_content{
+  animation: show_content .3s var(--default-transition) forwards;
+  justify-content: center;
+  text-align: center;
+  gap: .5rem;
+  flex-grow: 1;
+  width: 90%;
+  gap: 0.5rem;
+  margin: 1rem auto;
+}
+.container_footer{
+  animation: show_footer .3s var(--default-transition) forwards;
+  display: grid;
+  place-items: center;
+  height: 20%;
+  flex-shrink: 0;
+}
+.form_title{
+  margin: 1rem 0;
+}
+a{
+  cursor: pointer;
+  flex-grow: 0;
+  font-size: small;
+}
+
+@keyframes show_content {
+  0%{
+    transform: translateY(20%);
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hide_content {
+  0%{
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+    transform: translateY(20%);
+  }
+}
+
+@keyframes show_footer {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes hide_footer {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+@media (min-width:768px) {
+  section img#banner_img{
+    display: block;
+  }
+}
+
+@media (min-width:1024px) {
+  section img#banner_img{
+    width: 60%;
+  }
+}

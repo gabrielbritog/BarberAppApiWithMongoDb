@@ -44,8 +44,8 @@ export class AuthService {
     return this.http.post(AUTH_API + ADMIN_ROUTE + REGISTER_ROUTE, {
       userConfig: credentials.userConfig,
       companyName: credentials.companyName,
-      firstname: credentials.firstname,
-      Lastname: credentials.lastname,
+      firstName: credentials.firstName,
+      lastName: credentials.lastName,
       cep: 'Não definido',
       email: credentials.email,
       password: credentials.password,

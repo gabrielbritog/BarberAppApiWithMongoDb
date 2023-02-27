@@ -1,0 +1,58 @@
+.card{
+  position: relative;
+  border-radius: 5px;
+  background-color: var(--app-color-bg-alt);
+  margin: 0 auto;
+  padding: .5rem;
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+  border: 1px solid  var(--app-color-light-border);
+  &.header_card{
+    margin-bottom: .5rem;
+  }
+  &.primary_card{
+    background-color: var(--app-color-primary);
+    color: var(--app-color-bg);
+  }
+  .picture{
+    width: 50px;
+    height: 50px;
+    background-color: var(--app-color-input-bg);
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+    font-size: 1.5em;
+    flex-shrink: 0;
+  }
+  .content{
+    flex-grow: 1;
+    .title{
+      font-size: 1rem;
+    }
+    .desc{
+      font-size: .8rem;
+      margin-top: .25rem;
+      i{
+        color: var(--app-color-primary);
+        text-align: center;
+        font-size: 1.2em;
+        padding: 0 .2rem;
+      }
+      span{
+        opacity: .45;
+      }
+    }
+  }
+  .edit_btn{
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    padding: 0.25rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: .8rem;
+  }
+}

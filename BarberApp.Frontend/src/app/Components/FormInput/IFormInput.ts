@@ -3,5 +3,6 @@ export interface IFormInput {
   label: string;
   type: string;
   value: string;
+  currency?: boolean;
   alert?: string;
 }

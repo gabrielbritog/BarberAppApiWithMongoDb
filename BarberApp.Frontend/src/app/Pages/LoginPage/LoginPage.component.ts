@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ValidationEnum } from 'src/app/Enums/ValidationEnum.enum';
 import { UserModel } from 'src/app/Models/UserModel';
-import { FormValidationService } from 'src/app/Services/FormValidation.service';
 import { AuthService } from '../../Services/Auth.service';
 import { TokenStorageService } from '../../Services/token-storage.service';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { LoaderComponent } from '../../Components/Loader/Loader.component';
+import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
 
 @Component({
   selector: 'app-LoginPage',
@@ -16,6 +15,21 @@ import { LoaderComponent } from '../../Components/Loader/Loader.component';
   styleUrls: ['./LoginPage.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+
+  loginForm: IFormInput[] = [
+    { // Company Name
+      id: 'email',
+      label: 'Email',
+      type: 'email',
+      value: ''
+    },
+    { // First Name
+      id: 'password',
+      label: 'Senha',
+      type: 'password',
+      value: ''
+    },
+  ]
 
   submited = false;
   hide = false;

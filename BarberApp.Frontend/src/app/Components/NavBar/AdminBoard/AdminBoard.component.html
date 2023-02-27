@@ -4,7 +4,7 @@
     <div class="barber_cards flex_column">
       <div class="barber_card card" *ngFor="let item of barberList" [class.active]="selectedBarber == item" (click)="setAgenda(item)" >
         {{item.firstName}} {{item.lastName}}
-        <i class="fa-solid fa-chevron-down" *ngIf="barberList.length > 1"></i>
+        <i class="fa-solid fa-chevron-down primary" *ngIf="barberList.length > 1"></i>
       </div>
     </div>
   </div>
