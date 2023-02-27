@@ -18,8 +18,7 @@ export class BarbersSectionComponent implements OnInit {
   get barberList(){
     return GlobalVariables.barbers
     .filter(p =>
-      p.firstName.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-      p.lastName.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      (p.firstName.toLowerCase() + ' ' + p.lastName.toLowerCase()).includes(this.searchValue.toLowerCase()) ||
       p.phoneNumber?.toLowerCase().includes(this.searchValue.toLowerCase())
     )
     .sort((a, b) => a.firstName.localeCompare(b.firstName));

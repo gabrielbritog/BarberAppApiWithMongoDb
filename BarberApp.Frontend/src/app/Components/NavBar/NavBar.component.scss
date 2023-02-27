@@ -16,16 +16,6 @@ nav{
   >*{
     flex-grow: 0;
   }
-  .sidebar_toogle{
-    background-color: transparent;
-    border: none;
-    color: var(--app-color-text);
-    font-size: 1.25rem;
-    width: 2rem;
-    height: 2rem;
-    text-align: center;
-    cursor: pointer;
-  }
   .nav_text{
     flex-grow: 1;
     display: flex;
@@ -134,6 +124,19 @@ nav{
       }
     }
   }
+}
+
+.sidebar_toggle{
+  position: absolute;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--app-color-bg-alt);
+  border-radius: 50%;
+  top: -8px;
+  left: -8px;
 }
 
 @keyframes blink {

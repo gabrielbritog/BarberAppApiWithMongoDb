@@ -4,6 +4,9 @@
     <button class="nav_profile" (click)="sidebarExpanded = !sidebarExpanded">
       <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
       <i class="fa-solid fa-user placeholder_icon"></i>
+      <div class="sidebar_toggle">
+        <i class="fa-solid fa-bars"></i>
+      </div>
     </button>
     <div class="nav_text">
       <span class="welcome">Bem vindo, </span>
@@ -26,10 +29,11 @@
 
         <li
           class="nav_item"
-          [class.active]="currentSection == 1"
-          (click)="currentSection = 1" >
-          <i class="fa-solid fa-user-group"></i>
-          <div class="nav_item_title">Clientes</div>
+          [class.active]="currentSection == 3"
+          (click)="currentSection = 3"
+          *ngIf="isAdmin">
+          <i class="fa-solid fa-people-group"></i>
+          <div class="nav_item_title">Funcionários</div>
         </li>
 
         <li
@@ -42,11 +46,10 @@
 
         <li
           class="nav_item"
-          [class.active]="currentSection == 3"
-          (click)="currentSection = 3"
-          *ngIf="isAdmin">
-          <i class="fa-solid fa-people-group"></i>
-          <div class="nav_item_title">Barbeiros</div>
+          [class.active]="currentSection == 1"
+          (click)="currentSection = 1" >
+          <i class="fa-solid fa-user-group"></i>
+          <div class="nav_item_title">Clientes</div>
         </li>
 
       </ul>

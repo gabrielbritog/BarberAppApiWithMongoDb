@@ -15,7 +15,7 @@
 }
 
 .base_container{
-  background-color: var(--app-color-input-bg);
+  background-color: var(--app-color-bg-alt);
   color: var(--app-color-text);
   height: 100%;
   max-width: min(100vw, 280px);
@@ -36,7 +36,7 @@ hr{
   width: 50px;
   height: 50px;
   border-radius: 50% 50%;
-  background-color: var(--app-color-input-bg);
+  background-color: var(--app-color-bg-alt);
   border: none;
   color: var(--app-color-text);
 }
@@ -46,11 +46,11 @@ hr{
   gap: 0.5rem;
   margin-top: 0.5rem;
   align-items: center;
-  overflow: hidden;
   .profile_pic{
+    position: relative;
     display: grid;
     place-items: center;
-    background-color: var(--app-color-primary);
+    background-color: var(--app-color-input-bg);
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -63,6 +63,19 @@ hr{
       font-size: 1rem;
     }
   }
+}
+
+.sidebar_toggle{
+  position: absolute;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--app-color-bg-alt);
+  border-radius: 50%;
+  top: -8px;
+  left: -8px;
 }
 
 .user_email, .company_name{
@@ -110,7 +123,8 @@ input[type=checkbox]{
 }
 
 input[type=color] {
-  border: none;
+  border: 2px solid var(--app-color-bg-alt);
+  outline: 1px solid;
   padding: 0;
   margin: 0;
   height: 1rem;
@@ -133,6 +147,7 @@ input[type=number] {
   padding: 0;
   margin: 0;
   text-align: end;
+  background-color: transparent;
 }
 
 input[type=number]::-webkit-inner-spin-button,
