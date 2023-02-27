@@ -1,0 +1,30 @@
+<div class="card service_type">
+
+  <div class="picture">
+    <i class="fa-solid fa-scissors"></i>
+    <i class="fa-solid fa-circle-check confirmed"></i>
+    <!-- <i class="fa-solid fa-circle-check cancelled"></i> -->
+  </div>
+  <div class="content">
+    <div class="card_title">
+      <span class="title">Agendamento</span>
+      <span class="date">{{formatedDate}}</span>
+    </div>
+    <div class="desc_area">
+      <div class="desc_column desc_time">
+        <span class="desc_title">{{scheduleModel.client.name}}</span>
+        <span class="desc_content">{{formatedMoney}}</span>
+      </div>
+      <div class="desc_column desc_services">
+        <span class="desc_title">Serviços</span>
+        <span class="desc_content">
+          <span *ngFor="let item of scheduleModel.serviceType; let i = index">
+            {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}
+          </span>
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+</div>

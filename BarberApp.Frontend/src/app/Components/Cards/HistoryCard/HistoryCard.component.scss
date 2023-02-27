@@ -1,0 +1,36 @@
+.confirmed{
+  position: absolute;
+  font-size: 1rem;
+  right: 6px;
+  bottom: 6px;
+  background-color: var(--app-color-input-bg);
+  width: calc(1rem + 4px);
+  height: calc(1rem + 4px);
+  border-radius: 50%;
+  border: 2px solid var(--app-color-input-bg);
+  color: var(--app-color-primary);
+}
+
+.card_title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title{
+  font-weight: 600;
+}
+
+.desc_area, .date{
+  opacity: .6;
+  font-size: .8rem;
+}
+
+.date{
+  text-transform: uppercase;
+  padding-right: 0.4rem;
+}
+
+.desc_column{
+  display: grid;
+}

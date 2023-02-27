@@ -52,11 +52,19 @@
           <div class="nav_item_title">Clientes</div>
         </li>
 
+        <li
+          class="nav_item"
+          [class.active]="currentSection == 4"
+          (click)="currentSection = 4" >
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <div class="nav_item_title">Histórico</div>
+        </li>
+
       </ul>
     </div>
   </div>
 </nav>
 
-<ng-container *ngIf="!isBlocked && isAdmin && (currentSection == 0 || currentSection == 2)">
+<ng-container *ngIf="!isBlocked && isAdmin && (currentSection == 0 || currentSection == 2 || currentSection == 4)">
   <app-AdminBoard></app-AdminBoard>
 </ng-container>

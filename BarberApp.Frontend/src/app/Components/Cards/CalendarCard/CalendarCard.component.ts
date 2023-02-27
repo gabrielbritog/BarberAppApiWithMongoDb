@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import * as moment from 'moment';
 import { SchedulingService } from '../../../Services/SchedulingService.service';
@@ -8,7 +8,7 @@ import { SchedulingService } from '../../../Services/SchedulingService.service';
   templateUrl: './CalendarCard.component.html',
   styleUrls: ['../baseCard.scss', './CalendarCard.component.scss']
 })
-export class CalendarCardComponent implements OnInit {
+export class CalendarCardComponent implements OnInit, AfterViewInit {
 
   thisWeek: moment.Moment[] = [];
 
@@ -76,21 +76,41 @@ export class CalendarCardComponent implements OnInit {
     'Dezembro'
   ];
 
-  constructor(private schedulesService: SchedulingService) { }
+  constructor(private schedulesService: SchedulingService) {
+    this.loadWeek();
+  }
 
   ngOnInit() {
-    this.loadWeek()
+  }
+
+  ngAfterViewInit() {
   }
 
   setDay(element: moment.Moment) {
     GlobalVariables.currentDay = element;
     GlobalVariables.getEmptySchedulesBase();
+
+    this.scrollActiveIntoView();
+  }
+
+  scrollActiveIntoView() {
+    const cardElement = document.getElementById(`card_${this.getFormatedMoment(GlobalVariables.currentDay)}`) as HTMLElement;
+
+    if (!cardElement)
+      return;
+
+    cardElement.scrollIntoView({
+      block: 'end'
+    })
   }
 
   loadWeek() {
-    for (let index = 0; index < 7; index++) {
+    const delay = 100;
+    const daysToLoad = 7;
+    for (let index = 0; index < daysToLoad; index++) {
       this.thisWeek.push(moment().add(index, 'days'));
     }
+    setTimeout(() => this.scrollActiveIntoView(), delay);
   }
 
   getMomentMonthDay(element: moment.Moment) {
@@ -106,14 +126,16 @@ export class CalendarCardComponent implements OnInit {
   }
 
   deleteAll() {
-    // this.schedulesService.deleteAllSchedules().subscribe({
-    //   next: (data: any) => {
-    //     console.log(data);
-    //   },
-    //   error(err) {
-    //     console.log(err);
-    //   },
-    // })
+
+    return;
+    this.schedulesService.deleteAllSchedules().subscribe({
+      next: (data: any) => {
+        console.log(data);
+      },
+      error(err) {
+        console.log(err);
+      },
+    })
   }
 
 }

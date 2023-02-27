@@ -4,10 +4,11 @@
     <div class="left">Próximos Horários</div>
     <button class="btn_chip active"  (click)="deleteAll()"  >Escolher data</button>
   </div>
-  <div class="cards_wrapper">
+  <div class="cards_wrapper" id="cards_wrapper">
     <button
-    *ngFor="let item of thisWeek"
+    *ngFor="let item of thisWeek; let i = index"
     class="card card_day flex_column"
+    id="card_{{getFormatedMoment(item)}}"
     [class.active]="getFormatedMoment(item) == currentDay"
     (click)="setDay(item)"
     >

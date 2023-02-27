@@ -36,6 +36,7 @@ import { ServiceTypeCardComponent } from './Components/Cards/ServiceTypeCard/Ser
 import { ClientCardComponent } from './Components/Cards/ClientCard/ClientCard.component';
 import { BarberCardComponent } from './Components/Cards/BarberCard/BarberCard.component';
 import { AccountCardComponent } from './Components/Cards/AccountCard/AccountCard.component';
+import { HistoryCardComponent } from './Components/Cards/HistoryCard/HistoryCard.component';
 
 // COMPONENTS - CAROUSELS
 import { CarouselAvailableTimeComponent } from './Components/Carousels/CarouselAvailableTime/CarouselAvailableTime.component';
@@ -47,6 +48,7 @@ import { ClientListSectionComponent } from './Pages/HomePage/Sections/ClientList
 import { ServiceTypesSectionComponent } from './Pages/HomePage/Sections/ServiceTypesSection/ServiceTypesSection.component';
 import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
 import { BarbersSectionComponent } from './Pages/HomePage/Sections/BarbersSection/BarbersSection.component';
+import { HistorySectionComponent } from './Pages/HomePage/Sections/HistorySection/HistorySection.component';
 
 // MODALS
 import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
@@ -80,6 +82,7 @@ import { CurrencyCursorDirective } from './Shared/CurrencyCursor.directive';
     ClientListSectionComponent,
     ServiceTypesSectionComponent,
     BarbersSectionComponent,
+    HistorySectionComponent,
 
     // COMPONENTS
     NavBarComponent,
@@ -93,6 +96,7 @@ import { CurrencyCursorDirective } from './Shared/CurrencyCursor.directive';
     ServiceTypeCardComponent,
     BarberCardComponent,
     AccountCardComponent,
+    HistoryCardComponent,
 
     LoaderComponent,
     PlusButtonComponent,
