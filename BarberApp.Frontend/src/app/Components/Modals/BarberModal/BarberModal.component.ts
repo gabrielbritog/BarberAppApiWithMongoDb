@@ -6,6 +6,7 @@ import { LoaderComponent } from '../../Loader/Loader.component';
 import { TokenStorageService } from '../../../Services/token-storage.service';
 import { AuthService } from '../../../Services/Auth.service';
 import { UserService } from '../../../Services/User.service';
+import { IFormInput } from '../../FormInput/IFormInput';
 
 @Component({
   selector: 'app-BarberModal',
@@ -15,6 +16,39 @@ import { UserService } from '../../../Services/User.service';
 export class BarberModalComponent implements OnInit {
 
   barberModel = new BarberModel();
+
+  modalInputs: IFormInput[] = [
+    {
+      id: 'firstName',
+      label: 'Nome',
+      type: 'text',
+      value: ''
+    },
+    {
+      id: 'lastName',
+      label: 'Sobrenome',
+      type: 'text',
+      value: ''
+    },
+    {
+      id: 'phoneNumber',
+      label: 'Celular',
+      type: 'text',
+      value: ''
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      type: 'email',
+      value: ''
+    },
+    {
+      id: 'password',
+      label: 'Senha',
+      type: 'password',
+      value: '12345678'
+    }
+  ]
 
   get isEditModal() { return GlobalVariables.modalAsEdit; }
 
@@ -33,6 +67,13 @@ export class BarberModalComponent implements OnInit {
 
   ngOnInit() {
     this.barberModel = new BarberModel(GlobalVariables.editBarber);
+
+    if (this.isEditModal){
+      this.modalInputs[0].value = this.barberModel.firstName;
+      this.modalInputs[1].value = this.barberModel.lastName;
+      this.modalInputs[2].value = this.barberModel.phoneNumber?? '';
+      this.modalInputs[3].value = this.barberModel.email;
+    }
   }
 
   onSubmit(form: NgForm) {

@@ -68,6 +68,7 @@ export class ServiceTypeModalComponent implements OnInit {
     apiCall.subscribe({
       next: (data: any) => {
         LoaderComponent.SetOptions(false);
+        console.log(data.message)
         setTimeout(() => {
           if (index < 0)
             GlobalVariables.serviceTypes.push(data.data);
