@@ -3,44 +3,90 @@ class="input_container w_100"
 (ngSubmit)="onSubmit(genericForm)">
 
   <ng-container *ngFor="let item of inputs">
-    <label for="{{item.id}}" [class.dirty]="item.value != ''">
+
+    <div *ngIf="item.type === 'radio'" class="form_group"  >
+      <label class="group_title" [class.collapsed]="!formGroup.checked">
+        {{item.label}}
+        <div class="active_radio">{{item.value}}</div>
+        <input type="checkbox" #formGroup (change)="true">
+      </label>
+      <div class="collapse_group" [class.collapsed]="!formGroup.checked">
+        <div class="group_item radio_item" *ngFor="let option of item.options; let i = index" [class.selected]="item.value == option.value">
+          <label>
+            <input type="radio"
+                  id="{{item.id}}_{{option.id}}"
+                  name="{{item.id}}"
+                  [value]="option.value"
+                  [(ngModel)]="item.value"
+                  required>
+            {{option.label}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="item.type === 'checkbox'"  class="form_group" [class.form_invalid]="getValidationMessage(item) != null">
+      <label class="group_title" [class.collapsed]="!formGroup.checked">
+        {{item.label}}
+        <input type="checkbox" #formGroup (change)="true">
+      </label>
+      <div class="collapse_group" [class.collapsed]="!formGroup.checked">
+        <div class="group_item" *ngFor="let option of item.options; let i = index" [class.selected]="option.isSelected">
+          <label for="{{item.id}}_{{i}}">
+            <input type="checkbox"
+                  id="{{item.id}}_{{i}}"
+                  [value]="option"
+                  (change)="checkboxElement(item)"
+                  [(ngModel)]="option.isSelected"
+                  [ngModelOptions]="{standalone: true}"
+                  >
+            {{option.label}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="item.type != 'radio' && item.type != 'checkbox'">
+      <label for="{{item.id}}" [class.dirty]="item.value != ''">
 
 
-      <input *ngIf="item.currency != true"
-      [class.form_invalid]="getValidationMessage(item) != null"
-      type="{{item.type}}"
-      id="{{item.id}}"
-      name="{{item.id}}"
-      [(ngModel)]="item.value"
-      required>
+        <input *ngIf="item.currency != true"
+        [class.form_invalid]="getValidationMessage(item) != null"
+        type="{{item.type}}"
+        id="{{item.id}}"
+        name="{{item.id}}"
+        [(ngModel)]="item.value"
+        required>
 
-      <input *ngIf="item.currency"
-      [class.form_invalid]="getValidationMessage(item) != null"
-      type="{{item.type}}"
-      id="{{item.id}}"
-      name="{{item.id}}"
-      [(ngModel)]="item.value"
-      currencyMask [options]="{
-        prefix: 'R$ ',
-        thousands: '.',
-        decimal: ',' ,
-        align: 'left',
-        allowNegative: false
-      }"
-      appCurrencyCursor
-      required>
+        <input *ngIf="item.currency"
+        [class.form_invalid]="getValidationMessage(item) != null"
+        type="{{item.type}}"
+        id="{{item.id}}"
+        name="{{item.id}}"
+        [(ngModel)]="item.value"
+        currencyMask [options]="{
+          prefix: 'R$ ',
+          thousands: '.',
+          decimal: ',' ,
+          align: 'left',
+          allowNegative: false
+        }"
+        appCurrencyCursor
+        required>
 
 
-      <div class="placeholder_title">{{item.label}}</div>
-      <button type="button"
-      *ngIf="item.type == 'password'"
-       class="show_password"
-      (pointerenter)="showPassword(item.id)"
-      (pointerleave)="showPassword(item.id)">
-        <i class="fa-solid show"
-        [ngClass]="isShowPassword(item.id)? ' fa-eye':' fa-eye-slash'"></i>
-      </button>
-    </label>
+        <div class="placeholder_title">{{item.label}}</div>
+        <button type="button"
+        *ngIf="item.type == 'password'"
+        class="show_password"
+        (pointerenter)="showPassword(item.id)"
+        (pointerleave)="showPassword(item.id)">
+          <i class="fa-solid show"
+          [ngClass]="isShowPassword(item.id)? ' fa-eye':' fa-eye-slash'"></i>
+        </button>
+      </label>
+    </ng-container>
+
     <div class="alert validation-alert" *ngIf="getValidationMessage(item) != null" >
       {{getValidationMessage(item)}}
     </div>

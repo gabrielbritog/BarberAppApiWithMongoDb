@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IFormInput } from './IFormInput';
-import { NgForm, FormControl, Validators, FormGroup, FormsModule , FormControlOptions, ValidatorFn, FormBuilder, AbstractControl } from '@angular/forms';
+import { IFormInput, IFormOptions } from './IFormInput';
+import { NgForm, FormControl, Validators, FormGroup, FormsModule , FormControlOptions, ValidatorFn, FormBuilder, AbstractControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-FormInput',
@@ -14,6 +14,7 @@ export class FormInputComponent implements OnInit {
   @Output() submitAction = new EventEmitter<NgForm>();
 
   genericFormModel!: FormGroup;
+  listOfCheckboxes: any[] = [];
   submitted = false;
 
   constructor() {
@@ -21,6 +22,9 @@ export class FormInputComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.listOfCheckboxes.forEach(element => {
+      this.checkboxElement(element);
+    })
   }
 
   createForm() {
@@ -28,6 +32,9 @@ export class FormInputComponent implements OnInit {
     this.inputs.forEach((input) => {
       const validatorFields = this.getValidatorFields(input);
       const control = new FormControl(input.value, validatorFields);
+      if (input.type == 'checkbox')
+        this.listOfCheckboxes.push(input);
+
       formGroupConfig[input.id] = control;
     });
 
@@ -48,16 +55,27 @@ export class FormInputComponent implements OnInit {
     };
   }
 
+  checkAtLeastOneSelectedValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      const isChecked = control.value.length > 0;
+      return isChecked ? null : { atLeastOneSelected: true };
+    };
+  }
+
   getValidatorFields(item: IFormInput): FormControlOptions {
     const formControlOptions: FormControlOptions = {};
     const validators: ValidatorFn[] = [];
-    validators.push(Validators.required);
+    if (item.type != 'checkbox')
+      validators.push(Validators.required);
     switch (item.type) {
       case 'email':
         validators.push(Validators.email);
         break;
       case 'password':
         validators.push(Validators.minLength(8));
+        break;
+      case 'checkbox':
+        validators.push(this.checkAtLeastOneSelectedValidator());
         break;
       default:
         break;
@@ -77,11 +95,14 @@ export class FormInputComponent implements OnInit {
     if (validatorErrors.hasError('minlength'))
       return `O campo deve conter pelo menos ${validatorErrors.errors['minlength'].requiredLength} caracteres.`;
 
-      if (validatorErrors.hasError('email'))
-        return `O campo precisa conter um email válido.`;
+    if (validatorErrors.hasError('email'))
+      return `O campo precisa conter um email válido.`;
 
     if (validatorErrors.hasError('mismatchedPasswords'))
       return `As senhas não correspondem.`;
+
+    if (validatorErrors.hasError('atLeastOneSelected'))
+      return `Selecione pelo menos 1.`;
 
     return null;
   }
@@ -113,10 +134,21 @@ export class FormInputComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.submitted = true;
+    this.listOfCheckboxes.forEach((checkboxGroup: any, index) => {
+      form.value[checkboxGroup.id] = checkboxGroup.value
+                                     .filter((p: IFormOptions) => p.isSelected)
+                                     .map((p: IFormOptions)=> p.value);
+    })
     this.genericFormModel.setValue(form.value);
+
     if (!this.genericFormModel.valid)
       return;
+
     this.submitAction.emit(form);
+  }
+
+  checkboxElement(arrayElement: IFormInput) {
+    arrayElement.value = arrayElement.options;
   }
 
 }

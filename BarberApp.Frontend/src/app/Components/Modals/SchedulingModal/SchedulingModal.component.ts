@@ -9,7 +9,8 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '../../../Services/token-storage.service';
 import { ClientModel } from 'src/app/Models/ClientModel';
-import { IFormInput } from '../../FormInput/IFormInput';
+import { IFormInput, IFormOptions } from '../../FormInput/IFormInput';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-SchedulingModal',
@@ -19,6 +20,71 @@ import { IFormInput } from '../../FormInput/IFormInput';
 export class SchedulingModalComponent implements OnInit {
 
   scheduleModel = new ScheduleModel();
+
+  inputModels: IFormInput[] = [];
+
+  get AvailableSchedulesAsFormOptions() {
+    return this.availableSchedules.map(this.mapScheduleTimeToFormOption);
+  }
+
+  mapScheduleTimeToFormOption(schedule: ScheduleModel, index: number): IFormOptions{
+    return {
+      id: 'schedule_' + index,
+      label: schedule.time,
+      value: schedule.time
+    }
+  }
+
+  get ServicesAsFormOptions() {
+    return this.serviceTypes.map(this.mapServicesToFormOptions);
+  }
+
+  mapServicesToFormOptions(serviceType: ServiceTypeModel, index: number): IFormOptions{
+    return {
+      id: 'serviceType_' + index,
+      label: serviceType.nameService,
+      value: serviceType,
+      isSelected: GlobalVariables.editSchedule?.serviceType.some(p=>p.serviceTypeId == serviceType.serviceTypeId)
+    }
+  }
+
+  fillInputModels() {
+    this.inputModels = [
+      {
+        id: 'date',
+        label: 'Data',
+        value: this.currentDay,
+        type: 'date'
+      },
+      {
+        id: 'clientName',
+        label: 'Nome do cliente',
+        value: this.scheduleModel.client.name,
+        type: 'text'
+      },
+      {
+        id: 'clientPhone',
+        label: 'Celular do cliente',
+        value: this.scheduleModel.client.phone,
+        type: 'tel'
+      },
+      {
+        id: 'time',
+        label: 'Horário',
+        value: this.scheduleModel.time,
+        type: 'radio',
+        options: this.AvailableSchedulesAsFormOptions
+      },
+      {
+        id: 'services',
+        label: 'Serviços',
+        value: this.scheduleModel.serviceType,
+        type: 'checkbox',
+        options: this.ServicesAsFormOptions
+      },
+    ]
+  }
+
 
   selectedServiceTypes: ServiceTypeModel[] = [];
 
@@ -42,7 +108,9 @@ export class SchedulingModalComponent implements OnInit {
     GlobalVariables.showScheduleModal = value;
   }
 
-  get isEditModal() { return GlobalVariables.modalAsEdit; }
+  get isEditModal() {
+    return GlobalVariables.modalAsEdit;
+  }
 
   get serviceTypes() {
     const serviceTypes = GlobalVariables.serviceTypes;
@@ -70,7 +138,8 @@ export class SchedulingModalComponent implements OnInit {
 
   constructor(
     private schedulingService: SchedulingService,
-    private tokenStorageService: TokenStorageService) {
+    private tokenStorageService: TokenStorageService,
+    private toaster: ToastrService) {
   }
 
   ngOnInit() {
@@ -81,6 +150,7 @@ export class SchedulingModalComponent implements OnInit {
       GlobalVariables.currentDay.format('YYYY-MM-DD');
     this.selectedServiceTypes = this.isEditModal ? [...this.scheduleModel.serviceType] : [];
     this.currentTime = this.scheduleModel.time;
+    this.fillInputModels();
   }
 
   setCurrentTime(element: ScheduleModel) {
@@ -88,15 +158,28 @@ export class SchedulingModalComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    const scheduleForm = form.value;
-    scheduleForm.time = this.currentTime;
-    scheduleForm.barberId = GlobalVariables.isAdmin? GlobalVariables.selectedBarber?.barberId : this.tokenStorageService.getUserModel().barberId;
-    scheduleForm.schedulingId = this.isEditModal ? this.scheduleModel.schedulingId : scheduleForm.schedulingId;
-    scheduleForm.serviceType = this.selectedServiceTypes;
 
-    let schedule = new ScheduleModel(scheduleForm);
-    schedule.client.name = this.scheduleModel.client.name;
-    schedule.client.phone = this.scheduleModel.client.phone;
+    const scheduleForm = form.value;
+
+    const schedule = new ScheduleModel({
+      barberId: GlobalVariables.isAdmin? GlobalVariables.selectedBarber?.barberId : this.tokenStorageService.getUserModel().barberId,
+      schedulingId: this.isEditModal ? GlobalVariables.editSchedule?.schedulingId : scheduleForm.schedulingId,
+      client: new ClientModel({ name: scheduleForm.clientName, phone: scheduleForm.clientPhone }),
+      date: scheduleForm.date,
+      time: scheduleForm.time,
+      serviceType: scheduleForm.services
+    });
+
+    const timeIsUnavailable = GlobalVariables.schedules.some(p => (
+      p.date == schedule.date &&
+      p.time == schedule.time &&
+      p.barberId == schedule.barberId &&
+      p.schedulingId != schedule.schedulingId));
+
+    if (timeIsUnavailable) {
+      this.toaster.error('Você já possui um agendamento marcado nessa data e hora.', 'Horário indisponível')
+      return;
+    }
 
     let index = this.isEditModal? GlobalVariables.schedules.indexOf(GlobalVariables.editSchedule!) : -1;
 
@@ -127,10 +210,7 @@ export class SchedulingModalComponent implements OnInit {
 
   }
 
-  onCancel(form: NgForm) {
-    this.scheduleModel = new ScheduleModel();
-    this.scheduleModel.client = new ClientModel();
-    form.resetForm();
+  onCancel() {
     this.showModal = false;
   }
 
@@ -163,6 +243,5 @@ export class SchedulingModalComponent implements OnInit {
 
     return filteredSchedules;
   }
-
 
 }

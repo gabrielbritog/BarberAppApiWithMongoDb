@@ -17,6 +17,8 @@ export class HistorySectionComponent implements OnInit {
     const filteredSchedules = GlobalVariables.schedules
       .filter(p => p.date < today || (p.date == today && p.time < todayTime))
       .sort((n1, n2) => n2.schedulingDate.localeCompare(n1.schedulingDate));
+
+    console.log(filteredSchedules)
     return !GlobalVariables.isAdmin ? filteredSchedules : filteredSchedules.filter(p => p.barberId === GlobalVariables.selectedBarber?.barberId);
   }
 

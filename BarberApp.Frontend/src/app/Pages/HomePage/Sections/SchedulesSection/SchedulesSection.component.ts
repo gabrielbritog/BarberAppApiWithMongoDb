@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
+import { IFormInput, IFormOptions } from '../../../../Components/FormInput/IFormInput';
 
 @Component({
   selector: 'app-SchedulesSection',

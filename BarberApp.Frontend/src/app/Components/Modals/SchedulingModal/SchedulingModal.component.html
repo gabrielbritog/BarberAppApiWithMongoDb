@@ -3,77 +3,13 @@
   <div class="container modal_container">
     <div class="header">
       <h3>{{isEditModal? 'Editar ' : 'Novo '}} Agendamento</h3>
-      <button class="btn_close" (click)="onCancel(scheduleForm)">
+      <button class="btn_close" (click)="onCancel()">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
     <hr />
 
-    <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)" class="flex_column">
-      <div class="form_group">
-        <label for="clientName">
-          <input
-            type="text"
-            name="clientName"
-            id="clientName"
-            placeholder="Nome do cliente"
-            [(ngModel)]="scheduleModel.client.name"
-          />
-        </label>
-      </div>
-      <div class="form_group">
-        <label for="clientPhone">
-          <input
-            type="text"
-            name="clientPhone"
-            id="clientPhone"
-            placeholder="Celular"
-            [(ngModel)]="scheduleModel.client.phone"
-          />
-        </label>
-      </div>
-      <div class="form_group">
-        <label for="date">
-          <input
-            class="no-icon"
-            type="date"
-            name="date"
-            id="date"
-            [min]="globalCurrentDay"
-            [(ngModel)]="currentDay"
-          />
-          <i class="fa-solid fa-calendar"></i>
-        </label>
-      </div>
-
-      <app-CarouselAvailableTime [scheduleModal]="this" ></app-CarouselAvailableTime>
-
-      <app-CarouselServiceTypes [scheduleModal]="this" ></app-CarouselServiceTypes>
-
-      <!-- <div class="cards_group">
-        <div class="group_title">
-          Serviços:
-        </div>
-        <div *ngFor="let item of serviceTypes"
-        class="card mini_card service_type"
-        [class.active]="hasService(item)"
-        (click)="addToList(item)" >
-          <div class="title">
-            {{item.nameService}}
-          </div>
-          <div class="desc">
-            R${{item.valueService}},00
-          </div>
-        </div>
-        <div class="services_total">
-          <span>Total:</span>
-          <span>R${{totalServices}},00</span>
-        </div>
-      </div> -->
-
-      <button type="submit" class="btn btn_submit">Agendar</button>
-    </form>
-
+    <app-FormInput [inputs]="inputModels" (submitAction)="onSubmit($event)" style="flex-grow: 1;" ></app-FormInput>
 
   </div>
 </div>
