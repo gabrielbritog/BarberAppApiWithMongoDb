@@ -4,14 +4,14 @@ class="input_container w_100"
 
   <ng-container *ngFor="let item of inputs">
 
-    <div *ngIf="item.type === 'radio'" class="form_group"  >
+    <div *ngIf="item.type === 'radio'" class="form_group" [class.form_invalid]="getValidationMessage(item) != null">
       <label class="group_title" [class.collapsed]="!formGroup.checked">
         {{item.label}}
         <div class="active_radio">{{item.value}}</div>
         <input type="checkbox" #formGroup (change)="true">
       </label>
       <div class="collapse_group" [class.collapsed]="!formGroup.checked">
-        <div class="group_item radio_item" *ngFor="let option of item.options; let i = index" [class.selected]="item.value == option.value">
+        <div class="group_item radio_item" *ngFor="let option of item.formOptions; let i = index" [class.selected]="item.value == option.value">
           <label>
             <input type="radio"
                   id="{{item.id}}_{{option.id}}"
@@ -31,7 +31,7 @@ class="input_container w_100"
         <input type="checkbox" #formGroup (change)="true">
       </label>
       <div class="collapse_group" [class.collapsed]="!formGroup.checked">
-        <div class="group_item" *ngFor="let option of item.options; let i = index" [class.selected]="option.isSelected">
+        <div class="group_item" *ngFor="let option of item.formOptions; let i = index" [class.selected]="option.isSelected">
           <label for="{{item.id}}_{{i}}">
             <input type="checkbox"
                   id="{{item.id}}_{{i}}"
@@ -55,6 +55,7 @@ class="input_container w_100"
         type="{{item.type}}"
         id="{{item.id}}"
         name="{{item.id}}"
+        [min]="item.type === 'date'? item.options?.min : ''"
         [(ngModel)]="item.value"
         required>
 

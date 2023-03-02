@@ -14,7 +14,7 @@
     display: flex;
     text-align: end;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     overflow: hidden;
     .text{
       flex-shrink: 1;

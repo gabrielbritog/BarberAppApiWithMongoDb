@@ -148,7 +148,7 @@ export class FormInputComponent implements OnInit {
   }
 
   checkboxElement(arrayElement: IFormInput) {
-    arrayElement.value = arrayElement.options;
+    arrayElement.value = arrayElement.formOptions;
   }
 
 }

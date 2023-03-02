@@ -17,7 +17,7 @@ input:-webkit-autofill:active {
 .form_group{
   width: 100%;
   min-height: 2.25rem;
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
   background-color: var(--app-color-input-bg);
   border-radius: var(--global-border-radius);
   overflow: hidden;
@@ -42,7 +42,8 @@ input:-webkit-autofill:active {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.2rem 0;
+  line-height: 1.5;
+  padding: 0.5rem 0;
   padding-right: 1.8rem;
   .active_radio{
     font-size: 0.7rem;
@@ -50,6 +51,7 @@ input:-webkit-autofill:active {
     border-radius: 5px;
   }
   &.collapsed{
+    line-height: 1.25rem;
     font-size: .85rem;
     padding-right: 1.3rem;
   }
@@ -80,9 +82,10 @@ input:-webkit-autofill:active {
   border: 1px solid var(--app-color-light-border);
   opacity: .5;
   padding: 0.5rem 1rem;
-  margin: 0.5rem 0;
+  margin-bottom: 0.5rem;
   padding-left: 0.75rem;
   border-radius: var(--global-border-radius);
+  transition: all .3s var(--default-transition), font-weight 0s;
   &.selected{
     font-weight: 600;
     opacity: 1;
@@ -91,6 +94,12 @@ input:-webkit-autofill:active {
       background-color: var(--app-color-primary);
       border: 1px solid var(--app-color-primary);
     }
+  }
+  &~:first-child{
+    margin-top: 0;
+  }
+  &~:last-child{
+    margin-bottom: 1rem;
   }
 }
 
@@ -186,8 +195,8 @@ input{
     transition: all .3s var(--default-transition) !important;
   }
   &:focus{
-    outline: none;
-    box-shadow: 0px 0px 0px 2px var(--app-color-primary);
+    outline: 2px solid var(--app-color-primary);
+    box-shadow: 0px 0px 5px 2px var(--app-color-primary);
     color: var(--app-color-text);
     &~i{
       color: var(--app-color-primary);
@@ -209,12 +218,12 @@ label {
   width: 100%;
   .placeholder_title{
     position: absolute;
-    top: 0.6rem;
+    top: 0.7rem;
     display: grid;
     place-items: center;
     line-height: 1;
     margin-left: 1rem;
-    font-weight: 600;
+    font-size: .85rem;
     color: var(--app-color-input-text);
   }
   input{
@@ -226,8 +235,10 @@ label {
     padding-top: 1.4rem;
     font-size: 1.25rem;
     +.placeholder_title{
+      top: 0.5rem;
       color: var(--app-color-text);
-      font-size: .8rem;
+      font-size: .7rem;
+      font-weight: 600;
     }
   }
 }

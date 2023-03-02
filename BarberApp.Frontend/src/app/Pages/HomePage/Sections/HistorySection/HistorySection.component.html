@@ -7,8 +7,8 @@
       </label>
     </div>
 
-    <ng-container *ngFor="let item of schedules" >
-      <app-HistoryCard [model]="item" ></app-HistoryCard>
+    <ng-container *ngFor="let item of schedules; let i = index" >
+      <app-HistoryCard [model]="item"></app-HistoryCard>
     </ng-container>
 
   </div>

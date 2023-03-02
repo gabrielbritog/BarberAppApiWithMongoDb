@@ -1,12 +1,11 @@
 import { ServiceTypeModel } from './../../../Models/ServiceTypeModel';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import { SchedulingService } from '../../../Services/SchedulingService.service';
 import { LoaderComponent } from '../../Loader/Loader.component';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 import { TokenStorageService } from '../../../Services/token-storage.service';
 import { ClientModel } from 'src/app/Models/ClientModel';
 import { IFormInput, IFormOptions } from '../../FormInput/IFormInput';
@@ -22,6 +21,12 @@ export class SchedulingModalComponent implements OnInit {
   scheduleModel = new ScheduleModel();
 
   inputModels: IFormInput[] = [];
+
+  selectedServiceTypes: ServiceTypeModel[] = [];
+
+  currentDay = "";
+
+  currentTime = moment.utc(this.scheduleModel.schedulingDate).format('HH:mm');
 
   get AvailableSchedulesAsFormOptions() {
     return this.availableSchedules.map(this.mapScheduleTimeToFormOption);
@@ -54,7 +59,8 @@ export class SchedulingModalComponent implements OnInit {
         id: 'date',
         label: 'Data',
         value: this.currentDay,
-        type: 'date'
+        type: 'date',
+        options: {min: moment().format('YYYY-MM-DD')}
       },
       {
         id: 'clientName',
@@ -73,26 +79,17 @@ export class SchedulingModalComponent implements OnInit {
         label: 'Horário',
         value: this.scheduleModel.time,
         type: 'radio',
-        options: this.AvailableSchedulesAsFormOptions
+        formOptions: this.AvailableSchedulesAsFormOptions
       },
       {
         id: 'services',
         label: 'Serviços',
         value: this.scheduleModel.serviceType,
         type: 'checkbox',
-        options: this.ServicesAsFormOptions
+        formOptions: this.ServicesAsFormOptions
       },
     ]
   }
-
-
-  selectedServiceTypes: ServiceTypeModel[] = [];
-
-  globalCurrentDay = moment().format('YYYY-MM-DD');
-
-  currentDay = "";
-
-  currentTime = moment.utc(this.scheduleModel.schedulingDate).format('HH:mm');
 
   get totalServices() {
     return this.selectedServiceTypes
@@ -120,20 +117,12 @@ export class SchedulingModalComponent implements OnInit {
     return serviceTypes;
   }
 
-  get isTodayDate() {
-    return this.currentDay == moment().format('YYYY-MM-DD');
-  }
-
   get currentDaySchedules() {
     const currentDay = GlobalVariables.currentDay.format('L');
     const filteredSchedules = GlobalVariables.schedules
       .filter(p => p.date === currentDay)
       .sort((n1, n2) => n1.time.localeCompare(n2.time));
     return !GlobalVariables.isAdmin ? filteredSchedules : filteredSchedules.filter(p => p.barberId === GlobalVariables.selectedBarber?.barberId);
-  };
-
-  get availableSchedules() {
-    return this.setAvailableSchedules();
   };
 
   constructor(
@@ -151,10 +140,6 @@ export class SchedulingModalComponent implements OnInit {
     this.selectedServiceTypes = this.isEditModal ? [...this.scheduleModel.serviceType] : [];
     this.currentTime = this.scheduleModel.time;
     this.fillInputModels();
-  }
-
-  setCurrentTime(element: ScheduleModel) {
-    this.scheduleModel.time = element.time;
   }
 
   onSubmit(form: NgForm) {
@@ -195,9 +180,6 @@ export class SchedulingModalComponent implements OnInit {
           else
             GlobalVariables.schedules[index] = new ScheduleModel(data.data);
           this.showModal = false;
-          form.resetForm({
-            date: this.currentDay
-          });
         }, 20);
       },
       error: (err) => {
@@ -214,7 +196,7 @@ export class SchedulingModalComponent implements OnInit {
     this.showModal = false;
   }
 
-  setAvailableSchedules() {
+  get availableSchedules() {
     const emptySchedulesTemplate = GlobalVariables.emptySchedules;
     const currentDaySchedules = this.currentDaySchedules;
     const currentTime = moment().format('HH:mm');

@@ -3,7 +3,8 @@ export interface IFormInput {
   label: string;
   type: string;
   value: any[] | any;
-  options?: IFormOptions[];
+  formOptions?: IFormOptions[];
+  options?: IOptions;
   currency?: boolean;
   alert?: string;
 }
@@ -13,4 +14,9 @@ export interface IFormOptions{
   label: string;
   value: any;
   isSelected?: boolean;
+}
+
+export interface IOptions{
+  min: string;
+  max?: string;
 }

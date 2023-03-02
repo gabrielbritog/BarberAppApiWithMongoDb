@@ -4,12 +4,17 @@
   min-height: 100%;
 }
 
+.cards_container.no_mb{
+  margin-bottom: 0;
+}
+
 .cards_container{
   flex-grow: 1;
   position: relative;
   display: flex;
   flex-direction: column;
   gap: .25rem;
+  margin-bottom: 4rem;
 }
 
 .search_bar_container{
@@ -22,6 +27,8 @@
 
 #search_bar{
   width: 100%;
+  border-radius: 50px;
+  border-color: transparent;
 }
 
 

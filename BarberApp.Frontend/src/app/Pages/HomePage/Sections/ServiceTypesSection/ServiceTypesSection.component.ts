@@ -10,6 +10,8 @@ import { ServiceTypeModel } from '../../../../Models/ServiceTypeModel';
 })
 export class ServiceTypesSectionComponent implements OnInit {
 
+  searchValue = '';
+
   get isBlocked() {
     if (GlobalVariables.isAdmin && GlobalVariables.barbers.length == 0)
       return true;
@@ -22,7 +24,9 @@ export class ServiceTypesSectionComponent implements OnInit {
   }
 
   get allServiceTypes() {
-    const serviceTypes = GlobalVariables.serviceTypes;
+    const serviceTypes = GlobalVariables.serviceTypes
+      .filter(p => p.nameService.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+                   p.valueService.toString().includes(this.searchValue));
     if (GlobalVariables.isAdmin)
       return serviceTypes.filter(p=>p.barberId == GlobalVariables.selectedBarber?.barberId)
 

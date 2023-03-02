@@ -5,7 +5,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-HistoryCard',
   templateUrl: './HistoryCard.component.html',
-  styleUrls: ['./HistoryCard.component.scss']
+  styleUrls: ['../baseCard.scss','./HistoryCard.component.scss']
 })
 export class HistoryCardComponent implements OnInit {
 
