@@ -5,16 +5,28 @@ button{
 .btn{
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid var(--app-color-primary);
+  border: 2px solid var(--app-color-primary);
   background-color: var(--app-color-primary);
-  color: var(--app-color-bg);
+  color: black;
+  // color: var(--app-color-bg-darker);
   border-radius: var(--global-border-radius);
   padding: .5rem 1rem;
+}
+
+.btn.tooltip_btn{
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 50%;
+  color: var(--app-color-text);
+  background-color: var(--app-color-bg-alt);
+  border: none;
 }
 
 .btn.outline{
   background-color: transparent;
   color: var(--app-color-primary);
+  border: 2px solid;
 }
 
 .btn.btn_light{
@@ -59,8 +71,8 @@ button{
     &.primary{
       background-color: var(--app-color-primary);
     }
-    &.blue{
-      background-color:  var(--app-color-blue);
+    &.secondary{
+      background-color:  var(--app-color-secondary);
     }
   }
   .close_icon{

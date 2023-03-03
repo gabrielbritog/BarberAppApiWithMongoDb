@@ -73,9 +73,9 @@ nav{
   justify-content: flex-end;
 }
 
-.separator{
-  // animation: blink 2s   infinite forwards ;
-}
+// .separator{
+//   animation: blink 2s   infinite forwards ;
+// }
 
 .nav_list_container {
   width: 100vw;
@@ -109,18 +109,15 @@ nav{
       justify-content: center;
       line-height: 1;
       font-weight: 600;
+      opacity: .35;
       .nav_item_title{
-        font-size: 0;
+        display: none;
+        font-size: .7em;
       }
       &.active{
-        gap: 0.5rem;
         color: var(--app-color-primary);
-        i{
-          font-size: 1.2rem;
-        }
-        .nav_item_title{
-          font-size: .7em;
-        }
+        opacity: 1;
+        transform: scale(1.25);
       }
     }
   }

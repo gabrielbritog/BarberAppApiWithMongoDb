@@ -4,13 +4,9 @@ import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 import { BarberModel } from '../Models/BarberModel';
 import { UserConfig } from '../Models/UserConfig';
 export class GlobalVariables {
-
   // IP DA MÁQUINA
   // public static readonly MACHINE_IP = "localhost";
-  public static readonly MACHINE_IP = "192.168.1.83";
-
-
-
+  public static readonly MACHINE_IP = '192.168.1.83';
 
   public static startTime = 9;
   public static endTime = 17;
@@ -47,7 +43,6 @@ export class GlobalVariables {
   public static isLoaderSuccess = false;
   public static showLoaderSuccess = true;
 
-
   public static FillProperties() {
     GlobalVariables.getEmptySchedulesBase();
   }
@@ -57,11 +52,13 @@ export class GlobalVariables {
     const endTime = GlobalVariables.endTime;
     const currentDay = moment(GlobalVariables.currentDay);
     let schedules: ScheduleModel[] = [];
-    for (let index = startTime; index <= endTime; index++){
-      schedules.push(new ScheduleModel({
-        date: currentDay.format('yyyy-MM-DD'),
-        time: currentDay.hour(index).minute(0).format('HH:mm')
-      }));
+    for (let index = startTime; index <= endTime; index++) {
+      schedules.push(
+        new ScheduleModel({
+          date: currentDay.format('yyyy-MM-DD'),
+          time: currentDay.hour(index).minute(0).format('HH:mm'),
+        })
+      );
     }
 
     GlobalVariables.emptySchedules = schedules;
@@ -76,19 +73,20 @@ export class GlobalVariables {
 
     _document.classList.add(noAnimClass);
 
-    if (!userConfig.darkmode){
+    if (!userConfig.darkmode) {
       if (!_document.classList.contains('light-mode'))
         _document.classList.add('light-mode');
-    } else if (_document.classList.contains('light-mode')){
+    } else if (_document.classList.contains('light-mode')) {
       _document.classList.remove('light-mode');
     }
 
     _document.style.setProperty('font-size', userConfig.fontSize);
     _document.style.setProperty('--app-color-primary', userConfig.primaryColor);
-    _document.style.setProperty('--app-color-blue', userConfig.secondaryColor);
+    _document.style.setProperty(
+      '--app-color-secondary',
+      userConfig.secondaryColor
+    );
 
     setTimeout(() => _document.classList.remove(noAnimClass), delay);
-
-
   }
 }

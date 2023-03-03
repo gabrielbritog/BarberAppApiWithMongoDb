@@ -7,7 +7,7 @@
 
 :root{
   --app-color-primary: #ff9000;
-  --app-color-blue: #518fa3;
+  --app-color-secondary: #518fa3;
 
   --app-color-text: #ffffff;
   --app-color-bg: #312e38;
@@ -191,33 +191,28 @@ img.app-logo{
   mix-blend-mode: lighten;
 }
 
-// h1,h2,h3,h4{
-//   font-family: 'Bebas Neue', 'Poppins', sans-serif;
-// }
+h1,h2,h3{
+  font-weight: normal;
+}
 
 h1{
-  font-size: 4rem;
+  font-size: 2rem;
 }
 
 h2{
-  font-size: 3.5rem;
+  font-size: 1.875rem;
 }
 
 h3{
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
 
 h4{
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 .text_color_primary{
   color: var(--app-color-primary);
-}
-
-.section_title{
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
 }
 
 .section_container{

@@ -11,7 +11,7 @@ export interface IFormInput {
 
 export interface IFormOptions{
   id: string;
-  label: string;
+  label: string | string[];
   value: any;
   isSelected?: boolean;
 }

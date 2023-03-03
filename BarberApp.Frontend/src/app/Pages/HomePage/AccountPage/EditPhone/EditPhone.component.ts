@@ -5,6 +5,7 @@ import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { UserService } from '../../../../Services/User.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-EditPhone',
@@ -13,28 +14,41 @@ import { UserService } from '../../../../Services/User.service';
 })
 export class EditPhoneComponent implements OnInit {
 
+  get userModel() {
+    const user = this.tokenStorage.getUserModel();
+    return user;
+  }
+
   phoneInput: IFormInput = {
     id: 'phoneNumber',
     label: 'Celular',
     type: 'text',
-    value: this.getNumbersInsideString(this.tokenStorage.getUserModel().phoneNumber).toString()
+    value: this.getNumbersInsideString().toString()
   };
 
   constructor(
     private tokenStorage: TokenStorageService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
   }
 
-  getNumbersInsideString(storedString: string) {
+  getNumbersInsideString(storedString: string = this.userModel.phoneNumber) {
     const numbersFound = storedString.match(/\d+/g);
     return numbersFound?? '';
   }
 
   onSubmit(form: NgForm) {
+
+    if (form.value.phoneNumber == this.getNumbersInsideString()) {
+      this.toastr.warning('Nenhuma alteração feita.')
+      return;
+    }
+      
+
     const API_CALL = this.userService.updatePhone(form.value);
 
     API_CALL.subscribe({
@@ -43,6 +57,7 @@ export class EditPhoneComponent implements OnInit {
         LoaderComponent.SetOptions(false, true, true);
         this.tokenStorage.saveUser(data.data);
         setTimeout(() => {
+          this.toastr.success('Alterações realizadas com sucesso.')
           this.router.navigateByUrl('/Account')
         }, LoaderComponent.timeoutOffset);
       },

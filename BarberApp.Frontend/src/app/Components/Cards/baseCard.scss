@@ -1,10 +1,18 @@
 .card.history,
-.card.client{
+.card.client,
+.card.service_type,
+.card.barber{
   border-width: 0;
   border-radius: 0;
   background-color: transparent;
   border-bottom-width: 1px;
   padding-bottom: .75rem;
+}
+
+.card.client,
+.card.service_type,
+.card.barber{
+  height: 4.25rem;
 }
 
 .card.client{
@@ -14,7 +22,6 @@
 .card.service_type,
 .card.barber{
   align-items: center;
-  height: 4.25rem;
   .content{
     height: 100%;
     display: flex;
@@ -54,5 +61,4 @@
 
 .btn.update_btn{
   font-size: .75rem;
-  color: var(--app-color-text);
 }

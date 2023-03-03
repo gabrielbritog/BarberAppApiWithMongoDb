@@ -47,7 +47,7 @@ export class SchedulingModalComponent implements OnInit {
   mapServicesToFormOptions(serviceType: ServiceTypeModel, index: number): IFormOptions{
     return {
       id: 'serviceType_' + index,
-      label: serviceType.nameService,
+      label: [serviceType.nameService, serviceType.valueService.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })],
       value: serviceType,
       isSelected: GlobalVariables.editSchedule?.serviceType.some(p=>p.serviceTypeId == serviceType.serviceTypeId)
     }

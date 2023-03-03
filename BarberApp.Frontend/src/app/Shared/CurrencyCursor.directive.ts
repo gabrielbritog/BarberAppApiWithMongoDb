@@ -13,16 +13,5 @@ export class CurrencyCursorDirective {
     input.setSelectionRange(input.value.length, input.value.length);
   }
 
-  @HostListener('keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    const input = this.el.nativeElement;
-    const keyCode = event.keyCode;
-
-    if (keyCode === 8 && input.value === '') {
-      event.preventDefault();
-    } else {
-      input.setSelectionRange(input.value.length, input.value.length);
-    }
-  }
 
 }

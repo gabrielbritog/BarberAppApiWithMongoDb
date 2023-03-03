@@ -16,7 +16,7 @@ export class HistorySectionComponent implements OnInit {
     const todayTime = moment().format('LT');
     const filteredSchedules = GlobalVariables.schedules
       .filter(p => p.client.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-                  p.schedulingDate.toString().includes(this.searchValue) ||
+                  p.date.includes(this.searchValue) ||
                   p.serviceType.some(p=>p.nameService.includes(this.searchValue)))
       .filter(p => p.date < today || (p.date == today && p.time < todayTime))
       .sort((n1, n2) => n2.schedulingDate.localeCompare(n1.schedulingDate));

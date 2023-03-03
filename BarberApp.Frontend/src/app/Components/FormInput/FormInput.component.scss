@@ -45,7 +45,8 @@ input:-webkit-autofill:active {
   line-height: 1.5;
   padding: 0.5rem 0;
   padding-right: 1.8rem;
-  .active_radio{
+  .active_radio,
+  .total_values{
     font-size: 0.7rem;
     font-weight: 600;
     border-radius: 5px;
@@ -241,6 +242,12 @@ label {
       font-weight: 600;
     }
   }
+}
+
+.label_string{
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .btn.btn_submit{

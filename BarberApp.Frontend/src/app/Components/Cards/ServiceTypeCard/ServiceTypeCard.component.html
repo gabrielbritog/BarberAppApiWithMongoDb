@@ -1,9 +1,12 @@
-<div class="card service_type" (click)="editService()">
+<div class="card service_type">
 
-  <div class="picture">
-    <!-- <i class="fa-brands fa-whatsapp"></i> -->
+  <!-- <div class="picture">
+    <i class="fa-brands fa-whatsapp"></i>
     <i class="fa-solid fa-scissors"></i>
-  </div>
+  </div> -->
+  <button class="btn update_btn" (click)="editService()">
+    <i class="fa-solid fa-pen"></i>
+  </button>
   <div class="content">
     <div class="title">
       <span>{{serviceModel.nameService}}</span>
@@ -14,8 +17,5 @@
       </div>
     </div>
   </div>
-  <button class="btn update_btn">
-    <i class="fa-solid fa-pen"></i>
-  </button>
 
 </div>

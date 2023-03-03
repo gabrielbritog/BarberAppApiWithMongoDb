@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IFormInput, IFormOptions } from './IFormInput';
 import { NgForm, FormControl, Validators, FormGroup, FormsModule , FormControlOptions, ValidatorFn, FormBuilder, AbstractControl, FormArray } from '@angular/forms';
+import { ServiceTypeModel } from '../../Models/ServiceTypeModel';
 
 @Component({
   selector: 'app-FormInput',
@@ -131,6 +132,13 @@ export class FormInputComponent implements OnInit {
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
+  isArray(element: string | string[]) {
+    return Array.isArray(element);
+  }
+
+  getArrayElements(element: string | string[]) {
+    return element as string[];
+  }
 
   onSubmit(form: NgForm) {
     this.submitted = true;
@@ -149,6 +157,15 @@ export class FormInputComponent implements OnInit {
 
   checkboxElement(arrayElement: IFormInput) {
     arrayElement.value = arrayElement.formOptions;
+  }
+
+  getTotalValue(item: IFormInput) {
+    const total = item.value
+      .filter((p: IFormOptions) => p.isSelected)
+      .map((p: IFormOptions) => p.value.valueService)
+      .reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
+    
+    return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
 }
