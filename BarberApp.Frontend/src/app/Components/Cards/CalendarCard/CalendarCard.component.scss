@@ -3,6 +3,32 @@
   box-sizing: border-box;
 }
 
+#datepick{
+  position: absolute;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  margin: 0;
+  padding: 0;
+  bottom: 0;
+}
+
+label.datepick_view{
+  position: relative;
+  height: 2rem;
+  font-size: .8rem;
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  padding: .5rem .75rem;
+  background-color: var(--app-color-bg-alt);
+  border-radius: 50px;
+  &.active{
+    color: var(--app-color-bg);
+    background-color: var(--app-color-primary);
+    font-weight: 600;
+  }
+}
 .section_title{
   display: flex;
   align-items: center;

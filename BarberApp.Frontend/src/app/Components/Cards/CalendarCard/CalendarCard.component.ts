@@ -12,12 +12,33 @@ export class CalendarCardComponent implements OnInit, AfterViewInit {
 
   thisWeek: moment.Moment[] = [];
 
+  get LastDayOfWeek() {
+    return moment().add(7, 'days').format('YYYY-MM-DD');
+  }
+
+  _datePicked?: moment.Moment;
+
+  get datePicked() {
+    return this._datePicked?.format('YYYY-MM-DD');
+  }
+
+  set datePicked(value) {
+    if (value){
+      this._datePicked = moment(value);
+      this.currentDay = value;
+      GlobalVariables.getEmptySchedulesBase();
+    }
+    else{
+      this._datePicked = undefined;
+      this.currentDay = moment();
+    }
+  }
+
   get currentDay() {
     return GlobalVariables.currentDay.format('YYYY-MM-DD');
   }
 
   set currentDay(value: any) {
-    console.log(value);
     GlobalVariables.currentDay = moment(value);
   }
 
@@ -81,12 +102,15 @@ export class CalendarCardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    if (this.currentDay >= moment().add(7, 'days').format('YYYY-MM-DD'))
+      this.datePicked = this.currentDay;
   }
 
   ngAfterViewInit() {
   }
 
   setDay(element: moment.Moment) {
+    this._datePicked = undefined;
     GlobalVariables.currentDay = element;
     GlobalVariables.getEmptySchedulesBase();
 
@@ -110,6 +134,7 @@ export class CalendarCardComponent implements OnInit, AfterViewInit {
     for (let index = 0; index < daysToLoad; index++) {
       this.thisWeek.push(moment().add(index, 'days'));
     }
+    
     setTimeout(() => this.scrollActiveIntoView(), delay);
   }
 
@@ -137,5 +162,7 @@ export class CalendarCardComponent implements OnInit, AfterViewInit {
       },
     })
   }
+
+
 
 }

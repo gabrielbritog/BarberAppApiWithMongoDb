@@ -2,7 +2,24 @@
 
   <div class="section_title">
     <h3 class="title">Próximos Horários</h3>
-    <button class="btn_chip active">Escolher data</button>
+    <label class="datepick_view" [class.active]="datePicked !== undefined" for="datepick" (click)="datepick.showPicker()">
+
+      <input #datepick type="date" name="datepick" 
+      id="datepick" 
+      placeholder="escolher data" 
+      [min]="LastDayOfWeek"
+      [(ngModel)]="datePicked">
+
+      <div class="datepick_value">
+        <ng-container *ngIf="datePicked !== undefined">
+          {{_datePicked?.locale('pt-br')?.format('L')}}
+        </ng-container>
+        <ng-container *ngIf="datePicked === undefined">
+          Escolher data
+        </ng-container>
+      </div>
+      <i class="fa-solid fa-calendar-day"></i>
+    </label>
   </div>
   <div class="cards_wrapper" id="cards_wrapper">
     <button
