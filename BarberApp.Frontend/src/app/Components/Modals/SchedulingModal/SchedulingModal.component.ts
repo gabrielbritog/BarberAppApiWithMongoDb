@@ -158,7 +158,8 @@ export class SchedulingModalComponent implements OnInit {
 
     const timeIsUnavailable = GlobalVariables.schedules.some(p => (
       p.date == schedule.date &&
-      p.time == schedule.time &&
+      ((p.time >= schedule.time && p.time < schedule.endTime) ||
+      (p.endTime >= schedule.time && p.endTime < schedule.endTime)) &&
       p.barberId == schedule.barberId &&
       p.schedulingId != schedule.schedulingId));
 
@@ -214,7 +215,11 @@ export class SchedulingModalComponent implements OnInit {
       let newSchedule = emptySchedule;
 
       let editSchedule = this.scheduleModel.time == newSchedule.time;
-      const existingSchedule = currentDaySchedules.find(schedule => schedule.time === newSchedule.time);
+      const existingSchedule = currentDaySchedules
+        .find(schedule => newSchedule.time === schedule.time ||
+          (newSchedule.time >= schedule.time &&
+            newSchedule.time < schedule.endTime)
+        );
 
       if (existingSchedule) {
         if (this.isEditModal && editSchedule)
