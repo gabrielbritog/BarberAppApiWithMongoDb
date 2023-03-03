@@ -242,6 +242,10 @@ label {
       font-weight: 600;
     }
   }
+  input:focus ~.show_password{
+    color: var(--app-color-text);
+    opacity: 1;
+  }
 }
 
 .label_string{
@@ -281,4 +285,5 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0.5;
 }

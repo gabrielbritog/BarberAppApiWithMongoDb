@@ -1,7 +1,7 @@
 <div class="my_loader" [class.show]="showLoader">
-  <div class="spinner" [class.show_success]="showSuccess">
-
-  </div>
+  <div class="spinner first" [class.show_success]="showSuccess"></div>
+  <div class="spinner second" [class.show_success]="showSuccess"></div>
+  <div class="spinner third" [class.show_success]="showSuccess"></div>
 
   <div class="filled" [class.show_success]="showSuccess" [class.error]="!success" [class.success]="success">
     <i class="fa-solid fa-check icon success" [class.show]="success && showSuccess"></i>

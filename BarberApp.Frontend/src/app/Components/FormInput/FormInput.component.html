@@ -21,14 +21,14 @@ class="input_container w_100"
                   required>
             <div class="label_string">
               <ng-container *ngIf="isArray(option.label)">
-                <span *ngFor="let item of getArrayElements(option.label)"> 
+                <span *ngFor="let item of getArrayElements(option.label)">
                   {{item}}
                 </span>
               </ng-container>
               <ng-container *ngIf="!isArray(option.label)">
                 {{option.label}}
               </ng-container>
-            </div>    
+            </div>
           </label>
         </div>
       </div>
@@ -52,21 +52,21 @@ class="input_container w_100"
                   >
             <div class="label_string">
               <ng-container *ngIf="isArray(option.label)">
-                <span *ngFor="let item of getArrayElements(option.label)"> 
+                <span *ngFor="let item of getArrayElements(option.label)">
                   {{item}}
                 </span>
               </ng-container>
               <ng-container *ngIf="!isArray(option.label)">
                 {{option.label}}
               </ng-container>
-            </div>            
+            </div>
           </label>
         </div>
       </div>
     </div>
 
     <ng-container *ngIf="item.type != 'radio' && item.type != 'checkbox'">
-      <label [class.dirty]="item.value != ''">
+      <label #genericInputLabel [class.dirty]="item.value != ''" [class.focused]="">
 
 
         <input *ngIf="item.currency != true"

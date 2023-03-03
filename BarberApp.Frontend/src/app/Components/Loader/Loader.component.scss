@@ -26,16 +26,27 @@
     }
   }
   .spinner{
+    position: absolute;
     display: none;
     width: var(--spinner-size);
     height: var(--spinner-size);
     border: var(--spinner-border-width) solid;
     border-radius: 50%;
     color: white;
-    border-top: var(--spinner-border-width) solid transparent;
-    animation: 2s rotate linear infinite;
+    background-color: white;
+    // border-top: var(--spinner-border-width) solid transparent;
+    animation: 2s pulseFromZero linear infinite;
+    &.second{
+      opacity: 0;
+      animation-delay: 1.25s;
+    }
+    &.third{
+      opacity: 0;
+      animation-delay: .65s;
+    }
     &.show_success{
-      animation: .2s scaleDown linear forwards;
+      opacity: 0 !important;
+      animation: none;
     }
   }
   .filled{
@@ -120,6 +131,17 @@
   }
   to{
     transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseFromZero {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to{
+    transform: scale(1.25);
     opacity: 0;
   }
 }
