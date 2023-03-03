@@ -87,7 +87,7 @@ export class SchedulesSectionComponent implements OnInit {
       const existingSchedule = currentDaySchedules
         .find(schedule => newSchedule.time === schedule.time ||
           (newSchedule.time >= schedule.time &&
-            newSchedule.time <= schedule.endTime)
+            newSchedule.time < schedule.endTime)
           );
 
       if (existingSchedule) {

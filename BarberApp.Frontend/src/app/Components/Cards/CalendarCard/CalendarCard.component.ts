@@ -131,10 +131,13 @@ export class CalendarCardComponent implements OnInit, AfterViewInit {
   loadWeek() {
     const delay = 100;
     const daysToLoad = 7;
+    let initialDay = moment();
+    // if (initialDay.hours() > GlobalVariables.endTime)
+    //   initialDay.add(1, 'days');
     for (let index = 0; index < daysToLoad; index++) {
-      this.thisWeek.push(moment().add(index, 'days'));
+      this.thisWeek.push(moment(initialDay).add(index, 'days'));
     }
-    
+
     setTimeout(() => this.scrollActiveIntoView(), delay);
   }
 
