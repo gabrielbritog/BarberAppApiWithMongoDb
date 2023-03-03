@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@200;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap');
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
 @import 'ngx-toastr/toastr';
 @import './app/Shared/Styles/button.scss';
@@ -191,8 +191,8 @@ img.app-logo{
   mix-blend-mode: lighten;
 }
 
-h1,h2,h3{
-  font-weight: normal;
+h1,h2,h3, h4{
+  font-weight: 600;
 }
 
 h1{

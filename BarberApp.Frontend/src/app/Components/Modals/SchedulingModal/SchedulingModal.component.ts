@@ -19,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 export class SchedulingModalComponent implements OnInit {
 
   scheduleModel = new ScheduleModel();
+  hideModal = false;
 
   inputModels: IFormInput[] = [];
 
@@ -179,7 +180,7 @@ export class SchedulingModalComponent implements OnInit {
             GlobalVariables.schedules.push(new ScheduleModel(data.data));
           else
             GlobalVariables.schedules[index] = new ScheduleModel(data.data);
-          this.showModal = false;
+          this.onCancel();
         }, 20);
       },
       error: (err) => {
@@ -193,7 +194,9 @@ export class SchedulingModalComponent implements OnInit {
   }
 
   onCancel() {
-    this.showModal = false;
+    const animationDelay = 150;
+    this.hideModal = true;
+    setTimeout(() => this.showModal = false , animationDelay);
   }
 
   get availableSchedules() {

@@ -10,15 +10,32 @@
   animation: .15s modalShow forwards;
   display: grid;
   place-items: center;
+  &.hide{
+    animation: .15s modalHide forwards;
+    .modal_container{
+      animation: .2s containerHide forwards var(--default-transition);
+    }
+  }
 }
 
 hr {
   margin-bottom: 1rem;
 }
 
+.blank_area{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: visible;
+}
 
 .modal_container{
+  z-index: 1;
   padding: .75rem;
+  max-width: 400px;
   background-color: var(--app-color-bg-alt);
   border-radius: var(--global-border-radius);
   line-height: 1;
@@ -94,6 +111,15 @@ form{
   }
 }
 
+@keyframes modalHide {
+  from{
+    background-color: rgba($color: #000000, $alpha: 0.75);
+  }
+  to{
+    background-color: rgba($color: #000000, $alpha: 0);
+  }
+}
+
 
 @keyframes containerShow {
   from{
@@ -101,5 +127,17 @@ form{
   }
   to{
     transform: translateY(0);
+  }
+}
+
+
+@keyframes containerHide {
+  from{
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to{
+    transform: translateY(50px);
+    opacity: 0;
   }
 }

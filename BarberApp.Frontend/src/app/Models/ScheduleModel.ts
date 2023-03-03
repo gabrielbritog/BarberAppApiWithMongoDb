@@ -11,6 +11,7 @@ export class ScheduleModel {
   endOfSchedule: string = "";
   date: string = "";
   time: string = "";
+  endTime: string = "";
 
   constructor(params?: Partial<ScheduleModel>) {
     if (!params)
@@ -44,6 +45,16 @@ export class ScheduleModel {
       const dotNetDate = moment.utc(this.schedulingDate);
       this.date = dotNetDate.format('L');
       this.time = dotNetDate.format('HH:mm');
+    }
+
+    if (this.serviceType.length > 0) {
+      const totalServicesDuration = this.serviceType
+        .map(p => parseInt(p.duration))
+        .reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
+      const dotNetDate = moment.utc(this.schedulingDate).add(totalServicesDuration, 'minutes');
+      this.endOfSchedule = dotNetDate.toISOString();
+      this.endTime = dotNetDate.format('HH:mm');
+
     }
 
   }

@@ -10,6 +10,7 @@ export class GlobalVariables {
 
   public static startTime = 9;
   public static endTime = 17;
+  public static intervalTimeMinutes = 30;
 
   public static isAdmin = false;
   public static selectedBarber?: BarberModel;
@@ -50,13 +51,17 @@ export class GlobalVariables {
   static getEmptySchedulesBase() {
     const startTime = GlobalVariables.startTime;
     const endTime = GlobalVariables.endTime;
+    const intervalTime = GlobalVariables.intervalTimeMinutes;
+    const totalWorkInHours = endTime - startTime;
+    const totalWorkInMinutes = totalWorkInHours * 60;
     const currentDay = moment(GlobalVariables.currentDay);
     let schedules: ScheduleModel[] = [];
-    for (let index = startTime; index <= endTime; index++) {
+
+    for (let index = 0; index <= totalWorkInMinutes; index+=intervalTime) {
       schedules.push(
         new ScheduleModel({
           date: currentDay.format('yyyy-MM-DD'),
-          time: currentDay.hour(index).minute(0).format('HH:mm'),
+          time: currentDay.hour(startTime).minute(index).format('HH:mm'),
         })
       );
     }

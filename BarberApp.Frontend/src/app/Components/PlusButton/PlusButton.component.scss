@@ -1,4 +1,4 @@
-.component_container{
+.plus_btn_container{
   right: 0;
   bottom: 4rem;
   margin: 1rem;
@@ -36,5 +36,12 @@
   }
   to{
     transform: translateY(100vh);
+  }
+}
+
+@media (min-width: 1024px) {
+  .plus_btn_container{
+    right: 2rem;
+    bottom: 2rem;
   }
 }

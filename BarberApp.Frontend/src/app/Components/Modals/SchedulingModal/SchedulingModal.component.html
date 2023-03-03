@@ -1,5 +1,7 @@
+<div class="modal_container_bg" [class.hide]="hideModal">
 
-<div class="modal_container_bg">
+  <div class="blank_area"  (click)="onCancel()" ></div>
+
   <div class="container modal_container">
     <div class="header">
       <h3>{{isEditModal? 'Editar ' : 'Novo '}} Agendamento</h3>

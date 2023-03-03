@@ -75,7 +75,7 @@ export class SchedulesSectionComponent implements OnInit {
     const currentDaySchedules = this.currentDaySchedules;
     const currentTime = moment().format('HH:mm');
     const filledTimes: any = {};
-    const filteredSchedules = [];
+    const filteredSchedules: ScheduleModel[] = [];
 
     for (const schedule of currentDaySchedules) {
       filledTimes[schedule.time] = true;
@@ -84,15 +84,19 @@ export class SchedulesSectionComponent implements OnInit {
     for (const emptySchedule of emptySchedulesTemplate) {
       let newSchedule = emptySchedule;
 
-      const existingSchedule = currentDaySchedules.find(schedule => schedule.time === newSchedule.time);
+      const existingSchedule = currentDaySchedules
+        .find(schedule => newSchedule.time === schedule.time ||
+          (newSchedule.time >= schedule.time &&
+            newSchedule.time <= schedule.endTime)
+          );
 
       if (existingSchedule) {
         newSchedule = existingSchedule;
+        if (filteredSchedules.includes(existingSchedule)) {
+          continue;
+        }
       }
 
-      // if (this.isTodayDate && newSchedule.time < currentTime) {
-      //   continue;
-      // }
 
       if (!this.showAvailable && !filledTimes[newSchedule.time]) {
         continue;

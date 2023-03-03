@@ -28,7 +28,8 @@ export class ServiceTypeService {
     return this.http.post(BASE_URL_API+ (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_REGISTER, {
       barberId: serviceType.barberId,
       nameService: serviceType.nameService,
-      valueService: serviceType.valueService
+      valueService: serviceType.valueService,
+      duration: serviceType.duration
     });
   }
 
@@ -38,6 +39,7 @@ export class ServiceTypeService {
       serviceTypeId: serviceType.serviceTypeId,
       nameService: serviceType.nameService,
       valueService: serviceType.valueService,
+      duration: serviceType.duration,
       on: serviceType.on
     });
   }

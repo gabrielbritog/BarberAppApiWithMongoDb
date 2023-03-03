@@ -14,6 +14,7 @@ import { IFormInput } from '../../FormInput/IFormInput';
 export class ServiceTypeModalComponent implements OnInit {
 
   serviceModel = new ServiceTypeModel();
+  hideModal = false;
 
   modalInputs: IFormInput[] = [
     {
@@ -28,6 +29,12 @@ export class ServiceTypeModalComponent implements OnInit {
       type: 'text',
       value: '',
       currency: true
+    },
+    {
+      id: 'duration',
+      label: 'Duração em minutos',
+      type: 'tel',
+      value: GlobalVariables.intervalTimeMinutes
     }
   ]
 
@@ -51,6 +58,7 @@ export class ServiceTypeModalComponent implements OnInit {
     if (this.isEditModal){
       this.modalInputs[0].value = this.serviceModel.nameService;
       this.modalInputs[1].value = this.serviceModel.valueService.toString();
+      this.modalInputs[2].value = this.serviceModel.duration;
     }
   }
 
@@ -75,7 +83,7 @@ export class ServiceTypeModalComponent implements OnInit {
           else
             GlobalVariables.serviceTypes[index] = new ServiceTypeModel(data.data);
 
-          this.showModal = false;
+          this.onCancel();
           form.resetForm();
         }, 20);
       },
@@ -90,7 +98,9 @@ export class ServiceTypeModalComponent implements OnInit {
   }
 
   onCancel() {
-    this.showModal = false;
+    const animationDelay = 150;
+    this.hideModal = true;
+    setTimeout(() => this.showModal = false , animationDelay);
   }
 
 }

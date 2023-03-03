@@ -16,6 +16,7 @@ import { IFormInput } from '../../FormInput/IFormInput';
 export class BarberModalComponent implements OnInit {
 
   barberModel = new BarberModel();
+  hideModal = false;
 
   modalInputs: IFormInput[] = [
     {
@@ -94,7 +95,9 @@ export class BarberModalComponent implements OnInit {
   }
 
   onCancel() {
-    this.showModal = false;
+    const animationDelay = 150;
+    this.hideModal = true;
+    setTimeout(() => this.showModal = false , animationDelay);
   }
 
   successResponse(data: any, index: number, form: NgForm) {
@@ -108,7 +111,7 @@ export class BarberModalComponent implements OnInit {
 
       if (GlobalVariables.barbers.length == 1)
         GlobalVariables.selectedBarber = GlobalVariables.barbers[0];
-      this.showModal = false;
+      this.onCancel();
       form.resetForm();
     }, 20);
   }

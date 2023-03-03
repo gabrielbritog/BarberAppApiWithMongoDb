@@ -1,4 +1,6 @@
-<div class="modal_container_bg">
+<div class="modal_container_bg" [class.hide]="hideModal">
+
+  <div class="blank_area"  (click)="onCancel()" ></div>
 
   <div class="container modal_container">
     <div class="header">

@@ -34,3 +34,9 @@
   flex: none;
   padding-top: 0;
 }
+
+@media (min-width: 1024px) {
+  #section_container{
+    margin-bottom: 0;
+  }
+}
