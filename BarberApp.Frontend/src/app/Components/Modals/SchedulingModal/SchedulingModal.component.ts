@@ -156,10 +156,10 @@ export class SchedulingModalComponent implements OnInit {
       serviceType: scheduleForm.services
     });
 
-    const timeIsUnavailable = GlobalVariables.schedules.some(p => (
+    const timeIsUnavailable = GlobalVariables.schedules.find(p => (
       p.date == schedule.date &&
-      ((p.time >= schedule.time && p.time < schedule.endTime) ||
-      (p.endTime >= schedule.time && p.endTime < schedule.endTime)) &&
+      ((schedule.time >= p.time  && schedule.time < p.endTime) ||
+      (schedule.endTime > p.time  && schedule.endTime < p.endTime)) &&
       p.barberId == schedule.barberId &&
       p.schedulingId != schedule.schedulingId));
 
@@ -214,7 +214,7 @@ export class SchedulingModalComponent implements OnInit {
     for (const emptySchedule of emptySchedulesTemplate) {
       let newSchedule = emptySchedule;
 
-      let editSchedule = this.scheduleModel.time == newSchedule.time;
+      let editSchedule = newSchedule.time >= this.scheduleModel.time && newSchedule.time < this.scheduleModel.endTime;
       const existingSchedule = currentDaySchedules
         .find(schedule => newSchedule.time === schedule.time ||
           (newSchedule.time >= schedule.time &&
@@ -222,9 +222,7 @@ export class SchedulingModalComponent implements OnInit {
         );
 
       if (existingSchedule) {
-        if (this.isEditModal && editSchedule)
-          newSchedule = existingSchedule;
-        else
+        if ((this.isEditModal && editSchedule) === false)
           continue;
       }
 
