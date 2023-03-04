@@ -83,8 +83,24 @@ namespace BarberApp.Service.Service
             user.LastName ??= userDb.LastName;
             user.Password = string.IsNullOrEmpty(user.Password) ? userDb.Password : EncryptPassword(user.Password + userDb.PasswordSalt);
             user.Email ??= userDb.Email;
-            user.CompanyName ??= userDb.CompanyName;
-            user.UrlImage ??= userDb.UrlImage;
+            user.CompanyName ??= userDb.CompanyName;            
+            if (user.UrlImage != null)
+            {
+                try
+                {
+                    var bytes = Convert.FromBase64String(user.UrlImage);
+                    user.UrlImage = GoogleCloudService.SaveImage(bytes);
+                }
+                catch (Exception)
+                {
+
+                    throw new Exception("Imagem inválida");
+                }
+            }
+            else 
+            { 
+                user.UrlImage = userDb.UrlImage; 
+            }
             user.PhoneNumber ??= userDb.PhoneNumber;
             user.Cep ??= userDb.Cep;
             user.WorkingDays ??= userDb.WorkingDays;

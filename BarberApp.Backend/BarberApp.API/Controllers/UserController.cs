@@ -1,4 +1,5 @@
-﻿using BarberApp.Domain.Dto.User;
+﻿using BarberApp.Domain.Dto.Barber;
+using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
@@ -12,9 +13,11 @@ namespace BarberApp.Api.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService _userServices;
-        public UserController(IUserService userServices)
+        private readonly IBarberService _barberService;
+        public UserController(IUserService userServices, IBarberService barberService)
         {
             _userServices = userServices;
+            _barberService = barberService;
         }
         [HttpPost("Register")]
         public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> Register([FromBody]RegisterUserDto user)
@@ -74,6 +77,22 @@ namespace BarberApp.Api.Controllers
             }
 
         }
+        [HttpPut("UpdateFunc")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseBarberDto>>> Update([FromBody] UpdateBarberDto barber, string email,string barberId)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.Update(barber, email, barberId)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
+
         [HttpGet("GetMany")]
         public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> GetMany([FromQuery] int start, [FromQuery] int count)
         {
@@ -88,6 +107,7 @@ namespace BarberApp.Api.Controllers
             }
 
         }
+
         [HttpDelete("DropDataBase")]
         public async Task DropDatabase()
         {

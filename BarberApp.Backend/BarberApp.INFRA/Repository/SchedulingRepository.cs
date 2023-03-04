@@ -195,7 +195,8 @@ namespace BarberApp.Infra.Repository
                 .Set(s => s.Client, scheduling.Client)
                 .Set(s => s.ServiceType, scheduling.ServiceType)
                 .Set(s => s.SchedulingDate, scheduling.SchedulingDate)
-                .Set(s => s.EndOfSchedule, scheduling.EndOfSchedule); 
+                .Set(s => s.EndOfSchedule, scheduling.EndOfSchedule)
+                .Set(s => s.Recurrence, scheduling.Recurrence);
 
             var result = await _schedulingCollection.UpdateOneAsync(filter, update);
 

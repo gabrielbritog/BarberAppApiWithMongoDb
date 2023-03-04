@@ -68,7 +68,9 @@ namespace BarberApp.Service.Service
             BarberMap.UserRegistration = DateTime.Now;
             BarberMap.UserId = userId;
             BarberMap.Disabled= false;
+            BarberMap.ChangePassword = new ChangePassword();
             BarberMap.CompanyName = associatedCompany.CompanyName;
+            BarberMap.ChangePassword.IsRequired = true;
             await _barberRepository.Register(BarberMap);
             return _mapper.Map<ResponseBarberDto>(BarberMap);
         }
@@ -82,14 +84,44 @@ namespace BarberApp.Service.Service
             barber.UserId = barberDb.UserId;
             if (checkEmail != null)
                 throw new Exception("Email já está sendo usado");
-                barber.FirstName ??= barberDb.FirstName;
-                barber.LastName ??= barberDb.LastName;
+            barber.FirstName ??= barberDb.FirstName;
+            barber.LastName ??= barberDb.LastName;
             barber.Password = string.IsNullOrEmpty(barber.Password) ? barberDb.Password : EncryptPassword(barber.Password + barberDb.PasswordSalt);
-            barber.Email ??= barberDb.Email;
-                barber.UrlImage ??= barberDb.UrlImage;
-                barber.PhoneNumber ??= barberDb.PhoneNumber;
-                barber.UserConfig ??= barberDb.UserConfig;
-                barber.WorkingDays ??= barberDb.WorkingDays;
+            barber.Email ??= barberDb.Email;          
+            if (barber.UrlImage != null)
+            {
+                try
+                {
+                    var bytes = Convert.FromBase64String(barber.UrlImage);
+                    barber.UrlImage = GoogleCloudService.SaveImage(bytes);
+                }
+                catch (Exception)
+                {
+
+                    throw new Exception("Imagem inválida");
+                }
+            }
+            else
+            {
+                barber.UrlImage ??= barberDb.UrlImage; 
+            }
+            barber.PhoneNumber ??= barberDb.PhoneNumber;
+            barber.UserConfig ??= barberDb.UserConfig;
+            barber.WorkingDays ??= barberDb.WorkingDays;
+            if (barber.ChangePassword != null)
+            {
+                barber.ChangePassword.LastChange = DateTime.Now;
+                barber.ChangePassword.OldPassword = barberDb.Password;
+                barber.ChangePassword.OldPasswordSalt  = barberDb.PasswordSalt;
+            }
+            else
+            {
+                barber.ChangePassword = barberDb.ChangePassword;
+            }
+            
+            
+
+
             var result = await _barberRepository.Update(_mapper.Map<Barber>(barber), barberId);
             return _mapper.Map<ResponseBarberDto>(result);
         }

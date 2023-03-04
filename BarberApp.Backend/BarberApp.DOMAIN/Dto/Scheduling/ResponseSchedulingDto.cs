@@ -26,5 +26,7 @@ namespace BarberApp.Domain.Dto.Scheduling
         public DateTime EndOfSchedule { get; set; }
         [BsonElement("barberId")]
         public string barberId { get; set; } = null!;
+        [BsonElement("recurrence")]
+        public Recurrence Recurrence { get; set; }
     }
 }

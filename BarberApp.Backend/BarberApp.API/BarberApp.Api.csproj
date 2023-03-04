@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Credentials\marcaiCredentialGoogle.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Credentials\marcaiCredentialGoogle.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Canducci.MongoDB.Repository" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
