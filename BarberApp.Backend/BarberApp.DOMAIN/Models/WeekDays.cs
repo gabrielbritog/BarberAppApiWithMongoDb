@@ -19,9 +19,9 @@ namespace BarberApp.Domain.Models
         [BsonElement("day")]
         public string Day { get; set; }
         [BsonElement("openingTime")]
-        public DateTime OpeningTime { get; set; }
+        public TimeSpan OpeningTime { get; set; }
         [BsonElement("ClosingTime")]
-        public DateTime ClosingTime { get; set; }
+        public TimeSpan ClosingTime { get; set; }
         [BsonElement("isOpen")]
         public bool IsOpen { get; set; }
         [BsonElement("intervalTime")]
