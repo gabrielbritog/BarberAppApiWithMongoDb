@@ -68,6 +68,7 @@ export class ServiceTypeModalComponent implements OnInit {
     if (GlobalVariables.isAdmin)
       serviceType.barberId = GlobalVariables.selectedBarber?.barberId;
     serviceType.serviceTypeId = this.isEditModal ? this.serviceModel.serviceTypeId : serviceType.serviceTypeId;
+    serviceType.duration = form.value.duration.toString();
 
     let index = this.isEditModal? GlobalVariables.serviceTypes.indexOf(GlobalVariables.editServiceType!) : -1;
 

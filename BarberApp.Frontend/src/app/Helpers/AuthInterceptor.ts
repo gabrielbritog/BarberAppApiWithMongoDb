@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '../Services/token-storage.service';
+import { LoaderComponent } from '../Components/Loader/Loader.component';
 
 const TOKEN_HEADER_KEY = "Authorization";
 
@@ -13,9 +14,15 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = req;
     const token = this.token.getToken();
+    const hideLoader = req.params.get('HideLoader');
     if (token != null) {
       authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
     }
+
+    if (hideLoader)
+      req = req.clone({ params: req.params.delete('HideLoader', 'true') });
+    else
+      LoaderComponent.SetOptions(true);
 
     return next.handle(authReq);
   }

@@ -24,7 +24,6 @@ export class ServiceTypeService {
   constructor(private http: HttpClient) { }
 
   registerServiceType(serviceType: ServiceTypeModel): Observable<any> {
-    LoaderComponent.SetOptions(true);
     return this.http.post(BASE_URL_API+ (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_REGISTER, {
       barberId: serviceType.barberId,
       nameService: serviceType.nameService,
@@ -49,7 +48,6 @@ export class ServiceTypeService {
   }
 
   getManyServiceType(skip: number = 1, take: number = 10): Observable<any> {
-    LoaderComponent.SetOptions(true);
     return this.http.get<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + ROUTE_GETMANY, {
       params: {
         start: skip,

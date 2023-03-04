@@ -6,7 +6,7 @@ import { UserConfig } from '../Models/UserConfig';
 export class GlobalVariables {
   // IP DA MÁQUINA
   // public static readonly MACHINE_IP = "localhost";
-  public static readonly MACHINE_IP = '192.168.1.83';
+  public static readonly MACHINE_IP = '192.168.1.8';
 
   public static startTime = 9;
   public static endTime = 17;

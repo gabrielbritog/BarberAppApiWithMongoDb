@@ -30,7 +30,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   update(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       companyName: credentials.companyName,
       firstname: credentials.firstname,
@@ -41,7 +40,6 @@ export class UserService {
   }
 
   updateBarber(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL + BARBER_ROUTE + UPDATE_ROUTE, {
       barberId: credentials.barberId,
       firstName: credentials.firstName,
@@ -53,7 +51,6 @@ export class UserService {
   }
 
   updateName(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       firstname: credentials.firstName,
       Lastname: credentials.lastName
@@ -61,51 +58,45 @@ export class UserService {
   }
 
   updateEmail(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       email: credentials.email
     });
   }
 
   updatePhone(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       phoneNumber: credentials.phoneNumber
     });
   }
 
   updatePassword(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       password: credentials.password
     });
   }
 
   updateProfilePic(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       urlImage: credentials.urlImage
     });
   }
 
   updateCep(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       cep: credentials.cep
     });
   }
 
   updateCompanyName(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       companyName: credentials.companyName
     });
   }
 
-  updateUserConfig(config: UserConfig): Observable<any>{
+  updateUserConfig(config: any): Observable<any>{
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       userConfig: config
-    })
+    }, {params: {'HideLoader': 'true'}})
   }
 
 }
