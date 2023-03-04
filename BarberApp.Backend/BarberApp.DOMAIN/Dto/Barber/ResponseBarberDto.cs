@@ -32,5 +32,7 @@ namespace BarberApp.Domain.Dto.Barber
         public List<WeekDays> WorkingDays { get; set; }
         [BsonElement("userConfig")]
         public UserConfig UserConfig { get; set; }
+        [BsonElement("changePassword")]
+        public ChangePassword ChangePassword { get; set; }
     }
 }

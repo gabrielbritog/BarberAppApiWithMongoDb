@@ -1,5 +1,6 @@
 ﻿using BarberApp.Domain.Dto.Client;
 using BarberApp.Domain.Dto.ServiceType;
+using BarberApp.Domain.Models;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace BarberApp.Domain.Dto.Scheduling
         public DateTime? SchedulingDate { get; set; }
         [BsonElement("endOfSchedule")]
         public DateTime? EndOfSchedule { get; set; }
+        [BsonElement("recurrence")]
+        public Recurrence Recurrence { get; set; }
 
 
     }

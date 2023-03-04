@@ -23,6 +23,8 @@ namespace BarberApp.Domain.Models
         public DateTime EndOfSchedule { get; set; }
         [BsonElement("barberId")]
         public string BarberId { get; set; }
+        [BsonElement("recurrence")]
+        public Recurrence Recurrence { get; set; }
 
 
 

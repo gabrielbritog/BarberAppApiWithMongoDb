@@ -93,7 +93,8 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.Email, barber.Email)
                     .Set(u => u.PhoneNumber, barber.PhoneNumber)
                     .Set(u => u.Disabled, barber.Disabled)
-                    .Set(u => u.WorkingDays, barber.WorkingDays);
+                    .Set(u => u.WorkingDays, barber.WorkingDays)
+                    .Set(u => u.ChangePassword, barber.ChangePassword);
 
                 var result = await _barberCollection.UpdateOneAsync(filter, update);
                 if (result.MatchedCount == 0)

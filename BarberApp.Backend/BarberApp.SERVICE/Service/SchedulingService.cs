@@ -54,17 +54,22 @@ namespace BarberApp.Service.Service
             return _mapper.Map<List<ResponseSchedulingDto>> (result);
         }
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
-        {           
-               
-            var schedulingMap = _mapper.Map<Scheduling>(scheduling);           
+        {
+
+            var schedulingMap = _mapper.Map<Scheduling>(scheduling);
             schedulingMap.UserId = UserId;
-                var quantity = scheduling.ServiceType.Count();
+            var quantity = scheduling.ServiceType.Count();
             for (int i = 0; i < quantity;)
             {
                 schedulingMap.Total += schedulingMap.ServiceType[i].ValueService;
                 schedulingMap.ServiceType[i].UserId = UserId;
                 i++;
-            }          
+            }
+            if (scheduling.Recurrence == null)
+            {
+                schedulingMap.Recurrence = new Recurrence();
+                schedulingMap.Recurrence.IsRecurrence = false;
+            }
             await _schedulingRepository.Register(schedulingMap, UserId);
             return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
         }
@@ -91,6 +96,11 @@ namespace BarberApp.Service.Service
                 schedulingMap.ServiceType[i].UserId = UserId;
                 i++;
             }
+            if (scheduling.Recurrence == null)
+            {
+                schedulingMap.Recurrence = new Recurrence();
+                schedulingMap.Recurrence.IsRecurrence = false;
+            }
             await _schedulingRepository.Register(schedulingMap, UserId);
             return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
         }
@@ -99,7 +109,7 @@ namespace BarberApp.Service.Service
         {
             var quantity = 0;
             if (scheduling.ServiceType != null)
-            quantity = scheduling.ServiceType.Count();
+                quantity = scheduling.ServiceType.Count();
             for (int i = 0; i < quantity;)
             {
                 scheduling.Total += scheduling.ServiceType[i].ValueService;
@@ -108,11 +118,14 @@ namespace BarberApp.Service.Service
             var schedulingDb = await this.GetById(scheduling.SchedulingId, userId);
             if (schedulingDb == null)
                 throw new Exception("Informar Id");
-                scheduling.BarberId ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).BarberId;
-                scheduling.Client ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
-                scheduling.ServiceType ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
-                scheduling.SchedulingDate ??= schedulingDb.SchedulingDate;
-                scheduling.EndOfSchedule ??= schedulingDb.EndOfSchedule;
+            scheduling.BarberId ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).BarberId;
+            scheduling.Client ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
+            scheduling.ServiceType ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
+            scheduling.SchedulingDate ??= schedulingDb.SchedulingDate;
+            scheduling.EndOfSchedule ??= schedulingDb.EndOfSchedule;
+            scheduling.Recurrence ??= schedulingDb.Recurrence;
+
+
             await _schedulingRepository.Update(_mapper.Map<Scheduling>(scheduling), scheduling.SchedulingId, userId);
 
             return _mapper.Map<ResponseSchedulingDto>(scheduling);
