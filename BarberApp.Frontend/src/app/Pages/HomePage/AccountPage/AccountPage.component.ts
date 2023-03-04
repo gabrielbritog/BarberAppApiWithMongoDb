@@ -10,7 +10,7 @@ import { UserService } from '../../../Services/User.service';
 @Component({
   selector: 'app-AccountPage',
   templateUrl: './AccountPage.component.html',
-  styleUrls: ['./AccountPage.component.scss']
+  styleUrls: ['../../../Shared/Styles/basePage.scss','./AccountPage.component.scss']
 })
 export class AccountPageComponent implements OnInit {
 

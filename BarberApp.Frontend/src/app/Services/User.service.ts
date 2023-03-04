@@ -45,8 +45,7 @@ export class UserService {
       firstName: credentials.firstName,
       lastName: credentials.lastName,
       urlImage: credentials.urlImage,
-      phoneNumber: credentials.phoneNumber,
-      workingDays: credentials.workingDays
+      phoneNumber: credentials.phoneNumber
     });
   }
 
@@ -97,6 +96,12 @@ export class UserService {
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
       userConfig: config
     }, {params: {'HideLoader': 'true'}})
+  }
+
+  updateWorkingDays(workingDays: any): Observable<any>{
+    return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
+      workingDays: workingDays
+    })
   }
 
 }

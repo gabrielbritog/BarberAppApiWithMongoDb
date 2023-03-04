@@ -85,7 +85,7 @@ input:-webkit-autofill:active {
 
 .group_item{
   background-color: var(--app-color-bg-alt);
-  border: 1px solid var(--app-color-light-border);
+  border: 1px solid transparent;
   opacity: .5;
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;

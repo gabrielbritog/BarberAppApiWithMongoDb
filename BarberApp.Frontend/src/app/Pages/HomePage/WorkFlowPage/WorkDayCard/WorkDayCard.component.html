@@ -1,0 +1,20 @@
+<div class="card workday" [class.inactive]="!weekDay.isOpen">
+
+  <div class="content">
+    <input type="checkbox" [(ngModel)]="weekDay.isOpen" >
+    <div class="title">
+      <span>{{weekDay.day}}</span>
+    </div>
+    <div class="desc_area">
+      <span (click)="openingTime.showPicker()">
+        {{weekDay.openingTime}}
+        <input #openingTime type="time" id="opening-time" [(ngModel)]="weekDay.openingTime">
+      </span>
+      <span (click)="closingTime.showPicker()">
+        {{weekDay.closingTime}}
+        <input #closingTime type="time" id="closing-time" [(ngModel)]="weekDay.closingTime">
+      </span>
+    </div>
+  </div>
+
+</div>

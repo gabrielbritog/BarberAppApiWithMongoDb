@@ -1,0 +1,31 @@
+<div class="page_container">
+  <div class="header">
+    <div class="container">
+      <button class="btn btn_return" (click)="onCancel()" >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h3>
+        {{headerUrl}}
+      </h3>
+
+    </div>
+  </div>
+
+
+  <div class="section_container flex_column container">
+    <div class="table_container flex_column">
+      <div class="section_title">
+        <input type="checkbox" [(ngModel)]="toggleAll" >
+        <h4 class="flex-grow">Dia da semana</h4>
+        <h4 class="time_header">Horário</h4>
+      </div>
+      <div class="workdays_container flex_column">
+        <ng-container *ngFor="let item of workingDays">
+          <app-WorkDayCard [weekDay]="item"></app-WorkDayCard>
+        </ng-container>
+      </div>
+    </div>
+
+    <button class="btn btn_submit">Salvar</button>
+  </div>
+</div>

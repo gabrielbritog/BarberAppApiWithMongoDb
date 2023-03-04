@@ -1,5 +1,5 @@
 <app-Sidebar *ngIf="sidebarExpanded" [navBar]="this"></app-Sidebar>
-<nav class="container_fluid">
+<nav class="container_fluid" [class.adminBoardVisible]="showAdminBoard">
   <div class="container nav_container">
     <button class="nav_profile" (click)="sidebarExpanded = !sidebarExpanded">
       <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
@@ -65,6 +65,6 @@
   </div>
 </nav>
 
-<ng-container *ngIf="!isBlocked && isAdmin && (currentSection == 0 || currentSection == 2 || currentSection == 4)">
+<ng-container *ngIf="showAdminBoard">
   <app-AdminBoard></app-AdminBoard>
 </ng-container>

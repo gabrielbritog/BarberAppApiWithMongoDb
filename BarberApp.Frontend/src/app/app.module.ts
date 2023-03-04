@@ -1,3 +1,4 @@
+import { WorkDayCardComponent } from './Pages/HomePage/WorkFlowPage/WorkDayCard/WorkDayCard.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +18,7 @@ import { EditNameComponent } from './Pages/HomePage/AccountPage/EditName/EditNam
 import { EditEmailComponent } from './Pages/HomePage/AccountPage/EditEmail/EditEmail.component';
 import { EditPasswordComponent } from './Pages/HomePage/AccountPage/EditPassword/EditPassword.component';
 import { EditPhoneComponent } from './Pages/HomePage/AccountPage/EditPhone/EditPhone.component';
+import { WorkFlowPageComponent } from './Pages/HomePage/WorkFlowPage/WorkFlowPage.component';
 
 // SERVICES
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
@@ -37,6 +39,7 @@ import { ClientCardComponent } from './Components/Cards/ClientCard/ClientCard.co
 import { BarberCardComponent } from './Components/Cards/BarberCard/BarberCard.component';
 import { AccountCardComponent } from './Components/Cards/AccountCard/AccountCard.component';
 import { HistoryCardComponent } from './Components/Cards/HistoryCard/HistoryCard.component';
+import { CurrencyCursorDirective } from './Shared/CurrencyCursor.directive';
 
 // COMPONENTS - CAROUSELS
 import { CarouselAvailableTimeComponent } from './Components/Carousels/CarouselAvailableTime/CarouselAvailableTime.component';
@@ -58,7 +61,6 @@ import { BarberModalComponent } from './Components/Modals/BarberModal/BarberModa
 // MISC
 import { ToastrModule } from 'ngx-toastr';
 import { NgxCurrencyModule } from 'ngx-currency';
-import { CurrencyCursorDirective } from './Shared/CurrencyCursor.directive';
 
 @NgModule({
   declarations: [
@@ -69,12 +71,15 @@ import { CurrencyCursorDirective } from './Shared/CurrencyCursor.directive';
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
+
     AccountPageComponent,
     UserInfoComponent,
     EditNameComponent,
     EditEmailComponent,
     EditPasswordComponent,
     EditPhoneComponent,
+
+    WorkFlowPageComponent,
 
 
     // HOME SECTIONS
@@ -97,6 +102,7 @@ import { CurrencyCursorDirective } from './Shared/CurrencyCursor.directive';
     BarberCardComponent,
     AccountCardComponent,
     HistoryCardComponent,
+    WorkDayCardComponent,
 
     LoaderComponent,
     PlusButtonComponent,

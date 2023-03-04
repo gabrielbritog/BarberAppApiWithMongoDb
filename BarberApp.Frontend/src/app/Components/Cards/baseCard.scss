@@ -7,6 +7,28 @@
   background-color: transparent;
   border-bottom-width: 1px;
   padding-bottom: .75rem;
+  border-color: var(--app-color-light-border);
+}
+
+.card.workday {
+  padding: 0.5rem .8rem;
+  border-radius: 0;
+  font-size: .8rem;
+  .content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title{
+      flex-grow: 1;
+      text-align: left;
+      font-size: inherit;
+    }
+    .desc_area{
+      display: flex;
+      min-width: 6rem;
+      gap: 1rem;
+    }
+  }
 }
 
 .card.client,
@@ -15,7 +37,8 @@
   height: 4.25rem;
 }
 
-.card.client{
+.card.client,
+.card.workday{
   align-items: center;
 }
 
