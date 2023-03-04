@@ -46,6 +46,7 @@ export class HomePageComponent implements OnInit {
 
     const userModel = this.tokenStorage.getUserModel();
     GlobalVariables.loadUserConfig(userModel.userConfig);
+    GlobalVariables.userWorkingDays = userModel.workingDays;
 
     GlobalVariables.isAdmin = userModel.barberId == null;
     GlobalVariables.currentSection = 0;

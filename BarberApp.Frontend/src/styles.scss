@@ -15,7 +15,7 @@
   --app-color-bg-alt: #3e3b47;
   --app-color-input-bg: #232129;
   --app-color-input-text: #5e5b59;
-  --app-color-light-border: transparent;
+  --app-color-light-border: rgb(255 255 255 / 10%);
   // --app-color-light-border: #55535d;
 
 
@@ -26,7 +26,7 @@
   --app-color-bg-alt-light: #ffffff;
   --app-color-input-bg-light: #ebe9e9;
   --app-color-input-text-light: #5e5b59;
-  --app-color-light-border-light: transparent;
+  --app-color-light-border-light: rgb(0 0 0 / 10%);
   // --app-color-light-border-light: #dfdfdf;
 
   --section-padding: 2vw 10vw;
@@ -194,7 +194,7 @@ img.app-logo{
   mix-blend-mode: lighten;
 }
 
-h1,h2,h3, h4{
+h1,h2,h3, h4, h5{
   font-weight: 600;
 }
 

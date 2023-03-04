@@ -46,7 +46,8 @@ export class AuthService {
       cep: 'Não definido',
       email: credentials.email,
       password: credentials.password,
-      phoneNumber: 'Não definido'
+      phoneNumber: 'Não definido',
+      workingDays: GlobalVariables.createWorkingDaysUTC()
     });
   }
 

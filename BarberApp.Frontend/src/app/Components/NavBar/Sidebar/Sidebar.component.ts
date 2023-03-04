@@ -50,6 +50,10 @@ export class SidebarComponent implements OnInit {
     return this.tokenStorage.getUserModel();
   }
 
+  get isAdmin() {
+    return GlobalVariables.isAdmin;
+  }
+
   constructor(
     private tokenStorage: TokenStorageService,
     private router: Router,
@@ -75,8 +79,8 @@ export class SidebarComponent implements OnInit {
     this.router.navigateByUrl('/')
   }
 
-  editAccountPage() {
-    this.router.navigateByUrl('/Account')
+  goToRoute(route: string) {
+    this.router.navigateByUrl(route);
   }
 
   updateUserConfig() {

@@ -9,11 +9,13 @@ import { UserInfoComponent } from './Pages/HomePage/AccountPage/UserInfo/UserInf
 import { EditPasswordComponent } from './Pages/HomePage/AccountPage/EditPassword/EditPassword.component';
 import { EditPhoneComponent } from './Pages/HomePage/AccountPage/EditPhone/EditPhone.component';
 import { EditEmailComponent } from './Pages/HomePage/AccountPage/EditEmail/EditEmail.component';
+import { WorkFlowPageComponent } from './Pages/HomePage/WorkFlowPage/WorkFlowPage.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
   { path: 'Register', component: RegisterPageComponent },
   { path: 'Home', component: HomePageComponent },
+  { path: 'WorkFlow', component: WorkFlowPageComponent },
   { path: 'Account', component: AccountPageComponent, children: [
     {path: '', component: UserInfoComponent},
     {path: 'Name', component: EditNameComponent},

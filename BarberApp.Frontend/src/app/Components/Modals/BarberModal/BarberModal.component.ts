@@ -83,6 +83,7 @@ export class BarberModalComponent implements OnInit {
     barberForm.barberId = this.barberModel.barberId;
     barberForm.userId = this.barberModel.userId;
     let barber = new BarberModel(barberForm);
+    barber.workingDays = this.tokenStorage.getUserModel().workingDays;
 
     let index = this.isEditModal? GlobalVariables.barbers.indexOf(GlobalVariables.editBarber!) : -1;
 

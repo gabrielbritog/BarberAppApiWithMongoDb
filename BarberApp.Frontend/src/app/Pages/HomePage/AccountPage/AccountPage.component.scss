@@ -1,12 +1,4 @@
-.page_container{
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background-color: var(--app-color-bg);
-}
+
 
 .edit_container{
   display: grid;
@@ -21,38 +13,13 @@
   margin-top: auto;
 }
 
-
-.header{
-  flex-shrink: 0;
-  height: 5.5rem;
-  display: flex;
-  align-items: center;
-  background-color: var(--app-color-bg-alt);
-  border-bottom: 1px solid  var(--app-color-light-border);
-  box-shadow: 0px 3px 5px 0px var(--app-color-bg);
-  justify-content: space-between;
-  .container{
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-  }
-  .btn_return{
-    width: 50px;
-    height: 50px;
-    border-radius: 50% 50%;
-    border: none;
-    background-color: var(--app-color-input-bg);
-    color: var(--app-color-text);
-  }
-}
-
 .profile_pic{
   height: 150px;
   width: 150px;
   margin: 2rem auto;
   border-radius: 50%;
   background-color: var(--app-color-bg-alt);
-  border: 2px solid var(--app-color-light-border);
+  border: 3px solid var(--app-color-light-border);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,7 +37,8 @@
     padding: 0;
     margin: 0;
     border: 0;
-    background-color: var(--app-color-light-border);
+    background-color: var(--app-color-bg-alt);
+    border: 3px solid var(--app-color-light-border);
     color: var(--app-color-text);
   }
 }

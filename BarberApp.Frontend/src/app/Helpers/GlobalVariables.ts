@@ -3,6 +3,7 @@ import { ScheduleModel } from '../Models/ScheduleModel';
 import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 import { BarberModel } from '../Models/BarberModel';
 import { UserConfig } from '../Models/UserConfig';
+import { WorkingDays } from '../Models/WorkingDays';
 export class GlobalVariables {
   // IP DA MÁQUINA
   // public static readonly MACHINE_IP = "localhost";
@@ -11,6 +12,7 @@ export class GlobalVariables {
   public static startTime = 9;
   public static endTime = 17;
   public static intervalTimeMinutes = 30;
+  public static userWorkingDays: WorkingDays[];
 
   public static isAdmin = false;
   public static selectedBarber?: BarberModel;
@@ -49,19 +51,23 @@ export class GlobalVariables {
   }
 
   static getEmptySchedulesBase() {
-    const startTime = GlobalVariables.startTime;
-    const endTime = GlobalVariables.endTime;
-    const intervalTime = GlobalVariables.intervalTimeMinutes;
-    const totalWorkInHours = endTime - startTime;
-    const totalWorkInMinutes = totalWorkInHours * 60;
     const currentDay = moment(GlobalVariables.currentDay);
+
+    const startTime = GlobalVariables.userWorkingDays[currentDay.weekday()].openingTime;
+    const startTimeAsHours = moment.duration(startTime).asHours();
+    const endTime = GlobalVariables.userWorkingDays[currentDay.weekday()].closingTime;
+    const endTimeAsHours = moment.duration(endTime).asHours();
+    const intervalTime = GlobalVariables.userWorkingDays[currentDay.weekday()].intervalTime;
+    const totalWorkInHours = endTimeAsHours - startTimeAsHours;
+    const totalWorkInMinutes = totalWorkInHours * 60;
     let schedules: ScheduleModel[] = [];
 
+    console.log(startTime, endTime)
     for (let index = 0; index <= totalWorkInMinutes; index+=intervalTime) {
       schedules.push(
         new ScheduleModel({
           date: currentDay.format('yyyy-MM-DD'),
-          time: currentDay.hour(startTime).minute(index).format('HH:mm'),
+          time: currentDay.hour(startTimeAsHours).minute(index).format('HH:mm'),
         })
       );
     }
@@ -93,5 +99,35 @@ export class GlobalVariables {
     );
 
     setTimeout(() => _document.classList.remove(noAnimClass), delay);
+  }
+
+  static createWorkingDays() {
+    const weekDays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+    const workingDays: WorkingDays[] = [];
+    const openingTime = '09:45';
+    const closingTime = '17:00';
+    const intervalTime = 30;
+    for (let index = 0; index < weekDays.length; index++) {
+      const element = new WorkingDays({
+        index: index,
+        day: weekDays[index],
+        openingTime: openingTime,
+        closingTime: closingTime,
+        intervalTime: intervalTime
+      });
+      workingDays.push(element);
+    }
+    console.log(moment.duration(openingTime).asMinutes())
+    return workingDays;
+  }
+
+  static createWorkingDaysUTC() {
+    const workingDays = GlobalVariables.createWorkingDays();
+    const cleanToday = moment().hours(0).minutes(0).seconds(0).milliseconds(0);
+    workingDays.forEach(p => {
+      p.openingTime = cleanToday.hours(moment.duration(p.openingTime).asHours()).utc(true).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+      p.closingTime = cleanToday.hours(moment.duration(p.closingTime).asHours()).utc(true).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+    })
+    return workingDays;
   }
 }

@@ -27,7 +27,7 @@
         <div class="list_title">
           Conta
         </div>
-        <li class="nav_item" (click)="editAccountPage()"  >
+        <li class="nav_item" (click)="goToRoute('/Account')"  >
           <i class="fa-solid fa-user-pen"></i>
           <span>
             Editar
@@ -37,6 +37,18 @@
           <i class="fa-solid fa-right-from-bracket"></i>
           <span>
             Sair
+          </span>
+        </li>
+      </ul>
+      <hr>
+      <ul class="nav_list">
+        <div class="list_title">
+          Config. {{isAdmin? 'da Empresa': 'do Funcionário'}}
+        </div>
+        <li class="nav_item" (click)="goToRoute('/WorkFlow')"  >
+          <i class="fa-solid fa-briefcase"></i>
+          <span>
+            Horários de funcionamento
           </span>
         </li>
       </ul>

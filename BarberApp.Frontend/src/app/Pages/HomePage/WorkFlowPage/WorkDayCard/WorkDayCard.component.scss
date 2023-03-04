@@ -1,0 +1,53 @@
+.card.workday.inactive{
+  opacity: .25;
+}
+
+.desc_area span{
+  position: relative;
+}
+
+input[type=checkbox]{
+  position: relative;
+  width: .5rem;
+  height: .5rem;
+  margin-right: .8rem;
+  &::before,
+  &::after{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &::before{
+    content: "";
+    width: 200%;
+    height: 200%;
+    background-color: white;
+    border: 1px solid var(--app-color-text);
+    z-index: 1;
+    border-radius: 4px;
+  }
+  &:checked{
+    &::before{
+      background-color: var(--app-color-primary);
+      border-color: var(--app-color-primary);
+    }
+    &::after{
+      content: "\f00c";
+      font-weight: 900;
+      color: var(--app-color-text);
+      font-family: "Font Awesome 6 Free";
+      z-index: 2;
+      font-size: .6rem;
+    }
+  }
+}
+
+input[type=time]{
+  position: absolute;
+  padding: 0;
+  height: 0;
+  width: 0;
+  bottom: 0;
+  left: 0;
+}
