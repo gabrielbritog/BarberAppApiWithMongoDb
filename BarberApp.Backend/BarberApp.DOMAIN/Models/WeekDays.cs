@@ -26,5 +26,7 @@ namespace BarberApp.Domain.Models
         public bool IsOpen { get; set; }
         [BsonElement("intervalTime")]
         public string InternalTime { get; set; }
+        [BsonElement("index")]
+        public int Index { get; set; }
     }
 }
