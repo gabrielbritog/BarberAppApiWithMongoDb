@@ -24,7 +24,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + ADMIN_ROUTE + LOGIN_ROUTE, {
       email: credentials.email,
       password: credentials.password,
@@ -32,7 +31,6 @@ export class AuthService {
   }
 
   loginBarber(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + BARBER_ROUTE + LOGIN_ROUTE, {
       email: credentials.email,
       password: credentials.password,
@@ -40,7 +38,6 @@ export class AuthService {
   }
 
   register(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + ADMIN_ROUTE + REGISTER_ROUTE, {
       userConfig: credentials.userConfig,
       companyName: credentials.companyName,
@@ -54,7 +51,6 @@ export class AuthService {
   }
 
   registerBarber(credentials: any): Observable<any>{
-    LoaderComponent.SetOptions(true);
     return this.http.post(AUTH_API + BARBER_ROUTE + REGISTER_ROUTE, {
       userConfig: credentials.userConfig,
       companyName: credentials.associatedCompany,

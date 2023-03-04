@@ -1,12 +1,12 @@
 <div class="base_container">
 
   <div class="section_title">
-    <h3 class="title">Próximos Horários</h3>
+    <h3 class="title">Agendamentos</h3>
     <label class="datepick_view" [class.active]="datePicked !== undefined" for="datepick" (click)="datepick.showPicker()">
 
-      <input #datepick type="date" name="datepick" 
-      id="datepick" 
-      placeholder="escolher data" 
+      <input #datepick type="date" name="datepick"
+      id="datepick"
+      placeholder="escolher data"
       [min]="LastDayOfWeek"
       [(ngModel)]="datePicked">
 

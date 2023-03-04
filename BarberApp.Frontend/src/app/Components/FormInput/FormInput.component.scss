@@ -29,6 +29,11 @@ input:-webkit-autofill:active {
   }
   .collapse_group.collapsed{
     display: none;
+
+    // RADIO BUTTONS
+    // display: grid;
+    // grid-template-columns: repeat(4, 1fr);
+    // gap: 0 0.5rem;
   }
   .collapse_group{
     font-size: .8rem;
@@ -234,7 +239,7 @@ label {
   input:focus{
     color: var(--app-color-text);
     padding-top: 1.4rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
     +.placeholder_title{
       top: 0.5rem;
       color: var(--app-color-text);

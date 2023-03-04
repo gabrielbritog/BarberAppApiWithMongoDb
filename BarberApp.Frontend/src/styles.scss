@@ -15,7 +15,8 @@
   --app-color-bg-alt: #3e3b47;
   --app-color-input-bg: #232129;
   --app-color-input-text: #5e5b59;
-  --app-color-light-border: #55535d;
+  --app-color-light-border: transparent;
+  // --app-color-light-border: #55535d;
 
 
 
@@ -25,9 +26,11 @@
   --app-color-bg-alt-light: #ffffff;
   --app-color-input-bg-light: #ebe9e9;
   --app-color-input-text-light: #5e5b59;
-  --app-color-light-border-light: #dfdfdf;
+  --app-color-light-border-light: transparent;
+  // --app-color-light-border-light: #dfdfdf;
 
   --section-padding: 2vw 10vw;
+  --section-padding-X: 10vw;
 
   --nav-color-bg: #28262e;
 
@@ -258,6 +261,7 @@ h4{
  @media (max-width: 767px) {
   :root{
     --section-padding: 5vw;
+    --section-padding-X: 5vw;
   }
   .container{
     width: 90%;
