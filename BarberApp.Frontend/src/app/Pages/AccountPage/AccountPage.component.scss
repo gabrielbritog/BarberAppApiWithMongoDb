@@ -1,0 +1,48 @@
+
+
+.edit_container{
+  display: grid;
+  gap: .5rem;
+  padding: var(--section-padding);
+  padding-left: 0;
+  padding-right: 0;
+  height: calc(100svh - 5.5rem);
+}
+
+.btn.btn_submit{
+  margin-top: auto;
+}
+
+.profile_pic{
+  height: 150px;
+  width: 150px;
+  margin: 2rem auto;
+  border-radius: 50%;
+  background-color: var(--app-color-bg-alt);
+  border: 3px solid var(--app-color-light-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  position: relative;
+  .edit_btn{
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: var(--app-color-bg-alt);
+    border: 3px solid var(--app-color-light-border);
+    color: var(--app-color-text);
+  }
+}
+
+.user_info{
+  font-size: .8rem;
+}

@@ -1,4 +1,4 @@
-import { WorkDayCardComponent } from './Pages/HomePage/WorkFlowPage/WorkDayCard/WorkDayCard.component';
+import { WorkDayCardComponent } from './Pages/WorkFlowPage/WorkDayCard/WorkDayCard.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,14 +12,16 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './Pages/LoginPage/LoginPage.component';
 import { RegisterPageComponent } from './Pages/RegisterPage/RegisterPage.component';
 import { HomePageComponent } from './Pages/HomePage/HomePage.component';
-import { AccountPageComponent } from './Pages/HomePage/AccountPage/AccountPage.component';
-import { UserInfoComponent } from './Pages/HomePage/AccountPage/UserInfo/UserInfo.component';
-import { EditNameComponent } from './Pages/HomePage/AccountPage/EditName/EditName.component';
-import { EditEmailComponent } from './Pages/HomePage/AccountPage/EditEmail/EditEmail.component';
-import { EditPasswordComponent } from './Pages/HomePage/AccountPage/EditPassword/EditPassword.component';
-import { EditPhoneComponent } from './Pages/HomePage/AccountPage/EditPhone/EditPhone.component';
-import { WorkFlowPageComponent } from './Pages/HomePage/WorkFlowPage/WorkFlowPage.component';
-import { DashboardPageComponent } from './Pages/HomePage/DashboardPage/DashboardPage.component';
+import { AccountPageComponent } from './Pages/AccountPage/AccountPage.component';
+import { UserInfoComponent } from './Pages/AccountPage/UserInfo/UserInfo.component';
+import { EditNameComponent } from './Pages/AccountPage/EditName/EditName.component';
+import { EditEmailComponent } from './Pages/AccountPage/EditEmail/EditEmail.component';
+import { EditPasswordComponent } from './Pages/AccountPage/EditPassword/EditPassword.component';
+import { EditPhoneComponent } from './Pages/AccountPage/EditPhone/EditPhone.component';
+import { WorkFlowPageComponent } from './Pages/WorkFlowPage/WorkFlowPage.component';
+import { EmployeesPageComponent } from './Pages/EmployeesPage/EmployeesPage.component';
+import { ClientsPageComponent } from './Pages/ClientsPage/ClientsPage.component';
+import { ServicesPageComponent } from './Pages/ServicesPage/ServicesPage.component';
 
 // SERVICES
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
@@ -48,10 +50,8 @@ import { CarouselServiceTypesComponent } from './Components/Carousels/CarouselSe
 
 
 // SECTIONS
-import { ClientListSectionComponent } from './Pages/HomePage/Sections/ClientListSection/ClientListSection.component';
-import { ServiceTypesSectionComponent } from './Pages/HomePage/Sections/ServiceTypesSection/ServiceTypesSection.component';
+import { DashboardSectionComponent } from './Pages/HomePage/Sections/DashboardSection/DashboardSection.component';
 import { SchedulesSectionComponent } from './Pages/HomePage/Sections/SchedulesSection/SchedulesSection.component';
-import { BarbersSectionComponent } from './Pages/HomePage/Sections/BarbersSection/BarbersSection.component';
 import { HistorySectionComponent } from './Pages/HomePage/Sections/HistorySection/HistorySection.component';
 
 // MODALS
@@ -62,6 +62,9 @@ import { BarberModalComponent } from './Components/Modals/BarberModal/BarberModa
 // MISC
 import { ToastrModule } from 'ngx-toastr';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { ListEmployeeComponent } from './Pages/EmployeesPage/ListEmployee/ListEmployee.component';
+import { EditEmployeeComponent } from './Pages/EmployeesPage/EditEmployee/EditEmployee.component';
+import { NewEmployeeComponent } from './Pages/EmployeesPage/NewEmployee/NewEmployee.component';
 
 @NgModule({
   declarations: [
@@ -80,15 +83,19 @@ import { NgxCurrencyModule } from 'ngx-currency';
     EditPasswordComponent,
     EditPhoneComponent,
 
+    EmployeesPageComponent,
+    ListEmployeeComponent,
+    EditEmployeeComponent,
+    NewEmployeeComponent,
+
+    ClientsPageComponent,
+    ServicesPageComponent,
     WorkFlowPageComponent,
-    DashboardPageComponent,
 
 
     // HOME SECTIONS
+    DashboardSectionComponent,
     SchedulesSectionComponent,
-    ClientListSectionComponent,
-    ServiceTypesSectionComponent,
-    BarbersSectionComponent,
     HistorySectionComponent,
 
     // COMPONENTS

@@ -20,39 +20,22 @@
           class="nav_item"
           [class.active]="currentSection == 0"
           (click)="currentSection = 0" >
-          <i class="fa-solid fa-calendar-week"></i>
-          <div class="nav_item_title">Agenda</div>
-        </li>
-
-        <li
-          class="nav_item"
-          [class.active]="currentSection == 3"
-          (click)="currentSection = 3"
-          *ngIf="isAdmin">
-          <i class="fa-solid fa-people-group"></i>
-          <div class="nav_item_title">Funcionários</div>
-        </li>
-
-        <li
-          class="nav_item"
-          [class.active]="currentSection == 2"
-          (click)="currentSection = 2" >
-          <i class="fa-solid fa-screwdriver-wrench"></i>
-          <div class="nav_item_title">Serviços</div>
+          <i class="fa-solid fa-chart-line"></i>
+          <div class="nav_item_title">Dashboard</div>
         </li>
 
         <li
           class="nav_item"
           [class.active]="currentSection == 1"
           (click)="currentSection = 1" >
-          <i class="fa-solid fa-user-group"></i>
-          <div class="nav_item_title">Clientes</div>
+          <i class="fa-solid fa-calendar-week"></i>
+          <div class="nav_item_title">Agenda</div>
         </li>
 
         <li
           class="nav_item"
-          [class.active]="currentSection == 4"
-          (click)="currentSection = 4" >
+          [class.active]="currentSection == 2"
+          (click)="currentSection = 2" >
           <i class="fa-solid fa-clock-rotate-left"></i>
           <div class="nav_item_title">Histórico</div>
         </li>

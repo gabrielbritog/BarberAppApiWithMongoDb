@@ -33,22 +33,28 @@
             Editar
           </span>
         </li>
+        <li class="nav_item" (click)="goToRoute('/Employees')"  >
+          <i class="fa-solid fa-people-group"></i>
+          <span>
+            Funcionários
+          </span>
+        </li>
+        <li class="nav_item" (click)="goToRoute('/Services')"  >
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <span>
+            Serviços
+          </span>
+        </li>
+        <li class="nav_item" (click)="goToRoute('/Clients')"  >
+          <i class="fa-solid fa-user-group"></i>
+          <span>
+            Clientes
+          </span>
+        </li>
         <li class="nav_item" (click)="goToRoute('/WorkFlow')"  >
           <i class="fa-solid fa-briefcase"></i>
           <span>
             Horários de funcionamento
-          </span>
-        </li>
-        <li class="nav_item" (click)="goToRoute('/Dashboard')"  >
-          <i class="fa-solid fa-chart-line"></i>
-          <span>
-            Dashboard
-          </span>
-        </li>
-        <li class="nav_item" (click)="logout()" >
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <span>
-            Sair
           </span>
         </li>
       </ul>
@@ -109,11 +115,13 @@
         </li>
       </ul>
       <hr>
+      <li class="nav_item" (click)="logout()" >
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>
+          Logout
+        </span>
+      </li>
     </nav>
-
-    <!-- <button class="btn btn_return" (click)="closeSidebar()" >
-      <i class="fa-solid fa-arrow-left"></i>
-    </button> -->
 
   </div>
   <div class="empty_area" (click)="closeSidebar()">

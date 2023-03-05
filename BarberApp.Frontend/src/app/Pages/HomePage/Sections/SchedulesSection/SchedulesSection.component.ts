@@ -8,7 +8,7 @@ import { IFormInput, IFormOptions } from '../../../../Components/FormInput/IForm
 @Component({
   selector: 'app-SchedulesSection',
   templateUrl: './SchedulesSection.component.html',
-  styleUrls: ['../baseSection.scss', './SchedulesSection.component.scss'],
+  styleUrls: ['../../../../Shared/Styles/baseSection.scss', './SchedulesSection.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class SchedulesSectionComponent implements OnInit {

@@ -1,11 +1,18 @@
 .page_container{
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background-color: var(--app-color-bg);
+}
+
+section.router_container{
+  flex-grow: 1;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .header{

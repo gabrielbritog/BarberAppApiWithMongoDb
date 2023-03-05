@@ -1,0 +1,88 @@
+<div class="section_container">
+  <div class="cards_container no-margin">
+    <div class="section_title">
+      <h3 class="title">Dashboard</h3>
+      <button class="btn tooltip_btn">
+        <i class="fa-solid fa-question"></i>
+      </button>
+    </div>
+
+    <section class="section_container no-margin flex_column">
+
+      <section class="periodo">
+        <div class="section_header d-flex justify-between  ">
+          <h4 class="title">Período</h4>
+          <div class="quick_dates chips_group d-flex">
+            <div class="card card_date card_chip" [class.active]="quickDate == 'week'" (click)="setQuickDate('week')"  >Semana</div>
+            <div class="card card_date card_chip" [class.active]="quickDate == 'month'" (click)="setQuickDate('month')"  >Mês</div>
+            <div class="card card_date card_chip" [class.active]="quickDate == 'year'" (click)="setQuickDate('year')"  >Ano</div>
+          </div>
+        </div>
+        <div class="datas d-flex  ">
+          <input type="date" (change)="dateChanged()" [(ngModel)]="startDate">
+          <input type="date" (change)="dateChanged()" [(ngModel)]="endDate">
+        </div>
+
+      </section>
+
+      <section class="linha">
+        <h4 class="title  ">Estatísticas</h4>
+        <div class="wrapper animate_show  ">
+          <div class="nowrap">
+            <div class="card card_item biggest-height">
+              Primeiro
+            </div>
+            <div class="card card_item biggest-height">
+              segundo
+            </div>
+            <div class="card card_item biggest-height">
+              terceiro
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- <section class="grade">
+        <h4 class="title  ">Financeiro</h4>
+        <div class="wrapper animate_show grid  ">
+          <div class="card col-2 card_item medium-height">
+            Primeiro
+          </div>
+        </div>
+      </section> -->
+
+      <section class="grade">
+        <div class="section_header d-flex justify-between  ">
+          <h4 class="title">Top 5</h4>
+          <div class="top5_group chips_group d-flex">
+            <div class="card card_chip" [class.active]="top5 == 'func'" (click)="setTop5('func')">
+              Funcionários
+            </div>
+            <div class="card card_chip" [class.active]="top5 == 'clients'" (click)="setTop5('clients')">
+              Clientes
+            </div>
+          </div>
+        </div>
+        <div class="wrapper animate_show grid  ">
+          <div class="card card_item col-2 big-height">
+            <h4>Título</h4>
+            <p>Contagem</p>
+          </div>
+          <div class="card card_item  medium-height">
+            segundo
+          </div>
+          <div class="card card_item  medium-height">
+            terceiro
+          </div>
+          <div class="card card_item  medium-height">
+            quarto
+          </div>
+          <div class="card card_item  medium-height">
+            quinto
+          </div>
+        </div>
+      </section>
+    </section>
+
+  </div>
+</div>

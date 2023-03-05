@@ -168,26 +168,26 @@ input[type=number]:focus {
     font-weight: 600;
     opacity: .5;
   }
-  .nav_item{
+}
+.nav_item{
+  cursor: pointer;
+  padding: 0.25rem 0rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  label{
     cursor: pointer;
-    padding: 0.25rem 0rem;
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    label{
-      cursor: pointer;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    i, label i{
-      opacity: .5;
-      width: 1.2rem;
-    }
-    span, label span{
-      flex-grow: 1;
-    }
+  }
+  i, label i{
+    opacity: .5;
+    width: 1.2rem;
+  }
+  span, label span{
+    flex-grow: 1;
   }
 }
 

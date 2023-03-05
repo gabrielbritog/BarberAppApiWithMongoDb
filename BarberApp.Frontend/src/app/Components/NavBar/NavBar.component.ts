@@ -14,7 +14,7 @@ export class NavBarComponent implements OnInit {
   sidebarExpanded = false;
 
   get showAdminBoard() {
-    return !this.isBlocked && this.isAdmin && (this.currentSection == 0 || this.currentSection == 2 || this.currentSection == 4)
+    return !this.isBlocked && this.isAdmin && this.currentSection == 1;
   }
 
   get profilePic() {

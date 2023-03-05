@@ -1,0 +1,156 @@
+section{
+  margin-bottom: 1rem;
+}
+
+.section_container{
+  overflow-x: hidden;
+  margin: 0;
+}
+
+.pad-x{
+  padding: var(--section-padding);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.title{
+  text-align: initial;
+  margin: 0.8rem 0;
+  flex-shrink: 0;
+}
+
+.section_title {
+  margin-bottom: 1rem;
+  .title{
+    margin: 0;
+  }
+}
+
+.d-flex{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.justify-between{
+  justify-content: space-between;
+}
+
+.datas >*{
+  flex-grow: 1;
+}
+
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.nowrap{
+  display: flex;
+  flex-wrap: nowrap;
+  width: fit-content;
+  gap: 1rem;
+}
+
+.chips_group{
+  align-items: center;
+  font-size: .7rem;
+}
+
+.card_chip{
+  padding: 0.5rem 0.8rem;
+  border-radius: 50px;
+  line-height: 1;
+  opacity: .35;
+  &.active{
+    opacity: 1;
+    font-weight: 600;
+    background-color: var(--app-color-primary);
+    color: black;
+  }
+}
+
+.card_item{
+  margin: 0;
+}
+
+.linha .card_item{
+  width: 80vw;
+}
+
+.coluna .card_item{
+  width: 100%;
+  min-height: 4rem;
+}
+
+.grid .card_item.col-2{
+  grid-column: span 2;
+}
+
+.grid .card_item.row-2{
+  grid-row: span 2;
+  height: auto;
+}
+
+.card_item{
+  &.biggest-height{
+    height: 12rem;
+  }
+  &.big-height{
+    height: 9rem;
+  }
+  &.medium-height{
+    height: 6rem;
+  }
+  &.small-height{
+    height: 3rem;
+  }
+}
+.wrapper.flex_column {
+  margin: 0;
+  gap: .5rem;
+}
+
+.wrapper.flex_column {
+  margin: 0;
+  gap: .5rem;
+}
+
+.wrapper.grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.no-margin{
+  margin: 0 !important;
+}
+
+input{
+  position: relative;
+  border-radius: 5px;
+}
+
+input[type=date]::after{
+  content: "\f133";
+  color: var(--app-color-text);
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  z-index: 2;
+  position: absolute;
+  right: 1rem;
+  pointer-events: none;
+}
+
+input[type=date]::before{
+  content: " ";
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: inherit;
+  border-radius: var(--global-border-radius);
+  width: 3rem;
+  height: 100%;
+  pointer-events: none;
+}

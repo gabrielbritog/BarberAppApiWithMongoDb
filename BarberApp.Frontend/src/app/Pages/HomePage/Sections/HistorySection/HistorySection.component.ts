@@ -5,7 +5,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-HistorySection',
   templateUrl: './HistorySection.component.html',
-  styleUrls: ['../baseSection.scss', './HistorySection.component.scss']
+  styleUrls: ['../../../../Shared/Styles/baseSection.scss', './HistorySection.component.scss']
 })
 export class HistorySectionComponent implements OnInit {
 
