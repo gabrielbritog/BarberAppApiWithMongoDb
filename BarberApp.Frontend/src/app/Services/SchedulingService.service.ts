@@ -28,12 +28,13 @@ export class SchedulingService {
   constructor(private http: HttpClient) { }
 
   registerSchedule(schedule: ScheduleModel): Observable<any> {
-    return this.http.post<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_REGISTER, {
+    return this.http.post<any>(BASE_URL_API + URL_BARBER + URL_SCHEDULING + ROUTE_REGISTER, {
       barberId: schedule.barberId,
       client: schedule.client,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate,
-      endOfSchedule: schedule.schedulingDate
+      endOfSchedule: schedule.schedulingDate,
+      recurrence: schedule.recurrence
     });
   }
 

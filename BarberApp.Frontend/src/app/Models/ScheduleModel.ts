@@ -1,5 +1,6 @@
 import * as moment from 'moment';
 import { ClientModel } from './ClientModel';
+import { Recurrence } from './Recurrence';
 import { ServiceTypeModel } from './ServiceTypeModel';
 export class ScheduleModel {
   schedulingId: string = "";
@@ -9,6 +10,9 @@ export class ScheduleModel {
   total?: number;
   schedulingDate: string = "";
   endOfSchedule: string = "";
+  recurrence: Recurrence = new Recurrence();
+
+
   date: string = "";
   time: string = "";
   endTime: string = "";

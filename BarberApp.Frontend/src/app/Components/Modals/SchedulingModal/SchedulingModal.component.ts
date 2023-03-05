@@ -175,7 +175,7 @@ export class SchedulingModalComponent implements OnInit {
     apiCall.subscribe({
       next: (data: any) => {
         LoaderComponent.SetOptions(false);
-        console.log(data.message);
+        console.log(data);
         setTimeout(() => {
           if (index < 0)
             GlobalVariables.schedules.push(new ScheduleModel(data.data));
@@ -187,7 +187,7 @@ export class SchedulingModalComponent implements OnInit {
       error: (err) => {
         LoaderComponent.SetOptions(false);
         setTimeout(() => {
-          console.log(err.message);
+          console.log(err);
         }, 20);
       }
     })
