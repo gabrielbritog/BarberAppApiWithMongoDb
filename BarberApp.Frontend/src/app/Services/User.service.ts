@@ -15,7 +15,7 @@ import { UserConfig } from '../Models/UserConfig';
 // IP DA MÁQUINA
 const MACHINE_IP = GlobalVariables.MACHINE_IP;
 
-const API_URL = `http://${MACHINE_IP}:5066/api/`;
+const API_URL = `${MACHINE_IP}/api/`;
 
 const ADMIN_ROUTE = 'User/'
 const BARBER_ROUTE = 'Barber/'

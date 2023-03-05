@@ -47,13 +47,12 @@ export class EditPhoneComponent implements OnInit {
       this.toastr.warning('Nenhuma alteração feita.')
       return;
     }
-      
+
 
     const API_CALL = this.userService.updatePhone(form.value);
 
     API_CALL.subscribe({
       next: (data: any) => {
-        console.log(data);
         LoaderComponent.SetOptions(false, true, true);
         this.tokenStorage.saveUser(data.data);
         setTimeout(() => {

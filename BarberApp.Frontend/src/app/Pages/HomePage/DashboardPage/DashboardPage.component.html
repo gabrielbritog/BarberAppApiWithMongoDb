@@ -1,0 +1,105 @@
+<div class="page_container">
+  <div class="header">
+    <div class="container">
+      <button class="btn btn_return" (click)="onCancel()" >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h3>
+        Dashboard
+      </h3>
+
+    </div>
+  </div>
+
+  <section class="section_container flex_column">
+
+    <section class="periodo">
+      <div class="section_header d-flex justify-between pad-x">
+        <h3 class="title">Período</h3>
+        <div class="quick_dates chips_group d-flex">
+          <div class="card card_date card_chip" [class.active]="quickDate == 'week'" (click)="setQuickDate('week')"  >Semana</div>
+          <div class="card card_date card_chip" [class.active]="quickDate == 'month'" (click)="setQuickDate('month')"  >Mês</div>
+          <div class="card card_date card_chip" [class.active]="quickDate == 'year'" (click)="setQuickDate('year')"  >Ano</div>
+        </div>
+      </div>
+      <div class="datas d-flex pad-x">
+        <input type="date" (change)="dateChanged()" [(ngModel)]="startDate">
+        <input type="date" (change)="dateChanged()" [(ngModel)]="endDate">
+      </div>
+
+    </section>
+
+    <section class="linha">
+      <h3 class="title pad-x">Estatísticas</h3>
+      <div class="wrapper pad-x">
+        <div class="nowrap">
+          <div class="card card_item">
+            Primeiro
+          </div>
+          <div class="card card_item">
+            segundo
+          </div>
+          <div class="card card_item">
+            terceiro
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grade">
+      <h3 class="title pad-x">Financeiro</h3>
+      <div class="wrapper grid pad-x">
+        <div class="card card_item">
+          Primeiro
+        </div>
+        <div class="card card_item">
+          segundo
+        </div>
+        <div class="card card_item">
+          terceiro
+        </div>
+        <div class="card card_item">
+          quarto
+        </div>
+      </div>
+    </section>
+
+    <section class="coluna">
+      <div class="section_header d-flex justify-between pad-x">
+        <h3 class="title">Top 5</h3>
+        <div class="top5_group chips_group d-flex">
+          <div class="card card_chip" [class.active]="top5 == 'func'" (click)="setTop5('func')">
+            Funcionários
+          </div>
+          <div class="card card_chip" [class.active]="top5 == 'clients'" (click)="setTop5('clients')">
+            Clientes
+          </div>
+          <div class="card card_chip" [class.active]="top5 == 'services'" (click)="setTop5('services')">
+            Serviços
+          </div>
+        </div>
+      </div>
+      <div class="wrapper flex_column pad-x">
+        <div class="card card_item">
+          Primeiro
+        </div>
+        <div class="card card_item">
+          segundo
+        </div>
+        <div class="card card_item">
+          terceiro
+        </div>
+        <div class="card card_item">
+          quarto
+        </div>
+        <div class="card card_item">
+          quinto
+        </div>
+      </div>
+    </section>
+  </section>
+
+
+
+
+</div>

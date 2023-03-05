@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserModel } from 'src/app/Models/UserModel';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { UserService } from 'src/app/Services/User.service';
 import { WorkingDays } from '../../../Models/WorkingDays';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
+import { ToastrService } from 'ngx-toastr';
+import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 
 @Component({
   selector: 'app-WorkFlowPage',
@@ -13,6 +14,23 @@ import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 })
 export class WorkFlowPageComponent implements OnInit {
 
+  _defaultWorkingDay = new WorkingDays({
+    openingTime: '09:00',
+    closingTime: '17:00'
+  })
+
+  get defaultWorkingDay() {
+    return this._defaultWorkingDay;
+  }
+  set defaultWorkingDay(value) {
+    this.defaultWorkingDay = value;
+    this.workingDays.forEach(p => {
+      p.openingTime = value.openingTime;
+      p.closingTime = value.closingTime;
+    })
+  }
+
+  _workingDaysBckp: WorkingDays[] = [];
   _workingDays: WorkingDays[] = [];
   get workingDays() {
     return this._workingDays;
@@ -20,6 +38,8 @@ export class WorkFlowPageComponent implements OnInit {
   set workingDays(value) {
     this._workingDays = value;
   }
+
+  intervalTime: string = '00:30';
 
   _toggleAll = true;
   get toggleAll() {
@@ -55,28 +75,85 @@ export class WorkFlowPageComponent implements OnInit {
   constructor(
     private tokenStorage: TokenStorageService,
     private userService: UserService,
-    private router: Router
-  ) {
+    private router: Router,
+    private toastr: ToastrService
+  ) { }
 
-    const userWorkingDays = new UserModel(tokenStorage.getUserModel()).workingDays;
+  ngOnInit() {
+
+    if (!this.tokenStorage.getToken())
+      this.router.navigateByUrl('/Login');
+
+    if (!GlobalVariables.appLoaded)
+      this.router.navigateByUrl('/Home');
+
+    const userWorkingDays = GlobalVariables.userWorkingDays;
+    this._workingDaysBckp = this.tokenStorage.getUserModel().workingDays;
     if(!userWorkingDays || userWorkingDays?.length == 0){
       this.workingDays = GlobalVariables.createWorkingDays();
     } else {
       this.workingDays = userWorkingDays;
     }
-  }
 
-  ngOnInit() {
+    this.intervalTime = this.workingDays[0].intervalTime;
   }
 
   onSubmit() {
+    let hasChangedValues = this.validateChanges();
+
+    if (!hasChangedValues) {
+      this.toastr.warning('Nenhuma alteração feita.')
+      return;
+    }
+
+    const apiCall = this.userService.updateWorkingDays(this._workingDays);
+    apiCall.subscribe({
+      next: (data) => {
+        LoaderComponent.SetOptions(false, true, true);
+        this.tokenStorage.saveUser(data.data);
+        setTimeout(() => {
+          this.toastr.success('Alterações realizadas com sucesso.')
+          this.router.navigateByUrl('/Home')
+        }, LoaderComponent.timeoutOffset);
+      },
+      error: (err) => {
+        console.log(err);
+        LoaderComponent.SetOptions(false, false, true);
+        this.toastr.error(err.message)
+      }
+    })
+
+
 
   }
 
   onCancel() {
+    let hasChangedValues = this.validateChanges();
+
+    if (hasChangedValues && confirm('Descartar mudanças?') == false) {
+      return;
+    }
+
     if (this.router.url == '/WorkFlow')
       this.router.navigateByUrl('/Home');
     else
       this.router.navigateByUrl('/WorkFlow');
+  }
+
+  validateChanges() {
+    let hasChangedValues = false;
+    this._workingDays.forEach((p, index) => {
+      p.intervalTime = this.intervalTime;
+      let backupElement = this._workingDaysBckp[index];
+      if (
+        backupElement.intervalTime != p.intervalTime ||
+        backupElement.openingTime != p.openingTime ||
+        backupElement.closingTime != p.closingTime ||
+        backupElement.isOpen != p.isOpen
+      )
+        hasChangedValues = true;
+    });
+
+    return hasChangedValues;
   }
 }

@@ -19,6 +19,7 @@ import { EditEmailComponent } from './Pages/HomePage/AccountPage/EditEmail/EditE
 import { EditPasswordComponent } from './Pages/HomePage/AccountPage/EditPassword/EditPassword.component';
 import { EditPhoneComponent } from './Pages/HomePage/AccountPage/EditPhone/EditPhone.component';
 import { WorkFlowPageComponent } from './Pages/HomePage/WorkFlowPage/WorkFlowPage.component';
+import { DashboardPageComponent } from './Pages/HomePage/DashboardPage/DashboardPage.component';
 
 // SERVICES
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
@@ -80,6 +81,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
     EditPhoneComponent,
 
     WorkFlowPageComponent,
+    DashboardPageComponent,
 
 
     // HOME SECTIONS

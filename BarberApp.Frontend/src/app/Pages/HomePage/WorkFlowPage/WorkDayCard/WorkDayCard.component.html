@@ -8,11 +8,11 @@
     <div class="desc_area">
       <span (click)="openingTime.showPicker()">
         {{weekDay.openingTime}}
-        <input #openingTime type="time" id="opening-time" [(ngModel)]="weekDay.openingTime">
+        <input #openingTime type="time" id="opening-time" min="00:00" max="12:00" [(ngModel)]="weekDay.openingTime">
       </span>
       <span (click)="closingTime.showPicker()">
         {{weekDay.closingTime}}
-        <input #closingTime type="time" id="closing-time" [(ngModel)]="weekDay.closingTime">
+        <input #closingTime type="time" id="closing-time" min="{{weekDay.openingTime}}:00" max="23:59:59" [(ngModel)]="weekDay.closingTime">
       </span>
     </div>
   </div>

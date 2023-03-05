@@ -7,7 +7,7 @@ import { SchedulingService } from 'src/app/Services/SchedulingService.service';
 import { ScheduleModel } from '../../Models/ScheduleModel';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
-import { BarberService } from '../../Services/Barber.service';
+import { EmployeeService } from '../../Services/Employee.service';
 import { BarberModel } from '../../Models/BarberModel';
 
 @Component({
@@ -28,7 +28,7 @@ export class HomePageComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private schedulingService: SchedulingService,
     private serviceTypeService: ServiceTypeService,
-    private barberService: BarberService,
+    private barberService: EmployeeService,
     private router: Router) { }
 
   ngOnInit() {
@@ -91,7 +91,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getBarbers() {
-    this.barberService.getAllBarbers().subscribe({
+    this.barberService.getAllEmployees().subscribe({
       next: (data: any) => {
         let barbers: BarberModel[] = data.data.map((element: any) => new BarberModel(element));
         GlobalVariables.barbers = barbers;

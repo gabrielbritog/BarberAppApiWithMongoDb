@@ -10,12 +10,14 @@ import { EditPasswordComponent } from './Pages/HomePage/AccountPage/EditPassword
 import { EditPhoneComponent } from './Pages/HomePage/AccountPage/EditPhone/EditPhone.component';
 import { EditEmailComponent } from './Pages/HomePage/AccountPage/EditEmail/EditEmail.component';
 import { WorkFlowPageComponent } from './Pages/HomePage/WorkFlowPage/WorkFlowPage.component';
+import { DashboardPageComponent } from './Pages/HomePage/DashboardPage/DashboardPage.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
   { path: 'Register', component: RegisterPageComponent },
   { path: 'Home', component: HomePageComponent },
   { path: 'WorkFlow', component: WorkFlowPageComponent },
+  { path: 'Dashboard', component: DashboardPageComponent },
   { path: 'Account', component: AccountPageComponent, children: [
     {path: '', component: UserInfoComponent},
     {path: 'Name', component: EditNameComponent},
