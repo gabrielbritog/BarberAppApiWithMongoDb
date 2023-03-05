@@ -4,6 +4,7 @@ using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
+using System.Numerics;
 
 namespace BarberApp.Service.Service
 {
@@ -16,19 +17,23 @@ namespace BarberApp.Service.Service
             _mapper = mapper;
             _clientRepository = clientRepository;
         }
-        public async  Task<Client> GetByPhone(string phone) => await _clientRepository.GetByPhone(phone);
-
-        public async Task<ResponseClientDto> Register(RegisterClientDto client)
+        public async Task<Client> GetByPhone(string phone) => await _clientRepository.GetByPhone(phone);
+        public async Task<List<ResponseClientDto>> GetTop(string userId, int top, DateTime first, DateTime last) => _mapper.Map<List<ResponseClientDto>>(await _clientRepository.GetTop(userId, top, first, last));
+        public async Task<ResponseClientDto> Register(RegisterClientDto client, string userId)
         {
             var checkPhone = await this.GetByPhone($"{client.Phone}");
             var ClientMap = _mapper.Map<Client>(client);
             
             if (checkPhone != null)
             {
+
                 ClientMap.SchedulingCount = checkPhone.SchedulingCount + 1;
+                ClientMap.LastVisit = DateTime.Now;
                 await _clientRepository.Update(ClientMap);
             }
-            else {                           
+            else {
+                ClientMap.UserId = userId;
+                ClientMap.LastVisit = DateTime.Now;
                 ClientMap.SchedulingCount = 1;
             await _clientRepository.Register(ClientMap);            
             }

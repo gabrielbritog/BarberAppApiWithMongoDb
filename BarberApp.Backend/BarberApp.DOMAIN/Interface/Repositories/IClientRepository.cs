@@ -12,6 +12,7 @@ namespace BarberApp.Domain.Interface.Repositories
         public Task<Client> Register(Client client);
         public Task<Client> GetByPhone(string phone);
         public Task<Client> Update(Client client);
+        public Task<List<Client>> GetTop(string userId, int top, DateTime first, DateTime last);
 
     }
 }

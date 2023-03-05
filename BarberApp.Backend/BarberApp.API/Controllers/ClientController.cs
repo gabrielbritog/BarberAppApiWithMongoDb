@@ -44,7 +44,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                await _clientService.Register(scheduling.Client);
+                await _clientService.Register(scheduling.Client, userId);
                 return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Register(scheduling,userId,barberId)));
             }
             catch (Exception e)
