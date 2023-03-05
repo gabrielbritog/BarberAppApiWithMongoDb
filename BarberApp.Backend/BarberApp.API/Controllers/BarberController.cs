@@ -3,6 +3,7 @@ using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Dto.ServiceType;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.ViewModels;
+using BarberApp.Service.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,8 +16,10 @@ namespace BarberApp.Api.Controllers
         private readonly IBarberService _barberService;
         private readonly ISchedulingService _schedulingService;
         private readonly IServiceTypeService _serviceTypeService;
-        public BarberController(IBarberService barberService, ISchedulingService schedulingService, IServiceTypeService serviceTypeService)
+        private readonly IClientService _clientService;
+        public BarberController(IBarberService barberService, ISchedulingService schedulingService, IServiceTypeService serviceTypeService, IClientService clientService)
         {
+            _clientService = clientService;
             _barberService = barberService;
             _schedulingService = schedulingService;
             _serviceTypeService= serviceTypeService;
@@ -87,6 +90,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
+                await _clientService.Register(scheduling.Client, Id);
                 return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Register(scheduling,Id,BarberId)));
             }
             catch (Exception e)
