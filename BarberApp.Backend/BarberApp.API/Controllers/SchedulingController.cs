@@ -12,9 +12,11 @@ namespace BarberApp.Api.Controllers
     public class SchedulingController : BaseController
     {
         private readonly ISchedulingService  _schedulingService;
-        public SchedulingController(ISchedulingService schedulingService)
+        private readonly IClientService _clientService;
+        public SchedulingController(ISchedulingService schedulingService, IClientService clientService)
         {
             _schedulingService = schedulingService;
+            _clientService = clientService;
 
         }
         [HttpPost("Register")]
@@ -23,6 +25,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
+                await _clientService.Register(scheduling.Client, Id);
                 return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Register(scheduling, Id)));
             }
             catch (Exception e)

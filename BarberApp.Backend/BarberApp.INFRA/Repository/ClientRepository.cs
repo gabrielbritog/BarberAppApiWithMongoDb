@@ -22,7 +22,6 @@ namespace BarberApp.Infra.Repository
             _clientCollection = mongoDatabase.GetCollection<Client>
                 (clientServices.Value.ClientTypeCollectionName);
         }
-
         public async Task<Client> GetByPhone(string phone)
         {
             try

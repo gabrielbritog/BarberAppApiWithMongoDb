@@ -11,20 +11,29 @@ namespace BarberApp.Service.Service
     public class SchedulingService : ISchedulingService
     {
         private readonly ISchedulingRepository _schedulingRepository;
+        private readonly IClientRepository _clientRepository;
         private readonly IMapper _mapper;
         private readonly IBarberRepository _barberRepository;
         private readonly IUserRepository _userRepository;
-        public SchedulingService(ISchedulingRepository schedulingRepository, IMapper mapper, IBarberRepository barberRepository, IUserRepository userRepository)
+        public SchedulingService(ISchedulingRepository schedulingRepository, IMapper mapper, IBarberRepository barberRepository, IUserRepository userRepository, IClientRepository clientRepository)
         {
+            _clientRepository = clientRepository;
             _schedulingRepository = schedulingRepository;
             _mapper = mapper;
             _barberRepository = barberRepository;
             _userRepository = userRepository;
         }
 
-        public async Task<DeleteResult> DeleteAll(string userId) =>  await _schedulingRepository.DeleteAll(userId); 
-        public async Task<DeleteResult> DeleteAll(string userId,string barberId) => await _schedulingRepository.DeleteAll(userId, barberId);
-        public async Task<DeleteResult> DeleteById(string userId, string schedulingId) => await _schedulingRepository.DeleteById(userId, schedulingId);
+        public async Task<DeleteResult> DeleteAll(string userId) => await _schedulingRepository.DeleteAll(userId);
+        public async Task<DeleteResult> DeleteAll(string userId, string barberId) => await _schedulingRepository.DeleteAll(userId, barberId);
+        public async Task<DeleteResult> DeleteById(string userId, string schedulingId)
+        {
+            var checkScheduling = await _schedulingRepository.GetById(schedulingId, userId);
+            var checkClient = await _clientRepository.GetByPhone(checkScheduling.Client.Phone);
+            checkClient.SchedulingCount = checkClient.SchedulingCount - 1;
+            await _clientRepository.Update(checkClient);
+            return await _schedulingRepository.DeleteById(userId, schedulingId);
+        } 
         public async Task<List<ResponseSchedulingDto>> GetMany(string userId, int start, int count)
         {
             var result = await _schedulingRepository.GetMany(userId,start,count);
