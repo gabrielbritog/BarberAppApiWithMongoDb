@@ -1,4 +1,6 @@
-﻿using BarberApp.Domain.Dto.Scheduling;
+﻿using BarberApp.Domain.Dto.Barber;
+using BarberApp.Domain.Dto.Client;
+using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Dto.ServiceType;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.ViewModels;
@@ -13,9 +15,13 @@ namespace BarberApp.Api.Controllers
     public class DashBoardController : BaseController
     {
         private readonly ISchedulingService _schedulingService;
-        public DashBoardController(ISchedulingService schedulingService)
+        private readonly IClientService _clientService;
+        private readonly IBarberService _barberService;
+        public DashBoardController(ISchedulingService schedulingService, IClientService clientService, IBarberService barberService)
         {
+            _clientService= clientService;
             _schedulingService = schedulingService;
+            _barberService = barberService;
 
         }
         [HttpGet("GetHistoric")]
@@ -41,6 +47,35 @@ namespace BarberApp.Api.Controllers
             try
             {
                 return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.GetManyByDate(Id, startDate, endDate)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+        }
+
+        [HttpGet("GetTop")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<string>>> GetTop(int type, int top, DateTime first, DateTime last)
+        {
+            //0 = clientes
+            //1 = funcionario
+            try
+            {
+                if (type == 0)
+                {
+                    var result = await _clientService.GetTop(Id, top, first, last);
+               
+                   return Ok(new ResponseViewModel<List<ResponseClientDto>>(true, "Sucesso", result));
+
+                }
+                else
+                {
+                    var result = await _barberService.GetTop(Id, top, first, last);
+
+                    return Ok(new ResponseViewModel<List<string>>(true, "Sucesso", result));
+                }
             }
             catch (Exception e)
             {

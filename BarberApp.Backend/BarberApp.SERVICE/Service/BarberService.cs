@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Barber;
+using BarberApp.Domain.Dto.Client;
 using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using BarberApp.Domain.ViewModels;
+using BarberApp.Infra.Repository;
 using BarberApp.Service.Configurations;
 using BarberApp.Service.Global;
 
@@ -28,15 +30,15 @@ namespace BarberApp.Service.Service
         }
         public async Task<Barber> GetByEmail(string barberEmail) => await _barberRepository.GetByEmail(barberEmail);
         public Task<Barber> GetById(string barberId) => throw new NotImplementedException();
-        public async Task<List<Barber>> GetMany(int start, int count,string userId) =>  await _barberRepository.GetMany(start, count, userId);
+        public async Task<List<Barber>> GetMany(int start, int count, string userId) => await _barberRepository.GetMany(start, count, userId);
 
         public async Task<TokenViewModel> Login(LoginBarberDto barber)
         {
-            var barberDb = await  GetByEmail($"{barber.Email}");
+            var barberDb = await GetByEmail($"{barber.Email}");
             if (barberDb == null)
                 throw new Exception("Email ou senha inválidos.");
-            
-            
+
+
             barber.Password = EncryptPassword(barber.Password + barberDb.PasswordSalt);
             if (barberDb.Password != barber.Password)
                 throw new Exception("Email ou senha inválidos.");
@@ -56,18 +58,18 @@ namespace BarberApp.Service.Service
                );
         }
 
-        public async Task<ResponseBarberDto> Register(RegisterBarberDto barber,string userId)
+        public async Task<ResponseBarberDto> Register(RegisterBarberDto barber, string userId)
         {
             var checkEmail = await this.GetByEmail($"{barber.Email}");
             var associatedCompany = await _userRepository.GetById(userId);
             if (checkEmail != null)
-            throw new Exception("Email já está sendo usado");
+                throw new Exception("Email já está sendo usado");
             barber.PasswordSalt = new Random().Next().GetHashCode().ToString();
             barber.Password = EncryptPassword(barber.Password + barber.PasswordSalt);
             var BarberMap = _mapper.Map<Barber>(barber);
             BarberMap.UserRegistration = DateTime.Now;
             BarberMap.UserId = userId;
-            BarberMap.Disabled= false;
+            BarberMap.Disabled = false;
             BarberMap.ChangePassword = new ChangePassword();
             BarberMap.CompanyName = associatedCompany.CompanyName;
             BarberMap.ChangePassword.IsRequired = true;
@@ -87,7 +89,7 @@ namespace BarberApp.Service.Service
             barber.FirstName ??= barberDb.FirstName;
             barber.LastName ??= barberDb.LastName;
             barber.Password = string.IsNullOrEmpty(barber.Password) ? barberDb.Password : EncryptPassword(barber.Password + barberDb.PasswordSalt);
-            barber.Email ??= barberDb.Email;          
+            barber.Email ??= barberDb.Email;
             if (barber.UrlImage != null)
             {
                 try
@@ -103,7 +105,7 @@ namespace BarberApp.Service.Service
             }
             else
             {
-                barber.UrlImage ??= barberDb.UrlImage; 
+                barber.UrlImage ??= barberDb.UrlImage;
             }
             barber.PhoneNumber ??= barberDb.PhoneNumber;
             barber.UserConfig ??= barberDb.UserConfig;
@@ -112,14 +114,14 @@ namespace BarberApp.Service.Service
             {
                 barber.ChangePassword.LastChange = DateTime.Now;
                 barber.ChangePassword.OldPassword = barberDb.Password;
-                barber.ChangePassword.OldPasswordSalt  = barberDb.PasswordSalt;
+                barber.ChangePassword.OldPasswordSalt = barberDb.PasswordSalt;
             }
             else
             {
                 barber.ChangePassword = barberDb.ChangePassword;
             }
-            
-            
+
+
 
 
             var result = await _barberRepository.Update(_mapper.Map<Barber>(barber), barberId);
@@ -142,5 +144,8 @@ namespace BarberApp.Service.Service
             var result = await _barberRepository.Update(_mapper.Map<Barber>(barber), barberDb.BarberId);
             return _mapper.Map<ResponseBarberDto>(result);
         }
+
+        public async Task<List<string>> GetTop(string userId, int top, DateTime first, DateTime last) => _mapper.Map<List<string>>(await _barberRepository.GetTop(userId, top, first, last));
+     
     }
 }

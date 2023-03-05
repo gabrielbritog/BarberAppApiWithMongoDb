@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +37,27 @@ namespace BarberApp.Infra.Repository
                 throw new Exception(e.Message);
             }
         }
+        public async Task<List<Client>> GetTop(string userId,int top, DateTime first, DateTime last )
+        {
+            try
+            {
+                var filter = Builders<Client>.Filter.And(
+                   Builders<Client>.Filter.Eq(u => u.UserId, userId),
+                   Builders<Client>.Filter.Gte(u => u.LastVisit, first),
+                   Builders<Client>.Filter.Lte(u => u.LastVisit, last)
+                   );
+                   
+                var sort = Builders<Client>.Sort.Descending(u => u.SchedulingCount);
+
+                var result = await _clientCollection.Find(filter).Sort(sort).Limit(top).ToListAsync();
+                return result;
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
         public async Task<Client> Register(Client client)
         {
@@ -58,7 +80,8 @@ namespace BarberApp.Infra.Repository
                 var filter = Builders<Client>.Filter.Eq(u => u.Phone, client.Phone);
                 var update = Builders<Client>.Update
                     .Set(u => u.Name, client.Name)
-                    .Set(u => u.SchedulingCount, client.SchedulingCount);
+                    .Set(u => u.SchedulingCount, client.SchedulingCount)
+                    .Set(u => u.LastVisit, client.LastVisit);
                 var result = await _clientCollection.UpdateOneAsync(filter, update);
                 if (result.MatchedCount == 0)
                     throw new Exception("Cliente não encontrado.");
