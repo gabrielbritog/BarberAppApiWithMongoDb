@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserModel } from 'src/app/Models/UserModel';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { UserService } from 'src/app/Services/User.service';
 import { WorkingDays } from '../../../Models/WorkingDays';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-WorkFlowPage',
@@ -79,8 +77,7 @@ export class WorkFlowPageComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
 

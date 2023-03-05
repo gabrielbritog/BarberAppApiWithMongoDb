@@ -33,22 +33,22 @@
             Editar
           </span>
         </li>
-        <li class="nav_item" (click)="logout()" >
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <span>
-            Sair
-          </span>
-        </li>
-      </ul>
-      <hr>
-      <ul class="nav_list">
-        <div class="list_title">
-          Config. {{isAdmin? 'da Empresa': 'do Funcionário'}}
-        </div>
         <li class="nav_item" (click)="goToRoute('/WorkFlow')"  >
           <i class="fa-solid fa-briefcase"></i>
           <span>
             Horários de funcionamento
+          </span>
+        </li>
+        <li class="nav_item" (click)="goToRoute('/Dashboard')"  >
+          <i class="fa-solid fa-chart-line"></i>
+          <span>
+            Dashboard
+          </span>
+        </li>
+        <li class="nav_item" (click)="logout()" >
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>
+            Sair
           </span>
         </li>
       </ul>

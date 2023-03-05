@@ -52,6 +52,7 @@ export class GlobalVariables {
 
   static getEmptySchedulesBase() {
     const currentDay = moment(GlobalVariables.currentDay);
+    const currentDaySchedules = GlobalVariables.schedules.filter(p=>p.date === currentDay.format('L'))
     const workingDay = GlobalVariables.userWorkingDays[currentDay.weekday()];
 
     const startTime = workingDay.openingTime;
@@ -60,16 +61,20 @@ export class GlobalVariables {
     const endTimeAsHours = moment.duration(endTime).asHours();
     const intervalTime = moment.duration(workingDay.intervalTime).asMinutes();
     const totalWorkInMinutes = (endTimeAsHours - startTimeAsHours) * 60;
-    let schedules: ScheduleModel[] = [];
+    const totalDayInMinutes = (24 * 60) -1;
+    const schedules: ScheduleModel[] = [];
 
     if(workingDay.isOpen){
-      for (let index = 0; index <= totalWorkInMinutes; index += intervalTime) {
-        schedules.push(
-          new ScheduleModel({
-            date: currentDay.format('yyyy-MM-DD'),
-            time: currentDay.hour(startTimeAsHours).minute(index).format('HH:mm'),
-          })
-        );
+      for (let index = 0; index <= totalDayInMinutes; index++) {
+        if ((index % intervalTime == 0 && index >= startTimeAsHours*60 && index <= endTimeAsHours*60)||
+          currentDaySchedules.some(p => p.time == currentDay.hour(0).minute(index).format('HH:mm'))) {
+          schedules.push(
+            new ScheduleModel({
+              date: currentDay.format('yyyy-MM-DD'),
+              time: currentDay.hour(0).minute(index).format('HH:mm'),
+            })
+          );
+        }
       }
     }
 
