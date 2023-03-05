@@ -18,7 +18,7 @@ const ROUTE_GETMANY = 'GetMany'
 const ROUTE_GETBYID = 'GetById/'
 const ROUTE_UPDATE = 'Update'
 
-const BASE_URL_API = `http://${MACHINE_IP}:5066/api/`;
+const BASE_URL_API = `${MACHINE_IP}/api/`;
 
 @Injectable({
   providedIn: 'root'

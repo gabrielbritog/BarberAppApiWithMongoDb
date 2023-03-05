@@ -6,14 +6,14 @@ import { GlobalVariables } from '../Helpers/GlobalVariables';
 // IP DA MÁQUINA
 const MACHINE_IP = GlobalVariables.MACHINE_IP;
 // const BASE_URL_API = 'http://localhost:5066/api/'
-const BASE_URL_API = `http://${MACHINE_IP}:5066/api/Barber/`
+const BASE_URL_API = `${MACHINE_IP}/api/Barber/`
 const ROUTE_GETMANY = 'GetMany'
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class BarberService {
+export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
@@ -26,7 +26,7 @@ export class BarberService {
     });
   }
 
-  getAllBarbers(): Observable<any> {
+  getAllEmployees(): Observable<any> {
     return this.getMany(1, 50);
   }
 
