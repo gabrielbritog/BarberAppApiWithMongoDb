@@ -7,11 +7,24 @@
 }
 
 .table_container{
-  border-radius: 5px;
+  border-radius: var(--global-border-radius);
   overflow: hidden;
   background-color: var(--app-color-input-bg);
   border: 1px solid var(--app-color-input-bg);
   line-height: 1.5;
+}
+
+.interval_time_container{
+  font-size: .85rem;
+  margin-top: 1rem;
+  border-radius: var(--global-border-radius);
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  background-color: var(--app-color-input-bg);
+  padding: 0.5rem 1rem;
 }
 
 .section_title{

@@ -47,7 +47,7 @@ export class AuthService {
       email: credentials.email,
       password: credentials.password,
       phoneNumber: 'Não definido',
-      workingDays: GlobalVariables.createWorkingDaysUTC()
+      workingDays: GlobalVariables.createWorkingDays()
     });
   }
 

@@ -3,7 +3,7 @@ export class WorkingDays {
   day = "";
   openingTime = "";
   closingTime = "";
-  intervalTime = 0;
+  intervalTime = "";
   isOpen = true;
 
   constructor(params?: Partial<WorkingDays>) {

@@ -26,6 +26,13 @@
       </div>
     </div>
 
-    <button class="btn btn_submit">Salvar</button>
+    <div class="interval_time_container">
+
+        Intervalo entre agendamentos:
+        <input type="time" [(ngModel)]="intervalTime">
+
+    </div>
+
+    <button (click)="onSubmit()" class="btn btn_submit">Salvar</button>
   </div>
 </div>
