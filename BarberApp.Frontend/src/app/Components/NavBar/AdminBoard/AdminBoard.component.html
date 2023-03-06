@@ -1,4 +1,4 @@
-<div class="barber_container animate_show card" [class.expand]="agendaExpanded">
+<div class="barber_container animate_show_from_top card" [class.expand]="agendaExpanded">
   <div class="container">
     <div class="title">Visão do funcionário:</div>
     <div class="barber_cards flex_column">
@@ -8,4 +8,5 @@
       </div>
     </div>
   </div>
+  <div class="cancel_area" *ngIf="agendaExpanded" (click)="agendaExpanded = false" ></div>
 </div>

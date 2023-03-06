@@ -173,24 +173,16 @@ nav{
       height: auto;
       padding: .5rem 1rem;
       outline: 2px solid transparent;
-      &.active{
-        color: var(--app-color-text);
-        border-radius: 50px;
-        outline: 2px solid;
-      }
-    }
-  }
-}
-
-
-@media (min-width: 1280px) {
-  .nav_list_container{
-    .nav_list .nav_item{
       i{
         display: none;
       }
       .nav_item_title{
         display: block;
+      }
+      &.active{
+        color: var(--app-color-text);
+        border-radius: 50px;
+        outline: 2px solid;
       }
     }
   }

@@ -9,6 +9,7 @@ import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { EmployeeService } from '../../Services/Employee.service';
 import { BarberModel } from '../../Models/BarberModel';
+import { DashboardSectionComponent } from './Sections/DashboardSection/DashboardSection.component';
 
 @Component({
   selector: 'app-HomePage',
@@ -42,6 +43,7 @@ export class HomePageComponent implements OnInit {
       return;
     }
 
+    DashboardSectionComponent.clearProperties();
     LoaderComponent.SetOptions(true);
 
     const userModel = this.tokenStorage.getUserModel();

@@ -230,9 +230,24 @@ h4{
   animation: .2s sectionShow forwards;
 }
 
+.animate_show_from_top{
+  animation: .2s sectionShowFromTop forwards;
+}
+
 @keyframes sectionShow {
   from{
     transform: translateY(50px);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes sectionShowFromTop {
+  from{
+    transform: translateY(-50px);
     opacity: 0;
   }
   to{

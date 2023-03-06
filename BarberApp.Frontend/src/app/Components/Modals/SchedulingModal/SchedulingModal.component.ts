@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-SchedulingModal',
   templateUrl: './SchedulingModal.component.html',
-  styleUrls: ['../baseModal.scss', './SchedulingModal.component.scss']
+  styleUrls: ['../../../Shared/Styles/baseModal.scss', './SchedulingModal.component.scss']
 })
 export class SchedulingModalComponent implements OnInit {
 

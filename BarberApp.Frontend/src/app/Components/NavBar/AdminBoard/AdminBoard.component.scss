@@ -25,8 +25,12 @@
 }
 
 .barber_cards{
-  gap: .35rem;
+  right: var(--section-padding-X);
+  position: absolute;
+  gap: 0.25rem;
   max-width: 50%;
+  border-radius: 15px;
+  outline: 3px solid var(--app-color-bg-alt);
 }
 
 .barber_card{
@@ -50,14 +54,32 @@
     display: block;
   }
 }
-
-.barber_container.expand .barber_card{
-  display: flex;
-  i{
-    transform: rotate(180deg);
-  }
+.cancel_area{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: -5.5rem;
+  left: 0;
+  background-color: transparent;
+  z-index: 0;
 }
 
+.barber_container.expand {
+  .barber_cards{
+    background-color: var(--app-color-input-bg);
+    padding: 0.5rem;
+    z-index: 1;
+  }
+  .barber_card{
+    display: flex;
+    i{
+      transform: rotate(180deg);
+    }
+    &.active{
+      color: var(--app-color-primary);
+    }
+  }
+}
 @keyframes showContainer {
   from{
     transform: translateY(-50px);

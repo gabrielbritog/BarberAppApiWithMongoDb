@@ -28,17 +28,22 @@ export class ServicesPageComponent implements OnInit {
 
     return header;
   }
+
+  get showAdminBoard() {
+    return GlobalVariables.isAdmin && this.router.url == '/Services';
+  }
+
   constructor(
     private tokenStorage: TokenStorageService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    // if (!this.tokenStorage.getToken())
-    //   this.router.navigateByUrl('/Login');
+    if (!this.tokenStorage.getToken())
+      this.router.navigateByUrl('/Login');
 
-    // if (!GlobalVariables.appLoaded)
-    //   this.router.navigateByUrl('/Home');
+    if (!GlobalVariables.appLoaded)
+      this.router.navigateByUrl('/Home');
 
   }
 

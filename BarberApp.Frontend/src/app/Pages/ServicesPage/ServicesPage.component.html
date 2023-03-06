@@ -1,5 +1,5 @@
 <div class="page_container">
-  <div class="header">
+  <div class="header" [class.adminBoard]="showAdminBoard" >
     <div class="container">
       <button class="btn btn_return" (click)="onCancel()" >
         <i class="fa-solid fa-arrow-left"></i>
@@ -10,6 +10,7 @@
     </div>
   </div>
 
+  <app-AdminBoard *ngIf="showAdminBoard"></app-AdminBoard>
 
   <section class="router_container">
     <router-outlet></router-outlet>

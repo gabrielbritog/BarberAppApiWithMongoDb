@@ -11,29 +11,71 @@ import { DashboardService } from '../../../../Services/Dashboard.service';
 })
 export class DashboardSectionComponent implements OnInit {
 
-  quickDate = 'week';
-  top5 = 'func';
+  static _quickDate = 'week';
+  get quickDate() {
+    return DashboardSectionComponent._quickDate;
+  }
+  set quickDate(value) {
+    DashboardSectionComponent._quickDate = value;
+  }
 
-  startDate = moment().add(-7, 'days').format('YYYY-MM-DD');
-  endDate = moment().format('YYYY-MM-DD');
+  static _top5 = 'func';
+  get top5() {
+    return DashboardSectionComponent._top5;
+  }
+  set top5(value) {
+    DashboardSectionComponent._top5 = value;
+  }
 
-  topClients: any[] = [];
-  topEmployees: any[] = [];
-  topServices: any[] = [];
-  schedulesInPeriod: ScheduleModel[] = [];
+  static _startDate = moment().add(-7, 'days').format('YYYY-MM-DD');
+  get startDate() {
+    return DashboardSectionComponent._startDate;
+  }
+  set startDate(value) {
+    DashboardSectionComponent._startDate = value;
+  }
+
+  static _endDate = moment().format('YYYY-MM-DD');
+  get endDate() {
+    return DashboardSectionComponent._endDate;
+  }
+  set endDate(value) {
+    DashboardSectionComponent._endDate = value;
+  }
+
+  static topClients: any[] = [];
+  static topEmployees: any[] = [];
+  static topServices: any[] = [];
+  static schedulesInPeriod: ScheduleModel[] = [];
 
   loadedTopClients = false;
   loadedTopEmployees = false;
   loadedTopServices = false;
   loadedSchedulesInPeriod = false;
 
+  get isDashboardLoaded() {
+    return DashboardSectionComponent.topEmployees.length == 0 && DashboardSectionComponent.topClients.length == 0 && DashboardSectionComponent.schedulesInPeriod.length == 0;
+  }
 
   constructor(
     private dashboard: DashboardService
   ) { }
 
   ngOnInit() {
-    this.loadProperties();
+    if (this.isDashboardLoaded)
+      this.loadProperties();
+  }
+
+  static clearProperties() {
+    DashboardSectionComponent.topEmployees =
+      DashboardSectionComponent.topClients =
+      DashboardSectionComponent.schedulesInPeriod = [];
+
+    DashboardSectionComponent._startDate = moment().add(-7, 'days').format('YYYY-MM-DD');
+    DashboardSectionComponent._endDate = moment().format('YYYY-MM-DD');
+
+    DashboardSectionComponent._top5 = 'func';
+    DashboardSectionComponent._quickDate = 'week';
   }
 
   loadProperties() {
@@ -52,7 +94,7 @@ export class DashboardSectionComponent implements OnInit {
     API_CALL.subscribe({
       next: (data: any) => {
         console.log(data.data);
-        this.schedulesInPeriod = data.data;
+        DashboardSectionComponent.schedulesInPeriod = data.data;
         this.loadedSchedulesInPeriod = true;
         this.requestSucceded();
       },
@@ -73,7 +115,7 @@ export class DashboardSectionComponent implements OnInit {
     API_CALL.subscribe({
       next: (data: any) => {
         console.log(data.data);
-        this.topClients = data.data;
+        DashboardSectionComponent.topClients = data.data;
         this.loadedTopClients = true;
         this.requestSucceded();
       },
@@ -94,7 +136,7 @@ export class DashboardSectionComponent implements OnInit {
     API_CALL.subscribe({
       next: (data: any) => {
         console.log(data.data);
-        this.topEmployees = data.data;
+        DashboardSectionComponent.topEmployees = data.data;
         this.loadedTopEmployees = true;
         this.requestSucceded();
       },
@@ -115,7 +157,7 @@ export class DashboardSectionComponent implements OnInit {
     API_CALL.subscribe({
       next: (data: any) => {
         console.log(data.data);
-        this.topServices = data.data;
+        DashboardSectionComponent.topServices = data.data;
         this.loadedTopServices = true;
         this.requestSucceded();
       },
