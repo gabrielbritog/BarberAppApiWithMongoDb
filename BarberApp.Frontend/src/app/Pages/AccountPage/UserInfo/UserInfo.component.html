@@ -1,8 +1,10 @@
-    <input type="file"
-    accept="image/*" (change)="uploadProfilePic($event)">
-    <div class="user_info container animate_show">
+<input #fileUpload type="file"
+accept="image/*"
+(change)="uploadProfilePic($event)">
+
+<div class="user_info container animate_show">
   <div class="profile_pic">
-    <button type="button" class="btn edit_btn">
+    <button type="button" class="btn edit_btn" (click)="fileUpload.showPicker()">
       <i class="fa-solid fa-camera"></i>
     </button>
     <img *ngIf="userInfo.urlImage" src="{{userInfo.urlImage}}" alt="" srcset="">

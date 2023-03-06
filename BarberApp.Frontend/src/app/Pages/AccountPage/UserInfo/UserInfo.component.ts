@@ -27,8 +27,6 @@ export class UserInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.userInfo);
-
   }
 
   goToRoute(route: string) {
@@ -45,6 +43,7 @@ export class UserInfoComponent implements OnInit {
         next: (data: any) => {
           LoaderComponent.SetOptions(false,true,true);
           this.tokenStorage.saveUser(data.data);
+          console.log(data.message)
         },
         error: (err: any) => {
           LoaderComponent.SetOptions(false, false, true);
