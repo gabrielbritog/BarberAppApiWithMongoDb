@@ -89,7 +89,7 @@ export class DashboardSectionComponent implements OnInit {
   loadedHistoric = false;
 
   get isDashboardLoaded() {
-    return DashboardSectionComponent._topEmployees.length == 0 && DashboardSectionComponent._topClients.length == 0 && DashboardSectionComponent._schedulesInPeriod.length == 0;
+    return DashboardSectionComponent._historic.length == 0 && DashboardSectionComponent._topEmployees.length == 0 && DashboardSectionComponent._topClients.length == 0 && DashboardSectionComponent._schedulesInPeriod.length == 0;
   }
 
   constructor(
@@ -116,6 +116,7 @@ export class DashboardSectionComponent implements OnInit {
 
   loadProperties() {
     this.getSchedulesInPeriod();
+    this.getHistoric();
     this.getTop5Clients();
     this.getTop5Employees();
     this.getTop5Services();
