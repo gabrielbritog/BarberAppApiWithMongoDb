@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { DashboardService } from '../../../../Services/Dashboard.service';
+import { GlobalVariables } from '../../../../Helpers/GlobalVariables';
 
 
 export interface TopClient{
@@ -70,6 +71,9 @@ export class DashboardSectionComponent implements OnInit {
   }
   get schedulesInPeriod() {
     return DashboardSectionComponent._schedulesInPeriod;
+  }
+  get isAdmin() {
+    return GlobalVariables.isAdmin;
   }
 
   loadedTopClients = false;

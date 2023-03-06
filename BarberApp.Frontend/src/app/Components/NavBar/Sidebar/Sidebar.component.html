@@ -35,7 +35,7 @@
             Editar
           </span>
         </li>
-        <li class="nav_item" (click)="goToRoute('/Employees')"  >
+        <li *ngIf="isAdmin" class="nav_item" (click)="goToRoute('/Employees')"  >
           <i class="fa-solid fa-people-group"></i>
           <span>
             Funcionários
