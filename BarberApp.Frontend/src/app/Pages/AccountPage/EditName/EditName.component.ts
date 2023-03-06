@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-EditName',
   templateUrl: './EditName.component.html',
-  styleUrls: ['../AccountPage.component.scss','./EditName.component.scss']
+  styleUrls: ['../../../Shared/Styles/basePage.scss', './EditName.component.scss']
 })
 export class EditNameComponent implements OnInit {
 

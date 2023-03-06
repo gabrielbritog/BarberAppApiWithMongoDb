@@ -52,8 +52,6 @@ export class AccountPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const userModel = this.tokenStorage.getUserModel();
-
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ListEmployee',
@@ -19,13 +20,15 @@ export class ListEmployeeComponent implements OnInit {
     .sort((a, b) => a.firstName.localeCompare(b.firstName));
   }
 
-  constructor( ) { }
+  constructor(
+    private router: Router
+   ) { }
 
   ngOnInit() {
   }
 
   newBarber() {
-    GlobalVariables.showBarberModal = true;
+    this.router.navigateByUrl('/Employees/New');
   }
 
 }

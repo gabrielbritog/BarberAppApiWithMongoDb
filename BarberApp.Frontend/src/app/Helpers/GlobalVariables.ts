@@ -26,6 +26,7 @@ export class GlobalVariables {
   public static showServiceTypeModal = false;
   public static showBarberModal = false;
   public static modalAsEdit = false;
+  public static sidebarExpanded = false;
 
   // EDIT MODALS VARIABLES
   public static editSchedule: ScheduleModel | undefined;

@@ -12,7 +12,7 @@ import { UserService } from 'src/app/Services/User.service';
 @Component({
   selector: 'app-EditEmail',
   templateUrl: './EditEmail.component.html',
-  styleUrls: ['../AccountPage.component.scss','./EditEmail.component.css']
+  styleUrls: ['../../../Shared/Styles/basePage.scss', './EditEmail.component.css']
 })
 export class EditEmailComponent implements OnInit {
 
@@ -40,7 +40,7 @@ export class EditEmailComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    
+
     if (form.value.email == this.userModel.email ) {
       this.toastr.warning('Nenhuma alteração feita.')
       return;

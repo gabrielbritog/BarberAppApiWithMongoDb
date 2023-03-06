@@ -9,7 +9,7 @@ import { UserService } from 'src/app/Services/User.service';
 @Component({
   selector: 'app-EditPassword',
   templateUrl: './EditPassword.component.html',
-  styleUrls: ['../AccountPage.component.scss','./EditPassword.component.css']
+  styleUrls: ['../../../Shared/Styles/basePage.scss', './EditPassword.component.css']
 })
 export class EditPasswordComponent implements OnInit {
 

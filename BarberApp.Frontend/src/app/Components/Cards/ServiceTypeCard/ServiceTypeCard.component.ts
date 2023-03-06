@@ -1,6 +1,7 @@
 import { ServiceTypeModel } from '../../../Models/ServiceTypeModel';
 import { Component, Input, OnInit } from '@angular/core';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ServiceTypeCard',
@@ -12,7 +13,9 @@ export class ServiceTypeCardComponent implements OnInit {
   @Input('model') serviceModel = new ServiceTypeModel();
   @Input('showOptions') showOptions = false;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -24,8 +27,7 @@ export class ServiceTypeCardComponent implements OnInit {
   editService() {
     GlobalVariables.modalAsEdit = true;
     GlobalVariables.editServiceType = this.serviceModel;
-
-    GlobalVariables.showServiceTypeModal = true;
+    this.router.navigateByUrl('/Services/Edit')
   }
 
 }

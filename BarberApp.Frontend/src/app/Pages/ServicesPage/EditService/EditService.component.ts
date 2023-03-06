@@ -1,17 +1,18 @@
-import { GlobalVariables } from './../../../Helpers/GlobalVariables';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoaderComponent } from '../../Loader/Loader.component';
-import { ServiceTypeModel } from '../../../Models/ServiceTypeModel';
+import { Router } from '@angular/router';
+import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
+import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { ServiceTypeService } from 'src/app/Services/ServiceType.service';
-import { IFormInput } from '../../FormInput/IFormInput';
 
 @Component({
-  selector: 'app-ServiceTypeModal',
-  templateUrl: './ServiceTypeModal.component.html',
-  styleUrls: ['../baseModal.scss', './ServiceTypeModal.component.scss']
+  selector: 'app-EditService',
+  templateUrl: './EditService.component.html',
+  styleUrls: ['../../../Shared/Styles/basePage.scss', './EditService.component.scss']
 })
-export class ServiceTypeModalComponent implements OnInit {
+export class EditServiceComponent implements OnInit {
 
   serviceModel = new ServiceTypeModel();
   hideModal = false;
@@ -49,7 +50,8 @@ export class ServiceTypeModalComponent implements OnInit {
   get isEditModal() { return GlobalVariables.modalAsEdit; }
 
   constructor(
-    private serviceTypeService: ServiceTypeService
+    private serviceTypeService: ServiceTypeService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -99,9 +101,7 @@ export class ServiceTypeModalComponent implements OnInit {
   }
 
   onCancel() {
-    const animationDelay = 150;
-    this.hideModal = true;
-    setTimeout(() => this.showModal = false , animationDelay);
+    this.router.navigateByUrl('/Services');
   }
 
 }

@@ -16,6 +16,10 @@ import { ClientsPageComponent } from './Pages/ClientsPage/ClientsPage.component'
 import { EditEmployeeComponent } from './Pages/EmployeesPage/EditEmployee/EditEmployee.component';
 import { ListEmployeeComponent } from './Pages/EmployeesPage/ListEmployee/ListEmployee.component';
 import { NewEmployeeComponent } from './Pages/EmployeesPage/NewEmployee/NewEmployee.component';
+import { ListClientsComponent } from './Pages/ClientsPage/ListClients/ListClients.component';
+import { ListServiceComponent } from './Pages/ServicesPage/ListService/ListService.component';
+import { EditServiceComponent } from './Pages/ServicesPage/EditService/EditService.component';
+import { NewServiceComponent } from './Pages/ServicesPage/NewService/NewService.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
@@ -27,8 +31,15 @@ const routes: Routes = [
     {path: 'Edit', component: EditEmployeeComponent},
     {path: 'New', component: NewEmployeeComponent},
   ] },
-  { path: 'Services', component: ServicesPageComponent },
-  { path: 'Clients', component: ClientsPageComponent },
+  { path: 'Services', component: ServicesPageComponent , children: [
+    {path: '', component: ListServiceComponent},
+    {path: 'Edit', component: EditServiceComponent},
+    {path: 'New', component: NewServiceComponent},
+  ] },
+  {
+    path: 'Clients', component: ClientsPageComponent, children: [
+    {path: '', component: ListClientsComponent},
+  ] },
   { path: 'Account', component: AccountPageComponent, children: [
     {path: '', component: UserInfoComponent},
     {path: 'Name', component: EditNameComponent},

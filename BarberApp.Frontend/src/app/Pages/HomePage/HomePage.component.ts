@@ -111,16 +111,17 @@ export class HomePageComponent implements OnInit {
     setTimeout(() => {
       LoaderComponent.SetOptions(false);
 
+      this.appLoaded = true;
+      GlobalVariables.appLoaded = true;
+
       if (GlobalVariables.isAdmin && GlobalVariables.barbers.length > 0)
         GlobalVariables.selectedBarber = GlobalVariables.barbers[0];
       else
         GlobalVariables.selectedBarber = undefined;
 
       if (GlobalVariables.barbers.length == 0)
-        GlobalVariables.currentSection = 3;
+        this.router.navigateByUrl('/Employees/New');
 
-      this.appLoaded = true;
-      GlobalVariables.appLoaded = true;
 
     }, delay);
   }

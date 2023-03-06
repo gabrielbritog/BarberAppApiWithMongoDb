@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-PlusButton',
@@ -9,8 +10,9 @@ import { GlobalVariables } from '../../Helpers/GlobalVariables';
 export class PlusButtonComponent implements OnInit {
 
   @Input('onClickEvent') onClickEvent = (): void => { };
+  @Input() marginBot = true;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }

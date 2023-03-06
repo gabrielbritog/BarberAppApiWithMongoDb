@@ -1,25 +1,19 @@
-<ng-container *ngIf="!isBlocked">
-  <app-ServiceTypeModal *ngIf="showModal"></app-ServiceTypeModal>
-  <app-PlusButton [onClickEvent]="newServiceType"></app-PlusButton>
-  <div class="section_container">
-
-    <div class="cards_container">
-      <div class="section_title">
-        <h3 class="title">Serviços</h3>
-        <button class="btn tooltip_btn">
-          <i class="fa-solid fa-question"></i>
-        </button>
-      </div>
-      <div class="search_bar_container">
-        <label for="search_bar" class="form_group">
-          <input type="text" id="search_bar" class="card with_icon" [(ngModel)]="searchValue" placeholder="Procurar">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </label>
-      </div>
-      <ng-container *ngFor="let item of allServiceTypes" >
-        <app-ServiceTypeCard [model]="item"></app-ServiceTypeCard>
-      </ng-container>
+<div class="page_container">
+  <div class="header">
+    <div class="container">
+      <button class="btn btn_return" (click)="onCancel()" >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h3>
+        {{headerUrl}}
+      </h3>
     </div>
-
   </div>
-</ng-container>
+
+
+  <section class="router_container">
+    <router-outlet></router-outlet>
+  </section>
+
+</div>
+

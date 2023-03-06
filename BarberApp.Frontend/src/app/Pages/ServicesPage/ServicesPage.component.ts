@@ -1,47 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { Router } from '@angular/router';
+import { TokenStorageService } from '../../Services/token-storage.service';
 
 @Component({
   selector: 'app-ServicesPage',
   templateUrl: './ServicesPage.component.html',
-  styleUrls: ['../../Shared/Styles/baseSection.scss','./ServicesPage.component.scss']
+  styleUrls: ['../../Shared/Styles/basePage.scss', './ServicesPage.component.scss']
 })
 export class ServicesPageComponent implements OnInit {
 
-  searchValue = '';
+  get headerUrl() {
+    let header = 'Serviços'
+    const route = this.router.url.split('/');
+    const lastRoute = route[route.length -1];
+    switch (lastRoute) {
+      case 'New':
+        header += ' / Novo'
+        break;
+      case 'Edit':
+        header += ' / Editar'
+        break;
 
-  get isBlocked() {
-    if (GlobalVariables.isAdmin && GlobalVariables.barbers.length == 0)
-      return true;
+      default:
+        break;
+    }
 
-    return false;
+    return header;
   }
-
-  get showModal() {
-    return GlobalVariables.showServiceTypeModal;
-  }
-
-  get allServiceTypes() {
-    const serviceTypes = GlobalVariables.serviceTypes
-      .filter(p => p.nameService.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-                   p.valueService.toString().includes(this.searchValue));
-    if (GlobalVariables.isAdmin)
-      return serviceTypes.filter(p=>p.barberId == GlobalVariables.selectedBarber?.barberId)
-
-    return serviceTypes;
-  };
-
-  set allServiceTypes(value) {
-    GlobalVariables.serviceTypes = value;
-  };
-
-  constructor() { }
+  constructor(
+    private tokenStorage: TokenStorageService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    // if (!this.tokenStorage.getToken())
+    //   this.router.navigateByUrl('/Login');
+
+    // if (!GlobalVariables.appLoaded)
+    //   this.router.navigateByUrl('/Home');
+
   }
 
-  newServiceType() {
-    GlobalVariables.showServiceTypeModal = true;
+  onCancel() {
+    if (this.router.url == '/Services')
+      this.router.navigateByUrl('/Home');
+    else
+      this.router.navigateByUrl('/Services');
   }
+
 
 }

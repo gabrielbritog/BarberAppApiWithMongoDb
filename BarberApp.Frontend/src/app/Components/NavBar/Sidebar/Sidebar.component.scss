@@ -79,6 +79,10 @@ hr{
   left: -8px;
 }
 
+.sidebar_nav{
+  display: contents;
+}
+
 .user_email, .company_name{
   opacity: .5;
   font-size: .7rem;
@@ -175,6 +179,9 @@ input[type=number]:focus {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  &.last{
+    margin-top: auto;
+  }
   label{
     cursor: pointer;
     width: 100%;

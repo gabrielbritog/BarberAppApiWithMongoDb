@@ -12,16 +12,28 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './Pages/LoginPage/LoginPage.component';
 import { RegisterPageComponent } from './Pages/RegisterPage/RegisterPage.component';
 import { HomePageComponent } from './Pages/HomePage/HomePage.component';
+
+import { WorkFlowPageComponent } from './Pages/WorkFlowPage/WorkFlowPage.component';
+
 import { AccountPageComponent } from './Pages/AccountPage/AccountPage.component';
 import { UserInfoComponent } from './Pages/AccountPage/UserInfo/UserInfo.component';
 import { EditNameComponent } from './Pages/AccountPage/EditName/EditName.component';
 import { EditEmailComponent } from './Pages/AccountPage/EditEmail/EditEmail.component';
 import { EditPasswordComponent } from './Pages/AccountPage/EditPassword/EditPassword.component';
 import { EditPhoneComponent } from './Pages/AccountPage/EditPhone/EditPhone.component';
-import { WorkFlowPageComponent } from './Pages/WorkFlowPage/WorkFlowPage.component';
+
 import { EmployeesPageComponent } from './Pages/EmployeesPage/EmployeesPage.component';
+import { ListEmployeeComponent } from './Pages/EmployeesPage/ListEmployee/ListEmployee.component';
+import { EditEmployeeComponent } from './Pages/EmployeesPage/EditEmployee/EditEmployee.component';
+import { NewEmployeeComponent } from './Pages/EmployeesPage/NewEmployee/NewEmployee.component';
+
 import { ClientsPageComponent } from './Pages/ClientsPage/ClientsPage.component';
+import { ListClientsComponent } from './Pages/ClientsPage/ListClients/ListClients.component';
+
 import { ServicesPageComponent } from './Pages/ServicesPage/ServicesPage.component';
+import { ListServiceComponent } from './Pages/ServicesPage/ListService/ListService.component';
+import { EditServiceComponent } from './Pages/ServicesPage/EditService/EditService.component';
+import { NewServiceComponent } from './Pages/ServicesPage/NewService/NewService.component';
 
 // SERVICES
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
@@ -56,15 +68,10 @@ import { HistorySectionComponent } from './Pages/HomePage/Sections/HistorySectio
 
 // MODALS
 import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
-import { ServiceTypeModalComponent } from './Components/Modals/ServiceTypeModal/ServiceTypeModal.component';
-import { BarberModalComponent } from './Components/Modals/BarberModal/BarberModal.component';
 
 // MISC
 import { ToastrModule } from 'ngx-toastr';
 import { NgxCurrencyModule } from 'ngx-currency';
-import { ListEmployeeComponent } from './Pages/EmployeesPage/ListEmployee/ListEmployee.component';
-import { EditEmployeeComponent } from './Pages/EmployeesPage/EditEmployee/EditEmployee.component';
-import { NewEmployeeComponent } from './Pages/EmployeesPage/NewEmployee/NewEmployee.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +96,13 @@ import { NewEmployeeComponent } from './Pages/EmployeesPage/NewEmployee/NewEmplo
     NewEmployeeComponent,
 
     ClientsPageComponent,
+    ListClientsComponent,
+
     ServicesPageComponent,
+    ListServiceComponent,
+    EditServiceComponent,
+    NewServiceComponent,
+
     WorkFlowPageComponent,
 
 
@@ -119,9 +132,7 @@ import { NewEmployeeComponent } from './Pages/EmployeesPage/NewEmployee/NewEmplo
     CarouselServiceTypesComponent,
 
     // MODAL
-    SchedulingModalComponent,
-    ServiceTypeModalComponent,
-    BarberModalComponent
+    SchedulingModalComponent
   ],
   imports: [
     NgxCurrencyModule,

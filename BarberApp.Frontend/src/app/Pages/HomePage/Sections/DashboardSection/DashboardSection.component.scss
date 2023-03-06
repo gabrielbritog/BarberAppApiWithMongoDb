@@ -78,6 +78,12 @@ section{
   width: 80vw;
 }
 
+.linha .wrapper{
+  transform: translateX(calc(-1 * var(--section-padding-X)));
+  padding: 0 var(--section-padding-X);
+  width: 100vw;
+}
+
 .coluna .card_item{
   width: 100%;
   min-height: 4rem;

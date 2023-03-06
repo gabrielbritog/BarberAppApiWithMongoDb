@@ -5,6 +5,9 @@
   position: fixed;
   animation: .5s show forwards;
   z-index: 1;
+  &.no-margin{
+    bottom: 0;
+  }
   &.hide{
     animation: .5s hide forwards;
   }

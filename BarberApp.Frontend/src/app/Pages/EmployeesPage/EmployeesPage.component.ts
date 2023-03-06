@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { TokenStorageService } from '../../Services/token-storage.service';
 
 @Component({
   selector: 'app-EmployeesPage',
@@ -10,6 +11,25 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 export class EmployeesPageComponent implements OnInit {
 
   searchValue = "";
+
+  get headerUrl() {
+    let header = 'Funcionários'
+    const route = this.router.url.split('/');
+    const lastRoute = route[route.length -1];
+    switch (lastRoute) {
+      case 'New':
+        header += ' / Novo'
+        break;
+      case 'Edit':
+        header += ' / Editar'
+        break;
+
+      default:
+        break;
+    }
+
+    return header;
+  }
 
   get showModal() {
     return GlobalVariables.showBarberModal;
@@ -25,10 +45,17 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   constructor(
+    private tokenStorage: TokenStorageService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    if (!this.tokenStorage.getToken())
+      this.router.navigateByUrl('/Login');
+
+    if (!GlobalVariables.appLoaded)
+      this.router.navigateByUrl('/Home');
+
   }
 
   newBarber() {
@@ -36,10 +63,12 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   onCancel() {
-    if (this.router.url == '/Account')
-      this.router.navigateByUrl('/Home');
+    if (this.router.url == '/Employees') {
+      if(GlobalVariables.barbers.length > 0)
+        this.router.navigateByUrl('/Home');
+    }
     else
-      this.router.navigateByUrl('/Account');
+      this.router.navigateByUrl('/Employees');
   }
 
 }

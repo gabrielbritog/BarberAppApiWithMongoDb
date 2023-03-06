@@ -33,6 +33,9 @@
   scroll-snap-stop: always;
   flex: none;
   padding-top: 0;
+  &.no-pad{
+    padding: 0;
+  }
 }
 
 @media (min-width: 1024px) {

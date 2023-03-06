@@ -3,7 +3,7 @@
   <div class="home_container">
     <app-NavBar></app-NavBar>
     <section id="section_container" #sectionContainer>
-        <app-DashboardSection *ngIf="currentSection == 0" class="nav_section" id="dashboard_section"></app-DashboardSection>
+        <app-DashboardSection *ngIf="currentSection == 0" class="nav_section no-pad" id="dashboard_section"></app-DashboardSection>
         <app-SchedulesSection *ngIf="currentSection == 1" class="nav_section" id="schedules_section"></app-SchedulesSection>
         <app-HistorySection *ngIf="currentSection == 2" class="nav_section" id="history_section"></app-HistorySection>
     </section>

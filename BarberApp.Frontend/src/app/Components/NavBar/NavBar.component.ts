@@ -11,7 +11,13 @@ import * as moment from 'moment';
 })
 export class NavBarComponent implements OnInit {
 
-  sidebarExpanded = false;
+  get sidebarExpanded() {
+    return GlobalVariables.sidebarExpanded;
+  }
+
+  set sidebarExpanded(value) {
+    GlobalVariables.sidebarExpanded = value;
+  }
 
   get showAdminBoard() {
     return !this.isBlocked && this.isAdmin && this.currentSection == 1;
