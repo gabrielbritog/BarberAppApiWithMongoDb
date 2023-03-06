@@ -3,7 +3,9 @@
 
     <div class="user_container" (click)="closeSidebar()">
       <div class="profile_pic">
-        <i class="fa-solid fa-user placeholder_icon"></i>
+
+        <img *ngIf="loggedUser.urlImage" src="{{loggedUser.urlImage}}" alt="" srcset="">
+        <i *ngIf="!loggedUser.urlImage" class="fa-solid fa-user placeholder_icon"></i>
 
         <div class="sidebar_toggle">
           <i class="fa-solid fa-arrow-left"></i>

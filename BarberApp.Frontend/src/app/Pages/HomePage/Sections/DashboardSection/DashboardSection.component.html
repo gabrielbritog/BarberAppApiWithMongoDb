@@ -67,9 +67,8 @@
           <ng-container *ngIf="top5 === 'func'">
             <div class="wrapper animate_show grid  ">
               <div *ngFor="let item of topEmployees; let i = index"
-              class="card card_item"
+              class="card card_item col-2"
               [class.big-height]="i === 0"
-              [class.col-2]="i === 0"
               [class.medium-height]="i !== 0"
               >
                 <div class="picture" *ngIf="i === 0">

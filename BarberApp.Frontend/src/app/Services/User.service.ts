@@ -74,9 +74,9 @@ export class UserService {
     });
   }
 
-  updateProfilePic(credentials: any): Observable<any>{
+  updateProfilePic(imageBase64: any): Observable<any>{
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {
-      urlImage: credentials.urlImage
+      urlImage: imageBase64
     });
   }
 

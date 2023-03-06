@@ -24,7 +24,7 @@ export class NavBarComponent implements OnInit {
   }
 
   get profilePic() {
-    return this.loggedUser.urlImagem;
+    return this.loggedUser.urlImage;
   }
 
   get currentSection() {

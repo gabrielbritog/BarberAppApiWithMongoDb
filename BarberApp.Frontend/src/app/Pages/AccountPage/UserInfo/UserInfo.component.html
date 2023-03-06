@@ -1,9 +1,12 @@
-<div class="user_info container animate_show">
+    <input type="file"
+    accept="image/*" (change)="uploadProfilePic($event)">
+    <div class="user_info container animate_show">
   <div class="profile_pic">
     <button type="button" class="btn edit_btn">
       <i class="fa-solid fa-camera"></i>
     </button>
-    <i class="fa-solid fa-user placeholder_icon"></i>
+    <img *ngIf="userInfo.urlImage" src="{{userInfo.urlImage}}" alt="" srcset="">
+    <i *ngIf="!userInfo.urlImage" class="fa-solid fa-user placeholder_icon"></i>
   </div>
 
   <app-AccountCard [title]="'Nome'" [content]="userInfo.firstName + ' ' + userInfo.lastName" (click)="goToRoute('Name')" ></app-AccountCard>
