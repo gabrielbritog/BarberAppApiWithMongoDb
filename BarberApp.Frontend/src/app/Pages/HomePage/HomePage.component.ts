@@ -44,6 +44,7 @@ export class HomePageComponent implements OnInit {
     }
 
     DashboardSectionComponent.clearProperties();
+    GlobalVariables.sidebarExpanded = false;
     LoaderComponent.SetOptions(true);
 
     const userModel = this.tokenStorage.getUserModel();

@@ -47,6 +47,7 @@ hr{
   margin-top: 0.5rem;
   align-items: center;
   .profile_pic{
+    cursor: pointer;
     position: relative;
     place-items: center;
     background-color: var(--app-color-input-bg);

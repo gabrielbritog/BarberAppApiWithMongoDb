@@ -1,8 +1,8 @@
 <div class="base_bg" id="base-bg">
   <div class="base_container">
 
-    <div class="user_container" (click)="closeSidebar()">
-      <div class="profile_pic">
+    <div class="user_container">
+      <div class="profile_pic" (click)="closeSidebar()">
 
         <img *ngIf="loggedUser.urlImage" src="{{loggedUser.urlImage}}" alt="" srcset="">
         <i *ngIf="!loggedUser.urlImage" class="fa-solid fa-user placeholder_icon"></i>
