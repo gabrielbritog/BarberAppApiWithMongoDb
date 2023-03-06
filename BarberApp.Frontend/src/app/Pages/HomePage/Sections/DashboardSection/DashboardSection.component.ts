@@ -59,6 +59,7 @@ export class DashboardSectionComponent implements OnInit {
   static _topEmployees: TopEmployee[] = [];
   static _topServices: any[] = [];
   static _schedulesInPeriod: ScheduleModel[] = [];
+  static _historic: any[] = [];
 
   get topClients() {
     return DashboardSectionComponent._topClients;
@@ -72,6 +73,11 @@ export class DashboardSectionComponent implements OnInit {
   get schedulesInPeriod() {
     return DashboardSectionComponent._schedulesInPeriod;
   }
+  get historic() {
+    return DashboardSectionComponent._historic;
+  }
+
+
   get isAdmin() {
     return GlobalVariables.isAdmin;
   }
@@ -80,6 +86,7 @@ export class DashboardSectionComponent implements OnInit {
   loadedTopEmployees = false;
   loadedTopServices = false;
   loadedSchedulesInPeriod = false;
+  loadedHistoric = false;
 
   get isDashboardLoaded() {
     return DashboardSectionComponent._topEmployees.length == 0 && DashboardSectionComponent._topClients.length == 0 && DashboardSectionComponent._schedulesInPeriod.length == 0;
@@ -97,7 +104,8 @@ export class DashboardSectionComponent implements OnInit {
   static clearProperties() {
     DashboardSectionComponent._topEmployees =
       DashboardSectionComponent._topClients =
-      DashboardSectionComponent._schedulesInPeriod = [];
+      DashboardSectionComponent._historic =
+        DashboardSectionComponent._schedulesInPeriod = [];
 
     DashboardSectionComponent._startDate = moment().add(-7, 'days').format('YYYY-MM-DD');
     DashboardSectionComponent._endDate = moment().format('YYYY-MM-DD');
@@ -111,6 +119,26 @@ export class DashboardSectionComponent implements OnInit {
     this.getTop5Clients();
     this.getTop5Employees();
     this.getTop5Services();
+  }
+
+  getHistoric() {
+    const startDate = moment(this.startDate).utc(true).toISOString();
+    const endDate = moment(this.endDate).utc(true).toISOString();
+
+    const API_CALL = this.dashboard.getHistoric(startDate, endDate);
+
+    API_CALL.subscribe({
+      next: (data: any) => {
+        DashboardSectionComponent._historic = [...data.data];
+        console.log(data)
+        this.loadedHistoric = true;
+        this.requestSucceded();
+      },
+      error: (err) => {
+        console.log(err);
+        LoaderComponent.SetOptions(false);
+      }
+    })
   }
 
   getSchedulesInPeriod() {
@@ -196,9 +224,10 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   requestSucceded() {
-    if (this.loadedSchedulesInPeriod && this.loadedTopClients && this.loadedTopEmployees && this.loadedTopServices) {
+    if (this.loadedSchedulesInPeriod && this.loadedTopClients && this.loadedTopEmployees && this.loadedTopServices && this.loadedHistoric) {
       LoaderComponent.SetOptions(false);
       this.loadedSchedulesInPeriod =
+        this.loadedHistoric =
         this.loadedTopClients =
         this.loadedTopEmployees =
         this.loadedTopServices = false;
