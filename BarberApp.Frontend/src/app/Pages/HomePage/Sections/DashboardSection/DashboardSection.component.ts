@@ -4,6 +4,17 @@ import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { DashboardService } from '../../../../Services/Dashboard.service';
 
+
+export interface TopClient{
+  schedulingCount: number;
+  name: string;
+  phone: string;
+}
+export interface TopEmployee{
+  name: string;
+  total: string;
+}
+
 @Component({
   selector: 'app-DashboardSection',
   templateUrl: './DashboardSection.component.html',
@@ -43,10 +54,23 @@ export class DashboardSectionComponent implements OnInit {
     DashboardSectionComponent._endDate = value;
   }
 
-  static topClients: any[] = [];
-  static topEmployees: any[] = [];
-  static topServices: any[] = [];
-  static schedulesInPeriod: ScheduleModel[] = [];
+  static _topClients: TopClient[] = [];
+  static _topEmployees: TopEmployee[] = [];
+  static _topServices: any[] = [];
+  static _schedulesInPeriod: ScheduleModel[] = [];
+
+  get topClients() {
+    return DashboardSectionComponent._topClients;
+  }
+  get topEmployees() {
+    return DashboardSectionComponent._topEmployees;
+  }
+  get topServices() {
+    return DashboardSectionComponent._topServices;
+  }
+  get schedulesInPeriod() {
+    return DashboardSectionComponent._schedulesInPeriod;
+  }
 
   loadedTopClients = false;
   loadedTopEmployees = false;
@@ -54,7 +78,7 @@ export class DashboardSectionComponent implements OnInit {
   loadedSchedulesInPeriod = false;
 
   get isDashboardLoaded() {
-    return DashboardSectionComponent.topEmployees.length == 0 && DashboardSectionComponent.topClients.length == 0 && DashboardSectionComponent.schedulesInPeriod.length == 0;
+    return DashboardSectionComponent._topEmployees.length == 0 && DashboardSectionComponent._topClients.length == 0 && DashboardSectionComponent._schedulesInPeriod.length == 0;
   }
 
   constructor(
@@ -67,9 +91,9 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   static clearProperties() {
-    DashboardSectionComponent.topEmployees =
-      DashboardSectionComponent.topClients =
-      DashboardSectionComponent.schedulesInPeriod = [];
+    DashboardSectionComponent._topEmployees =
+      DashboardSectionComponent._topClients =
+      DashboardSectionComponent._schedulesInPeriod = [];
 
     DashboardSectionComponent._startDate = moment().add(-7, 'days').format('YYYY-MM-DD');
     DashboardSectionComponent._endDate = moment().format('YYYY-MM-DD');
@@ -93,8 +117,7 @@ export class DashboardSectionComponent implements OnInit {
 
     API_CALL.subscribe({
       next: (data: any) => {
-        console.log(data.data);
-        DashboardSectionComponent.schedulesInPeriod = data.data;
+        DashboardSectionComponent._schedulesInPeriod = [...data.data];
         this.loadedSchedulesInPeriod = true;
         this.requestSucceded();
       },
@@ -114,8 +137,7 @@ export class DashboardSectionComponent implements OnInit {
 
     API_CALL.subscribe({
       next: (data: any) => {
-        console.log(data.data);
-        DashboardSectionComponent.topClients = data.data;
+        DashboardSectionComponent._topClients = [...data.data];
         this.loadedTopClients = true;
         this.requestSucceded();
       },
@@ -135,8 +157,10 @@ export class DashboardSectionComponent implements OnInit {
 
     API_CALL.subscribe({
       next: (data: any) => {
-        console.log(data.data);
-        DashboardSectionComponent.topEmployees = data.data;
+        DashboardSectionComponent._topEmployees = [...data.data.map((p: string) => {
+          const stringResponse = p.split(':');
+          return { name: stringResponse[0], total: stringResponse[1] };
+        })];
         this.loadedTopEmployees = true;
         this.requestSucceded();
       },
@@ -156,8 +180,7 @@ export class DashboardSectionComponent implements OnInit {
 
     API_CALL.subscribe({
       next: (data: any) => {
-        console.log(data.data);
-        DashboardSectionComponent.topServices = data.data;
+        DashboardSectionComponent._topServices = [...data.data];
         this.loadedTopServices = true;
         this.requestSucceded();
       },
@@ -182,6 +205,10 @@ export class DashboardSectionComponent implements OnInit {
 
   dateChanged() {
     this.quickDate = '';
+    console.log(DashboardSectionComponent._schedulesInPeriod);
+    console.log(DashboardSectionComponent._topEmployees);
+    console.log(DashboardSectionComponent._topClients);
+    console.log(DashboardSectionComponent._topServices);
 
     this.loadProperties();
   }

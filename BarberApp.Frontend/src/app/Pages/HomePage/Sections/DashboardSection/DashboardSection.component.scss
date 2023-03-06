@@ -61,9 +61,7 @@ section{
   padding: 0.5rem 0.8rem;
   border-radius: 50px;
   line-height: 1;
-  opacity: .35;
   &.active{
-    opacity: 1;
     font-weight: 600;
     background-color: var(--app-color-primary);
     color: black;
@@ -71,6 +69,7 @@ section{
 }
 
 .card_item{
+  overflow: hidden;
   margin: 0;
 }
 
@@ -103,10 +102,10 @@ section{
     height: 12rem;
   }
   &.big-height{
-    height: 9rem;
+    height: 8rem;
   }
   &.medium-height{
-    height: 6rem;
+    height: 5rem;
   }
   &.small-height{
     height: 3rem;
@@ -159,4 +158,38 @@ input[type=date]::before{
   width: 3rem;
   height: 100%;
   pointer-events: none;
+}
+
+
+.top5_section .card.card_item{
+  display: flex;
+  line-height: 1;
+  padding: 0.75rem;
+  font-size: 1.4rem;
+  text-align: left;
+  .content{
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .picture{
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1 / 1;
+    font-size: 3.5rem;
+    background-color: gold;
+    // background-color: black;
+    color: white;
+  }
+  &.big-height{
+    font-size: 2rem;
+    // color: black;
+  }
+  p{
+    width: 100%;
+    text-align: right;
+  }
+
 }

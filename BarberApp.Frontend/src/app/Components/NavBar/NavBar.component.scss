@@ -3,11 +3,11 @@ nav{
   height: 5.5rem;
   background-color: var(--app-color-bg-alt);
   border-bottom: 1px solid  var(--app-color-light-border);
-  box-shadow: 0px 3px 5px 0px var(--app-color-bg);
+  box-shadow: 0px 3px 5px 0px rgb(0 0 0 / .075);
   z-index: var(--nav-zindex);
   &.adminBoardVisible{
     border-bottom: 1px solid  transparent;
-    box-shadow: 0px 0px 0px 0px var(--app-color-bg);
+    box-shadow: 0px 0px 0px 0px rgb(0 0 0 / .075);
   }
 }
 
@@ -97,7 +97,7 @@ nav{
   text-align: center;
   background-color: var(--app-color-bg-alt);
   border-top: 1px solid var(--app-color-light-border);
-  box-shadow: 0px -3px 5px 0px var(--app-color-bg);
+  box-shadow: 0px -3px 5px 0px rgb(0 0 0 / .075);
   transition: all .5s ease-in-out;
   &.hide{
     transform: translateY(100vh);
