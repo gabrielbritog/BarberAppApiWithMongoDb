@@ -40,12 +40,14 @@ section{
 }
 
 .wrapper{
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   overflow: auto;
 }
 
 .nowrap{
+  min-width: 100%;
   display: flex;
   flex-wrap: nowrap;
   width: fit-content;
@@ -95,6 +97,11 @@ section{
 .grid .card_item.row-2{
   grid-row: span 2;
   height: auto;
+}
+
+.income-chart.card.card_item{
+  width: 100%;
+  background-color: darkseagreen;
 }
 
 .card_item{

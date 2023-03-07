@@ -4,6 +4,8 @@ import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { DashboardService } from '../../../../Services/Dashboard.service';
 import { GlobalVariables } from '../../../../Helpers/GlobalVariables';
+import { Chart, registerables } from './../../../../../../node_modules/chart.js';
+Chart.register(...registerables);
 
 
 export interface TopClient{
@@ -99,6 +101,8 @@ export class DashboardSectionComponent implements OnInit {
   ngOnInit() {
     if (this.isDashboardLoaded)
       this.loadProperties();
+    else
+      this.createIncomeChart();
   }
 
   static clearProperties() {
@@ -123,8 +127,11 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   getHistoric() {
-    const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).utc(true).toISOString();
+    DashboardSectionComponent._historic = [];
+    this.loadedHistoric = true;
+    return;
+    const startDate = 1;//moment(this.startDate).utc(true).toISOString();
+    const endDate = 10;//moment(this.endDate).utc(true).toISOString();
 
     const API_CALL = this.dashboard.getHistoric(startDate, endDate);
 
@@ -144,13 +151,16 @@ export class DashboardSectionComponent implements OnInit {
 
   getSchedulesInPeriod() {
     const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).utc(true).toISOString();
+    const endDate = moment(this.endDate).hour(23).minute(59).utc(true).toISOString();
 
     const API_CALL = this.dashboard.getManySchedulingByDate(startDate, endDate);
 
     API_CALL.subscribe({
       next: (data: any) => {
-        DashboardSectionComponent._schedulesInPeriod = [...data.data];
+        const schedules: ScheduleModel[] = data.data;
+        DashboardSectionComponent._schedulesInPeriod = schedules.map((element: any) => {
+          return new ScheduleModel(element)
+        });
         this.loadedSchedulesInPeriod = true;
         this.requestSucceded();
       },
@@ -163,8 +173,7 @@ export class DashboardSectionComponent implements OnInit {
 
   getTop5Clients() {
     const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).utc(true).toISOString();
-
+    const endDate = moment(this.endDate).hour(23).minute(59).utc(true).toISOString();
     const API_CALL = this.dashboard.getTopClients(5, startDate, endDate);
 
 
@@ -183,7 +192,7 @@ export class DashboardSectionComponent implements OnInit {
 
   getTop5Employees() {
     const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).utc(true).toISOString();
+    const endDate = moment(this.endDate).hour(23).minute(59).utc(true).toISOString();
 
     const API_CALL = this.dashboard.getTopEmployees(5, startDate, endDate);
 
@@ -206,7 +215,7 @@ export class DashboardSectionComponent implements OnInit {
 
   getTop5Services() {
     const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).utc(true).toISOString();
+    const endDate = moment(this.endDate).hour(23).minute(59).utc(true).toISOString();
 
     const API_CALL = this.dashboard.getTopServices(5, startDate, endDate);
 
@@ -227,6 +236,7 @@ export class DashboardSectionComponent implements OnInit {
   requestSucceded() {
     if (this.loadedSchedulesInPeriod && this.loadedTopClients && this.loadedTopEmployees && this.loadedTopServices && this.loadedHistoric) {
       LoaderComponent.SetOptions(false);
+      this.createIncomeChart();
       this.loadedSchedulesInPeriod =
         this.loadedHistoric =
         this.loadedTopClients =
@@ -239,10 +249,6 @@ export class DashboardSectionComponent implements OnInit {
 
   dateChanged() {
     this.quickDate = '';
-    console.log(DashboardSectionComponent._schedulesInPeriod);
-    console.log(DashboardSectionComponent._topEmployees);
-    console.log(DashboardSectionComponent._topClients);
-    console.log(DashboardSectionComponent._topServices);
 
     this.loadProperties();
   }
@@ -271,6 +277,122 @@ export class DashboardSectionComponent implements OnInit {
 
   setTop5(top5: string) {
     this.top5 = top5;
+  }
+
+  createIncomeChart() {
+    const ctx = document.getElementById('income-chart') as HTMLCanvasElement;
+    const startDate = moment(this.startDate);
+    const endDate = moment(this.endDate).hour(23).minute(59);
+    const diffDates = endDate.diff(startDate, 'days');
+    const diffDatesInMonths = endDate.diff(startDate, 'months');
+    const diffDatesInYears = endDate.diff(startDate, 'years');
+    const labelsInChart: string[] = [];
+    const dataInChart: number[] = [];
+
+
+    if (diffDatesInMonths <= 1){
+      for (let index = 0; index <= diffDates; index++) {
+        const currentDate = moment(this.startDate).add(index, 'days');
+        const filteredSchedules = this.schedulesInPeriod.filter(p => p.date == currentDate.format('MM/DD/YYYY'));
+        const totalFromSchedules = filteredSchedules.map(p => p.total!).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
+
+        dataInChart.push(totalFromSchedules);
+        labelsInChart.push(currentDate.format('DD/MM'));
+      }
+    }
+    else if (diffDatesInMonths <= 12) {
+      for (let index = 0; index <= diffDatesInMonths; index++) {
+        const currentDate = moment(this.startDate).add(index, 'months');
+
+        const filteredSchedules = this.schedulesInPeriod
+          .filter(p =>
+            p.date.includes(currentDate.format('MM/')) &&
+            p.date.includes(currentDate.format('YYYY')));
+        const totalFromSchedules = filteredSchedules.map(p => p.total!).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
+
+        dataInChart.push(totalFromSchedules);
+        labelsInChart.push(currentDate.locale('pt-br').format('MMM'));
+      }
+    }
+    else {
+      for (let index = 0; index <= diffDatesInYears; index++) {
+        const currentDate = moment(this.startDate).add(index, 'years');
+
+        const filteredSchedules = this.schedulesInPeriod
+          .filter(p =>
+            p.date.includes(currentDate.format('YYYY')));
+        const totalFromSchedules = filteredSchedules.map(p => p.total!).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
+
+        dataInChart.push(totalFromSchedules);
+        labelsInChart.push(currentDate.format('YYYY'));
+      }
+    }
+
+
+    const chartExist = Chart.getChart('income-chart');
+    if (chartExist != undefined)
+      chartExist.destroy();
+
+
+    new Chart('income-chart', {
+      type: 'line',
+      data: {
+        labels: labelsInChart,
+        datasets: [{
+          label: 'R$',
+          data: dataInChart,
+          fill: true,
+          backgroundColor: 'green',
+          borderColor: 'green',
+          pointBackgroundColor: 'white',
+          tension: 0.25
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            ticks: {
+              color: 'black'
+            }
+          },
+          y: {
+            ticks: {
+              color: 'black'
+            },
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          title: {
+              color: 'black',
+              align: 'start',
+              display: true,
+              text: 'Receita',
+              padding: {
+                top: 0,
+                bottom: 30
+              }
+          },
+          legend: {
+              display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                let label = '';
+
+                if (context.parsed.y !== null) {
+                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
+                }
+
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
   }
 
   onCancel() {

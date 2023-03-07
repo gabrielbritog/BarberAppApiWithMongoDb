@@ -17,11 +17,11 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
-  getHistoric(startDate: string, endDate: string): Observable<any> {
+  getHistoric(start: number, end: number): Observable<any> {
     return this.http.get<any>(BASE_URL_API + ROUTE_HISTORIC, {
       params: {
-        startDate: startDate,
-        endDate: endDate
+        startDate: start,
+        endDate: end
       }
     });
   }

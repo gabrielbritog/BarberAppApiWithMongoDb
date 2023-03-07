@@ -29,15 +29,12 @@
         <h4 class="title  ">Estatísticas</h4>
         <div class="wrapper  ">
           <div class="nowrap">
-            <div class="card card_item biggest-height">
-              Primeiro
+            <div class="card income-chart card_item biggest-height">
+              <canvas id="income-chart"></canvas>
             </div>
-            <div class="card card_item biggest-height">
-              segundo
-            </div>
-            <div class="card card_item biggest-height">
-              terceiro
-            </div>
+            <!-- <div class="card card_item biggest-height">
+              <canvas id="schedules_count-chart"></canvas>
+            </div> -->
           </div>
         </div>
       </section>
@@ -95,7 +92,7 @@
                   <i class="fa-solid fa-trophy"></i>
                 </div>
                 <div class="content">
-                  <span>{{item.name}}</span>
+                  <h4>{{item.name}}</h4>
                   <p>{{item.schedulingCount}}</p>
                 </div>
               </div>
