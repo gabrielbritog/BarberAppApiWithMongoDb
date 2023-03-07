@@ -9,6 +9,8 @@ import { ClientModel } from '../../../Models/ClientModel';
 export class ClientCardComponent implements OnInit {
 
   @Input('model') clientModel = new ClientModel();
+  @Input() bigInfo?: string;
+  @Input() smallInfo?: string;
 
   constructor() { }
 

@@ -14,5 +14,15 @@
       <span>{{clientModel.phone}}</span>
     </div>
   </div>
+  <ng-container *ngIf="bigInfo || smallInfo">
+    <div class="aditional_info">
+      <ng-container *ngIf="bigInfo">
+        <span class="big-info">{{bigInfo}}</span>
+      </ng-container>
+      <ng-container *ngIf="smallInfo">
+        <span class="small-info">{{smallInfo}}</span>
+      </ng-container>
+    </div>
+  </ng-container>
 
 </div>

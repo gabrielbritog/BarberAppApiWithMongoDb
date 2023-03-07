@@ -25,48 +25,29 @@
 
       </section>
 
-      <section class="animate_show linha pad-x">
-        <h4 class="title  ">Estatísticas</h4>
-        <div class="wrapper  ">
-          <div class="nowrap">
-            <div class="card income-chart card_item biggest-height">
+      <section class="animate_show container">
+        <div class="wrapper">
+          <div class="card card-chart income-chart card_item medium-height">
+            <div class="card_content">
+              <h5>Receita</h5>
+              <p>{{formatToMoney(totalInPeriod)}}</p>
+            </div>
+            <div class="chart_container">
               <canvas id="income-chart"></canvas>
             </div>
-            <!-- <div class="card card_item biggest-height">
-              <canvas id="schedules_count-chart"></canvas>
-            </div> -->
           </div>
         </div>
       </section>
 
-      <!-- <section class="animate_show grade">
-        <h4 class="title  ">Financeiro</h4>
-        <div class="wrapper grid  ">
-          <div class="card col-2 card_item medium-height">
-            Primeiro
+      <ng-container *ngIf="topEmployees.length > 0">
+        <section class="animate_show card container grade top5_section">
+          <div class="section_header d-flex justify-between  ">
+            <h4 class="title">Funcionários</h4>
           </div>
-        </div>
-      </section> -->
 
-      <section class="animate_show grade pad-x top5_section">
-        <div class="section_header d-flex justify-between  ">
-          <h4 class="title">Top 5</h4>
-          <div class="top5_group chips_group d-flex">
-            <div class="card card_chip" [class.active]="top5 == 'func'" (click)="setTop5('func')">
-              Funcionários
-            </div>
-            <div class="card card_chip" [class.active]="top5 == 'clients'" (click)="setTop5('clients')">
-              Clientes
-            </div>
-          </div>
-        </div>
-
-          <ng-container *ngIf="top5 === 'func'">
             <div class="wrapper animate_show grid  ">
-              <div *ngFor="let item of topEmployees; let i = index"
-              class="card card_item col-2"
-              [class.big-height]="i === 0"
-              [class.medium-height]="i !== 0"
+              <!-- <div *ngFor="let item of topEmployees; let i = index"
+              class="card card_item small-card col-2"
               >
                 <div class="picture" *ngIf="i === 0">
                   <i class="fa-solid fa-trophy"></i>
@@ -75,31 +56,34 @@
                   <h4>{{item.name}}</h4>
                   <p>{{item.total}}</p>
                 </div>
-              </div>
+              </div> -->
+
+              <ng-container *ngFor="let item of topEmployees; let i = index">
+                <app-BarberCard [model]="item.employee"></app-BarberCard>
+              </ng-container>
             </div>
 
-          </ng-container>
+        </section>
+      </ng-container>
 
-          <ng-container *ngIf="top5 === 'clients'">
-            <div class="wrapper animate_show grid  ">
-              <div *ngFor="let item of topClients; let i = index"
-              class="card card_item"
-              [class.big-height]="i === 0"
-              [class.col-2]="i === 0"
-              [class.medium-height]="i !== 0"
-              >
-                <div class="picture" *ngIf="i === 0">
-                  <i class="fa-solid fa-trophy"></i>
-                </div>
-                <div class="content">
-                  <h4>{{item.name}}</h4>
-                  <p>{{item.schedulingCount}}</p>
-                </div>
-              </div>
-            </div>
-          </ng-container>
+      <ng-container *ngIf="topClients.length > 0">
+        <section class="animate_show card container top5_section">
+          <div class="section_header d-flex justify-between  ">
+            <h4 class="title">Clientes</h4>
+          </div>
 
-      </section>
+          <div class="wrapper animate_show flex_column">
+            <ng-container *ngFor="let item of topClients; let i = index">
+              <app-ClientCard
+              [model]="item.client"
+              [bigInfo]="formatToMoney(item.totalValue)"
+              [smallInfo]="'em '+ item.count + (item.count > 1? ' visitas': ' visita')"></app-ClientCard>
+            </ng-container>
+          </div>
+
+        </section>
+      </ng-container>
+
     </section>
 
   </div>

@@ -28,6 +28,7 @@
   }
   .content{
     flex-grow: 1;
+    text-align: left;
     .title{
       font-size: 1rem;
     }
@@ -43,6 +44,19 @@
       span{
         opacity: .45;
       }
+    }
+  }
+  .aditional_info{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    .big-info{
+      font-size: 1rem;
+    }
+    .small-info{
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+      opacity: 0.45;
     }
   }
   .edit_btn{

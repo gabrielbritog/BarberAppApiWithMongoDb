@@ -5,17 +5,25 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { DashboardService } from '../../../../Services/Dashboard.service';
 import { GlobalVariables } from '../../../../Helpers/GlobalVariables';
 import { Chart, registerables } from './../../../../../../node_modules/chart.js';
+import { ClientModel } from '../../../../Models/ClientModel';
+import { BarberModel } from '../../../../Models/BarberModel';
+import { ServiceTypeModel } from '../../../../Models/ServiceTypeModel';
 Chart.register(...registerables);
 
-
 export interface TopClient{
-  schedulingCount: number;
-  name: string;
-  phone: string;
+  client: ClientModel;
+  count: number;
+  totalValue: number;
 }
 export interface TopEmployee{
-  name: string;
-  total: string;
+  employee: BarberModel;
+  count: number;
+  totalValue: number;
+}
+export interface TopService{
+  service: ServiceTypeModel;
+  count: number;
+  totalValue: number;
 }
 
 @Component({
@@ -31,14 +39,6 @@ export class DashboardSectionComponent implements OnInit {
   }
   set quickDate(value) {
     DashboardSectionComponent._quickDate = value;
-  }
-
-  static _top5 = 'func';
-  get top5() {
-    return DashboardSectionComponent._top5;
-  }
-  set top5(value) {
-    DashboardSectionComponent._top5 = value;
   }
 
   static _startDate = moment().add(-7, 'days').format('YYYY-MM-DD');
@@ -59,9 +59,8 @@ export class DashboardSectionComponent implements OnInit {
 
   static _topClients: TopClient[] = [];
   static _topEmployees: TopEmployee[] = [];
-  static _topServices: any[] = [];
+  static _topServices: TopService[] = [];
   static _schedulesInPeriod: ScheduleModel[] = [];
-  static _historic: any[] = [];
 
   get topClients() {
     return DashboardSectionComponent._topClients;
@@ -75,8 +74,9 @@ export class DashboardSectionComponent implements OnInit {
   get schedulesInPeriod() {
     return DashboardSectionComponent._schedulesInPeriod;
   }
-  get historic() {
-    return DashboardSectionComponent._historic;
+
+  get totalInPeriod() {
+    return this.schedulesInPeriod.map(p=>p.total?? 0).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
   }
 
 
@@ -88,10 +88,9 @@ export class DashboardSectionComponent implements OnInit {
   loadedTopEmployees = false;
   loadedTopServices = false;
   loadedSchedulesInPeriod = false;
-  loadedHistoric = false;
 
-  get isDashboardLoaded() {
-    return DashboardSectionComponent._historic.length == 0 && DashboardSectionComponent._topEmployees.length == 0 && DashboardSectionComponent._topClients.length == 0 && DashboardSectionComponent._schedulesInPeriod.length == 0;
+  get isDashboardNotLoaded() {
+    return DashboardSectionComponent._topEmployees.length == 0 && DashboardSectionComponent._topClients.length == 0 && DashboardSectionComponent._schedulesInPeriod.length == 0;
   }
 
   constructor(
@@ -99,7 +98,7 @@ export class DashboardSectionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.isDashboardLoaded)
+    if (this.isDashboardNotLoaded)
       this.loadProperties();
     else
       this.createIncomeChart();
@@ -108,45 +107,20 @@ export class DashboardSectionComponent implements OnInit {
   static clearProperties() {
     DashboardSectionComponent._topEmployees =
       DashboardSectionComponent._topClients =
-      DashboardSectionComponent._historic =
         DashboardSectionComponent._schedulesInPeriod = [];
 
     DashboardSectionComponent._startDate = moment().add(-7, 'days').format('YYYY-MM-DD');
     DashboardSectionComponent._endDate = moment().format('YYYY-MM-DD');
 
-    DashboardSectionComponent._top5 = 'func';
     DashboardSectionComponent._quickDate = 'week';
+  }
+
+  formatToMoney(value: number | string) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
   loadProperties() {
     this.getSchedulesInPeriod();
-    this.getHistoric();
-    this.getTop5Clients();
-    this.getTop5Employees();
-    this.getTop5Services();
-  }
-
-  getHistoric() {
-    DashboardSectionComponent._historic = [];
-    this.loadedHistoric = true;
-    return;
-    const startDate = 1;//moment(this.startDate).utc(true).toISOString();
-    const endDate = 10;//moment(this.endDate).utc(true).toISOString();
-
-    const API_CALL = this.dashboard.getHistoric(startDate, endDate);
-
-    API_CALL.subscribe({
-      next: (data: any) => {
-        DashboardSectionComponent._historic = [...data.data];
-        console.log(data)
-        this.loadedHistoric = true;
-        this.requestSucceded();
-      },
-      error: (err) => {
-        console.log(err);
-        LoaderComponent.SetOptions(false);
-      }
-    })
   }
 
   getSchedulesInPeriod() {
@@ -162,6 +136,10 @@ export class DashboardSectionComponent implements OnInit {
           return new ScheduleModel(element)
         });
         this.loadedSchedulesInPeriod = true;
+
+        this.getTop5Clients();
+        this.getTop5Employees();
+        this.getTop5Services();
         this.requestSucceded();
       },
       error: (err) => {
@@ -172,73 +150,44 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   getTop5Clients() {
-    const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).hour(23).minute(59).utc(true).toISOString();
-    const API_CALL = this.dashboard.getTopClients(5, startDate, endDate);
+    const schedules = this.schedulesInPeriod;
+    const topClients: TopClient[] = schedules.map(p => {
+      let topClient: TopClient;
+      topClient = {
+        client: p.client,
+        count: 1,
+        totalValue: p.total ?? 0
+      };
+      return topClient;
+    });
+
+  // client: ClientModel;
+  // count: number;
+  // totalValue: string;
 
 
-    API_CALL.subscribe({
-      next: (data: any) => {
-        DashboardSectionComponent._topClients = [...data.data];
-        this.loadedTopClients = true;
-        this.requestSucceded();
-      },
-      error: (err) => {
-        console.log(err);
-        LoaderComponent.SetOptions(false);
-      }
-    })
+    DashboardSectionComponent._topClients = topClients;
+    this.loadedTopClients = true;
+    return;
   }
 
   getTop5Employees() {
-    const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).hour(23).minute(59).utc(true).toISOString();
-
-    const API_CALL = this.dashboard.getTopEmployees(5, startDate, endDate);
-
-
-    API_CALL.subscribe({
-      next: (data: any) => {
-        DashboardSectionComponent._topEmployees = [...data.data.map((p: string) => {
-          const stringResponse = p.split(':');
-          return { name: stringResponse[0], total: stringResponse[1] };
-        })];
-        this.loadedTopEmployees = true;
-        this.requestSucceded();
-      },
-      error: (err) => {
-        console.log(err);
-        LoaderComponent.SetOptions(false);
-      }
-    })
+    DashboardSectionComponent._topEmployees = [];
+    this.loadedTopEmployees = true;
+    return;
   }
 
   getTop5Services() {
-    const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).hour(23).minute(59).utc(true).toISOString();
-
-    const API_CALL = this.dashboard.getTopServices(5, startDate, endDate);
-
-
-    API_CALL.subscribe({
-      next: (data: any) => {
-        DashboardSectionComponent._topServices = [...data.data];
-        this.loadedTopServices = true;
-        this.requestSucceded();
-      },
-      error: (err) => {
-        console.log(err);
-        LoaderComponent.SetOptions(false);
-      }
-    })
+    DashboardSectionComponent._topServices = [];
+    this.loadedTopServices = true;
+    return;
   }
 
   requestSucceded() {
-    if (this.loadedSchedulesInPeriod && this.loadedTopClients && this.loadedTopEmployees && this.loadedTopServices && this.loadedHistoric) {
+    if (this.loadedSchedulesInPeriod && this.loadedTopClients && this.loadedTopEmployees && this.loadedTopServices) {
       LoaderComponent.SetOptions(false);
       this.createIncomeChart();
       this.loadedSchedulesInPeriod =
-        this.loadedHistoric =
         this.loadedTopClients =
         this.loadedTopEmployees =
         this.loadedTopServices = false;
@@ -273,10 +222,6 @@ export class DashboardSectionComponent implements OnInit {
     }
 
     this.loadProperties();
-  }
-
-  setTop5(top5: string) {
-    this.top5 = top5;
   }
 
   createIncomeChart() {
@@ -339,41 +284,51 @@ export class DashboardSectionComponent implements OnInit {
       data: {
         labels: labelsInChart,
         datasets: [{
-          label: 'R$',
           data: dataInChart,
-          fill: true,
-          backgroundColor: 'green',
-          borderColor: 'green',
-          pointBackgroundColor: 'white',
-          tension: 0.25
+          backgroundColor: 'white',
+          borderColor: 'white',
+          pointRadius: 0,
+          tension: 0.5
         }]
       },
       options: {
         maintainAspectRatio: false,
         scales: {
           x: {
+            border: {
+              display: false
+            },
+            grid: {
+              display: false
+            },
             ticks: {
+              display: false,
               color: 'black'
             }
           },
           y: {
+            border: {
+              display: false
+            },
+            grid: {
+              display: false
+            },
             ticks: {
+              display: false,
               color: 'black'
             },
             beginAtZero: true
           }
         },
+        layout: {
+          padding: {
+            top: -1,
+            right: 0,
+            left: -10,
+            bottom: -7
+          }
+        },
         plugins: {
-          title: {
-              color: 'black',
-              align: 'start',
-              display: true,
-              text: 'Receita',
-              padding: {
-                top: 0,
-                bottom: 30
-              }
-          },
           legend: {
               display: false
           },
