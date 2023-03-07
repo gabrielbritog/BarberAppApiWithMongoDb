@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserModel } from '../../../Models/UserModel';
+import { ClientModel } from '../../../Models/ClientModel';
 
 @Component({
   selector: 'app-ClientCard',
@@ -8,8 +8,7 @@ import { UserModel } from '../../../Models/UserModel';
 })
 export class ClientCardComponent implements OnInit {
 
-  @Input('model') userModel = new UserModel();
-  @Input('showOptions') showOptions = false;
+  @Input('model') clientModel = new ClientModel();
 
   constructor() { }
 

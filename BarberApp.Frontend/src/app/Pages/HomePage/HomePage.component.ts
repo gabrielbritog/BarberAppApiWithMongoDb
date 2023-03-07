@@ -116,6 +116,7 @@ export class HomePageComponent implements OnInit {
 
       this.appLoaded = true;
       GlobalVariables.appLoaded = true;
+      GlobalVariables.currentSection = 1;
 
       if (GlobalVariables.isAdmin && GlobalVariables.barbers.length > 0)
         GlobalVariables.selectedBarber = GlobalVariables.barbers[0];

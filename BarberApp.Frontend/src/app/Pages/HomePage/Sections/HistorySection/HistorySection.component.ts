@@ -13,7 +13,7 @@ export class HistorySectionComponent implements OnInit {
 
   get schedules() {
     const today = moment().format('L');
-    const todayTime = moment().format('LT');
+    const todayTime = moment().format('HH:mm');
     const filteredSchedules = GlobalVariables.schedules
       .filter(p => p.client.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
                   p.date.includes(this.searchValue) ||

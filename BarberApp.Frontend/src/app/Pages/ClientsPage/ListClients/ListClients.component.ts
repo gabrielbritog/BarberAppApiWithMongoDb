@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
-import { UserModel } from 'src/app/Models/UserModel';
 
 @Component({
   selector: 'app-ListClients',
@@ -13,14 +12,13 @@ export class ListClientsComponent implements OnInit {
 
   get clientList() {
     return GlobalVariables.schedules
-    .map(p => new UserModel({ firstName: p.client.name, phoneNumber: p.client.phone}))
-    .filter(p => p.firstName != "")
+    .map(p => p.client)
     .filter(p =>
-      p.firstName.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-      p.phoneNumber?.toLowerCase().includes(this.searchValue.toLowerCase())
+      p.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      p.phone.toLowerCase().includes(this.searchValue.toLowerCase())
     )
-    .filter((cName, index, self) => self.map(p => p.phoneNumber).includes(cName.phoneNumber, index + 1) === false)
-    .sort((a, b) => a.firstName.localeCompare(b.firstName));
+    .filter((cName, index, self) => self.map(p => p.phone).includes(cName.phone, index + 1) === false)
+    .sort((a, b) => a.name.localeCompare(b.name));
   };
 
   constructor() { }

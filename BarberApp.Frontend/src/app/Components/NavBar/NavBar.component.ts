@@ -20,7 +20,7 @@ export class NavBarComponent implements OnInit {
   }
 
   get showAdminBoard() {
-    return !this.isBlocked && this.isAdmin && this.currentSection == 1;
+    return !this.isBlocked && this.isAdmin && (this.currentSection == 1 || this.currentSection == 2);
   }
 
   get profilePic() {
