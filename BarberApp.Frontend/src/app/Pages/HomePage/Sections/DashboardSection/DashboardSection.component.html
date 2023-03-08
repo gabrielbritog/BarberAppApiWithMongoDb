@@ -1,4 +1,4 @@
-<div class="section_container">
+<div class="section_container hide-scrollbar">
   <div class="cards_container no-margin">
     <div class="section_title pad-x">
       <h3 class="title">Dashboard</h3>
@@ -13,9 +13,9 @@
         <div class="section_header d-flex justify-between  ">
           <h4 class="title">Período</h4>
           <div class="quick_dates chips_group d-flex">
-            <div class="card card_date card_chip" [class.active]="quickDate == 'week'" (click)="setQuickDate('week')"  >Semana</div>
-            <div class="card card_date card_chip" [class.active]="quickDate == 'month'" (click)="setQuickDate('month')"  >Mês</div>
-            <div class="card card_date card_chip" [class.active]="quickDate == 'year'" (click)="setQuickDate('year')"  >Ano</div>
+            <button class="card card_date card_chip" [class.active]="quickDate == 'week'" (click)="setQuickDate('week')"  >Semana</button>
+            <button class="card card_date card_chip" [class.active]="quickDate == 'month'" (click)="setQuickDate('month')"  >Mês</button>
+            <button class="card card_date card_chip" [class.active]="quickDate == 'year'" (click)="setQuickDate('year')"  >Ano</button>
           </div>
         </div>
         <div class="datas d-flex  ">
@@ -26,7 +26,7 @@
       </section>
 
       <section class="animate_show container">
-        <div class="wrapper">
+        <div class="wrapper charts_wrapper">
           <div class="card card-chart income-chart card_item medium-height">
             <div class="card_content">
               <h5>Receita</h5>
@@ -48,6 +48,27 @@
           </div>
         </div>
       </section>
+
+
+      <ng-container *ngIf="topServices.length > 0">
+        <section class="animate_show card container top5_section">
+          <div class="section_header d-flex justify-between  ">
+            <h5 class="title">Serviços mais procurados</h5>
+          </div>
+
+          <div class="wrapper animate_show flex_column">
+            <ng-container *ngFor="let item of topServices; let i = index">
+              <app-ServiceTypeCard
+              [model]="item.service"
+              [showEmployeePic]="isAdmin"
+              [noBorder]="i === topServices.length -1"
+              [bigInfo]="item.count + (item.count > 1? ' vezes': ' vez')"></app-ServiceTypeCard>
+            </ng-container>
+          </div>
+
+        </section>
+      </ng-container>
+
 
       <ng-container *ngIf="topEmployees.length > 0 && isAdmin">
         <section class="animate_show card container top5_section">

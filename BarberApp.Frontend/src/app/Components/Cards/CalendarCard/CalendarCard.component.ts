@@ -110,6 +110,8 @@ export class CalendarCardComponent implements OnInit, AfterViewInit {
   }
 
   setDay(element: moment.Moment) {
+    if (GlobalVariables.currentDay == element)
+      return;
     this._datePicked = undefined;
     GlobalVariables.currentDay = element;
     GlobalVariables.getEmptySchedulesBase();

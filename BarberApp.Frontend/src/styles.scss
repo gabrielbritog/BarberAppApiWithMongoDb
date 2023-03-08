@@ -66,6 +66,35 @@
   transition: all .3s var(--default-transition), font-weight .2s ease;
 }
 
+.hide-scrollbar{
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  *{
+    -ms-overflow-style: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--app-color-bg-alt);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--app-color-text);
+  border-radius: 20px;
+  border: 3px solid var(--app-color-bg-alt);
+}
+
 html.no_anim * {
   transition: none !important;
 }

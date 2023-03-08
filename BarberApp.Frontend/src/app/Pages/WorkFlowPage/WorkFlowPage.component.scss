@@ -7,7 +7,7 @@
 }
 
 .table_container{
-  border-radius: var(--global-border-radius);
+  border-radius: 5px;
   overflow: hidden;
   background-color: var(--app-color-input-bg);
   border: 1px solid var(--app-color-input-bg);
@@ -46,7 +46,7 @@
 }
 
 .workdays_container{
-  gap: 0.05rem;
+  gap: 1px;
 }
 
 input[type=checkbox]{

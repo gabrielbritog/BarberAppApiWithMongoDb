@@ -190,7 +190,7 @@ export class DashboardSectionComponent implements OnInit {
         if (a.totalValue < b.totalValue) return 1;
 
         return 0;
-      });
+      }).slice(0, 10);
     this.loadedTopClients = true;
     return;
   }
@@ -225,13 +225,43 @@ export class DashboardSectionComponent implements OnInit {
         if (a.totalValue < b.totalValue) return 1;
 
         return 0;
-      }).slice(0, 10);
+      });
     this.loadedTopEmployees = true;
     return;
   }
 
   getTop5Services() {
-    DashboardSectionComponent._topServices = [];
+    const schedules = this.schedulesInPeriod;
+    const topServices: TopService[] = [];
+
+    schedules.forEach(p => {
+      p.serviceType.forEach(service => {
+        let topService: TopService = {
+          service: service,
+          count: 1,
+          totalValue: service.valueService
+        };
+
+        const topServiceInArray = topServices.find(d=> d.service.serviceTypeId === topService.service.serviceTypeId)
+
+        if (!topServiceInArray){
+          topServices.push(topService);
+        }
+        else{
+          topServiceInArray.count++;
+          topServiceInArray.totalValue += topService.totalValue;
+        }
+      })
+    });
+
+    DashboardSectionComponent._topServices = topServices.sort((a, b) => {
+        if (a.count > b.count) return -1;
+        if (a.count < b.count) return 1;
+        if (a.totalValue > b.totalValue) return -1;
+        if (a.totalValue < b.totalValue) return 1;
+
+        return 0;
+      }).splice(0, 5);
     this.loadedTopServices = true;
     return;
   }

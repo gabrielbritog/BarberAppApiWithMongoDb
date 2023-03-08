@@ -61,6 +61,8 @@ section{
 }
 
 .card_chip{
+  font-size: .7rem;
+  color: var(--app-color-text);
   padding: 0.5rem 0.8rem;
   border-radius: 50px;
   line-height: 1;
@@ -234,4 +236,11 @@ input[type=date]::before{
     text-align: right;
   }
 
+}
+
+@media (min-width: 768px) {
+  .wrapper.charts_wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }

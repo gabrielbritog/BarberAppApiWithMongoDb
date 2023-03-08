@@ -12,6 +12,14 @@ export class ServiceTypeCardComponent implements OnInit {
 
   @Input('model') serviceModel = new ServiceTypeModel();
   @Input('showOptions') showOptions = false;
+  @Input() showEmployeePic = false;
+  @Input() bigInfo?: string;
+  @Input() smallInfo?: string;
+  @Input() noBorder = false;
+
+  get barberModel() {
+    return GlobalVariables.barbers.find(p => p.barberId === this.serviceModel.barberId);
+  }
 
   constructor(
     private router: Router

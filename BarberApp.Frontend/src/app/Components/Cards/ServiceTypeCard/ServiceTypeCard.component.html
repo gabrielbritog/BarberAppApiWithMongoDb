@@ -1,7 +1,18 @@
-<div class="card service_type">
-  <button class="btn update_btn" (click)="editService()">
-    <i class="fa-solid fa-pen"></i>
-  </button>
+<div class="card service_type" [class.no-border]="noBorder">
+  <ng-container *ngIf="!showEmployeePic">
+    <button class="btn update_btn" (click)="editService()">
+      <i class="fa-solid fa-pen"></i>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="showEmployeePic">
+    <button class="picture profile_pic">
+      <img *ngIf="barberModel?.urlImage" src="{{barberModel?.urlImage}}" alt="" srcset="">
+      <i *ngIf="!barberModel?.urlImage" class="fa-solid fa-user placeholder_icon"></i>
+      <!-- <div class="btn update_btn">
+        <i class="fa-solid fa-pen"></i>
+      </div> -->
+    </button>
+  </ng-container>
   <div class="content">
     <div class="title">
       <span>{{serviceModel.nameService}}</span>
@@ -12,5 +23,15 @@
       </div>
     </div>
   </div>
+  <ng-container *ngIf="bigInfo || smallInfo">
+    <div class="aditional_info">
+      <ng-container *ngIf="bigInfo">
+        <span class="big-info">{{bigInfo}}</span>
+      </ng-container>
+      <ng-container *ngIf="smallInfo">
+        <span class="small-info">{{smallInfo}}</span>
+      </ng-container>
+    </div>
+  </ng-container>
 
 </div>
