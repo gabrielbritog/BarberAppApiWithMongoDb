@@ -55,7 +55,6 @@
 }
 
 *{
-  -ms-overflow-style: none;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -65,10 +64,6 @@
   list-style: none;
   font-family: 'Poppins', sans-serif;
   transition: all .3s var(--default-transition), font-weight .2s ease;
-}
-
-*::-webkit-scrollbar {
-  display: none;
 }
 
 html.no_anim * {
@@ -311,4 +306,14 @@ h4{
     font-size: 1rem;
   }
 
+}
+
+@media (max-width: 1023px) {
+  *{
+    -ms-overflow-style: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }

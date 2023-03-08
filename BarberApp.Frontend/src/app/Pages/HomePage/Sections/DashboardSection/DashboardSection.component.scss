@@ -105,6 +105,8 @@ section{
   grid-template-columns: 60% 40%;
   grid-template-rows: 100%;
   gap: 0;
+  color: white;
+  width: 100%;
   .card_content{
     display: flex;
     height: 100%;
@@ -120,9 +122,11 @@ section{
 }
 
 .income-chart.card.card_item{
-  width: 100%;
   background-color: #48a148;
-  color: white
+}
+
+.schedules-chart.card.card_item{
+  background-color: chocolate;
 }
 
 .chart_container{

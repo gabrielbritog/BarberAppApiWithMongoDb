@@ -187,13 +187,14 @@ export class DashboardSectionComponent implements OnInit {
     const topEmployees: TopEmployee[] = [];
 
     schedules.forEach(p => {
-      const barberById = GlobalVariables.barbers.find(p => p.barberId === p.barberId);
+      const barberById = GlobalVariables.barbers.find(d => d.barberId === p.barberId);
       let topEmployee: TopEmployee = {
         employee: barberById!,
         count: 1,
         totalValue: p.total ?? 0
       };
-      const topEmployeeInArray = topEmployees.find(p=> p.employee.barberId === topEmployee.employee.barberId)
+
+      const topEmployeeInArray = topEmployees.find(d=> d.employee.barberId === topEmployee.employee.barberId)
 
       if (!topEmployeeInArray){
         topEmployees.push(topEmployee);
@@ -226,6 +227,7 @@ export class DashboardSectionComponent implements OnInit {
     if (this.loadedSchedulesInPeriod && this.loadedTopClients && this.loadedTopEmployees && this.loadedTopServices) {
       LoaderComponent.SetOptions(false);
       this.createIncomeChart();
+      this.createSchedulesChart();
       this.loadedSchedulesInPeriod =
         this.loadedTopClients =
         this.loadedTopEmployees =
@@ -362,6 +364,132 @@ export class DashboardSectionComponent implements OnInit {
         layout: {
           padding: {
             top: -1,
+            right: 0,
+            left: -10,
+            bottom: -7
+          }
+        },
+        plugins: {
+          legend: {
+              display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                let label = '';
+
+                if (context.parsed.y !== null) {
+                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
+                }
+
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  createSchedulesChart() {
+    const ctx = document.getElementById('schedules-chart') as HTMLCanvasElement;
+    const startDate = moment(this.startDate);
+    const endDate = moment(this.endDate).hour(23).minute(59);
+    const diffDates = endDate.diff(startDate, 'days');
+    const diffDatesInMonths = endDate.diff(startDate, 'months');
+    const diffDatesInYears = endDate.diff(startDate, 'years');
+    const labelsInChart: string[] = [];
+    const dataInChart: number[] = [];
+
+
+    if (diffDatesInMonths <= 1){
+      for (let index = 0; index <= diffDates; index++) {
+        const currentDate = moment(this.startDate).add(index, 'days');
+        const filteredSchedules = this.schedulesInPeriod.filter(p => p.date == currentDate.format('MM/DD/YYYY'));
+        const totalFromSchedules = filteredSchedules.length;
+
+        dataInChart.push(totalFromSchedules);
+        labelsInChart.push(currentDate.format('DD/MM'));
+      }
+    }
+    else if (diffDatesInMonths <= 12) {
+      for (let index = 0; index <= diffDatesInMonths; index++) {
+        const currentDate = moment(this.startDate).add(index, 'months');
+
+        const filteredSchedules = this.schedulesInPeriod
+          .filter(p =>
+            p.date.includes(currentDate.format('MM/')) &&
+            p.date.includes(currentDate.format('YYYY')));
+        const totalFromSchedules = filteredSchedules.length;
+
+        dataInChart.push(totalFromSchedules);
+        labelsInChart.push(currentDate.locale('pt-br').format('MMM'));
+      }
+    }
+    else {
+      for (let index = 0; index <= diffDatesInYears; index++) {
+        const currentDate = moment(this.startDate).add(index, 'years');
+
+        const filteredSchedules = this.schedulesInPeriod
+          .filter(p =>
+            p.date.includes(currentDate.format('YYYY')));
+        const totalFromSchedules = filteredSchedules.length;
+
+        dataInChart.push(totalFromSchedules);
+        labelsInChart.push(currentDate.format('YYYY'));
+      }
+    }
+
+
+    const chartExist = Chart.getChart('schedules-chart');
+    if (chartExist != undefined)
+      chartExist.destroy();
+
+
+    new Chart('schedules-chart', {
+      type: 'line',
+      data: {
+        labels: labelsInChart,
+        datasets: [{
+          data: dataInChart,
+          backgroundColor: 'white',
+          borderColor: 'white',
+          pointRadius: 0,
+          tension: 0.5
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            border: {
+              display: false
+            },
+            grid: {
+              display: false
+            },
+            ticks: {
+              display: false,
+              color: 'black'
+            }
+          },
+          y: {
+            border: {
+              display: false
+            },
+            grid: {
+              display: false
+            },
+            ticks: {
+              display: false,
+              color: 'black'
+            },
+            beginAtZero: true
+          }
+        },
+        layout: {
+          padding: {
+            top: 2,
             right: 0,
             left: -10,
             bottom: -7
