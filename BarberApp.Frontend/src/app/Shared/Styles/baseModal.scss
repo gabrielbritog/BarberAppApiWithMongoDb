@@ -8,8 +8,7 @@
   padding: 5vw 0;
   transition: all .2s ease;
   animation: .15s modalShow forwards;
-  display: grid;
-  place-items: center;
+  overflow: auto;
   &.hide{
     animation: .15s modalHide forwards;
     .modal_container{

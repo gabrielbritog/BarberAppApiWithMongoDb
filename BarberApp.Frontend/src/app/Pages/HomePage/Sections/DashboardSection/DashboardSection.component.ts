@@ -8,6 +8,7 @@ import { Chart, registerables } from './../../../../../../node_modules/chart.js'
 import { ClientModel } from '../../../../Models/ClientModel';
 import { BarberModel } from '../../../../Models/BarberModel';
 import { ServiceTypeModel } from '../../../../Models/ServiceTypeModel';
+import { TokenStorageService } from '../../../../Services/token-storage.service';
 Chart.register(...registerables);
 
 export interface TopClient{
@@ -94,14 +95,17 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   constructor(
+    private tokenStorage: TokenStorageService,
     private dashboard: DashboardService
   ) { }
 
   ngOnInit() {
     if (this.isDashboardNotLoaded)
       this.loadProperties();
-    else
+    else{
       this.createIncomeChart();
+      this.createSchedulesChart();
+    }
   }
 
   static clearProperties() {
@@ -132,9 +136,18 @@ export class DashboardSectionComponent implements OnInit {
     API_CALL.subscribe({
       next: (data: any) => {
         const schedules: ScheduleModel[] = data.data;
-        DashboardSectionComponent._schedulesInPeriod = schedules.map((element: any) => {
-          return new ScheduleModel(element)
-        });
+        if (!this.isAdmin){
+          DashboardSectionComponent._schedulesInPeriod = schedules
+            .filter(p=>p.barberId === this.tokenStorage.getUserModel().barberId)
+            .map((element: any) => {
+              return new ScheduleModel(element)
+            });
+        } else {
+          DashboardSectionComponent._schedulesInPeriod = schedules
+            .map((element: any) => {
+              return new ScheduleModel(element)
+            });
+        }
         this.loadedSchedulesInPeriod = true;
 
         this.getTop5Clients();
@@ -266,7 +279,6 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   createIncomeChart() {
-    const ctx = document.getElementById('income-chart') as HTMLCanvasElement;
     const startDate = moment(this.startDate);
     const endDate = moment(this.endDate).hour(23).minute(59);
     const diffDates = endDate.diff(startDate, 'days');
@@ -392,7 +404,6 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   createSchedulesChart() {
-    const ctx = document.getElementById('schedules-chart') as HTMLCanvasElement;
     const startDate = moment(this.startDate);
     const endDate = moment(this.endDate).hour(23).minute(59);
     const diffDates = endDate.diff(startDate, 'days');

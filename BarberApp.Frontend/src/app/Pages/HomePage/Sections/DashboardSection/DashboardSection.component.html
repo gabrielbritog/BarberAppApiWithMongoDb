@@ -19,8 +19,8 @@
           </div>
         </div>
         <div class="datas d-flex  ">
-          <input type="date" (change)="dateChanged()" [(ngModel)]="startDate">
-          <input type="date" (change)="dateChanged()" [(ngModel)]="endDate">
+          <input type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
+          <input type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
         </div>
 
       </section>
@@ -49,7 +49,7 @@
         </div>
       </section>
 
-      <ng-container *ngIf="topEmployees.length > 0">
+      <ng-container *ngIf="topEmployees.length > 0 && isAdmin">
         <section class="animate_show card container top5_section">
           <div class="section_header d-flex justify-between  ">
             <h5 class="title">Funcionários</h5>
