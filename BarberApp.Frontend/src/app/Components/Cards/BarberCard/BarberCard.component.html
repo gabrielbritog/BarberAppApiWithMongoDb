@@ -1,4 +1,4 @@
-<div class="card barber">
+<div class="card barber" [class.no-border]="noBorder">
 
   <button class="picture profile_pic">
     <img *ngIf="barberModel.urlImage" src="{{barberModel.urlImage}}" alt="" srcset="">
@@ -9,11 +9,21 @@
   </button>
   <div class="content">
     <div class="title">
-      <span>{{barberModel.firstName}} {{barberModel.lastName}}</span>
+      <span>{{barberModel.firstName}} {{showLastName? barberModel.lastName : ''}}</span>
     </div>
     <div class="desc">
       <span>{{barberModel.phoneNumber}}</span>
     </div>
   </div>
+  <ng-container *ngIf="bigInfo || smallInfo">
+    <div class="aditional_info">
+      <ng-container *ngIf="bigInfo">
+        <span class="big-info">{{bigInfo}}</span>
+      </ng-container>
+      <ng-container *ngIf="smallInfo">
+        <span class="small-info">{{smallInfo}}</span>
+      </ng-container>
+    </div>
+  </ng-container>
 
 </div>

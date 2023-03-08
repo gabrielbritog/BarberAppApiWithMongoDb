@@ -151,28 +151,67 @@ export class DashboardSectionComponent implements OnInit {
 
   getTop5Clients() {
     const schedules = this.schedulesInPeriod;
-    const topClients: TopClient[] = schedules.map(p => {
-      let topClient: TopClient;
-      topClient = {
+    const topClients: TopClient[] = [];
+
+    schedules.forEach(p => {
+      let topClient: TopClient = {
         client: p.client,
         count: 1,
         totalValue: p.total ?? 0
       };
-      return topClient;
+      const topClientInArray = topClients.find(p=> p.client.phone === topClient.client.phone)
+
+      if (!topClientInArray){
+        topClients.push(topClient);
+      }
+      else{
+        topClientInArray.count++;
+        topClientInArray.totalValue += topClient.totalValue;
+      }
     });
 
-  // client: ClientModel;
-  // count: number;
-  // totalValue: string;
+    DashboardSectionComponent._topClients = topClients.sort((a, b) => {
+        if (a.count > b.count) return -1;
+        if (a.count < b.count) return 1;
+        if (a.totalValue > b.totalValue) return -1;
+        if (a.totalValue < b.totalValue) return 1;
 
-
-    DashboardSectionComponent._topClients = topClients;
+        return 0;
+      });
     this.loadedTopClients = true;
     return;
   }
 
   getTop5Employees() {
-    DashboardSectionComponent._topEmployees = [];
+    const schedules = this.schedulesInPeriod;
+    const topEmployees: TopEmployee[] = [];
+
+    schedules.forEach(p => {
+      const barberById = GlobalVariables.barbers.find(p => p.barberId === p.barberId);
+      let topEmployee: TopEmployee = {
+        employee: barberById!,
+        count: 1,
+        totalValue: p.total ?? 0
+      };
+      const topEmployeeInArray = topEmployees.find(p=> p.employee.barberId === topEmployee.employee.barberId)
+
+      if (!topEmployeeInArray){
+        topEmployees.push(topEmployee);
+      }
+      else{
+        topEmployeeInArray.count++;
+        topEmployeeInArray.totalValue += topEmployee.totalValue;
+      }
+    });
+
+    DashboardSectionComponent._topEmployees = topEmployees.sort((a, b) => {
+        if (a.count > b.count) return -1;
+        if (a.count < b.count) return 1;
+        if (a.totalValue > b.totalValue) return -1;
+        if (a.totalValue < b.totalValue) return 1;
+
+        return 0;
+      }).slice(0, 10);
     this.loadedTopEmployees = true;
     return;
   }

@@ -10,6 +10,10 @@ import { BarberModel } from '../../../Models/BarberModel';
 export class BarberCardComponent implements OnInit {
 
   @Input('model') barberModel = new BarberModel();
+  @Input() bigInfo?: string;
+  @Input() smallInfo?: string;
+  @Input() showLastName = true;
+  @Input() noBorder = false;
 
   constructor() { }
 

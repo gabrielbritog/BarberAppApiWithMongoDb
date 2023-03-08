@@ -148,12 +148,7 @@ section{
 }
 .wrapper.flex_column {
   margin: 0;
-  gap: .5rem;
-}
-
-.wrapper.flex_column {
-  margin: 0;
-  gap: .5rem;
+  gap: 0;
 }
 
 .wrapper.grid{
@@ -169,7 +164,7 @@ section{
 section.card{
   display: grid;
   line-height: 1;
-  padding: 0.75rem;
+  padding-bottom: 0;
 }
 
 section.card .title{

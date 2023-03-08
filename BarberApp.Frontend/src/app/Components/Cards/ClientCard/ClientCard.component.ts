@@ -11,6 +11,7 @@ export class ClientCardComponent implements OnInit {
   @Input('model') clientModel = new ClientModel();
   @Input() bigInfo?: string;
   @Input() smallInfo?: string;
+  @Input() noBorder = false;
 
   constructor() { }
 

@@ -40,26 +40,20 @@
       </section>
 
       <ng-container *ngIf="topEmployees.length > 0">
-        <section class="animate_show card container grade top5_section">
+        <section class="animate_show card container top5_section">
           <div class="section_header d-flex justify-between  ">
-            <h4 class="title">Funcionários</h4>
+            <h5 class="title">Funcionários</h5>
           </div>
 
-            <div class="wrapper animate_show grid  ">
-              <!-- <div *ngFor="let item of topEmployees; let i = index"
-              class="card card_item small-card col-2"
-              >
-                <div class="picture" *ngIf="i === 0">
-                  <i class="fa-solid fa-trophy"></i>
-                </div>
-                <div class="content">
-                  <h4>{{item.name}}</h4>
-                  <p>{{item.total}}</p>
-                </div>
-              </div> -->
+            <div class="wrapper animate_show flex_column">
 
               <ng-container *ngFor="let item of topEmployees; let i = index">
-                <app-BarberCard [model]="item.employee"></app-BarberCard>
+                <app-BarberCard
+                [model]="item.employee"
+                [showLastName]="false"
+                [bigInfo]="formatToMoney(item.totalValue)"
+                [noBorder]="i === topEmployees.length -1"
+                [smallInfo]="item.count + (item.count > 1? ' agendamentos': ' agendamento')"></app-BarberCard>
               </ng-container>
             </div>
 
@@ -69,7 +63,7 @@
       <ng-container *ngIf="topClients.length > 0">
         <section class="animate_show card container top5_section">
           <div class="section_header d-flex justify-between  ">
-            <h4 class="title">Clientes</h4>
+            <h5 class="title">Clientes</h5>
           </div>
 
           <div class="wrapper animate_show flex_column">
@@ -77,7 +71,8 @@
               <app-ClientCard
               [model]="item.client"
               [bigInfo]="formatToMoney(item.totalValue)"
-              [smallInfo]="'em '+ item.count + (item.count > 1? ' visitas': ' visita')"></app-ClientCard>
+              [noBorder]="i === topClients.length -1"
+              [smallInfo]="item.count + (item.count > 1? ' visitas': ' visita')"></app-ClientCard>
             </ng-container>
           </div>
 

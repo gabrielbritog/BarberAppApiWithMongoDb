@@ -8,6 +8,10 @@
   border-bottom-width: 1px;
   padding-bottom: .75rem;
   border-color: var(--app-color-light-border);
+
+  &.no-border{
+    border-bottom: 0;
+  }
 }
 
 .card.workday {
