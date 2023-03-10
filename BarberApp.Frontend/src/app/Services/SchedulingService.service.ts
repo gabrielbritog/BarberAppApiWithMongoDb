@@ -53,6 +53,7 @@ export class SchedulingService {
   }
 
   getManySchedule(skip: number = 1, take: number = 10): Observable<any> {
+    console.log(GlobalVariables.isAdmin)
     return this.http.get<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_GETMANY, {
       params: {
         start: skip,

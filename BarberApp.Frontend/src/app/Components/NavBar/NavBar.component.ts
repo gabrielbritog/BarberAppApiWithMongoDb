@@ -44,7 +44,7 @@ export class NavBarComponent implements OnInit {
   }
 
   get isBlocked() {
-    if (GlobalVariables.isAdmin && GlobalVariables.barbers.length == 0)
+    if (GlobalVariables.isAdmin && GlobalVariables.employees.length == 0)
       return true;
 
     return false;

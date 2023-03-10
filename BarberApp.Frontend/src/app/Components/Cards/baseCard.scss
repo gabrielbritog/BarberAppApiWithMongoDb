@@ -8,7 +8,7 @@
   border-bottom-width: 1px;
   padding-bottom: .75rem;
   border-color: var(--app-color-light-border);
-
+  box-shadow: none;
   &.no-border{
     border-bottom: 0;
   }

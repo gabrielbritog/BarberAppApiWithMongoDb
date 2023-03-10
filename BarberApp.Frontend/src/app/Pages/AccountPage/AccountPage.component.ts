@@ -55,7 +55,7 @@ export class AccountPageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
-    if (!GlobalVariables.appLoaded)
+    if (!GlobalVariables.loadFromLocalStorage())
       this.router.navigateByUrl('/Home');
 
   }

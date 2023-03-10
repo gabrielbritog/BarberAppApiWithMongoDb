@@ -88,7 +88,7 @@ export class NewEmployeeComponent implements OnInit {
     let barber = new BarberModel(barberForm);
     barber.workingDays = this.tokenStorage.getUserModel().workingDays;
 
-    let index = this.isEditModal? GlobalVariables.barbers.indexOf(GlobalVariables.editBarber!) : -1;
+    let index = this.isEditModal? GlobalVariables.employees.indexOf(GlobalVariables.editBarber!) : -1;
 
     const apiCall = this.isEditModal ? this.userService.updateBarber(barber) : this.authService.registerBarber(barber);
 
@@ -107,12 +107,14 @@ export class NewEmployeeComponent implements OnInit {
     console.log(data.message);
     setTimeout(() => {
       if (index < 0)
-        GlobalVariables.barbers.push(new BarberModel(data.data));
+        GlobalVariables.employees.push(new BarberModel(data.data));
       else
-        GlobalVariables.barbers[index] = new BarberModel(data.data);
+        GlobalVariables.employees[index] = new BarberModel(data.data);
 
-      if (GlobalVariables.barbers.length == 1)
-        GlobalVariables.selectedBarber = GlobalVariables.barbers[0];
+      if (GlobalVariables.employees.length == 1)
+        GlobalVariables.selectedBarber = GlobalVariables.employees[0];
+
+      GlobalVariables.saveAppData('employees');
       this.onCancel();
       form.resetForm();
     }, 20);

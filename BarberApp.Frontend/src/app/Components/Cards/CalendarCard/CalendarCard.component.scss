@@ -38,14 +38,14 @@ label.datepick_view{
 }
 
 .cards_wrapper{
-  padding: 0 var(--section-padding-X);
+  padding: 4px var(--section-padding-X);
   gap: 0.8rem;
   width: 100vw;
   overflow: auto;
   transform: translateX(calc(-1 * var(--section-padding-X)));
   display: flex;
   align-items: center;
-  height: 88px;
+  height: 100px;
 }
 
 .card_day{

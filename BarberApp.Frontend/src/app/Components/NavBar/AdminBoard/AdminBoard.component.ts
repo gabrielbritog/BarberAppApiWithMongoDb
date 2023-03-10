@@ -12,9 +12,9 @@ export class AdminBoardComponent implements OnInit {
 
 
   get barberList() {
-    return GlobalVariables.barbers.sort((a, b) => {
-      const aMatches = a == this.selectedBarber;
-      const bMatches = b == this.selectedBarber;
+    return GlobalVariables.employees.sort((a, b) => {
+      const aMatches = a.barberId == this.selectedBarber?.barberId;
+      const bMatches = b.barberId == this.selectedBarber?.barberId;
       if (aMatches && !bMatches) {
         return -1;
       } else if (!aMatches && bMatches) {

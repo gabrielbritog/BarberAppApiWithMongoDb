@@ -29,35 +29,45 @@
         <div class="list_title">
           Conta
         </div>
-        <li class="nav_item" (click)="goToRoute('/Account')"  >
+        <li class="nav_item"  >
+          <a routerLink="/Account">
           <i class="fa-solid fa-user-pen"></i>
           <span>
             Editar
           </span>
+          </a>
         </li>
-        <li *ngIf="isAdmin" class="nav_item" (click)="goToRoute('/Employees')"  >
-          <i class="fa-solid fa-people-group"></i>
+        <li *ngIf="isAdmin" class="nav_item"  >
+          <a routerLink="/Employees">
+            <i class="fa-solid fa-people-group"></i>
           <span>
             Funcionários
           </span>
+          </a>
         </li>
-        <li class="nav_item" (click)="goToRoute('/Services')"  >
+        <li class="nav_item"  >
+          <a routerLink="/Services">
           <i class="fa-solid fa-screwdriver-wrench"></i>
           <span>
             Serviços
           </span>
+          </a>
         </li>
-        <li class="nav_item" (click)="goToRoute('/Clients')"  >
+        <li class="nav_item"  >
+          <a routerLink="/Clients">
           <i class="fa-solid fa-user-group"></i>
           <span>
             Clientes
           </span>
+          </a>
         </li>
-        <li class="nav_item" (click)="goToRoute('/WorkFlow')"  >
+        <li class="nav_item"  >
+          <a routerLink="/WorkFlow">
           <i class="fa-solid fa-briefcase"></i>
           <span>
             Horários de funcionamento
           </span>
+          </a>
         </li>
       </ul>
       <hr>

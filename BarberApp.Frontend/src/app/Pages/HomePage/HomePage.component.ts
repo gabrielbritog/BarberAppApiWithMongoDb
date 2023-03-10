@@ -26,107 +26,67 @@ export class HomePageComponent implements OnInit {
   appLoaded = false;
 
   constructor(
-    private tokenStorage: TokenStorageService,
-    private schedulingService: SchedulingService,
-    private serviceTypeService: ServiceTypeService,
-    private barberService: EmployeeService,
-    private router: Router) { }
+      private tokenStorage: TokenStorageService,
+      private schedulingService: SchedulingService,
+      private serviceTypeService: ServiceTypeService,
+      private barberService: EmployeeService,
+      private router: Router
+    ) {  }
 
   ngOnInit() {
-    if (!this.tokenStorage.getToken()){
+    if (!this.tokenStorage.getToken()) {
       this.router.navigateByUrl('/Login');
       return;
     }
 
-    if (GlobalVariables.appLoaded) {
+    if (GlobalVariables.loadFromLocalStorage()) {
       this.appLoaded = true;
-      return;
+    } else {
+      this.loadApp();
     }
+  }
 
+  loadApp() {
     DashboardSectionComponent.clearProperties();
     GlobalVariables.sidebarExpanded = false;
     LoaderComponent.SetOptions(true);
 
-    const userModel = this.tokenStorage.getUserModel();
-    GlobalVariables.loadUserConfig(userModel.userConfig);
-    GlobalVariables.userWorkingDays = userModel.workingDays;
+    GlobalVariables.init(this.schedulingService, this.serviceTypeService, this.barberService).subscribe({
+      next: (data: any) => {
+        this.loadedSchedules =
+          this.loadedServiceTypes =
+          this.loadedBarbers = true;
 
-    GlobalVariables.isAdmin = userModel.barberId == null;
-    GlobalVariables.currentSection = 0;
-
-    GlobalVariables.FillProperties();
-    this.getSchedules();
-    this.getServiceTypes();
-    this.getBarbers();
+        this.loadedFunction();
+      },
+      error: (err) => {
+        console.log('Algo deu errado');
+        this.tokenStorage.signOut();
+      }
+    })
   }
 
   isAppLoaded() {
-    let loadCondition = this.loadedBarbers && this.loadedSchedules && this.loadedSchedules;
+    let loadCondition = this.loadedBarbers && this.loadedServiceTypes && this.loadedSchedules;
     return loadCondition;
-  };
-
-  getSchedules() {
-    this.schedulingService.getAllSchedule().subscribe({
-      next: (data: any) => {
-        let schedules: ScheduleModel[] = data.data.map((element: any) => new ScheduleModel(element));
-        GlobalVariables.schedules = schedules;
-
-        this.loadedSchedules = true;
-
-        this.loadedFunction();
-      },
-      error: (err) => console.log(err.data.message)
-    })
-  }
-
-  getServiceTypes() {
-    this.serviceTypeService.getAllServiceType().subscribe({
-      next: (data: any) => {
-        let serviceTypes: ServiceTypeModel[] = data.data.map((element: any) => new ServiceTypeModel(element));
-        GlobalVariables.serviceTypes = serviceTypes;
-
-        this.loadedServiceTypes = true;
-
-        this.loadedFunction();
-      },
-      error: (err) => console.log(err.data.message)
-    })
-  }
-
-  getBarbers() {
-    this.barberService.getAllEmployees().subscribe({
-      next: (data: any) => {
-        let barbers: BarberModel[] = data.data.map((element: any) => new BarberModel(element));
-        GlobalVariables.barbers = barbers;
-
-        this.loadedBarbers = true;
-
-        this.loadedFunction();
-      },
-      error: (err) => console.log(err.data.message)
-    })
   }
 
   loadedFunction() {
     if (!this.isAppLoaded() || this.appLoaded)
       return;
+
+    GlobalVariables.currentSection = 1;
+
+    GlobalVariables.FillProperties();
+
     const delay = 200;
     setTimeout(() => {
       LoaderComponent.SetOptions(false);
 
-      this.appLoaded = true;
-      GlobalVariables.appLoaded = true;
-      GlobalVariables.currentSection = 1;
+      this.appLoaded = GlobalVariables.appLoaded = true;
 
-      if (GlobalVariables.isAdmin && GlobalVariables.barbers.length > 0)
-        GlobalVariables.selectedBarber = GlobalVariables.barbers[0];
-      else
-        GlobalVariables.selectedBarber = undefined;
-
-      if (GlobalVariables.barbers.length == 0)
+      if (GlobalVariables.employees.length == 0)
         this.router.navigateByUrl('/Employees/New');
-
-
     }, delay);
   }
 

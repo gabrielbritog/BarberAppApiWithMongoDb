@@ -18,7 +18,7 @@ export class ServiceTypeCardComponent implements OnInit {
   @Input() noBorder = false;
 
   get barberModel() {
-    return GlobalVariables.barbers.find(p => p.barberId === this.serviceModel.barberId);
+    return GlobalVariables.employees.find(p => p.barberId === this.serviceModel.barberId);
   }
 
   constructor(

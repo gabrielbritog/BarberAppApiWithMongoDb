@@ -12,7 +12,7 @@ export class ListEmployeeComponent implements OnInit {
   searchValue = "";
 
   get barberList(){
-    return GlobalVariables.barbers
+    return GlobalVariables.employees
     .filter(p =>
       (p.firstName.toLowerCase() + ' ' + p.lastName.toLowerCase()).includes(this.searchValue.toLowerCase()) ||
       p.phoneNumber?.toLowerCase().includes(this.searchValue.toLowerCase())

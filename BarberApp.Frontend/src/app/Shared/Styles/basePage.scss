@@ -1,10 +1,7 @@
 .page_container{
   position: relative;
-  width: 100vw;
-  height: 100dvh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   background-color: var(--app-color-bg);
 }
 
@@ -14,7 +11,7 @@
   padding: var(--section-padding);
   padding-left: 0;
   padding-right: 0;
-  height: calc(100svh - 5.5rem);
+  height: calc(100dvh - var(--nav-height));
 }
 
 section.router_container{
@@ -26,7 +23,7 @@ section.router_container{
 
 .header{
   flex-shrink: 0;
-  height: 5.5rem;
+  height: var(--nav-height);
   display: flex;
   align-items: center;
   background-color: var(--app-color-bg-alt);

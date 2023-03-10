@@ -36,7 +36,7 @@ export class EmployeesPageComponent implements OnInit {
   };
 
   get barberList(){
-    return GlobalVariables.barbers
+    return GlobalVariables.employees
     .filter(p =>
       (p.firstName.toLowerCase() + ' ' + p.lastName.toLowerCase()).includes(this.searchValue.toLowerCase()) ||
       p.phoneNumber?.toLowerCase().includes(this.searchValue.toLowerCase())
@@ -53,7 +53,7 @@ export class EmployeesPageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
-    if (!GlobalVariables.appLoaded)
+    if (!GlobalVariables.loadFromLocalStorage())
       this.router.navigateByUrl('/Home');
 
   }
@@ -64,7 +64,7 @@ export class EmployeesPageComponent implements OnInit {
 
   onCancel() {
     if (this.router.url == '/Employees') {
-      if(GlobalVariables.barbers.length > 0)
+      if(GlobalVariables.employees.length > 0)
         this.router.navigateByUrl('/Home');
     }
     else

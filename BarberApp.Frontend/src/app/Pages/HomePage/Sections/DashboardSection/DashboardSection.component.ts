@@ -200,7 +200,7 @@ export class DashboardSectionComponent implements OnInit {
     const topEmployees: TopEmployee[] = [];
 
     schedules.forEach(p => {
-      const barberById = GlobalVariables.barbers.find(d => d.barberId === p.barberId);
+      const barberById = GlobalVariables.employees.find(d => d.barberId === p.barberId);
       let topEmployee: TopEmployee = {
         employee: barberById!,
         count: 1,

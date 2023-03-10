@@ -4,7 +4,7 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 @Component({
   selector: 'app-ListClients',
   templateUrl: './ListClients.component.html',
-  styleUrls: ['./ListClients.component.scss']
+  styleUrls: ['../../../Shared/Styles/baseSection.scss',  './ListClients.component.scss']
 })
 export class ListClientsComponent implements OnInit {
 
