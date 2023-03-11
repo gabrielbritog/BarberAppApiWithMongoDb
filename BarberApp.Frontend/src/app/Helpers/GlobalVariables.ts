@@ -160,12 +160,9 @@ export class GlobalVariables {
       bodyElement.classList.remove('light-mode');
     }
 
-    bodyElement.style.setProperty('font-size', userConfig.fontSize);
+    htmlElement.style.setProperty('font-size', userConfig.fontSize);
     bodyElement.style.setProperty('--app-color-primary', userConfig.primaryColor);
-    bodyElement.style.setProperty(
-      '--app-color-secondary',
-      userConfig.secondaryColor
-    );
+    bodyElement.style.setProperty('--app-color-secondary', userConfig.secondaryColor);
 
     setTimeout(() => htmlElement.classList.remove(noAnimClass), delay*2);
   }
