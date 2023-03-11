@@ -47,6 +47,11 @@ section{
   gap: 1rem;
 }
 
+.wrapper.charts_wrapper{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+}
+
 .nowrap{
   min-width: 100%;
   display: flex;
@@ -236,11 +241,4 @@ input[type=date]::before{
     text-align: right;
   }
 
-}
-
-@media (min-width: 768px) {
-  .wrapper.charts_wrapper{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
 }

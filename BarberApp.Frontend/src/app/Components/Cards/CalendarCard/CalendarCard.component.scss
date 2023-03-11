@@ -43,8 +43,8 @@ label.datepick_view{
   width: 100vw;
   overflow: auto;
   transform: translateX(calc(-1 * var(--section-padding-X)));
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
   height: 100px;
 }
 
@@ -75,5 +75,16 @@ label.datepick_view{
     background-color: var(--app-color-primary);
     border-color: var(--app-color-primary);
     font-weight: bold;
+  }
+}
+
+@media (min-width: 768px) {
+  .cards_wrapper{
+    padding: 4px 0;
+    width: 100%;
+    transform: translateX(0);
+  }
+  .card_day{
+    width: auto;
   }
 }

@@ -73,6 +73,7 @@
 *::-webkit-scrollbar {
   width: 12px;
   height: 12px;
+  display: block;
 }
 
 *::-webkit-scrollbar-track {
@@ -91,6 +92,8 @@
 
 body{
   overflow-x: hidden;
+  overflow-y: scroll;
+  overflow-y: overlay;
   background-color: var(--app-color-bg);
   color: var(--app-color-text);
   &.sidebarOpen{
