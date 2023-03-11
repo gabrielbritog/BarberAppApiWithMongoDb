@@ -85,7 +85,7 @@
   border: 3px solid var(--app-color-bg-alt);
 }
 
-body.no_anim * {
+.no_anim *{
   transition: none !important;
 }
 
@@ -93,7 +93,9 @@ body{
   overflow-x: hidden;
   background-color: var(--app-color-bg);
   color: var(--app-color-text);
-
+  &.sidebarOpen{
+    overflow: hidden;
+  }
   &.light-mode{
     --app-color-text: var(--app-color-text-light);
     --app-color-bg: var(--app-color-bg-light);
@@ -102,6 +104,15 @@ body{
     --app-color-input-bg: var(--app-color-input-bg-light);
     --app-color-input-text: var(--app-color-input-text-light);
     --app-color-light-border: var(--app-color-light-border-light);
+  }
+}
+
+app-navbar{
+  position: sticky;
+  top: calc(-1 * var(--nav-height));
+  z-index: var(--nav-zindex);
+  &.top-0{
+    top: 0;
   }
 }
 

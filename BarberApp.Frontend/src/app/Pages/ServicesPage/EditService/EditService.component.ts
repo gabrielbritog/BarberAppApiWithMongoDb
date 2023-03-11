@@ -61,6 +61,8 @@ export class EditServiceComponent implements OnInit {
       this.modalInputs[0].value = this.serviceModel.nameService;
       this.modalInputs[1].value = this.serviceModel.valueService.toString();
       this.modalInputs[2].value = this.serviceModel.duration;
+    } else {
+      this.onCancel();
     }
   }
 
@@ -85,8 +87,6 @@ export class EditServiceComponent implements OnInit {
             GlobalVariables.serviceTypes.push(data.data);
           else
             GlobalVariables.serviceTypes[index] = new ServiceTypeModel(data.data);
-
-        GlobalVariables.saveAppData('serviceTypes');
 
           this.onCancel();
           form.resetForm();

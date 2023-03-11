@@ -1,7 +1,6 @@
-<app-Sidebar *ngIf="sidebarExpanded" [navBar]="this"></app-Sidebar>
 <nav class="container_fluid" [class.adminBoardVisible]="showAdminBoard">
   <div class="container nav_container">
-    <button class="profile_pic nav_profile" (click)="sidebarExpanded = !sidebarExpanded">
+    <button class="profile_pic nav_profile" (click)="showSidebar = !showSidebar">
       <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
       <i *ngIf="!profilePic" class="fa-solid fa-user placeholder_icon"></i>
       <div class="sidebar_toggle">

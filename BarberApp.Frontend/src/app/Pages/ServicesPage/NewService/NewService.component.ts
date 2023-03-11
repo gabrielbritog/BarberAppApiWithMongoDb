@@ -86,7 +86,6 @@ export class NewServiceComponent implements OnInit {
           else
             GlobalVariables.serviceTypes[index] = new ServiceTypeModel(data.data);
 
-          GlobalVariables.saveAppData('serviceTypes');
           this.onCancel();
           form.resetForm();
         }, 20);

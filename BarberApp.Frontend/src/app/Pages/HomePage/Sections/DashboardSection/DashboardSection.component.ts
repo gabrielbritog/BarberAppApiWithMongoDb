@@ -90,9 +90,7 @@ export class DashboardSectionComponent implements OnInit {
   loadedTopServices = false;
   loadedSchedulesInPeriod = false;
 
-  get isDashboardNotLoaded() {
-    return DashboardSectionComponent._topEmployees.length == 0 && DashboardSectionComponent._topClients.length == 0 && DashboardSectionComponent._schedulesInPeriod.length == 0;
-  }
+  static isDashboardLoaded = false;
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -100,7 +98,7 @@ export class DashboardSectionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.isDashboardNotLoaded)
+    if (!DashboardSectionComponent.isDashboardLoaded)
       this.loadProperties();
     else{
       this.createIncomeChart();
@@ -275,6 +273,7 @@ export class DashboardSectionComponent implements OnInit {
         this.loadedTopClients =
         this.loadedTopEmployees =
         this.loadedTopServices = false;
+      DashboardSectionComponent.isDashboardLoaded = true;
     }
   }
 

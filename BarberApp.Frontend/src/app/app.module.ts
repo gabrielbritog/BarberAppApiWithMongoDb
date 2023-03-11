@@ -41,7 +41,7 @@ import { authInterceptorProviders } from './Helpers/AuthInterceptor';
 // COMPONENTS
 import { LoaderComponent } from './Components/Loader/Loader.component';
 import { NavBarComponent } from './Components/NavBar/NavBar.component';
-import { SidebarComponent } from './Components/NavBar/Sidebar/Sidebar.component';
+import { SidebarComponent } from './Components/Sidebar/Sidebar.component';
 import { AdminBoardComponent } from './Components/NavBar/AdminBoard/AdminBoard.component';
 import { PlusButtonComponent } from './Components/PlusButton/PlusButton.component';
 import { FormInputComponent } from './Components/FormInput/FormInput.component';
@@ -72,11 +72,13 @@ import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/Sc
 // MISC
 import { ToastrModule } from 'ngx-toastr';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { WindowScrollDetectorDirective } from './Shared/WindowScrollDetector.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     CurrencyCursorDirective,
+    WindowScrollDetectorDirective,
 
     // PAGES
     HomePageComponent,

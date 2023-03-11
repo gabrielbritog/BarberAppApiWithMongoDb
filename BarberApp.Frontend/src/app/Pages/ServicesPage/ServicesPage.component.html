@@ -1,5 +1,5 @@
 <div class="page_container">
-  <div class="header" [class.adminBoard]="showAdminBoard" >
+  <div class="header" [class.adminBoard]="showAdminBoard"  appWindowScrollDetector [class.top-0]="scrolledUp">
     <div class="container">
       <button class="btn btn_return" (click)="onCancel()" >
         <i class="fa-solid fa-arrow-left"></i>
@@ -8,9 +8,9 @@
         {{headerUrl}}
       </h3>
     </div>
+    <app-AdminBoard *ngIf="showAdminBoard"></app-AdminBoard>
   </div>
 
-  <app-AdminBoard *ngIf="showAdminBoard"></app-AdminBoard>
 
   <section class="router_container">
     <router-outlet></router-outlet>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../../Services/token-storage.service';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
-import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -11,12 +10,12 @@ import * as moment from 'moment';
 })
 export class NavBarComponent implements OnInit {
 
-  get sidebarExpanded() {
-    return GlobalVariables.sidebarExpanded;
+  get showSidebar() {
+    return GlobalVariables.showSidebar;
   }
 
-  set sidebarExpanded(value) {
-    GlobalVariables.sidebarExpanded = value;
+  set showSidebar(value) {
+    GlobalVariables.showSidebar = value;
   }
 
   get showAdminBoard() {

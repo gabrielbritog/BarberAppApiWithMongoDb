@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { UserModel } from '../Models/UserModel';
-import { BarberModel } from '../Models/BarberModel';
+import { GlobalVariables } from '../Helpers/GlobalVariables';
+import { DashboardSectionComponent } from '../Pages/HomePage/Sections/DashboardSection/DashboardSection.component';
+import { Router } from '@angular/router';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -10,11 +12,15 @@ const USER_KEY = 'auth-user';
 })
 export class TokenStorageService {
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   public signOut() {
     localStorage.clear();
     sessionStorage.clear();
+    this.route.navigateByUrl('/');
+    GlobalVariables.clearProperties();
+    DashboardSectionComponent.isDashboardLoaded = false;
+    // window.location.reload();
   }
 
   public saveToken(token: string) {

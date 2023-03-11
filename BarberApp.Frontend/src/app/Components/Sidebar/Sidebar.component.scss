@@ -179,6 +179,9 @@ input[type=number]:focus {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  a{
+    flex-grow: 1;
+  }
   &.last{
     margin-top: auto;
   }

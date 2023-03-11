@@ -1,15 +1,10 @@
-import { ServiceTypeService } from './../../Services/ServiceType.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { Router } from '@angular/router';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
-import { SchedulingService } from 'src/app/Services/SchedulingService.service';
-import { ScheduleModel } from '../../Models/ScheduleModel';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
-import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
-import { EmployeeService } from '../../Services/Employee.service';
-import { BarberModel } from '../../Models/BarberModel';
 import { DashboardSectionComponent } from './Sections/DashboardSection/DashboardSection.component';
+import { WindowScrollDetectorDirective } from 'src/app/Shared/WindowScrollDetector.directive';
 
 @Component({
   selector: 'app-HomePage',
@@ -17,6 +12,13 @@ import { DashboardSectionComponent } from './Sections/DashboardSection/Dashboard
   styleUrls: ['./HomePage.component.scss']
 })
 export class HomePageComponent implements OnInit {
+  @ViewChild(WindowScrollDetectorDirective) scrollDetector?: WindowScrollDetectorDirective;
+  get scrolledUp() {
+    if (this.scrollDetector)
+      return this.scrollDetector.scrolledUp;
+
+    return false;
+  }
 
   get currentSection(){ return GlobalVariables.currentSection };
 
@@ -27,19 +29,17 @@ export class HomePageComponent implements OnInit {
 
   constructor(
       private tokenStorage: TokenStorageService,
-      private schedulingService: SchedulingService,
-      private serviceTypeService: ServiceTypeService,
-      private barberService: EmployeeService,
       private router: Router
     ) {  }
 
   ngOnInit() {
+
     if (!this.tokenStorage.getToken()) {
       this.router.navigateByUrl('/Login');
       return;
     }
 
-    if (GlobalVariables.loadFromLocalStorage()) {
+    if (GlobalVariables.isAppLoaded) {
       this.appLoaded = true;
     } else {
       this.loadApp();
@@ -48,10 +48,10 @@ export class HomePageComponent implements OnInit {
 
   loadApp() {
     DashboardSectionComponent.clearProperties();
-    GlobalVariables.sidebarExpanded = false;
+    GlobalVariables.showSidebar = false;
     LoaderComponent.SetOptions(true);
 
-    GlobalVariables.init(this.schedulingService, this.serviceTypeService, this.barberService).subscribe({
+    GlobalVariables.init().subscribe({
       next: (data: any) => {
         this.loadedSchedules =
           this.loadedServiceTypes =
@@ -61,6 +61,7 @@ export class HomePageComponent implements OnInit {
       },
       error: (err) => {
         console.log('Algo deu errado');
+        LoaderComponent.SetOptions(false);
         this.tokenStorage.signOut();
       }
     })
@@ -77,13 +78,13 @@ export class HomePageComponent implements OnInit {
 
     GlobalVariables.currentSection = 1;
 
-    GlobalVariables.FillProperties();
+    GlobalVariables.fillProperties();
 
     const delay = 200;
     setTimeout(() => {
       LoaderComponent.SetOptions(false);
 
-      this.appLoaded = GlobalVariables.appLoaded = true;
+      this.appLoaded = GlobalVariables.isAppLoaded = true;
 
       if (GlobalVariables.employees.length == 0)
         this.router.navigateByUrl('/Employees/New');

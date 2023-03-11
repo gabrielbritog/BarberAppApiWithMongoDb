@@ -10,12 +10,6 @@
   flex-direction: column;
 }
 
-app-navbar{
-  position: sticky;
-  top: calc(-1 * var(--nav-height));
-  z-index: var(--nav-zindex);
-}
-
 #section_container{
   position: relative;
   width: 100%;

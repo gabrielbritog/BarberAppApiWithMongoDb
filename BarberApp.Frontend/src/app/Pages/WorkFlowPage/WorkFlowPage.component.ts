@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { UserService } from 'src/app/Services/User.service';
@@ -6,6 +6,7 @@ import { WorkingDays } from '../../Models/WorkingDays';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
+import { WindowScrollDetectorDirective } from 'src/app/Shared/WindowScrollDetector.directive';
 
 @Component({
   selector: 'app-WorkFlowPage',
@@ -13,6 +14,13 @@ import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
   styleUrls: ['../../Shared/Styles/basePage.scss','./WorkFlowPage.component.scss']
 })
 export class WorkFlowPageComponent implements OnInit {
+  @ViewChild(WindowScrollDetectorDirective) scrollDetector?: WindowScrollDetectorDirective;
+  get scrolledUp() {
+    if (this.scrollDetector)
+      return this.scrollDetector.scrolledUp;
+
+    return false;
+  }
 
   _defaultWorkingDay = new WorkingDays({
     openingTime: '09:00',
@@ -84,8 +92,8 @@ export class WorkFlowPageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
-    if (!GlobalVariables.loadFromLocalStorage())
-      this.router.navigateByUrl('/Home');
+    if (!GlobalVariables.isAppLoaded)
+      GlobalVariables.initStandalone();
 
     const userWorkingDays = GlobalVariables.userWorkingDays;
     this._workingDaysBckp = this.tokenStorage.getUserModel().workingDays;

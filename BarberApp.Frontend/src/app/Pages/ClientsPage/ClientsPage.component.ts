@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { UserModel } from 'src/app/Models/UserModel';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
+import { WindowScrollDetectorDirective } from 'src/app/Shared/WindowScrollDetector.directive';
 
 @Component({
   selector: 'app-ClientsPage',
@@ -10,6 +11,13 @@ import { TokenStorageService } from 'src/app/Services/token-storage.service';
   styleUrls: ['../../Shared/Styles/basePage.scss', './ClientsPage.component.scss']
 })
 export class ClientsPageComponent implements OnInit {
+  @ViewChild(WindowScrollDetectorDirective) scrollDetector?: WindowScrollDetectorDirective;
+  get scrolledUp() {
+    if (this.scrollDetector)
+      return this.scrollDetector.scrolledUp;
+
+    return false;
+  }
 
   get headerUrl() {
     let header = 'Clientes'
@@ -39,8 +47,9 @@ export class ClientsPageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
-    if (!GlobalVariables.loadFromLocalStorage())
-      this.router.navigateByUrl('/Home');
+
+      if (!GlobalVariables.isAppLoaded)
+      GlobalVariables.initStandalone();
 
   }
 

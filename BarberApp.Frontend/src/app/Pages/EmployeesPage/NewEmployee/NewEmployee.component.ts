@@ -114,7 +114,6 @@ export class NewEmployeeComponent implements OnInit {
       if (GlobalVariables.employees.length == 1)
         GlobalVariables.selectedBarber = GlobalVariables.employees[0];
 
-      GlobalVariables.saveAppData('employees');
       this.onCancel();
       form.resetForm();
     }, 20);

@@ -54,8 +54,6 @@ export class EditEmailComponent implements OnInit {
         LoaderComponent.SetOptions(false, true, true);
         setTimeout(() => {
           this.tokenStorage.signOut();
-          GlobalVariables.loadUserConfig(new UserConfig());
-          this.router.navigateByUrl('/')
         }, LoaderComponent.timeoutOffset);
       },
       error: (err: any) => {

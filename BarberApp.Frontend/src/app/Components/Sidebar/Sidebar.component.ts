@@ -1,23 +1,21 @@
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
-import { NavBarComponent } from '../NavBar.component';
-import { UserConfig } from '../../../Models/UserConfig';
-import { UserService } from '../../../Services/User.service';
+import { UserConfig } from '../../Models/UserConfig';
+import { UserService } from '../../Services/User.service';
 
 @Component({
   selector: 'app-Sidebar',
   templateUrl: './Sidebar.component.html',
   styleUrls: ['./Sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
-
-  @Input() navBar!: NavBarComponent;
-
-  _document = document.documentElement;
+export class SidebarComponent implements OnInit, OnDestroy {
 
   userConfig = new UserConfig(this.tokenStorage.getUserModel().userConfig);
+
+  get showSidebar(){
+    return GlobalVariables.showSidebar;
+  }
 
   get fontsize() { return parseInt(this.userConfig.fontSize); }
   set fontsize(value) {
@@ -56,11 +54,23 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private router: Router,
     private userService: UserService
-  ) {  }
+  ) { }
+
+  ngOnDestroy(): void {
+    this.setBodyScroll(true);
+  }
 
   ngOnInit() {
+    this.setBodyScroll(false);
+  }
+
+  setBodyScroll(value: boolean) {
+    const bodyElement = document.body;
+    if (!value)
+      bodyElement.classList.add('sidebarOpen')
+    else
+      bodyElement.classList.remove('sidebarOpen')
   }
 
   closeSidebar() {
@@ -70,17 +80,11 @@ export class SidebarComponent implements OnInit {
     if (baseElement)
       baseElement.classList.add('collapse')
 
-    setTimeout(() => this.navBar.sidebarExpanded = false , animationDelay);
+    setTimeout(() => GlobalVariables.showSidebar = false , animationDelay);
   }
 
   logout() {
     this.tokenStorage.signOut();
-    GlobalVariables.loadUserConfig(new UserConfig());
-    this.router.navigateByUrl('/')
-  }
-
-  goToRoute(route: string) {
-    this.router.navigateByUrl(route);
   }
 
   updateUserConfig() {

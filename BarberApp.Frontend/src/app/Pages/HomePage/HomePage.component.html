@@ -1,7 +1,7 @@
 
+<app-NavBar appWindowScrollDetector [class.top-0]="scrolledUp"></app-NavBar>
 <ng-container *ngIf="appLoaded"  >
   <div class="home_container">
-    <app-NavBar></app-NavBar>
     <section id="section_container" #sectionContainer>
         <app-DashboardSection *ngIf="currentSection == 0" class="nav_section no-pad" id="dashboard_section"></app-DashboardSection>
         <app-SchedulesSection *ngIf="currentSection == 1" class="nav_section" id="schedules_section"></app-SchedulesSection>

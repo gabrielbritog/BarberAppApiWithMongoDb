@@ -1,11 +1,12 @@
 import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { NgForm } from '@angular/forms';
 import { TokenStorageService } from '../../Services/token-storage.service';
 import { UserModel } from '../../Models/UserModel';
 import { Router } from '@angular/router';
 import { UserService } from '../../Services/User.service';
+import { WindowScrollDetectorDirective } from 'src/app/Shared/WindowScrollDetector.directive';
 
 @Component({
   selector: 'app-AccountPage',
@@ -13,6 +14,13 @@ import { UserService } from '../../Services/User.service';
   styleUrls: ['../../Shared/Styles/basePage.scss','./AccountPage.component.scss']
 })
 export class AccountPageComponent implements OnInit {
+  @ViewChild(WindowScrollDetectorDirective) scrollDetector?: WindowScrollDetectorDirective;
+  get scrolledUp() {
+    if (this.scrollDetector)
+      return this.scrollDetector.scrolledUp;
+
+    return false;
+  }
 
   inputText = "";
 
@@ -55,8 +63,8 @@ export class AccountPageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
-    if (!GlobalVariables.loadFromLocalStorage())
-      this.router.navigateByUrl('/Home');
+    if (!GlobalVariables.isAppLoaded)
+      GlobalVariables.initStandalone();
 
   }
 

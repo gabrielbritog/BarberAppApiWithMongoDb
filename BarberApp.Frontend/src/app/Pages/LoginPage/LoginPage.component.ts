@@ -41,7 +41,7 @@ export class LoginPageComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    GlobalVariables.appLoaded = false;
+    GlobalVariables.isAppLoaded = false;
     if (this.tokenStorage.getToken())
       this.router.navigateByUrl('/Home');
   }

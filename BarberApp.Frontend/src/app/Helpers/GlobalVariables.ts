@@ -4,26 +4,23 @@ import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 import { BarberModel } from '../Models/BarberModel';
 import { UserConfig } from '../Models/UserConfig';
 import { WorkingDays } from '../Models/WorkingDays';
-import { Injectable } from '@angular/core';
 import { EmployeeService } from '../Services/Employee.service';
 import { SchedulingService } from '../Services/SchedulingService.service';
 import { ServiceTypeService } from '../Services/ServiceType.service';
 import { catchError, forkJoin, map, Observable, of } from 'rxjs';
-import { TokenStorageService } from '../Services/token-storage.service';
 import { UserModel } from '../Models/UserModel';
+import { LoaderComponent } from '../Components/Loader/Loader.component';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class GlobalVariables {
-
-  private static schedulingService?: SchedulingService;
-  private static serviceTypeService?: ServiceTypeService;
-  private static employeeService?: EmployeeService;
   // IP DA MÁQUINA
   // static readonly MACHINE_IP = "localhost";
   static readonly MACHINE_IP = 'http://192.168.1.83:5066';
 
+  private static schedulingService?: SchedulingService;
+  private static serviceTypeService?: ServiceTypeService;
+  private static employeeService?: EmployeeService;
+
+  // PROPERTIES
   static startTime = 9;
   static endTime = 17;
   static intervalTimeMinutes = 30;
@@ -31,6 +28,8 @@ export class GlobalVariables {
 
   static get isAdmin() {
     const userModel = this.getUserModel();
+    if (!userModel)
+      return false;
     let userBarberId: string | null = userModel.barberId;
 
     return !userBarberId;
@@ -40,14 +39,14 @@ export class GlobalVariables {
 
   static emptySchedules: ScheduleModel[] = [];
 
-  static appLoaded = false;
+  // SIDEBAR
+  static showSidebar = false;
 
   // MODALS
   static showScheduleModal = false;
   static showServiceTypeModal = false;
   static showBarberModal = false;
   static modalAsEdit = false;
-  static sidebarExpanded = false;
 
   // EDIT MODALS VARIABLES
   static editSchedule: ScheduleModel | undefined;
@@ -58,13 +57,14 @@ export class GlobalVariables {
   static currentSection = 0;
 
   // SCHEDULES / SERVICE TYPES / EMPLOYEES
+  static isAppLoaded = false;
+
   private static _schedules: ScheduleModel[] = [];
   static get schedules() {
     return this._schedules;
   }
   static set schedules(value) {
     this._schedules = value;
-    this.saveAppData('schedules');
   }
 
   private static _serviceTypes: ServiceTypeModel[] = [];
@@ -73,7 +73,6 @@ export class GlobalVariables {
   }
   static set serviceTypes(value) {
     this._serviceTypes = value;
-    this.saveAppData('serviceTypes');
   }
 
   private static _employees: BarberModel[] = [];
@@ -82,18 +81,22 @@ export class GlobalVariables {
   }
   static set employees(value) {
     this._employees = value;
-    this.saveAppData('employees');
   }
 
 
+
+  //  MÉTODOS
   static currentDay = moment();
 
-  // LOADER
-  static loader = false;
-  static isLoaderSuccess = false;
-  static showLoaderSuccess = true;
+  static clearProperties() {
+    GlobalVariables.isAppLoaded = false;
+    GlobalVariables.loadUserConfig(new UserConfig());
+    GlobalVariables._schedules = [];
+    GlobalVariables._serviceTypes = [];
+    GlobalVariables._employees = [];
+  }
 
-  static FillProperties(user?: UserModel) {
+  static fillProperties(user?: UserModel) {
     user = user ?? this.getUserModel();
     if (user) {
       GlobalVariables.loadUserConfig(user.userConfig);
@@ -143,11 +146,12 @@ export class GlobalVariables {
   }
 
   static loadUserConfig(userConfig: UserConfig) {
+    const htmlElement = document.documentElement;
     const bodyElement = document.body;
     const delay = 200;
     const noAnimClass = 'no_anim';
 
-    bodyElement.classList.add(noAnimClass);
+    htmlElement.classList.add(noAnimClass);
 
     if (!userConfig.darkmode) {
       if (!bodyElement.classList.contains('light-mode'))
@@ -163,7 +167,7 @@ export class GlobalVariables {
       userConfig.secondaryColor
     );
 
-    setTimeout(() => bodyElement.classList.remove(noAnimClass), delay);
+    setTimeout(() => htmlElement.classList.remove(noAnimClass), delay*2);
   }
 
   static createWorkingDays() {
@@ -185,14 +189,25 @@ export class GlobalVariables {
     return workingDays;
   }
 
-  static init(
-    schedulingService: SchedulingService,
-    serviceTypeService: ServiceTypeService,
-    employeeService: EmployeeService
-  ) {
-    GlobalVariables.initServices(schedulingService, serviceTypeService, employeeService);
-
+  static init() {
     return GlobalVariables.loadAppData();
+  }
+
+  static initStandalone() {
+    if (GlobalVariables.isAppLoaded)
+      return;
+
+    GlobalVariables.loadAppData().subscribe({
+      next: (data) => {
+        GlobalVariables.fillProperties();
+        LoaderComponent.SetOptions(false);
+        GlobalVariables.isAppLoaded = true;
+      },
+      error: (err) => {
+        LoaderComponent.SetOptions(false);
+        console.log(err);
+      }
+    });
   }
 
   static initServices(
@@ -203,31 +218,6 @@ export class GlobalVariables {
     GlobalVariables.serviceTypeService = serviceTypeService;
     GlobalVariables.schedulingService = schedulingService;
     GlobalVariables.employeeService = employeeService;
-  }
-
-  static loadFromLocalStorage(): boolean {
-    const schedules = localStorage.getItem('schedules');
-    const employees = localStorage.getItem('employees');
-    const serviceTypes = localStorage.getItem('serviceTypes');
-    const userLoggedIn = localStorage.getItem('auth-user');
-    const userModel = Object.assign(new UserModel(), JSON.parse(userLoggedIn!));
-
-    if (!userLoggedIn || userLoggedIn === 'undefined')
-      return false;
-
-    if (!schedules || !employees || !serviceTypes)
-      return false;
-
-    if (schedules === 'undefined' || employees === 'undefined' || serviceTypes === 'undefined')
-      return false;
-
-    GlobalVariables._schedules = JSON.parse(schedules).map((obj: any) => Object.assign(new ScheduleModel(), obj));
-    GlobalVariables._employees = JSON.parse(employees).map((obj: any) => Object.assign(new BarberModel(), obj));
-    GlobalVariables._serviceTypes = JSON.parse(serviceTypes).map((obj: any) => Object.assign(new ServiceTypeModel(), obj));
-    GlobalVariables.currentDay = moment();
-
-    GlobalVariables.FillProperties(userModel);
-    return true;
   }
 
   private static getSchedules(): Observable<boolean> {
@@ -278,21 +268,6 @@ export class GlobalVariables {
     const isBarbersLoaded = this.getEmployees();
 
     return forkJoin([isSchedulesLoaded, isServiceTypesLoaded, isBarbersLoaded]);
-  }
-
-  public static saveAppData(item: 'schedules' | 'employees'| 'serviceTypes'| 'all') {
-
-    console.log('fui chamado por: ', item);
-    // console.log(_schedu)
-
-    if (item === 'schedules' || item === 'all')
-      localStorage.setItem('schedules', JSON.stringify(this._schedules));
-
-    if (item === 'employees' || item === 'all')
-      localStorage.setItem('employees', JSON.stringify(this._employees));
-
-    if (item === 'serviceTypes' || item === 'all')
-      localStorage.setItem('serviceTypes', JSON.stringify(this._serviceTypes));
   }
 
   private static getUser() {

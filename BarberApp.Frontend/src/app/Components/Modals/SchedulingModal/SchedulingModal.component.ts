@@ -181,7 +181,7 @@ export class SchedulingModalComponent implements OnInit {
             GlobalVariables.schedules.push(new ScheduleModel(data.data));
           else
             GlobalVariables.schedules[index] = new ScheduleModel(data.data);
-          GlobalVariables.saveAppData('schedules');
+
           this.onCancel();
         }, 20);
       },
