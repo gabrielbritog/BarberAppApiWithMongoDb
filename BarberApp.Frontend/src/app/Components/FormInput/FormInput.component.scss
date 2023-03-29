@@ -184,7 +184,7 @@ input{
   background-color: var(--app-color-input-bg);
   color: var(--app-color-input-text);
   border: none;
-  padding: .5rem 1rem;
+  padding: 1.4rem 1rem 0.5rem;
   border-radius: var(--global-border-radius);
   &:disabled::before{
     content: " ";
@@ -224,7 +224,8 @@ label {
   width: 100%;
   .placeholder_title{
     position: absolute;
-    top: 0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
     display: grid;
     place-items: center;
     line-height: 1;
@@ -242,6 +243,7 @@ label {
     font-size: 1rem;
     +.placeholder_title{
       top: 0.5rem;
+      transform: translateY(0);
       color: var(--app-color-text);
       font-size: .7rem;
       font-weight: 600;

@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './Pages/HomePage/HomePage.component';
-import { LoginPageComponent } from './Pages/LoginPage/LoginPage.component';
-import { RegisterPageComponent } from './Pages/RegisterPage/RegisterPage.component';
-import { AccountPageComponent } from './Pages/AccountPage/AccountPage.component';
-import { EditNameComponent } from './Pages/AccountPage/EditName/EditName.component';
-import { UserInfoComponent } from './Pages/AccountPage/UserInfo/UserInfo.component';
-import { EditPasswordComponent } from './Pages/AccountPage/EditPassword/EditPassword.component';
-import { EditPhoneComponent } from './Pages/AccountPage/EditPhone/EditPhone.component';
-import { EditEmailComponent } from './Pages/AccountPage/EditEmail/EditEmail.component';
-import { WorkFlowPageComponent } from './Pages/WorkFlowPage/WorkFlowPage.component';
-import { EmployeesPageComponent } from './Pages/EmployeesPage/EmployeesPage.component';
-import { ServicesPageComponent } from './Pages/ServicesPage/ServicesPage.component';
-import { ClientsPageComponent } from './Pages/ClientsPage/ClientsPage.component';
-import { EditEmployeeComponent } from './Pages/EmployeesPage/EditEmployee/EditEmployee.component';
-import { ListEmployeeComponent } from './Pages/EmployeesPage/ListEmployee/ListEmployee.component';
-import { NewEmployeeComponent } from './Pages/EmployeesPage/NewEmployee/NewEmployee.component';
-import { ListClientsComponent } from './Pages/ClientsPage/ListClients/ListClients.component';
-import { ListServiceComponent } from './Pages/ServicesPage/ListService/ListService.component';
-import { EditServiceComponent } from './Pages/ServicesPage/EditService/EditService.component';
-import { NewServiceComponent } from './Pages/ServicesPage/NewService/NewService.component';
+import { EditEmployeeComponent } from './Pages/Admin/EmployeesPage/EditEmployee/EditEmployee.component';
+import { EmployeesPageComponent } from './Pages/Admin/EmployeesPage/EmployeesPage.component';
+import { ListEmployeeComponent } from './Pages/Admin/EmployeesPage/ListEmployee/ListEmployee.component';
+import { NewEmployeeComponent } from './Pages/Admin/EmployeesPage/NewEmployee/NewEmployee.component';
+import { LoginPageComponent } from './Pages/Auth/LoginPage/LoginPage.component';
+import { RegisterPageComponent } from './Pages/Auth/RegisterPage/RegisterPage.component';
+import { AccountPageComponent } from './Pages/Shared/AccountPage/AccountPage.component';
+import { EditEmailComponent } from './Pages/Shared/AccountPage/EditEmail/EditEmail.component';
+import { EditNameComponent } from './Pages/Shared/AccountPage/EditName/EditName.component';
+import { EditPasswordComponent } from './Pages/Shared/AccountPage/EditPassword/EditPassword.component';
+import { EditPhoneComponent } from './Pages/Shared/AccountPage/EditPhone/EditPhone.component';
+import { UserInfoComponent } from './Pages/Shared/AccountPage/UserInfo/UserInfo.component';
+import { ClientsPageComponent } from './Pages/Shared/ClientsPage/ClientsPage.component';
+import { ListClientsComponent } from './Pages/Shared/ClientsPage/ListClients/ListClients.component';
+import { HomePageComponent } from './Pages/Shared/HomePage/HomePage.component';
+import { EditServiceComponent } from './Pages/Shared/ServicesPage/EditService/EditService.component';
+import { ListServiceComponent } from './Pages/Shared/ServicesPage/ListService/ListService.component';
+import { NewServiceComponent } from './Pages/Shared/ServicesPage/NewService/NewService.component';
+import { ServicesPageComponent } from './Pages/Shared/ServicesPage/ServicesPage.component';
+import { WorkFlowPageComponent } from './Pages/Shared/WorkFlowPage/WorkFlowPage.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },

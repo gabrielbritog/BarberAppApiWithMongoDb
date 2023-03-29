@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from './Services/Employee.service';
-import { SchedulingService } from './Services/SchedulingService.service';
-import { ServiceTypeService } from './Services/ServiceType.service';
-import { TokenStorageService } from './Services/token-storage.service';
 import { GlobalVariables } from './Helpers/GlobalVariables';
 import { Router } from '@angular/router';
+import { EmployeeService } from './Services/api/Employee.service';
+import { SchedulingService } from './Services/api/SchedulingService.service';
+import { ServiceTypeService } from './Services/api/ServiceType.service';
+import { TokenStorageService } from './Services/auth/token-storage.service';
 
 @Component({
   selector: 'app-root',

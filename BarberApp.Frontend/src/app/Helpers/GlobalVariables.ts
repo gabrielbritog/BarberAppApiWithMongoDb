@@ -4,17 +4,17 @@ import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 import { BarberModel } from '../Models/BarberModel';
 import { UserConfig } from '../Models/UserConfig';
 import { WorkingDays } from '../Models/WorkingDays';
-import { EmployeeService } from '../Services/Employee.service';
-import { SchedulingService } from '../Services/SchedulingService.service';
-import { ServiceTypeService } from '../Services/ServiceType.service';
 import { catchError, forkJoin, map, Observable, of } from 'rxjs';
 import { UserModel } from '../Models/UserModel';
 import { LoaderComponent } from '../Components/Loader/Loader.component';
+import { EmployeeService } from '../Services/api/Employee.service';
+import { SchedulingService } from '../Services/api/SchedulingService.service';
+import { ServiceTypeService } from '../Services/api/ServiceType.service';
 
 export class GlobalVariables {
   // IP DA MÁQUINA
   // static readonly MACHINE_IP = "localhost";
-  static readonly MACHINE_IP = 'http://192.168.1.83:5066';
+  static readonly MACHINE_IP = 'http://192.168.1.71:5066';
 
   private static schedulingService?: SchedulingService;
   private static serviceTypeService?: ServiceTypeService;

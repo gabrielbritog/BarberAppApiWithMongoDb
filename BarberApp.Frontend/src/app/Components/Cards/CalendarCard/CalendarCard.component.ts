@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import * as moment from 'moment';
-import { SchedulingService } from '../../../Services/SchedulingService.service';
+import { SchedulingService } from 'src/app/Services/api/SchedulingService.service';
 
 @Component({
   selector: 'app-CalendarCard',

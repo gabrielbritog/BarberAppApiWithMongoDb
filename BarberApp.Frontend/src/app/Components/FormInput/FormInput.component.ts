@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IFormInput, IFormOptions } from './IFormInput';
-import { NgForm, FormControl, Validators, FormGroup, FormsModule , FormControlOptions, ValidatorFn, FormBuilder, AbstractControl, FormArray } from '@angular/forms';
-import { ServiceTypeModel } from '../../Models/ServiceTypeModel';
+import { NgForm, FormControl, Validators, FormGroup, FormControlOptions, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-FormInput',
@@ -164,7 +163,7 @@ export class FormInputComponent implements OnInit {
       .filter((p: IFormOptions) => p.isSelected)
       .map((p: IFormOptions) => p.value.valueService)
       .reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
-    
+
     return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 

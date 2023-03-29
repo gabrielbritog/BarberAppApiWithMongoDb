@@ -1,6 +1,7 @@
-<div class="app_container">
-  <app-Sidebar *ngIf="displaySidebar"></app-Sidebar>
-  <div class="router_container">
+<div class="app_container d-flex">
+  <app-Sidebar></app-Sidebar>
+  <div class="router_container flex-grow-1">
+    <app-NavBar></app-NavBar>
     <router-outlet></router-outlet>
   </div>
 </div>

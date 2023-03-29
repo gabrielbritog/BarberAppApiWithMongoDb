@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
-import { SchedulingService } from '../../../Services/SchedulingService.service';
 import { LoaderComponent } from '../../Loader/Loader.component';
 import * as moment from 'moment';
-import { TokenStorageService } from '../../../Services/token-storage.service';
 import { ClientModel } from 'src/app/Models/ClientModel';
 import { IFormInput, IFormOptions } from '../../FormInput/IFormInput';
 import { ToastrService } from 'ngx-toastr';
+import { SchedulingService } from 'src/app/Services/api/SchedulingService.service';
+import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 
 @Component({
   selector: 'app-SchedulingModal',
