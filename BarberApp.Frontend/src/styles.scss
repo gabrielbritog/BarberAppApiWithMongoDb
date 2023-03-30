@@ -1,114 +1,16 @@
-/* Importing Bootstrap SCSS file. */
-@import "./node_modules/bootstrap/scss/bootstrap";
+
+@import 'ngx-toastr/toastr';
+@import './app/Shared/shared.scss';
 
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap');
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
-@import 'ngx-toastr/toastr';
-@import './app/Shared/shared.scss';
 
-
-:root{
-  --app-color-primary: #ff9000;
-  --app-color-secondary: #518fa3;
-
-  --app-color-text: #ffffff;
-  --app-color-bg: #312e38;
-  --app-color-bg-darker: #000;
-  --app-color-bg-alt: #3e3b47;
-  --app-color-input-bg: #232129;
-  --app-color-input-text: #5e5b59;
-  --app-color-light-border: rgb(255 255 255 / 10%);
-  // --app-color-light-border: #55535d;
-
-  --app-color-text-light: #000000;
-  --app-color-bg-light: #f1f1f1;
-  --app-color-bg-darker-light: #e7e7e7;
-  --app-color-bg-alt-light: #ffffff;
-  --app-color-input-bg-light: #e2e2e2;
-  --app-color-input-text-light: #5e5b59;
-  --app-color-light-border-light: rgb(0 0 0 / 10%);
-  // --app-color-light-border-light: #dfdfdf;
-
-  --section-padding: 2vw 10vw;
-  --section-padding-X: 10vw;
-
-  --nav-color-bg: #28262e;
-  --nav-height: 4.5rem;
-  --nav-zindex: 100;
-  --modal-zindex: 1000;
-  --loader-zindex: 10000;
-
-  --global-border-radius: 10px;
-
-  --default-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --default-transition-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1);
-}
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  text-decoration: none;
-  list-style: none;
-  font-family: 'Poppins', sans-serif;
-  transition: all .3s var(--default-transition), font-weight .2s ease;
-}
-
-.hide-scrollbar{
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  *{
-    -ms-overflow-style: none;
-  }
-
-  *::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 12px;
-  display: block;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--app-color-text);
-  border-radius: 20px;
-  border: 3px solid var(--app-color-bg-alt);
-}
 
 .no_anim *{
   transition: none !important;
-}
-
-body{
-  overflow: hidden;
-  background-color: var(--app-color-bg);
-  color: var(--app-color-text);
-  &.sidebarOpen{
-    overflow: hidden;
-  }
-  &.light-mode{
-    --app-color-text: var(--app-color-text-light);
-    --app-color-bg: var(--app-color-bg-light);
-    --app-color-bg-darker: var(--app-color-bg-darker-light);
-    --app-color-bg-alt: var(--app-color-bg-alt-light);
-    --app-color-input-bg: var(--app-color-input-bg-light);
-    --app-color-input-text: var(--app-color-input-text-light);
-    --app-color-light-border: var(--app-color-light-border-light);
-  }
 }
 
 app-navbar{
@@ -121,7 +23,7 @@ hr{
   height: 0;
   background-color: var(--app-color-text);
   opacity: .25;
-  margin: 0.25rem 0;
+  margin: 0;
   flex-shrink: 0;
 }
 
@@ -190,53 +92,6 @@ img.app-logo{
   mix-blend-mode: lighten;
 }
 
-h1,h2,h3, h4, h5{
-  font-weight: 600;
-  line-height: inherit;
-  margin: 0;
-}
-
-p{
-  margin: 0;
-}
-
-h1{
-  font-size: 2rem;
-}
-
-h2{
-  font-size: 1.875rem;
-}
-
-h3{
-  font-size: 1.5rem;
-}
-
-h4{
-  font-size: 1.2rem;
-}
-
-h5{
-  font-size: 1rem;
-}
-
-.text_color_primary{
-  color: var(--app-color-primary);
-}
-
-.text_capitalize,
-.text_capitalize >*{
-  text-transform: capitalize;
-}
-
-.animate_show{
-  animation: .2s sectionShow forwards;
-}
-
-.animate_show_from_top{
-  animation: .2s sectionShowFromTop forwards;
-}
-
 .profile_pic .placeholder_icon{
   position: absolute;
   top: 50%;
@@ -249,86 +104,4 @@ h5{
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-}
-
-ul{
-  padding: 0;
-  margin: 0;
-}
-
-a{
-  color: inherit;
-  text-decoration: none;
-}
-
-@keyframes sectionShow {
-  from{
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to{
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes sectionShowFromTop {
-  from{
-    transform: translateY(-50px);
-    opacity: 0;
-  }
-  to{
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes tilt-shaking {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(5deg); }
-  50% { transform: rotate(0eg); }
-  75% { transform: rotate(-5deg); }
-  100% { transform: rotate(0deg); }
-}
-
-@keyframes horizontal-shaking {
-  0% { transform: translateX(0) }
-  25% { transform: translateX(5px) }
-  50% { transform: translateX(-5px) }
-  75% { transform: translateX(5px) }
-  100% { transform: translateX(0) }
- }
-
- @media (max-width: 767px) {
-  :root{
-    --section-padding: 5vw;
-    --section-padding-X: 5vw;
-  }
-
-  h1{
-    font-size: 1.875rem;
-  }
-
-  h2{
-    font-size: 1.5rem;
-  }
-
-  h3{
-    font-size: 1.2rem;
-  }
-
-  h4{
-    font-size: 1rem;
-  }
-
-}
-
-@media (max-width: 1023px) {
-  *{
-    -ms-overflow-style: none;
-  }
-
-  *::-webkit-scrollbar {
-    display: none;
-  }
 }

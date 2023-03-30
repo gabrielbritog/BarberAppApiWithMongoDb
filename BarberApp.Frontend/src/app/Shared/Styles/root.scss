@@ -1,0 +1,49 @@
+
+
+:root{
+
+  --section-padding: 2vw 10vw;
+  --section-padding-X: 10vw;
+
+  --nav-color-bg: #28262e;
+  --nav-height: 4.5rem;
+  --nav-zindex: 100;
+  --modal-zindex: 1000;
+  --loader-zindex: 10000;
+
+  --global-border-radius: 10px;
+
+  --default-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --default-transition-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Poppins', sans-serif;
+  transition: all .3s var(--default-transition), font-weight .2s ease;
+}
+
+
+body{
+  overflow: hidden;
+  background-color: var(--body-bg-color);
+  color: var(--app-color-text);
+  &.sidebarOpen{
+    overflow: hidden;
+  }
+  &.light-mode{
+    // --app-color-text: var(--app-color-text-light);
+    // --body-bg-color: var(--body-bg-color-light);
+    // --body-bg-color-darker: var(--body-bg-color-darker-light);
+    // --body-bg-color-alt: var(--body-bg-color-alt-light);
+    // --app-color-input-bg: var(--app-color-input-bg-light);
+    // --app-color-input-text: var(--app-color-input-text-light);
+    // --app-color-light-border: var(--app-color-light-border-light);
+  }
+}

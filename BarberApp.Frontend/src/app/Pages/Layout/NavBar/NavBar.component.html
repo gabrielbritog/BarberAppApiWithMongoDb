@@ -1,14 +1,20 @@
-<nav class="container_fluid">
-  <div class="container nav_container">
-    <button type="button" class="sidebar_toggle rounded-pill btn p-0 border-0" (click)="showSidebar()">
+<nav class="container">
+  <div class="nav_container">
+    <button
+    type="button"
+    class="sidebar_toggle btn p-0 btn-main-color border-0"
+    (click)="showSidebar()">
       <i class="fa-solid fa-bars"></i>
     </button>
-    <button class="profile_pic nav_profile">
+    <h3 class="router-name me-auto">
+      {{currentRoute}}
+    </h3>
+    <button class="profile_pic nav_profile btn border-2 border-white p-0 m-0">
       <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
       <i *ngIf="!profilePic" class="fa-solid fa-user placeholder_icon"></i>
     </button>
   </div>
+  <hr>
 </nav>
-
 <app-AdminBoard></app-AdminBoard>
 

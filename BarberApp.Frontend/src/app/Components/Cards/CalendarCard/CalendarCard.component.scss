@@ -21,10 +21,10 @@ label.datepick_view{
   gap: .5rem;
   align-items: center;
   padding: .5rem .75rem;
-  background-color: var(--app-color-bg-alt);
+  background-color: var(--body-bg-color-alt);
   border-radius: 50px;
   &.active{
-    color: var(--app-color-bg);
+    color: var(--body-bg-color);
     background-color: var(--app-color-primary);
     font-weight: 600;
   }
@@ -74,7 +74,7 @@ label.datepick_view{
     font-size: .8em;
   }
   &.active{
-    color: var(--app-color-bg);
+    color: var(--body-bg-color);
     background-color: var(--app-color-primary);
     border-color: var(--app-color-primary);
     font-weight: bold;

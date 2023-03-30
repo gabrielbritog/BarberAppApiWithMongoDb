@@ -1,26 +1,24 @@
-<div class="card client" [class.no-border]="noBorder">
 
-  <!-- <div class="picture">
-    <i class="fa-solid fa-user-large"></i>
-  </div> -->
-  <button class="btn whatsapp_btn">
-    <i class="fa-brands fa-whatsapp"></i>
+<div class="card border-0 shadow-sm flex-row p-2 gap-2">
+  <button
+  class="card-image d-grid align-content-center justify-content-center p-3 rounded-pill btn btn-green"
+  style="width: 42px; height: 42px;"
+  >
+    <i class="fa-brands fa-whatsapp fs-5"></i>
   </button>
-  <div class="content">
-    <div class="title">
-      <span>{{clientModel.name}}</span>
-    </div>
-    <div class="desc">
-      <span>{{clientModel.phone}}</span>
-    </div>
+  <div class="card-body p-0 my-auto ">
+    <h5 class="card-title m-0 mb-1 lh-1">{{clientModel.name}}</h5>
+    <h6 class="card-subtitle text-body-secondary m-0 lh-1">{{clientModel.phone}}</h6>
   </div>
+
   <ng-container *ngIf="bigInfo || smallInfo">
-    <div class="aditional_info">
+    <div class="card-body p-0 my-auto  ms-auto text-end">
       <ng-container *ngIf="bigInfo">
-        <span class="big-info">{{bigInfo}}</span>
+        <h5 class="card-title m-0 mb-1 lh-1">{{bigInfo}}</h5>
       </ng-container>
+
       <ng-container *ngIf="smallInfo">
-        <span class="small-info">{{smallInfo}}</span>
+        <h6 class="card-subtitle text-body-secondary m-0 lh-1">{{smallInfo}}</h6>
       </ng-container>
     </div>
   </ng-container>

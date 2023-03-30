@@ -14,10 +14,10 @@
 }
 
 .base_container{
-  background-color: var(--app-color-bg-alt);
+  background-color: white;
   color: var(--app-color-text);
   height: 100%;
-  width: min(100vw, 280px);
+  width: min(100vw, 250px);
   animation: .2s showContainer forwards;
   padding: 0.5rem 1rem;
   font-size: .8rem;
@@ -35,15 +35,15 @@ hr{
   width: 50px;
   height: 50px;
   border-radius: 50% 50%;
-  background-color: var(--app-color-bg-alt);
+  background-color: var(--body-bg-color-alt);
   border: none;
   color: var(--app-color-text);
 }
 
 .user_container{
   display: flex;
+  height: var(--nav-height);
   gap: 0.5rem;
-  margin-top: 0.5rem;
   align-items: center;
   .profile_pic{
     cursor: pointer;
@@ -72,7 +72,7 @@ hr{
   font-size: 12px;
   width: 24px;
   height: 24px;
-  background-color: var(--app-color-bg-alt);
+  background-color: var(--body-bg-color-alt);
   border-radius: 50%;
   top: -8px;
   left: -8px;
@@ -125,7 +125,7 @@ input[type=checkbox]{
 }
 
 input[type=color] {
-  border: 2px solid var(--app-color-bg-alt);
+  border: 2px solid var(--body-bg-color-alt);
   outline: 2px solid;
   padding: 0;
   margin: 0;
@@ -185,9 +185,10 @@ input[type=number]:focus {
   }
 
   a.active{
-    color: var(--app-color-primary);
+    color: var(--bs-main-color);
     font-weight: 600;
     padding-left: 1rem;
+    border-left: 8px solid;
     i{
       opacity: 1;
     }
@@ -230,10 +231,12 @@ a::before {
   left: 0;
   opacity: 0;
   border-radius: inherit;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 a.active::before {
-  background-color: var(--app-color-primary);
+  background-color: var(--bs-main-color);
   opacity: .1;
 }
 

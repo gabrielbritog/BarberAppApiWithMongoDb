@@ -84,7 +84,7 @@ input:-webkit-autofill:active {
 
 
 .group_item{
-  background-color: var(--app-color-bg-alt);
+  background-color: var(--body-bg-color-alt);
   border: 1px solid transparent;
   opacity: .5;
   padding: 0.5rem 1rem;
@@ -96,7 +96,7 @@ input:-webkit-autofill:active {
     font-weight: 600;
     opacity: 1;
     &.radio_item{
-      color: var(--app-color-bg);
+      color: var(--body-bg-color);
       background-color: var(--app-color-primary);
       border: 1px solid var(--app-color-primary);
     }

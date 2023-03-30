@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { AdminBoardComponent } from '../AdminBoard/AdminBoard.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-NavBar',
@@ -15,27 +16,12 @@ export class NavBarComponent implements OnInit {
     return this.loggedUser.urlImage;
   }
 
-  get currentSection() {
-    return GlobalVariables.currentSection;
-  }
-
-  set currentSection(value) {
-    GlobalVariables.currentSection = value;
-  }
-
   get loggedUser() {
     return this.tokenStorage.getUserModel();
   }
 
   get isAdmin() {
     return GlobalVariables.isAdmin;
-  }
-
-  get isBlocked() {
-    if (GlobalVariables.isAdmin && GlobalVariables.employees.length == 0)
-      return true;
-
-    return false;
   }
 
   get timeHours() {
@@ -46,7 +32,15 @@ export class NavBarComponent implements OnInit {
     return moment().format('mm');
   }
 
-  constructor(private tokenStorage: TokenStorageService) { }
+  get currentRoute() {
+    const routerUrl = this.router.url.split('/');
+    return routerUrl[routerUrl.length - 1];
+  }
+
+  constructor(
+    private tokenStorage: TokenStorageService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -54,6 +48,4 @@ export class NavBarComponent implements OnInit {
   showSidebar() {
     GlobalVariables.showSidebar = !GlobalVariables.showSidebar;
   }
-
-
 }

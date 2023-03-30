@@ -9,7 +9,7 @@
   width: 150px;
   margin: 2rem auto;
   border-radius: 50%;
-  background-color: var(--app-color-bg-alt);
+  background-color: var(--body-bg-color-alt);
   border: 3px solid var(--app-color-light-border);
   display: flex;
   justify-content: center;
@@ -28,7 +28,7 @@
     padding: 0;
     margin: 0;
     border: 0;
-    background-color: var(--app-color-bg-alt);
+    background-color: var(--body-bg-color-alt);
     border: 3px solid var(--app-color-light-border);
     color: var(--app-color-text);
   }

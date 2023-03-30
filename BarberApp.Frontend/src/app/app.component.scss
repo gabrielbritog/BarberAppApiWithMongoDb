@@ -1,15 +1,8 @@
 .router_parent_container{
   height: 100vh;
   height: 100dvh;
-  background-color: var(--app-color-bg-alt);
   overflow-y: overlay;
-}
-
-.router_container{
-  background-color: var(--app-color-bg);
-  box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.075);
-  border: 1px solid var(--app-color-light-border);
-  border-radius: 8px;
+  background-color: var(--body-bg-color);
 }
 
 app-sidebar{
