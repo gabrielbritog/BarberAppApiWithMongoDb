@@ -6,9 +6,9 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 @Component({
   selector: 'app-HistorySection',
   templateUrl: './HistorySection.component.html',
-  styleUrls: ['../../../../Styles/baseSection.scss', './HistorySection.component.scss']
+  styleUrls: ['../../Styles/basePage.scss', './HistorySection.component.scss']
 })
-export class HistorySectionComponent implements OnInit {
+export class HistoryPage implements OnInit {
 
   searchValue = '';
 

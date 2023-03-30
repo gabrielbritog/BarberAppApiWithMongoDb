@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-ListEmployee',
   templateUrl: './ListEmployee.component.html',
-  styleUrls: ['./ListEmployee.component.scss']
+  styleUrls: ['../../../Styles/baseSection.scss','./ListEmployee.component.scss']
 })
 export class ListEmployeeComponent implements OnInit {
 

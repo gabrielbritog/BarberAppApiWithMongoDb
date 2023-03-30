@@ -20,11 +20,17 @@ import { ListServiceComponent } from './Pages/Shared/ServicesPage/ListService/Li
 import { NewServiceComponent } from './Pages/Shared/ServicesPage/NewService/NewService.component';
 import { ServicesPageComponent } from './Pages/Shared/ServicesPage/ServicesPage.component';
 import { WorkFlowPageComponent } from './Pages/Shared/WorkFlowPage/WorkFlowPage.component';
+import { DashboardSectionComponent } from './Pages/Shared/DashboardPage/DashboardSection.component';
+import { SchedulesSectionComponent } from './Pages/Shared/SchedulesPage/SchedulesSection.component';
+import { HistoryPage } from './Pages/Shared/HistoryPage/HistorySection.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
   { path: 'Register', component: RegisterPageComponent },
   { path: 'Home', component: HomePageComponent },
+  { path: 'Dashboard', component: DashboardSectionComponent },
+  { path: 'Schedules', component: SchedulesSectionComponent },
+  { path: 'History', component: HistoryPage },
   { path: 'WorkFlow', component: WorkFlowPageComponent },
   { path: 'Employees', component: EmployeesPageComponent , children: [
     {path: '', component: ListEmployeeComponent},

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { HistorySectionComponent } from './HistorySection.component';
+import { HistoryPage } from './HistorySection.component';
 
 describe('HistorySectionComponent', () => {
-  let component: HistorySectionComponent;
-  let fixture: ComponentFixture<HistorySectionComponent>;
+  let component: HistoryPage;
+  let fixture: ComponentFixture<HistoryPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HistorySectionComponent ]
+      declarations: [ HistoryPage ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HistorySectionComponent);
+    fixture = TestBed.createComponent(HistoryPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

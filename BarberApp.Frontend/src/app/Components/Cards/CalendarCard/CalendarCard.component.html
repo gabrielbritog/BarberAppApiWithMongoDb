@@ -24,7 +24,7 @@
   <div class="cards_wrapper" id="cards_wrapper">
     <button
     *ngFor="let item of thisWeek; let i = index"
-    class="card card_day flex_column"
+    class="card card_day d-flex flex-column"
     id="card_{{getFormatedMoment(item)}}"
     [class.active]="getFormatedMoment(item) == currentDay"
     (click)="setDay(item)"

@@ -1,10 +1,10 @@
-<section class="container-fluid">
-  <div class="container base_container" [class.hide]="hide">
+<section class="container-fluid w-100 p-0">
+  <div class="container base_container h-100" [class.hide]="hide">
     <div class="container_header">
       <img src="../../../assets/Logo-White.svg" alt="" srcset="">
     </div>
 
-    <div class="container_content flex_column">
+    <div class="container_content d-flex flex-column">
       <h2 class="form_title">Login</h2>
       <app-FormInput [inputs]="loginForm" [submitText]="'Entrar'" (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>

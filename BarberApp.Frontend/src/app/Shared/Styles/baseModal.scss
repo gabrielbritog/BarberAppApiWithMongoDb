@@ -4,8 +4,9 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100svh;
-  padding: 5vw 0;
+  height: 100vh;
+  height: 100dvh;
+  padding: 5vw 1rem;
   transition: all .2s ease;
   animation: .15s modalShow forwards;
   overflow: auto;

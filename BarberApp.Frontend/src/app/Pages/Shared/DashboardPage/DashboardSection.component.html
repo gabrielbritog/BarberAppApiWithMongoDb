@@ -1,36 +1,36 @@
-<div class="section_container hide-scrollbar">
-  <div class="cards_container no-margin">
-    <div class="section_title pad-x">
+<div class="page_container hide-scrollbar">
+  <div class="cards_container container">
+    <div class="section_title">
       <h3 class="title">Dashboard</h3>
       <button class="btn tooltip_btn">
         <i class="fa-solid fa-question"></i>
       </button>
     </div>
 
-    <section class="animate_show section_container no-margin flex_column">
+    <section class="animate_show section_container no-margin d-flex flex-column">
 
-      <section class="animate_show periodo pad-x">
-        <div class="section_header d-flex justify-between  ">
-          <h4 class="title">Período</h4>
-          <div class="quick_dates chips_group d-flex">
+      <section class="animate_show periodo">
+        <div class="section_header d-flex justify-between mb-2">
+          <h4 class="title m-0">Período</h4>
+          <div class="quick_dates chips_group d-flex gap-2">
             <button class="card card_date card_chip" [class.active]="quickDate == 'week'" (click)="setQuickDate('week')"  >Semana</button>
             <button class="card card_date card_chip" [class.active]="quickDate == 'month'" (click)="setQuickDate('month')"  >Mês</button>
             <button class="card card_date card_chip" [class.active]="quickDate == 'year'" (click)="setQuickDate('year')"  >Ano</button>
           </div>
         </div>
-        <div class="datas d-flex  ">
-          <input type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
-          <input type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
+        <div class="p-0 m-0 datas row w-100 gap-3">
+          <input class="col" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
+          <input class="col" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
         </div>
 
       </section>
 
-      <section class="animate_show container">
+      <section class="animate_show">
         <div class="wrapper charts_wrapper">
           <div class="card card-chart income-chart card_item medium-height">
             <div class="card_content">
               <h5>Receita</h5>
-              <p>{{formatToMoney(totalInPeriod)}}</p>
+              <p class="m-0">{{formatToMoney(totalInPeriod)}}</p>
             </div>
             <div class="chart_container">
               <canvas id="income-chart"></canvas>
@@ -40,7 +40,7 @@
           <div class="card card-chart schedules-chart card_item medium-height">
             <div class="card_content">
               <h5>Agendamentos</h5>
-              <p>{{schedulesInPeriod.length}}</p>
+              <p class="m-0">{{schedulesInPeriod.length}}</p>
             </div>
             <div class="chart_container">
               <canvas id="schedules-chart"></canvas>
@@ -51,12 +51,12 @@
 
 
       <ng-container *ngIf="topServices.length > 0">
-        <section class="animate_show card container top5_section">
+        <section class="animate_show card w-100 top5_section">
           <div class="section_header d-flex justify-between  ">
             <h5 class="title">Serviços mais procurados</h5>
           </div>
 
-          <div class="wrapper animate_show flex_column">
+          <div class="wrapper animate_show d-flex flex-column">
             <ng-container *ngFor="let item of topServices; let i = index">
               <app-ServiceTypeCard
               [model]="item.service"
@@ -71,12 +71,12 @@
 
 
       <ng-container *ngIf="topEmployees.length > 0 && isAdmin">
-        <section class="animate_show card container top5_section">
+        <section class="animate_show card w-100 top5_section">
           <div class="section_header d-flex justify-between  ">
             <h5 class="title">Funcionários</h5>
           </div>
 
-            <div class="wrapper animate_show flex_column">
+            <div class="wrapper animate_show d-flex flex-column">
 
               <ng-container *ngFor="let item of topEmployees; let i = index">
                 <app-BarberCard
@@ -92,12 +92,12 @@
       </ng-container>
 
       <ng-container *ngIf="topClients.length > 0">
-        <section class="animate_show card container top5_section">
+        <section class="animate_show card w-100 top5_section">
           <div class="section_header d-flex justify-between  ">
             <h5 class="title">Clientes</h5>
           </div>
 
-          <div class="wrapper animate_show flex_column">
+          <div class="wrapper animate_show d-flex flex-column">
             <ng-container *ngFor="let item of topClients; let i = index">
               <app-ClientCard
               [model]="item.client"

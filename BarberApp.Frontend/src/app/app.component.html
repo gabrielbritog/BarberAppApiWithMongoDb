@@ -1,8 +1,12 @@
 <div class="app_container d-flex">
-  <app-Sidebar></app-Sidebar>
-  <div class="router_container flex-grow-1">
-    <app-NavBar></app-NavBar>
-    <router-outlet></router-outlet>
+  <app-Sidebar *ngIf="!isAuthPage"></app-Sidebar>
+  <div class="router_parent_container flex-grow-1 d-flex flex-column"
+  [class.px-2]="!isAuthPage">
+    <app-NavBar *ngIf="!isAuthPage"></app-NavBar>
+    <div class="router_container flex-grow-1 d-flex flex-column">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer-bar></app-footer-bar>
   </div>
 </div>
 <app-Loader></app-Loader>

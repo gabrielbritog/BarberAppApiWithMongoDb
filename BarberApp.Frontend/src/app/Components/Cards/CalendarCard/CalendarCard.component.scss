@@ -35,16 +35,20 @@ label.datepick_view{
   justify-content: space-between;
   line-height: 1;
   margin: 0.8rem 0;
+  height: 36px;
+  :first-child{
+    margin: 0;
+  }
 }
 
 .cards_wrapper{
-  padding: 4px var(--section-padding-X);
+  padding: 4px 0.75rem;
   gap: 0.8rem;
-  width: 100vw;
+  width: calc(100% + 1.5rem);
   overflow: auto;
-  transform: translateX(calc(-1 * var(--section-padding-X)));
+  transform: translateX(calc(-0.75rem));
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, 18vw);
   height: 100px;
 }
 
@@ -57,7 +61,6 @@ label.datepick_view{
   justify-content: center;
   flex-shrink: 0;
   height: 100%;
-  width: 18vw;
   scroll-snap-align: start;
   scroll-margin-left: 5vw;
   scroll-margin-right: 5vw;
@@ -83,8 +86,6 @@ label.datepick_view{
     padding: 4px 0;
     width: 100%;
     transform: translateX(0);
-  }
-  .card_day{
-    width: auto;
+    grid-template-columns: repeat(7, 1fr);
   }
 }

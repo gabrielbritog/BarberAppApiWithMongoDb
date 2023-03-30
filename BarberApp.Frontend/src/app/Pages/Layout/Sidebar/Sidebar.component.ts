@@ -11,7 +11,7 @@ import { UserService } from 'src/app/Services/user/User.service';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 
-  userConfig = new UserConfig(this.tokenStorage.getUserModel().userConfig);
+  userConfig: UserConfig;
 
   get showSidebar(){
     return GlobalVariables.showSidebar;
@@ -55,7 +55,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(
     private tokenStorage: TokenStorageService,
     private userService: UserService
-  ) { }
+  ) {
+    const userConfig = this.tokenStorage.getUserModel();
+
+    this.userConfig = userConfig? new UserConfig(this.tokenStorage.getUserModel().userConfig) : new UserConfig();
+  }
 
   ngOnDestroy(): void {
     this.setBodyScroll(true);
@@ -77,8 +81,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     const baseElement = document.getElementById('base-bg');
     const animationDelay = 200;
 
-    if (baseElement)
-      baseElement.classList.add('collapse')
+    if (baseElement){
+      baseElement.classList.remove('show')
+    }
 
     setTimeout(() => GlobalVariables.showSidebar = false , animationDelay);
   }

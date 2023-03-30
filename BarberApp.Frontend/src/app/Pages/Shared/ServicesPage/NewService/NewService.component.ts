@@ -10,7 +10,7 @@ import { ServiceTypeService } from 'src/app/Services/api/ServiceType.service';
 @Component({
   selector: 'app-NewService',
   templateUrl: './NewService.component.html',
-  styleUrls: ['../../../Styles/basePage.scss', './NewService.component.scss']
+  styleUrls: ['../../../Styles/baseSection.scss', './NewService.component.scss']
 })
 export class NewServiceComponent implements OnInit {
 

@@ -4,7 +4,7 @@ import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
-import { DashboardSectionComponent } from './Sections/DashboardSection/DashboardSection.component';
+import { DashboardSectionComponent } from '../DashboardPage/DashboardSection.component';
 
 @Component({
   selector: 'app-HomePage',

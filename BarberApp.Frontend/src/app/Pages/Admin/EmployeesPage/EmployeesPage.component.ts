@@ -26,10 +26,10 @@ export class EmployeesPageComponent implements OnInit {
     const lastRoute = route[route.length -1];
     switch (lastRoute) {
       case 'New':
-        header += ' / Novo'
+        header = 'Novo Funcionário'
         break;
       case 'Edit':
-        header += ' / Editar'
+        header = 'Editar Funcionário'
         break;
 
       default:

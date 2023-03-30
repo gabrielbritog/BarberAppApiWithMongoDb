@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { UserModel } from 'src/app/Models/UserModel';
-import { DashboardSectionComponent } from 'src/app/Pages/Shared/HomePage/Sections/DashboardSection/DashboardSection.component';
+import { DashboardSectionComponent } from 'src/app/Pages/Shared/DashboardPage/DashboardSection.component';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -47,6 +47,6 @@ export class TokenStorageService {
     if (userString)
       return Object.assign(new UserModel(), JSON.parse(userString));
 
-    return null;
+    return new UserModel();
   }
 }

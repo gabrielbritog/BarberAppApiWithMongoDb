@@ -1,10 +1,10 @@
-<section class="container-fluid">
-  <div class="container base_container flex_column" [class.hide]="hide">
+<section class="container-fluid w-100 p-0 d-flex">
+  <div class="container base_container h-100 d-flex flex-column" [class.hide]="hide">
     <div class="container_header">
       <img src="../../../assets/Logo-White.svg" alt="" srcset="">
     </div>
 
-    <div class="container_content flex_column">
+    <div class="container_content d-flex flex-column">
       <h2 class="form_title">Registrar</h2>
       <app-FormInput [inputs]="registerForm" [submitText]="'Enviar'" (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>
@@ -17,5 +17,5 @@
     </div>
   </div>
   <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJhcmJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60"
-  alt="" id="banner_img">
+  id="banner_img">
 </section>

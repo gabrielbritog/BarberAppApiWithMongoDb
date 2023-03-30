@@ -1,52 +1,14 @@
-<nav class="container_fluid" [class.adminBoardVisible]="showAdminBoard">
+<nav class="container_fluid">
   <div class="container nav_container">
-    <button class="profile_pic nav_profile" (click)="showSidebar = !showSidebar">
+    <button type="button" class="sidebar_toggle rounded-pill btn p-0 border-0" (click)="showSidebar()">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <button class="profile_pic nav_profile">
       <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
       <i *ngIf="!profilePic" class="fa-solid fa-user placeholder_icon"></i>
-      <div class="sidebar_toggle">
-        <i class="fa-solid fa-bars"></i>
-      </div>
     </button>
-    <div class="nav_text">
-      <span class="welcome">Bem vindo, </span>
-      <span class="user_name">{{
-        loggedUser.firstName + " " + loggedUser.lastName
-      }}</span>
-    </div>
-    <div class="nav_list_container">
-      <ul class="nav_list">
-        <li
-          class="nav_item"
-          [class.active]="currentSection == 0"
-          (click)="currentSection = 0" >
-          <i class="fa-solid fa-chart-line"></i>
-          <div class="nav_item_title">Dashboard</div>
-        </li>
-
-        <li
-          class="nav_item"
-          [class.active]="currentSection == 1"
-          (click)="currentSection = 1" >
-          <i class="fa-solid fa-calendar-week"></i>
-          <div class="nav_item_title">Agenda</div>
-        </li>
-
-        <li
-          class="nav_item"
-          [class.active]="currentSection == 2"
-          (click)="currentSection = 2" >
-          <i class="fa-solid fa-clock-rotate-left"></i>
-          <div class="nav_item_title">Histórico</div>
-        </li>
-
-      </ul>
-    </div>
-    <div class="time_now">
-      {{timeHours}}<div class="separator">:</div>{{timeMinutes}}
-    </div>
   </div>
 </nav>
 
-<ng-container *ngIf="showAdminBoard">
-  <app-AdminBoard></app-AdminBoard>
-</ng-container>
+<app-AdminBoard></app-AdminBoard>
+

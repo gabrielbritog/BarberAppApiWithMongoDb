@@ -165,6 +165,10 @@ input[type=date]::after{
   pointer-events: none;
 }
 
+input.password-input{
+  padding-right: 2.5rem;
+}
+
 input[type=date]::before{
   content: " ";
   z-index: 1;
@@ -284,7 +288,8 @@ label {
   background-color: transparent;
   cursor: pointer;
   position: absolute;
-  top: 2px;
+  top: 50%;
+  transform: translateY(-50%);
   right: .25rem;
   color: var(--app-color-input-text);
   width: 2rem;
@@ -293,4 +298,10 @@ label {
   justify-content: center;
   align-items: center;
   opacity: 0.5;
+}
+
+@media (min-width: 769px) {
+  // .btn.btn_submit{
+  //   max-width: 700px;
+  // }
 }

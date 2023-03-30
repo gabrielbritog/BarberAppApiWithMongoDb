@@ -30,7 +30,7 @@ export interface TopService{
 @Component({
   selector: 'app-DashboardSection',
   templateUrl: './DashboardSection.component.html',
-  styleUrls: ['../../../../Styles/baseSection.scss', './DashboardSection.component.scss']
+  styleUrls: ['../../Styles/basePage.scss', './DashboardSection.component.scss']
 })
 export class DashboardSectionComponent implements OnInit {
 

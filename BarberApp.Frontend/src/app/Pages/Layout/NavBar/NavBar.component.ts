@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
+import { AdminBoardComponent } from '../AdminBoard/AdminBoard.component';
 
 @Component({
   selector: 'app-NavBar',
@@ -9,18 +10,6 @@ import { TokenStorageService } from 'src/app/Services/auth/token-storage.service
   styleUrls: ['./NavBar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-
-  get showSidebar() {
-    return GlobalVariables.showSidebar;
-  }
-
-  set showSidebar(value) {
-    GlobalVariables.showSidebar = value;
-  }
-
-  get showAdminBoard() {
-    return !this.isBlocked && this.isAdmin && (this.currentSection == 1 || this.currentSection == 2);
-  }
 
   get profilePic() {
     return this.loggedUser.urlImage;
@@ -60,6 +49,10 @@ export class NavBarComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
+  }
+
+  showSidebar() {
+    GlobalVariables.showSidebar = !GlobalVariables.showSidebar;
   }
 
 

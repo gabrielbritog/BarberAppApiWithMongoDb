@@ -24,10 +24,10 @@ export class ServicesPageComponent implements OnInit {
     const lastRoute = route[route.length -1];
     switch (lastRoute) {
       case 'New':
-        header += ' / Novo'
+        header = 'Novo Serviço'
         break;
       case 'Edit':
-        header += ' / Editar'
+        header = 'Editar Serviço'
         break;
 
       default:
@@ -51,7 +51,7 @@ export class ServicesPageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
 
 
-      if (!GlobalVariables.isAppLoaded)
+    if (!GlobalVariables.isAppLoaded)
       GlobalVariables.initStandalone();
 
   }

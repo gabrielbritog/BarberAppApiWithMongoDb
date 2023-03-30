@@ -2,12 +2,12 @@ button{
   cursor: pointer;
 }
 
-.btn{
+.btn.btn-primary-color{
   font-weight: 600;
   cursor: pointer;
   border: 2px solid var(--app-color-primary);
   background-color: var(--app-color-primary);
-  color: black;
+  color: white;
   // color: var(--app-color-bg-darker);
   border-radius: var(--global-border-radius);
   padding: .5rem 1rem;

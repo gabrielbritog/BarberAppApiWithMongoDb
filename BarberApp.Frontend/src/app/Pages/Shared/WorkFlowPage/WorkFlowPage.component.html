@@ -1,38 +1,36 @@
 <div class="page_container">
-  <div class="header" appWindowScrollDetector [class.top-0]="scrolledUp">
-    <div class="container">
-      <button class="btn btn_return" (click)="onCancel()" >
-        <i class="fa-solid fa-arrow-left"></i>
+
+  <div class="cards_container container">
+
+    <div class="section_title">
+      <h3 class="title me-auto">Horários</h3>
+      <button class="btn tooltip_btn">
+        <i class="fa-solid fa-question"></i>
       </button>
-      <h3>
-        {{headerUrl}}
-      </h3>
-
     </div>
-  </div>
 
-
-  <div class="section_container flex_column container">
-    <div class="table_container flex_column">
-      <div class="section_title">
-        <input type="checkbox" [(ngModel)]="toggleAll" >
-        <h4 class="flex-grow">Dia da semana</h4>
-        <h4 class="time_header">Horário</h4>
+    <div class="section_container d-flex flex-column container">
+      <div class="table_container d-flex flex-column">
+        <div class="section_title m-0">
+          <input type="checkbox" [(ngModel)]="toggleAll" >
+          <h4 class="flex-grow">Dia da semana</h4>
+          <h4 class="time_header">Horário</h4>
+        </div>
+        <div class="workdays_container d-flex flex-column">
+          <ng-container *ngFor="let item of workingDays">
+            <app-WorkDayCard [weekDay]="item"></app-WorkDayCard>
+          </ng-container>
+        </div>
       </div>
-      <div class="workdays_container flex_column">
-        <ng-container *ngFor="let item of workingDays">
-          <app-WorkDayCard [weekDay]="item"></app-WorkDayCard>
-        </ng-container>
+
+      <div class="interval_time_container">
+
+          Intervalo entre agendamentos:
+          <input type="time" [(ngModel)]="intervalTime">
+
       </div>
+
+      <button (click)="onSubmit()" class="btn btn-primary-color btn_submit">Salvar</button>
     </div>
-
-    <div class="interval_time_container">
-
-        Intervalo entre agendamentos:
-        <input type="time" [(ngModel)]="intervalTime">
-
-    </div>
-
-    <button (click)="onSubmit()" class="btn btn_submit">Salvar</button>
   </div>
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { Router } from '@angular/router';
+import { TokenStorageService } from '../../../Services/auth/token-storage.service';
 
 @Component({
   selector: 'app-AdminBoard',
@@ -7,6 +9,30 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
   styleUrls: ['./AdminBoard.component.scss']
 })
 export class AdminBoardComponent implements OnInit {
+  private static router: Router;
+  static get show() {
+    const isAdmin = GlobalVariables.isAdmin;
+    const routeUrl = this.router.url.split('/');
+    const lastRouteUrl = routeUrl[routeUrl.length-1];
+    const routesWithAdminBoard = ['History', 'Schedules', 'Services']
+
+    if (!isAdmin){
+      return false;
+    }
+
+    if (GlobalVariables.employees.length == 0){
+      return false;
+    }
+
+    if (!routesWithAdminBoard.some(p => lastRouteUrl == p)){
+      return false;
+    }
+
+
+    return true;
+  };
+
+  get show() {return AdminBoardComponent.show}
 
   agendaExpanded = false;
 
@@ -36,7 +62,10 @@ export class AdminBoardComponent implements OnInit {
     GlobalVariables.selectedBarber = value;
   }
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private tokenStorage: TokenStorageService
+  ) { AdminBoardComponent.router = router }
 
   ngOnInit() {
   }

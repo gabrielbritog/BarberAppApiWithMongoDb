@@ -7,7 +7,7 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 @Component({
   selector: 'app-SchedulesSection',
   templateUrl: './SchedulesSection.component.html',
-  styleUrls: ['../../../../Styles/baseSection.scss', './SchedulesSection.component.scss'],
+  styleUrls: ['../../Styles/basePage.scss', './SchedulesSection.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class SchedulesSectionComponent implements OnInit {

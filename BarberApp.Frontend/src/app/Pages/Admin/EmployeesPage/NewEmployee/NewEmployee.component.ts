@@ -12,7 +12,7 @@ import { TokenStorageService } from 'src/app/Services/auth/token-storage.service
 @Component({
   selector: 'app-NewEmployee',
   templateUrl: './NewEmployee.component.html',
-  styleUrls: ['../../../Styles/basePage.scss', './NewEmployee.component.scss']
+  styleUrls: ['../../../Styles/baseSection.scss', './NewEmployee.component.scss']
 })
 export class NewEmployeeComponent implements OnInit {
 

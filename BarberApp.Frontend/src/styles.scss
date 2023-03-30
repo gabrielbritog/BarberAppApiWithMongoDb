@@ -7,8 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap');
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
 @import 'ngx-toastr/toastr';
-@import './app/Shared/Styles/button.scss';
-@import './app/Shared/Styles/card.scss';
+@import './app/Shared/shared.scss';
 
 
 :root{
@@ -37,7 +36,7 @@
   --section-padding-X: 10vw;
 
   --nav-color-bg: #28262e;
-  --nav-height: 5.5rem;
+  --nav-height: 4.5rem;
   --nav-zindex: 100;
   --modal-zindex: 1000;
   --loader-zindex: 10000;
@@ -75,13 +74,13 @@
 }
 
 *::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
   height: 12px;
   display: block;
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--app-color-bg-alt);
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -95,9 +94,7 @@
 }
 
 body{
-  overflow-x: hidden;
-  overflow-y: scroll;
-  overflow-y: overlay;
+  overflow: hidden;
   background-color: var(--app-color-bg);
   color: var(--app-color-text);
   &.sidebarOpen{
@@ -116,15 +113,12 @@ body{
 
 app-navbar{
   position: sticky;
-  top: calc(-1 * var(--nav-height));
+  top: 0;
   z-index: var(--nav-zindex);
-  &.top-0{
-    top: 0;
-  }
 }
 
 hr{
-  height: 1px;
+  height: 0;
   background-color: var(--app-color-text);
   opacity: .25;
   margin: 0.25rem 0;
@@ -198,6 +192,12 @@ img.app-logo{
 
 h1,h2,h3, h4, h5{
   font-weight: 600;
+  line-height: inherit;
+  margin: 0;
+}
+
+p{
+  margin: 0;
 }
 
 h1{
@@ -216,12 +216,12 @@ h4{
   font-size: 1.2rem;
 }
 
-.text_color_primary{
-  color: var(--app-color-primary);
+h5{
+  font-size: 1rem;
 }
 
-.section_container{
-  animation: .2s sectionShow forwards;
+.text_color_primary{
+  color: var(--app-color-primary);
 }
 
 .text_capitalize,
@@ -303,9 +303,6 @@ a{
   :root{
     --section-padding: 5vw;
     --section-padding-X: 5vw;
-  }
-  .container{
-    width: 90%;
   }
 
   h1{

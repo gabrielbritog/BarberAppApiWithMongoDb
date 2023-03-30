@@ -5,6 +5,9 @@ import { ServicesPageModule } from './ServicesPage/services-page.module';
 import { HomePageModule } from './HomePage/home-page.module';
 import { ClientsPageModule } from './ClientsPage/clients-page.module';
 import { AccountPageModule } from './AccountPage/account-page.module';
+import { HistoryPageModule } from './HistoryPage/history-page.module';
+import { DashboardPageModule } from './DashboardPage/dashboard-page.module';
+import { SchedulesPageModule } from './SchedulesPage/schedules-page.module';
 
 
 
@@ -16,7 +19,10 @@ import { AccountPageModule } from './AccountPage/account-page.module';
     ServicesPageModule,
     HomePageModule,
     ClientsPageModule,
-    AccountPageModule
+    AccountPageModule,
+    HistoryPageModule,
+    DashboardPageModule,
+    SchedulesPageModule
   ],
   exports: [
     CommonModule,

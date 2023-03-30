@@ -26,11 +26,6 @@ section{
   }
 }
 
-.d-flex{
-  display: flex;
-  gap: 0.5rem;
-}
-
 .justify-between{
   justify-content: space-between;
 }
@@ -157,7 +152,7 @@ section{
     height: 3rem;
   }
 }
-.wrapper.flex_column {
+.wrapper.flex-column {
   margin: 0;
   gap: 0;
 }
@@ -166,10 +161,6 @@ section{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
-}
-
-.no-margin{
-  margin: 0 !important;
 }
 
 section.card{

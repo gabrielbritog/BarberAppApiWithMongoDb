@@ -24,10 +24,10 @@ export class ClientsPageComponent implements OnInit {
     const lastRoute = route[route.length -1];
     switch (lastRoute) {
       case 'New':
-        header += ' / Novo'
+        header = 'Novo Cliente'
         break;
       case 'Edit':
-        header += ' / Editar'
+        header = 'Editar Cliente'
         break;
 
       default:

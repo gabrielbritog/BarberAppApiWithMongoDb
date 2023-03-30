@@ -5,6 +5,7 @@ import { SidebarComponent } from './Sidebar/Sidebar.component';
 import { AdminBoardComponent } from './AdminBoard/AdminBoard.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FooterBarComponent } from './footer-bar/footer-bar.component';
 
 
 
@@ -18,11 +19,13 @@ import { RouterModule } from '@angular/router';
     NavBarComponent,
     SidebarComponent,
     AdminBoardComponent,
+    FooterBarComponent,
   ],
   exports: [
     NavBarComponent,
     SidebarComponent,
     AdminBoardComponent,
+    FooterBarComponent,
   ],
 })
 export class LayoutsModule { }
