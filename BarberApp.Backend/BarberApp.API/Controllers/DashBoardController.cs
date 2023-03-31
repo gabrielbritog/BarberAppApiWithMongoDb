@@ -30,7 +30,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Historic(Id, start, count)));
+                return Ok(new ResponseViewModel(true, "", await _schedulingService.Historic(Id, start, count)));
 
             }
             catch (Exception e)
@@ -46,7 +46,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.GetManyByDate(Id, startDate, endDate)));
+                return Ok(new ResponseViewModel(true, "", await _schedulingService.GetManyByDate(Id, startDate, endDate)));
             }
             catch (Exception e)
             {
@@ -67,14 +67,14 @@ namespace BarberApp.Api.Controllers
                 {
                     var result = await _clientService.GetTop(Id, top, first, last);
                
-                   return Ok(new ResponseViewModel<List<ResponseClientDto>>(true, "Sucesso", result));
+                   return Ok(new ResponseViewModel<List<ResponseClientDto>>(true, "", result));
 
                 }
                 else
                 {
                     var result = await _barberService.GetTop(Id, top, first, last);
 
-                    return Ok(new ResponseViewModel<List<string>>(true, "Sucesso", result));
+                    return Ok(new ResponseViewModel<List<string>>(true, "", result));
                 }
             }
             catch (Exception e)

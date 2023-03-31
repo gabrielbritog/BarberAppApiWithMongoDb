@@ -80,7 +80,8 @@ namespace BarberApp.Infra.Repository
                 var update = Builders<Client>.Update
                     .Set(u => u.Name, client.Name)
                     .Set(u => u.SchedulingCount, client.SchedulingCount)
-                    .Set(u => u.LastVisit, client.LastVisit);
+                    .Set(u => u.LastVisit, client.LastVisit)
+                    .Set(u => u.Email, client.Email);
                 var result = await _clientCollection.UpdateOneAsync(filter, update);
                 if (result.MatchedCount == 0)
                     throw new Exception("Cliente não encontrado.");

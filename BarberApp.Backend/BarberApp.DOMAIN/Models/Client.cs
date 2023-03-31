@@ -24,5 +24,7 @@ namespace BarberApp.Domain.Models
         public string Phone { get; set; }
         [BsonElement("schedulingCount")]
         public int SchedulingCount { get; set; }
+        [BsonElement("email")]
+        public string Email { get; set; }
     }
 }
