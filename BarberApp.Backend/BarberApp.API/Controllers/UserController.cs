@@ -14,16 +14,18 @@ namespace BarberApp.Api.Controllers
     {
         private readonly IUserService _userServices;
         private readonly IBarberService _barberService;
-        public UserController(IUserService userServices, IBarberService barberService)
+        private readonly ICompanyService _companyService;
+        public UserController(IUserService userServices, IBarberService barberService, ICompanyService companyService)
         {
             _userServices = userServices;
             _barberService = barberService;
+            _companyService = companyService;   
         }
         [HttpPost("Register")]
         public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> Register([FromBody]RegisterUserDto user)
         {
             try
-            {
+            {            
                 return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.Register(user)));
             }
             catch (Exception e)

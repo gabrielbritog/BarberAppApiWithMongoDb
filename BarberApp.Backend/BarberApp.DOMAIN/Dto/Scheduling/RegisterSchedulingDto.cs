@@ -15,6 +15,8 @@ namespace BarberApp.Domain.Dto.Scheduling
     {
         [BsonElement("client")]
         public RegisterClientDto Client { get; set; } = null!;
+        [BsonElement("listClient")]
+        public List<RegisterClientDto> ListClient { get; set; } = null!;
         [BsonElement("serviceType")]
         public List<RegisterServiceTypeDto> ServiceType { get; set; }
         [BsonElement("total")]

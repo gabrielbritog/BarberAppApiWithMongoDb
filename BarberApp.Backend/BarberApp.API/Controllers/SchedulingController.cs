@@ -24,8 +24,7 @@ namespace BarberApp.Api.Controllers
         public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> Register([FromBody] RegisterSchedulingDto scheduling)
         {
             try
-            {
-                await _clientService.Register(scheduling.Client, Id);
+            {                             
                 return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Register(scheduling, Id)));
             }
             catch (Exception e)
