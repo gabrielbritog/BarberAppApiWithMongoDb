@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BarberApp.Domain.Dto.Company;
 using BarberApp.Domain.Dto.Scheduling;
 using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
@@ -13,15 +14,17 @@ namespace BarberApp.Service.Service
     public class UserService : Functions, IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ICompanyService _companyService;
         private readonly ITokenService _tokenService;
         private readonly TokenConfiguration _tokenConfiguration;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, IMapper mapper, ITokenService tokenService, TokenConfiguration tokenConfiguration)
+        public UserService(IUserRepository userRepository, IMapper mapper, ITokenService tokenService, ICompanyService companyService, TokenConfiguration tokenConfiguration)
         {
             _mapper = mapper;
             _userRepository = userRepository;
             _tokenService = tokenService;
             _tokenConfiguration = tokenConfiguration;
+            _companyService= companyService;
         }
         public async Task DropDataBase() => await _userRepository.DropDataBase();
         public async Task<List<User>> GetMany(int start, int count) => await _userRepository.GetMany(start, count);
@@ -57,6 +60,9 @@ namespace BarberApp.Service.Service
         {
             var checkEmail = await this.GetByEmail($"{user.Email}");
             var checkCompany = await this.GetByCompanyName($"{user.CompanyName}");
+            var company = new RegisterCompanyDto();
+            company.Name = user.CompanyName;
+            await _companyService.Register(company);
 
             if (checkEmail != null)             
                 throw new Exception("Email já está sendo usado");

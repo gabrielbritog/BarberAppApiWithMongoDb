@@ -12,11 +12,13 @@ namespace BarberApp.Service.Service
     {
         private readonly ISchedulingRepository _schedulingRepository;
         private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientService;
         private readonly IMapper _mapper;
         private readonly IBarberRepository _barberRepository;
         private readonly IUserRepository _userRepository;
-        public SchedulingService(ISchedulingRepository schedulingRepository, IMapper mapper, IBarberRepository barberRepository, IUserRepository userRepository, IClientRepository clientRepository)
+        public SchedulingService(ISchedulingRepository schedulingRepository, IMapper mapper, IBarberRepository barberRepository, IUserRepository userRepository, IClientRepository clientRepository, IClientService clientService)
         {
+            _clientService = clientService;
             _clientRepository = clientRepository;
             _schedulingRepository = schedulingRepository;
             _mapper = mapper;
@@ -65,6 +67,21 @@ namespace BarberApp.Service.Service
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
         {
 
+            if (scheduling.Client != null)
+            {
+                await _clientService.Register(scheduling.Client, UserId);
+            }
+            else if (scheduling.ListClient != null)
+            {
+                for (int i = 0; i < scheduling.ListClient.Count; i++)
+                {
+                    await _clientService.Register(scheduling.ListClient[i], UserId);
+                }
+            }
+            else
+            {
+                throw new Exception("Preencha os dados do cliente");
+            }
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);
             schedulingMap.UserId = UserId;
             var quantity = scheduling.ServiceType.Count();
@@ -129,6 +146,7 @@ namespace BarberApp.Service.Service
                 throw new Exception("Informar Id");
             scheduling.BarberId ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).BarberId;
             scheduling.Client ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
+            scheduling.ListClient ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ListClient;
             scheduling.ServiceType ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
             scheduling.SchedulingDate ??= schedulingDb.SchedulingDate;
             scheduling.EndOfSchedule ??= schedulingDb.EndOfSchedule;
