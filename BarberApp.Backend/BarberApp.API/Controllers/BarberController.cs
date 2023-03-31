@@ -31,7 +31,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.Register(barber, Id)));
+                return Ok(new ResponseViewModel(true, "", await _barberService.Register(barber, Id)));
             }
             catch (Exception e)
             {
@@ -46,7 +46,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.Login(barber)));
+                return Ok(new ResponseViewModel(true, "", await _barberService.Login(barber)));
             }
             catch (Exception e)
             {
@@ -61,7 +61,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.Update(barber,BarberEmail,BarberId)));
+                return Ok(new ResponseViewModel(true, "", await _barberService.Update(barber,BarberEmail,BarberId)));
             }
             catch (Exception e)
             {
@@ -75,7 +75,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.GetMany(start, count,Id)));
+                return Ok(new ResponseViewModel(true, "", await _barberService.GetMany(start, count,Id)));
             }
             catch (Exception e)
             {
@@ -91,7 +91,7 @@ namespace BarberApp.Api.Controllers
             try
             {
                 await _clientService.Register(scheduling.Client, Id);
-                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Register(scheduling,Id,BarberId)));
+                return Ok(new ResponseViewModel(true, "", await _schedulingService.Register(scheduling,Id,BarberId)));
             }
             catch (Exception e)
             {
@@ -106,7 +106,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceTypeService.Register(serviceType, Id, BarberId)));
+                return Ok(new ResponseViewModel(true, "", await _serviceTypeService.Register(serviceType, Id, BarberId)));
             }
             catch (Exception e)
             {
@@ -121,7 +121,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.GetMany(Id,BarberId,start, count)));
+                return Ok(new ResponseViewModel(true, "", await _schedulingService.GetMany(Id,BarberId,start, count)));
             }
             catch (Exception e)
             {
@@ -136,7 +136,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.GetManyByDate(Id, BarberId, startDate, endDate)));
+                return Ok(new ResponseViewModel(true, "", await _schedulingService.GetManyByDate(Id, BarberId, startDate, endDate)));
             }
             catch (Exception e)
             {
@@ -151,7 +151,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceTypeService.GetMany(Id,BarberId,start, count)));
+                return Ok(new ResponseViewModel(true, "", await _serviceTypeService.GetMany(Id,BarberId,start, count)));
             }
             catch (Exception e)
             {
@@ -166,7 +166,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.DeleteAll(Id, BarberId)));
+                return Ok(new ResponseViewModel(true, "", await _schedulingService.DeleteAll(Id, BarberId)));
             }
             catch (Exception e)
             {
@@ -181,7 +181,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _schedulingService.Update(scheduling, Id)));
+                return Ok(new ResponseViewModel(true, "", await _schedulingService.Update(scheduling, Id)));
             }
             catch (Exception e)
             {
@@ -196,7 +196,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceTypeService.Update(serviceType, Id)));
+                return Ok(new ResponseViewModel(true, "", await _serviceTypeService.Update(serviceType, Id)));
             }
             catch (Exception e)
             {

@@ -18,5 +18,7 @@ namespace BarberApp.Domain.Dto.Client
         public string Name { get; set; }
         [BsonElement("phone")]
         public string Phone { get; set; }
+        [BsonElement("email")]
+        public string Email { get; set; }
     }
 }
