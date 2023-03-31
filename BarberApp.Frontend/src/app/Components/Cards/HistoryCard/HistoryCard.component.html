@@ -1,27 +1,24 @@
-<div class="card history">
 
-  <div class="picture">
-    <i class="fa-solid fa-screwdriver-wrench"></i>
-    <i class="fa-solid fa-circle-check confirmed"></i>
-    <!-- <i class="fa-solid fa-circle-check cancelled"></i> -->
-  </div>
-  <div class="content">
-    <div class="card_title">
-      <span class="title">Agendamento</span>
-      <span class="date">{{formatedDate}}</span>
+<div class="card border-0 shadow-sm flex-row p-2 gap-2">
+  <button
+  class="card-image d-grid align-content-center justify-content-center p-3 rounded btn btn-main-color"
+  style="width: 48px; height: 48px;"
+  >
+    <i class="fa-solid fa-screwdriver-wrench fs-4"></i>
+  </button>
+  <div class="card-body p-0 my-auto">
+    <div class="d-flex align-items-start justify-content-between lh-1 mb-2">
+      <h5 class="card-title m-0">Agendamento</h5>
+      <span class="card-title m-0 text-uppercase small text-muted">{{formatedDate}}</span>
     </div>
-    <div class="desc_area">
-      <div class="desc_column">
-        <span class="desc_title">{{scheduleModel.client.name}}</span>
-        <div class="services">
-          <span *ngFor="let item of scheduleModel.serviceType; let i = index">
-            {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}
-          </span>
-        </div>
-        <span class="desc_content">{{formatedMoney}}</span>
+    <div class="card-subtitle d-flex flex-column text-muted lh-1 small gap-1 m-0">
+      <span>{{scheduleModel.client.name}}</span>
+      <div>
+        <span *ngFor="let item of scheduleModel.serviceType; let i = index">
+          {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}
+        </span>
       </div>
-
+      <span>{{formatedMoney}}</span>
     </div>
   </div>
-
 </div>

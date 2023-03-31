@@ -1,18 +1,18 @@
-<div class="card workday" [class.inactive]="!weekDay.isOpen">
+<div class="card workday border-0 shadow-sm" [class.inactive]="!weekDay.isOpen">
 
-  <div class="content">
+  <div class="content d-flex w-100">
     <input type="checkbox" [(ngModel)]="weekDay.isOpen" >
-    <div class="title">
+    <div class="title me-auto">
       <span>{{weekDay.day}}</span>
     </div>
     <div class="desc_area">
-      <span (click)="openingTime.showPicker()">
+      <span class="cursor-pointer" (click)="openingTime.showPicker()">
         {{weekDay.openingTime}}
-        <input #openingTime type="time" id="opening-time" min="00:00" max="12:00" [(ngModel)]="weekDay.openingTime">
+        <input #openingTime class="cursor-pointer" type="time" id="opening-time" min="00:00" max="12:00" [(ngModel)]="weekDay.openingTime">
       </span>
-      <span (click)="closingTime.showPicker()">
+      <span class="cursor-pointer" (click)="closingTime.showPicker()">
         {{weekDay.closingTime}}
-        <input #closingTime type="time" id="closing-time" min="{{weekDay.openingTime}}:00" max="23:59:59" [(ngModel)]="weekDay.closingTime">
+        <input #closingTime class="cursor-pointer" type="time" id="closing-time" min="{{weekDay.openingTime}}:00" max="23:59:59" [(ngModel)]="weekDay.closingTime">
       </span>
     </div>
   </div>

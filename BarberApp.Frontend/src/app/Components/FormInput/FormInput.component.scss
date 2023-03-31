@@ -97,8 +97,8 @@ input:-webkit-autofill:active {
     opacity: 1;
     &.radio_item{
       color: var(--body-bg-color);
-      background-color: var(--app-color-primary);
-      border: 1px solid var(--app-color-primary);
+      background-color: var(--main-color);
+      border: 1px solid var(--main-color);
     }
   }
   &~:first-child{
@@ -140,8 +140,8 @@ input[type=checkbox]{
   }
   &:checked{
     &::before{
-      background-color: var(--app-color-primary);
-      border-color: var(--app-color-primary);
+      background-color: var(--main-color);
+      border-color: var(--main-color);
     }
     &::after{
       content: "\f00c";
@@ -175,7 +175,7 @@ input[type=date]::before{
   position: absolute;
   right: 0;
   top: 0;
-  background-color: inherit;
+  background-color: white;
   border-radius: var(--global-border-radius);
   width: 3rem;
   height: 100%;
@@ -185,7 +185,7 @@ input[type=date]::before{
 input{
   width: 100%;
   transition: all .3s var(--default-transition) !important;
-  background-color: var(--app-color-input-bg);
+  background-color: transparent;
   color: var(--app-color-input-text);
   border: none;
   padding: 1.4rem 1rem 0.5rem;
@@ -205,11 +205,11 @@ input{
     transition: all .3s var(--default-transition) !important;
   }
   &:focus{
-    outline: 2px solid var(--app-color-primary);
-    box-shadow: 0px 0px 5px 2px var(--app-color-primary);
+    outline: 2px solid var(--main-color);
+    box-shadow: 0px 0px 5px 2px var(--main-color);
     color: var(--app-color-text);
     &~i{
-      color: var(--app-color-primary);
+      color: var(--main-color);
     }
   }
   &.with_icon{
@@ -226,6 +226,9 @@ label {
   display: flex;
   position: relative;
   width: 100%;
+  border-radius: var(--global-border-radius);
+  background-color: white;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
   .placeholder_title{
     position: absolute;
     top: 50%;
@@ -265,10 +268,6 @@ label {
   flex-grow: 1;
 }
 
-.btn.btn_submit{
-  margin-top: auto;
-}
-
 .alert{
   font-size: .8rem;
   padding: 0 1rem;
@@ -298,10 +297,4 @@ label {
   justify-content: center;
   align-items: center;
   opacity: 0.5;
-}
-
-@media (min-width: 769px) {
-  // .btn.btn_submit{
-  //   max-width: 700px;
-  // }
 }

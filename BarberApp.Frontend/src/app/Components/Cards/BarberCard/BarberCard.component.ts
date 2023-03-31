@@ -13,7 +13,7 @@ export class BarberCardComponent implements OnInit {
   @Input() bigInfo?: string;
   @Input() smallInfo?: string;
   @Input() showLastName = true;
-  @Input() noBorder = false;
+  @Input() hideShadow = false;
 
   constructor() { }
 

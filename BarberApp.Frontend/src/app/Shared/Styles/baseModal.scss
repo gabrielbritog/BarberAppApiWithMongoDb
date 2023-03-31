@@ -36,7 +36,7 @@ hr {
   z-index: 1;
   padding: .75rem;
   max-width: 400px;
-  background-color: var(--body-bg-color-alt);
+  background-color: var(--body-bg-color);
   border-radius: var(--global-border-radius);
   line-height: 1;
   animation: .2s containerShow forwards var(--default-transition);
@@ -82,7 +82,7 @@ form{
         padding-right: 8px;
       }
       &:focus~i{
-        color: var(--app-color-primary);
+        color: var(--main-color);
       }
     }
     i{

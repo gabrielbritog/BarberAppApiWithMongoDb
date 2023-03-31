@@ -120,7 +120,7 @@ input[type=checkbox]{
   &:checked::before{
     transition: all 1s ease;
     left: 75%;
-    background-color: var(--app-color-primary);
+    background-color: var(--main-color);
   }
 }
 

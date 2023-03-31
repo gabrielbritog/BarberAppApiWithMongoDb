@@ -10,23 +10,25 @@
     </div>
 
     <div class="section_container d-flex flex-column container">
-      <div class="table_container d-flex flex-column">
-        <div class="section_title m-0">
+      <div class="table_container d-flex flex-column shadow-sm">
+        <div class="section_title bg-white m-0">
           <input type="checkbox" [(ngModel)]="toggleAll" >
           <h4 class="flex-grow">Dia da semana</h4>
           <h4 class="time_header">Horário</h4>
         </div>
-        <div class="workdays_container d-flex flex-column">
-          <ng-container *ngFor="let item of workingDays">
+        <hr class="opacity-0">
+        <div class="workdays_container d-flex flex-column gap-0">
+          <ng-container *ngFor="let item of workingDays; let i = index">
             <app-WorkDayCard [weekDay]="item"></app-WorkDayCard>
+            <hr class="opacity-0" *ngIf="i !== workingDays.length -1">
           </ng-container>
         </div>
       </div>
 
-      <div class="interval_time_container">
+      <div class="interval_time_container bg-white shadow-sm">
 
           Intervalo entre agendamentos:
-          <input type="time" [(ngModel)]="intervalTime">
+          <input class="cursor-pointer" type="time" [(ngModel)]="intervalTime">
 
       </div>
 

@@ -1,5 +1,6 @@
 
-<div class="card border-0 shadow-sm flex-row p-2 gap-2">
+<div class="card border-0 flex-row p-2 gap-2"
+[class.shadow-sm]="!hideShadow">
   <button
   class="card-image d-grid align-content-center justify-content-center p-3 rounded-pill btn btn-green"
   style="width: 42px; height: 42px;"
@@ -8,7 +9,7 @@
   </button>
   <div class="card-body p-0 my-auto ">
     <h5 class="card-title m-0 mb-1 lh-1">{{clientModel.name}}</h5>
-    <h6 class="card-subtitle text-body-secondary m-0 lh-1">{{clientModel.phone}}</h6>
+    <h6 class="card-subtitle text-body-secondary small m-0 lh-1">{{clientModel.phone}}</h6>
   </div>
 
   <ng-container *ngIf="bigInfo || smallInfo">
@@ -18,7 +19,7 @@
       </ng-container>
 
       <ng-container *ngIf="smallInfo">
-        <h6 class="card-subtitle text-body-secondary m-0 lh-1">{{smallInfo}}</h6>
+        <h6 class="card-subtitle text-body-secondary small m-0 lh-1">{{smallInfo}}</h6>
       </ng-container>
     </div>
   </ng-container>

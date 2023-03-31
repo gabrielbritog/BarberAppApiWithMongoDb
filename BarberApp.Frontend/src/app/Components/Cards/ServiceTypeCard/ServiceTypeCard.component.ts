@@ -15,7 +15,7 @@ export class ServiceTypeCardComponent implements OnInit {
   @Input() showEmployeePic = false;
   @Input() bigInfo?: string;
   @Input() smallInfo?: string;
-  @Input() noBorder = false;
+  @Input() hideShadow = false;
 
   get barberModel() {
     return GlobalVariables.employees.find(p => p.barberId === this.serviceModel.barberId);

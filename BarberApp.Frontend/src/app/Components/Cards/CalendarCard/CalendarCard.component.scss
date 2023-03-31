@@ -21,11 +21,8 @@ label.datepick_view{
   gap: .5rem;
   align-items: center;
   padding: .5rem .75rem;
-  background-color: var(--body-bg-color-alt);
   border-radius: 50px;
   &.active{
-    color: var(--body-bg-color);
-    background-color: var(--app-color-primary);
     font-weight: 600;
   }
 }
@@ -42,11 +39,13 @@ label.datepick_view{
 }
 
 .cards_wrapper{
-  padding: 4px 0.75rem;
+  padding: 4px calc(5vw - 8px);
   gap: 0.8rem;
-  width: calc(100% + 1.5rem);
-  overflow: auto;
-  transform: translateX(calc(-0.75rem));
+  width: calc(100vw - 16px);
+  overflow-x: auto;
+  transform: translateX(-50%);
+  left: 50%;
+  position: relative;
   display: grid;
   grid-template-columns: repeat(7, 18vw);
   height: 100px;
@@ -67,7 +66,6 @@ label.datepick_view{
   color: var(--app-color-text);
   cursor: pointer;
   .month_day{
-    font-size: 1.8em;
     font-weight: bold;
   }
   .week_day{
@@ -75,8 +73,8 @@ label.datepick_view{
   }
   &.active{
     color: var(--body-bg-color);
-    background-color: var(--app-color-primary);
-    border-color: var(--app-color-primary);
+    background-color: var(--main-color);
+    border-color: var(--main-color);
     font-weight: bold;
   }
 }
@@ -86,6 +84,8 @@ label.datepick_view{
     padding: 4px 0;
     width: 100%;
     transform: translateX(0);
+    left: 0;
     grid-template-columns: repeat(7, 1fr);
+    overflow: visible;
   }
 }

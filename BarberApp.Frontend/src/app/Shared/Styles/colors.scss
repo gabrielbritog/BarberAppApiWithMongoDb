@@ -7,7 +7,6 @@ $info:                 #0dcaf0;
 $warning:              #ffc107;
 $danger:               #dc3545;
 $light:                #f8f9fa;
-$light:                #f8f9fa;
 $dark:                 #212529;
 
 $blue:                 #0d6efd;
@@ -20,6 +19,8 @@ $yellow:               #ffc107;
 $green:                #198754;
 $teal:                 #20c997;
 $cyan:                 #0dcaf0;
+$white:                #ffffff;
+$black:                #000000;
 
 
 :root {
@@ -58,6 +59,8 @@ $theme-colors: (
   "green":                   $green,
   "teal":                    $teal,
   "cyan":                    $cyan,
+  "white":                   $white,
+  "black":                   $black,
 );
 
 /* Importing Bootstrap SCSS file. */

@@ -1,12 +1,12 @@
 <ng-container *ngIf="show">
-  <div class="barber_container no-shadow card" [class.expand]="agendaExpanded">
-    <div class="container">
-      <div class="title">Visão do funcionário:</div>
-      <div class="barber_cards d-flex flex-column">
-        <div class="barber_card card" *ngFor="let item of barberList" [class.active]="selectedBarber == item" (click)="setAgenda(item)" >
+  <div class="barber_container" [class.expand]="agendaExpanded">
+    <div class="container py-2">
+      <div class="title fw-semibold">Visão do funcionário:</div>
+      <div class="barber_cards d-flex flex-column flex-nowrap">
+        <button class="btn btn-outline-main-color border-0 shadow-sm barber_card card flex-nowrap flex-row" *ngFor="let item of barberList" [class.active]="selectedBarber == item" (click)="setAgenda(item)" >
           {{item.firstName}} {{item.lastName}}
-          <i class="fa-solid fa-chevron-down primary" *ngIf="barberList.length > 1"></i>
-        </div>
+          <i class="fa-solid fa-chevron-down primary ms-2" *ngIf="barberList.length > 1"></i>
+        </button>
       </div>
     </div>
     <div class="cancel_area" *ngIf="agendaExpanded" (click)="agendaExpanded = false" ></div>

@@ -37,7 +37,6 @@
   align-items: center;
   justify-content: space-between;
   display: none;
-  background-color: var(--app-color-input-bg);
   i {
     display: none;
   }
@@ -61,8 +60,6 @@
 
 .barber_container.expand {
   .barber_cards{
-    background-color: var(--app-color-input-bg);
-    padding: 0.5rem;
     z-index: 1;
   }
   .barber_card{
@@ -70,9 +67,6 @@
     box-shadow: none;
     i{
       transform: rotate(180deg);
-    }
-    &.active{
-      color: var(--app-color-primary);
     }
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
-import { AdminBoardComponent } from '../AdminBoard/AdminBoard.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,14 +31,24 @@ export class NavBarComponent implements OnInit {
     return moment().format('mm');
   }
 
+  get routerUrlArray() {
+    const routerUrl = this.router.routerState.snapshot.url.split('/').slice(1);
+    return routerUrl;
+  }
+
   get currentRoute() {
-    const routerUrl = this.router.url.split('/');
+    const routerUrl = this.routerUrlArray;
     return routerUrl[routerUrl.length - 1];
+  }
+
+  get isCurrentRouteChild() {
+    const routerUrl = this.routerUrlArray;
+    return routerUrl.length > 1;
   }
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -47,5 +56,10 @@ export class NavBarComponent implements OnInit {
 
   showSidebar() {
     GlobalVariables.showSidebar = !GlobalVariables.showSidebar;
+  }
+
+  onReturn() {
+    const routerUrl = this.routerUrlArray;
+    this.router.navigateByUrl(routerUrl[routerUrl.length - 2])
   }
 }

@@ -1,4 +1,5 @@
-<div class="card border-0 shadow-sm flex-row p-2 gap-2">
+<div class="card border-0 flex-row p-2 gap-2"
+[class.shadow-sm]="!hideShadow">
   <ng-container *ngIf="showEmployeePic">
     <div
     class="card-image d-grid align-content-center justify-content-center p-3 rounded-pill text-bg-main-color"

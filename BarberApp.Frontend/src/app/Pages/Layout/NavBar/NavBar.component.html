@@ -2,19 +2,48 @@
   <div class="nav_container">
     <button
     type="button"
-    class="sidebar_toggle btn p-0 btn-main-color border-0"
+    class="sidebar_toggle flex-shrink-0 btn p-0 btn-main-color border-0 shadow-sm"
     (click)="showSidebar()">
       <i class="fa-solid fa-bars"></i>
     </button>
-    <h3 class="router-name me-auto">
+
+    <h3 class="router-name d-none align-items-center" style="height: 40px;">
+      <button class="btn btn_return" *ngIf="isCurrentRouteChild"  (click)="onReturn()" >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
       {{currentRoute}}
     </h3>
-    <button class="profile_pic nav_profile btn border-2 border-white p-0 m-0">
-      <img *ngIf="profilePic" src="{{ profilePic }}" alt="" srcset="" />
-      <i *ngIf="!profilePic" class="fa-solid fa-user placeholder_icon"></i>
+
+    <div
+    #searchBar
+    class="ms-auto search-bar d-flex flex-shrink-0 text-bg-white rounded shadow-sm position-relative"
+    style="height: 40px;"
+    >
+      <input
+      #searchInput
+      type="text"
+      class="search-input bg-transparent flex-grow-1 flex-shrink-1"
+      placeholder="Pesquisar"
+      style="border-radius: inherit; width: 0;">
+      <button
+      #searchBtn
+      class="search-btn position-absolute top-0 end-0 bottom-0 flex-shrink-0 flex-grow-0 btn btn-outline-main-color m-1 border-0 rounded d-grid align-items-center justify-content-center"
+      [class.active]="searchBar.classList.contains('expand')"
+      (click)="searchBar.classList.contains('expand')? [searchBar.classList.remove('expand')] : [searchBar.classList.add('expand'), searchInput.focus()]"
+      style="width: 32px;">
+        <i class="fa-solid fa-magnifying-glass small"></i>
+      </button>
+    </div>
+
+    <button
+    class="nav_profile btn border-3 p-0 m-0 btn-outline-main-color shadow-sm"
+    [class.btn-outline-main-color]="!profilePic"
+    [class.btn-white]="profilePic"
+    >
+      <img *ngIf="profilePic" src="{{ profilePic }}" class="border-0 h-100 w-100" />
+      <i *ngIf="!profilePic" class="fa-solid fa-user small"></i>
     </button>
   </div>
-  <hr>
 </nav>
 <app-AdminBoard></app-AdminBoard>
-
+<hr>

@@ -2,7 +2,11 @@
 
   <div class="section_title">
     <h3 class="title">Agendamentos</h3>
-    <label class="datepick_view" [class.active]="datePicked !== undefined" for="datepick" (click)="datepick.showPicker()">
+    <label
+    class="datepick_view btn border-0 shadow-sm"
+    [class.btn-main-color]="datePicked !== undefined"
+    [class.btn-white]="datePicked === undefined"
+     for="datepick" (click)="datepick.showPicker()">
 
       <input #datepick type="date" name="datepick"
       id="datepick"
@@ -24,12 +28,12 @@
   <div class="cards_wrapper" id="cards_wrapper">
     <button
     *ngFor="let item of thisWeek; let i = index"
-    class="card card_day d-flex flex-column"
+    class="card border-0 shadow-sm card_day d-flex flex-column"
     id="card_{{getFormatedMoment(item)}}"
     [class.active]="getFormatedMoment(item) == currentDay"
     (click)="setDay(item)"
     >
-      <div class="month_day">
+      <div class="month_day mb-2 fs-3">
         {{getMomentMonthDay(item)}}
       </div>
       <div class="week_day">

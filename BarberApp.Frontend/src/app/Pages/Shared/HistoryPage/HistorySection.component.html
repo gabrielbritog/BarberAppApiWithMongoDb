@@ -6,16 +6,10 @@
         <i class="fa-solid fa-question"></i>
       </button>
     </div>
-    <div class="search_bar_container">
-      <label for="search_bar" class="form_group">
-        <input type="text" id="search_bar" class="card with_icon" [(ngModel)]="searchValue" placeholder="Procurar">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </label>
+    <div class="mt-3 d-flex flex-column gap-2">
+      <ng-container *ngFor="let item of schedules; let i = index" >
+        <app-HistoryCard [model]="item"></app-HistoryCard>
+      </ng-container>
     </div>
-
-    <ng-container *ngFor="let item of schedules; let i = index" >
-      <app-HistoryCard [model]="item"></app-HistoryCard>
-    </ng-container>
-
   </div>
 </div>

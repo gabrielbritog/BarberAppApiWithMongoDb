@@ -2,25 +2,17 @@ section{
   margin-bottom: 1rem;
 }
 
-.section_container{
-  overflow-x: hidden;
-  margin: 0;
-}
-
-.pad-x{
-  padding: var(--section-padding);
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
 .title{
   text-align: initial;
   margin: 0.8rem 0;
   flex-shrink: 0;
 }
 
+.shadow-down{
+  box-shadow: 0 0.125rem 0 rgba(0, 0, 0, 0.075) !important;
+}
+
 .section_title {
-  margin-bottom: 1rem;
   .title{
     margin: 0;
   }
@@ -38,7 +30,6 @@ section{
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  overflow: auto;
   gap: 1rem;
 }
 
@@ -68,8 +59,6 @@ section{
   line-height: 1;
   &.active{
     font-weight: 600;
-    background-color: var(--app-color-primary);
-    color: black;
   }
 }
 
@@ -123,14 +112,6 @@ section{
   }
 }
 
-.income-chart.card.card_item{
-  background-color: #48a148;
-}
-
-.schedules-chart.card.card_item{
-  background-color: chocolate;
-}
-
 .chart_container{
   height: 100%;
   position: relative;
@@ -161,12 +142,6 @@ section{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
-}
-
-section.card{
-  display: grid;
-  line-height: 1;
-  padding-bottom: 0;
 }
 
 section.card .title{
@@ -219,9 +194,6 @@ input[type=date]::before{
     width: auto;
     aspect-ratio: 1 / 1;
     font-size: 3.5rem;
-    background-color: gold;
-    // background-color: black;
-    color: white;
   }
   &.big-height{
     font-size: 2rem;

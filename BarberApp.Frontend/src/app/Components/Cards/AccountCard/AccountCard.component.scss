@@ -16,15 +16,12 @@
     align-items: center;
     justify-content: flex-end;
     overflow: hidden;
-    .text{
-      flex-shrink: 1;
-      width: 90%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
     i {
       flex-shrink: 0;
       width: 1rem;
     }
   }
+}
+.text-body-secondary{
+  text-overflow: ellipsis;
 }

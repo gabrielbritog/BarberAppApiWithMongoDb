@@ -2,19 +2,19 @@
 accept="image/*"
 (change)="uploadProfilePic($event)">
 
-<div class="user_info container animate_show">
-  <div class="profile_pic">
-    <button type="button" class="btn edit_btn" (click)="fileUpload.showPicker()">
+<div class="user_info container d-flex flex-column gap-2 animate_show mb-5">
+  <div class="profile_pic border-4 border-main-color border bg-white text-main-color">
+    <button type="button" class="btn btn-main-color edit_btn p-0" (click)="fileUpload.showPicker()">
       <i class="fa-solid fa-camera"></i>
     </button>
-    <img *ngIf="userInfo.urlImage" src="{{userInfo.urlImage}}" alt="" srcset="">
+    <img *ngIf="userInfo.urlImage" src="{{userInfo.urlImage}}" class="border border-4 border-white">
     <i *ngIf="!userInfo.urlImage" class="fa-solid fa-user placeholder_icon"></i>
   </div>
 
-  <app-AccountCard [title]="'Nome'" [content]="userInfo.firstName + ' ' + userInfo.lastName" (click)="goToRoute('Name')" ></app-AccountCard>
-  <app-AccountCard [title]="'Email'" [content]="userInfo.email" (click)="goToRoute('Email')" ></app-AccountCard>
-  <app-AccountCard [title]="'Telefone'" [content]="userInfo.phoneNumber" (click)="goToRoute('Phone')" ></app-AccountCard>
-  <app-AccountCard *ngIf="isAdmin" [title]="'Cep'" [content]="userInfo.cep" ></app-AccountCard>
-  <app-AccountCard [title]="'Senha'" [content]="'alterar senha'" (click)="goToRoute('Password')" ></app-AccountCard>
+  <app-AccountCard class="cursor-pointer" [title]="'Nome'" [content]="userInfo.firstName + ' ' + userInfo.lastName" (click)="goToRoute('Name')" ></app-AccountCard>
+  <app-AccountCard class="cursor-pointer" [title]="'Email'" [content]="userInfo.email" (click)="goToRoute('Email')" ></app-AccountCard>
+  <app-AccountCard class="cursor-pointer" [title]="'Telefone'" [content]="userInfo.phoneNumber" (click)="goToRoute('Phone')" ></app-AccountCard>
+  <app-AccountCard class="cursor-pointer" *ngIf="isAdmin" [title]="'Cep'" [content]="userInfo.cep" ></app-AccountCard>
+  <app-AccountCard class="cursor-pointer" [title]="'Senha'" [content]="'alterar senha'" (click)="goToRoute('Password')" ></app-AccountCard>
 
 </div>

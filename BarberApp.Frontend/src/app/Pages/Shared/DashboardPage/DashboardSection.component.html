@@ -7,27 +7,45 @@
       </button>
     </div>
 
-    <section class="animate_show section_container no-margin d-flex flex-column">
+    <section class="animate_show section_container m-0 mt-3 mb-5 d-flex flex-column">
 
       <section class="animate_show periodo">
-        <div class="section_header d-flex justify-between mb-2">
-          <h4 class="title m-0">Período</h4>
+        <div class="section_header d-flex align-items-center justify-between mb-2">
+          <h4 class="title m-0 lh-1">Período</h4>
           <div class="quick_dates chips_group d-flex gap-2">
-            <button class="card card_date card_chip" [class.active]="quickDate == 'week'" (click)="setQuickDate('week')"  >Semana</button>
-            <button class="card card_date card_chip" [class.active]="quickDate == 'month'" (click)="setQuickDate('month')"  >Mês</button>
-            <button class="card card_date card_chip" [class.active]="quickDate == 'year'" (click)="setQuickDate('year')"  >Ano</button>
+            <button class="btn btn-outline-main-color rounded-pill lh-1 py-2 btn-sm"
+            [class.active]="quickDate == 'week'"
+            (click)="setQuickDate('week')"
+            style="font-size: .75rem; padding: .75rem;"
+            >
+              Semana
+            </button>
+            <button class="btn btn-outline-main-color rounded-pill lh-1 py-2 btn-sm"
+            [class.active]="quickDate == 'month'"
+            (click)="setQuickDate('month')"
+            style="font-size: .75rem; padding: .75rem;"
+            >
+              Mês
+            </button>
+            <button class="btn btn-outline-main-color rounded-pill lh-1 py-2 btn-sm"
+            [class.active]="quickDate == 'year'"
+            (click)="setQuickDate('year')"
+            style="font-size: .75rem; padding: .75rem;"
+            >
+              Ano
+            </button>
           </div>
         </div>
         <div class="p-0 m-0 datas row w-100 gap-3">
-          <input class="col" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
-          <input class="col" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
+          <input class="col bg-white shadow-sm" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
+          <input class="col bg-white shadow-sm" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
         </div>
 
       </section>
 
       <section class="animate_show">
         <div class="wrapper charts_wrapper">
-          <div class="card card-chart income-chart card_item medium-height">
+          <div class="card card-chart income-chart text-bg-green card_item medium-height border-0 shadow-sm p-2">
             <div class="card_content">
               <h5>Receita</h5>
               <p class="m-0">{{formatToMoney(totalInPeriod)}}</p>
@@ -37,7 +55,7 @@
             </div>
           </div>
 
-          <div class="card card-chart schedules-chart card_item medium-height">
+          <div class="card card-chart schedules-chart text-bg-primary card_item medium-height border-0 shadow-sm p-2">
             <div class="card_content">
               <h5>Agendamentos</h5>
               <p class="m-0">{{schedulesInPeriod.length}}</p>
@@ -51,17 +69,19 @@
 
 
       <ng-container *ngIf="topServices.length > 0">
-        <section class="animate_show card w-100 top5_section">
-          <div class="section_header d-flex justify-between  ">
-            <h5 class="title">Serviços mais procurados</h5>
+        <section class="animate_show card border-0 shadow-sm w-100 top5_section">
+          <div class="section_header d-flex justify-between shadow-down p-2 mb-1">
+            <h5 class="lh-1 title">Serviços mais procurados</h5>
           </div>
 
-          <div class="wrapper animate_show d-flex flex-column">
+          <div class="wrapper animate_show p-0 d-flex rou flex-column gap-1">
             <ng-container *ngFor="let item of topServices; let i = index">
               <app-ServiceTypeCard
+              class="p-2 py-1"
+              [class.shadow-down]="i !== topServices.length -1"
+              [hideShadow]="true"
               [model]="item.service"
               [showEmployeePic]="isAdmin"
-              [noBorder]="i === topServices.length -1"
               [bigInfo]="item.count + (item.count > 1? ' vezes': ' vez')"></app-ServiceTypeCard>
             </ng-container>
           </div>
@@ -71,20 +91,23 @@
 
 
       <ng-container *ngIf="topEmployees.length > 0 && isAdmin">
-        <section class="animate_show card w-100 top5_section">
-          <div class="section_header d-flex justify-between  ">
-            <h5 class="title">Funcionários</h5>
+        <section class="animate_show card border-0 shadow-sm w-100 top5_section">
+          <div class="section_header d-flex justify-between shadow-down p-2 mb-1">
+            <h5 class="lh-1 title">Funcionários</h5>
           </div>
 
-            <div class="wrapper animate_show d-flex flex-column">
+            <div class="wrapper animate_show p-0 d-flex flex-column gap-1">
 
               <ng-container *ngFor="let item of topEmployees; let i = index">
                 <app-BarberCard
+                class="p-2 py-1"
+                [class.shadow-down]="i !== topEmployees.length -1"
+                [hideShadow]="true"
                 [model]="item.employee"
                 [showLastName]="false"
                 [bigInfo]="formatToMoney(item.totalValue)"
-                [noBorder]="i === topEmployees.length -1"
-                [smallInfo]="item.count + (item.count > 1? ' agendamentos': ' agendamento')"></app-BarberCard>
+                [smallInfo]="item.count + (item.count > 1? ' agendamentos': ' agendamento')"
+                ></app-BarberCard>
               </ng-container>
             </div>
 
@@ -92,17 +115,19 @@
       </ng-container>
 
       <ng-container *ngIf="topClients.length > 0">
-        <section class="animate_show card w-100 top5_section">
-          <div class="section_header d-flex justify-between  ">
-            <h5 class="title">Clientes</h5>
+        <section class="animate_show card border-0 shadow-sm w-100 top5_section">
+          <div class="section_header d-flex justify-between shadow-down p-2 mb-1">
+            <h5 class="lh-1 title">Clientes</h5>
           </div>
 
-          <div class="wrapper animate_show d-flex flex-column">
+          <div class="wrapper animate_show p-0 d-flex flex-column gap-1">
             <ng-container *ngFor="let item of topClients; let i = index">
               <app-ClientCard
+              class="p-2 py-1"
+              [class.shadow-down]="i !== topClients.length -1"
+              [hideShadow]="true"
               [model]="item.client"
               [bigInfo]="formatToMoney(item.totalValue)"
-              [noBorder]="i === topClients.length -1"
               [smallInfo]="item.count + (item.count > 1? ' visitas': ' visita')"></app-ClientCard>
             </ng-container>
           </div>

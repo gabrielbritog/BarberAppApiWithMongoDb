@@ -1,31 +1,8 @@
-<div class="card schedule" [class.empty]="isEmptyModel"  (click)="!isEmptyModel? editSchedule() : newSchedule()">
+<div (click)="!isEmptyModel? editSchedule() : newSchedule()">
 
-  <ng-container *ngIf="!isEmptyModel">
-    <div class="picture">
-      <!-- <i class="fa-brands fa-whatsapp"></i> -->
-      <i class="fa-solid fa-business-time"></i>
-    </div>
-    <div class="content">
-      <div class="title">
-        <span>{{scheduleModel.client.name}}</span>
-      </div>
-      <div class="desc_area">
-        <div class="desc_column desc_time">
-          <span class="desc_title">Horário</span>
-          <span class="desc_content">{{scheduleModel.time}} até {{scheduleModel.endTime}}</span>
-        </div>
-        <div class="desc_column desc_services">
-          <span class="desc_title">Serviços</span>
-          <span class="desc_content" *ngFor="let item of scheduleModel.serviceType; let i = index">
-            {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}
-          </span>
-        </div>
-      </div>
-    </div>
-  </ng-container>
 
   <ng-container *ngIf="isEmptyModel">
-    <div class="content empty">
+    <div class="card schedule content empty border-5 border-bottom-0 border-top-0 border-end-0 shadow-sm flex-row py-2">
       <div class="time">
         <i class="fa-regular fa-clock"></i>
         <span>{{scheduleModel.time}}</span>
@@ -33,5 +10,40 @@
       <p>Disponível</p>
     </div>
   </ng-container>
+
+<ng-container *ngIf="!isEmptyModel">
+  <div
+  class="card border-5 border-bottom-0 border-top-0 border-end-0 shadow-sm flex-row p-2 gap-2 border-start border-main-color"
+  >
+    <div
+    class="card-image d-grid align-content-center justify-content-center p-3 rounded text-bg-main-color"
+    style="width: 48px; height: 48px;"
+    >
+      <i class="fa-solid fa-business-time fs-4"></i>
+    </div>
+    <div class="card-body p-0 my-auto ">
+      <h5 class="card-title m-0 mb-1 lh-1">{{scheduleModel.client.name}}</h5>
+      <div class="row">
+        <div class="col d-flex flex-column">
+          <h6 class="mb-1 small strong">Horário</h6>
+          <p class="card-subtitle text-body-secondary small m-0 lh-1">
+            {{scheduleModel.time}} até {{scheduleModel.endTime}}
+          </p>
+        </div>
+        <div class="col d-flex flex-column">
+          <h6 class="mb-1 small strong">Serviços</h6>
+          <p class="card-subtitle text-body-secondary small m-0 lh-1">
+            <ng-container *ngFor="let item of scheduleModel.serviceType; let i = index">
+              {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}
+            </ng-container>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</ng-container>
+
 
 </div>

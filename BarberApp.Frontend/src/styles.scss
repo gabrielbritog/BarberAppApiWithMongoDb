@@ -17,6 +17,7 @@ app-navbar{
   position: sticky;
   top: 0;
   z-index: var(--nav-zindex);
+  background-color: var(--body-bg-color);
 }
 
 hr{
@@ -68,11 +69,11 @@ input{
     color: var(--app-color-text);
   }
   &:focus{
-    outline: 2px solid var(--app-color-primary);
-    box-shadow: 0px 0px 5px 2px var(--app-color-primary);
+    outline: 2px solid var(--main-color);
+    box-shadow: 0px 0px 5px 2px var(--main-color);
     color: var(--app-color-text);
     &~i{
-      color: var(--app-color-primary);
+      color: var(--main-color);
     }
   }
   &.form_invalid{

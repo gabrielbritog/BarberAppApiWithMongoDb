@@ -72,8 +72,8 @@ input[type=checkbox]{
   }
   &:checked{
     &::before{
-      background-color: var(--app-color-primary);
-      border-color: var(--app-color-primary);
+      background-color: var(--main-color);
+      border-color: var(--main-color);
     }
     &::after{
       content: "\f00c";
