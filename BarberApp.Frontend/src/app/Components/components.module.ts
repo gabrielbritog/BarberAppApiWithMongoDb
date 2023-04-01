@@ -6,12 +6,14 @@ import { FormInputModule } from './FormInput/form-input.module';
 import { ModalsModule } from './Modals/modals.module';
 import { CarouselsModule } from './Carousels/carousels.module';
 import { PlusButtonModule } from './PlusButton/plus-button.module';
+import { LogoComponent } from './logo/logo.component';
 
 
 
 @NgModule({
   declarations: [
     LoaderComponent,
+    LogoComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { PlusButtonModule } from './PlusButton/plus-button.module';
   ],
   exports: [
     LoaderComponent,
+    LogoComponent,
     CommonModule,
     CardsModule,
     CarouselsModule,

@@ -120,14 +120,8 @@ export class WorkFlowPageComponent implements OnInit {
         LoaderComponent.SetOptions(false, true, true);
         this.tokenStorage.saveUser(data.data);
         setTimeout(() => {
-          this.toastr.success('Alterações realizadas com sucesso.')
           this.router.navigateByUrl('/Home')
         }, LoaderComponent.timeoutOffset);
-      },
-      error: (err) => {
-        console.log(err);
-        LoaderComponent.SetOptions(false, false, true);
-        this.toastr.error(err.message)
       }
     })
 

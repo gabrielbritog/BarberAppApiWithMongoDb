@@ -6,20 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
-// PAGES
-
-
 // SERVICES
 import { authInterceptorProviders } from './Helpers/AuthInterceptor';
-
-// COMPONENTS
-
-
-// COMPONENTS - CARDS
-
-
-// MODALS
-import { SchedulingModalComponent } from './Components/Modals/SchedulingModal/SchedulingModal.component';
 
 // MISC
 import { ToastrModule } from 'ngx-toastr';
@@ -27,10 +15,12 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { DirectivesModule } from './Directives/directives.module';
 import { PagesModule } from './Pages/pages.module';
 import { ComponentsModule } from './Components/components.module';
+import { ToasterComponent } from './Components/toaster/toaster.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ToasterComponent,
   ],
   imports: [
     NgxCurrencyModule,
@@ -40,13 +30,14 @@ import { ComponentsModule } from './Components/components.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot({ timeOut: 2000, preventDuplicates: true }),
+    ToastrModule.forRoot({toastComponent: ToasterComponent, timeOut: 5000, preventDuplicates: true, progressBar: true }),
 
     DirectivesModule,
     PagesModule,
     ComponentsModule
   ],
   providers: [authInterceptorProviders],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ToasterComponent],
 })
 export class AppModule { }

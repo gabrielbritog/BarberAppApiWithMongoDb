@@ -4,12 +4,13 @@ import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 import { BarberModel } from '../Models/BarberModel';
 import { UserConfig } from '../Models/UserConfig';
 import { WorkingDays } from '../Models/WorkingDays';
-import { catchError, forkJoin, map, Observable, of } from 'rxjs';
+import { catchError, finalize, forkJoin, map, Observable, of } from 'rxjs';
 import { UserModel } from '../Models/UserModel';
 import { LoaderComponent } from '../Components/Loader/Loader.component';
 import { EmployeeService } from '../Services/api/Employee.service';
 import { SchedulingService } from '../Services/api/SchedulingService.service';
 import { ServiceTypeService } from '../Services/api/ServiceType.service';
+import { AuthInterceptor } from './AuthInterceptor';
 
 export class GlobalVariables {
   // IP DA MÁQUINA

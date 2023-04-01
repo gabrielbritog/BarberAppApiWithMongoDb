@@ -1,0 +1,76 @@
+:host{
+  background: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+:host.toast-success {
+  --toast-color: var(--bs-green);
+  .icon-success{
+    display: block !important;
+  }
+}
+:host.toast-error {
+  --toast-color: var(--bs-red);
+  .icon-error{
+    display: block !important;
+  }
+}
+:host.toast-warning {
+  --toast-color: var(--bs-yellow);
+  .icon-warning{
+    display: block !important;
+  }
+}
+:host.toast-info {
+  --toast-color: var(--bs-blue);
+  .icon-info{
+    display: block !important;
+  }
+}
+
+.toast{
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  width: auto;
+  box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 25%);
+  transition: box-shadow .2s ease-in-out;
+  animation: showToastr .5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  background-color: white;
+  i{
+    color: var(--toast-color);
+  }
+}
+
+.toast.hide:not(:hover){
+  animation: hideToastr .5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.toast-progress{
+  opacity: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: var(--toast-color);
+}
+
+@keyframes showToastr{
+  0%{
+    transform: translateX(100%);
+  }
+  100%{
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hideToastr{
+  35%{
+    transform: translateX(-20px);
+  }
+  100%{
+    transform: translateX(100%);
+  }
+}

@@ -89,3 +89,9 @@ label.datepick_view{
     overflow: visible;
   }
 }
+
+@media (min-width: 1080px) {
+  .title{
+    display: none;
+  }
+}

@@ -2,7 +2,11 @@
 
 
   <ng-container *ngIf="isEmptyModel">
-    <div class="card schedule content empty border-5 border-bottom-0 border-top-0 border-end-0 shadow-sm flex-row py-2">
+    <div class="card border-0 content empty shadow-sm flex-row py-2 ps-3">
+      <div
+      class="card-line d-grid align-content-center justify-content-center rounded rounded-end-0 position-absolute top-0 start-0 h-100"
+      style="width: 6px; background-color: var(--app-color-secondary);"
+      ></div>
       <div class="time">
         <i class="fa-regular fa-clock"></i>
         <span>{{scheduleModel.time}}</span>
@@ -13,8 +17,12 @@
 
 <ng-container *ngIf="!isEmptyModel">
   <div
-  class="card border-5 border-bottom-0 border-top-0 border-end-0 shadow-sm flex-row p-2 gap-2 border-start border-main-color"
+  class="card border-0 cursor-pointer shadow-sm flex-row p-2 ps-3 gap-2 border-start border-main-color"
   >
+  <div
+  class="card-line d-grid align-content-center justify-content-center rounded rounded-end-0 text-bg-main-color position-absolute top-0 start-0 h-100"
+  style="width: 6px;"
+  ></div>
     <div
     class="card-image d-grid align-content-center justify-content-center p-3 rounded text-bg-main-color"
     style="width: 48px; height: 48px;"
@@ -23,14 +31,14 @@
     </div>
     <div class="card-body p-0 my-auto ">
       <h5 class="card-title m-0 mb-1 lh-1">{{scheduleModel.client.name}}</h5>
-      <div class="row">
-        <div class="col d-flex flex-column">
+      <div class="d-flex">
+        <div class="d-flex flex-shrink-0 flex-mn flex-column me-3">
           <h6 class="mb-1 small strong">Horário</h6>
           <p class="card-subtitle text-body-secondary small m-0 lh-1">
             {{scheduleModel.time}} até {{scheduleModel.endTime}}
           </p>
         </div>
-        <div class="col d-flex flex-column">
+        <div class="d-flex flex-grow-1 flex-column">
           <h6 class="mb-1 small strong">Serviços</h6>
           <p class="card-subtitle text-body-secondary small m-0 lh-1">
             <ng-container *ngFor="let item of scheduleModel.serviceType; let i = index">

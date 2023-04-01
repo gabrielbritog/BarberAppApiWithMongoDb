@@ -1,20 +1,21 @@
-<section class="container-fluid w-100 p-0">
+<div class="auth-bg w-100 h-100 position-absolute top-0 left-0"></div>
+
+<section class="container-fluid position-relative w-100 p-0 bg-black bg-opacity-50">
   <div class="container base_container h-100" [class.hide]="hide">
     <div class="container_header">
-      <img src="../../../assets/Logo-White.svg" alt="" srcset="">
+      <app-logo></app-logo>
     </div>
 
     <div class="container_content d-flex flex-column">
-      <h2 class="form_title">Login</h2>
+      <h2 class="form_title text-white">Login</h2>
       <app-FormInput [inputs]="loginForm" [submitText]="'Entrar'" (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>
 
-    <div class="container_footer">
+    <div class="container_footer text-white">
       <a (click)="goToRoute('/Register')"  class="primary" id="new_user">
-        <i class="fa-solid fa-right-to-bracket mr-1"></i>
-        <span>Criar Conta</span>
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <span class="px-4">Criar Conta</span>
       </a>
     </div>
   </div>
-  <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJhcmJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60" alt="" id="banner_img">
 </section>

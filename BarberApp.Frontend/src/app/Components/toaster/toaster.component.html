@@ -1,0 +1,14 @@
+<div class="toast mb-1 border-0 text-black" [class.hide]="width === 0">
+  <div class="d-flex px-1">
+    <i class="icon-success d-none fa-solid ms-2 m-auto fs-4 fa-circle-check fa-circle-check"></i>
+    <i class="icon-error d-none fa-solid ms-2 m-auto fs-4 fa-circle-check fa-circle-xmark"></i>
+    <i class="icon-warning d-none fa-solid ms-2 m-auto fs-4 fa-circle-check fa-triangle-exclamation"></i>
+    <i class="icon-info d-none fa-solid ms-2 m-auto fs-4 fa-circle-check fa-circle-info"></i>
+    <div class="toast-body fw-bols" [innerHTML]="message">
+    </div>
+  </div>
+  <div *ngIf="options.progressBar">
+    <div class="toast-progress"
+    [style]="'width: '+width+'%'"></div>
+  </div>
+</div>

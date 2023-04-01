@@ -1,0 +1,37 @@
+svg {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+svg .marc{
+  transform: translateX(100%);
+  animation: marcAnim .6s ease-in-out forwards;
+  animation-delay: .3s;
+}
+svg .ai{
+  animation: aiAnim .3s ease-in-out forwards;
+}
+@keyframes marcAnim {
+  from{
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to{
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes aiAnim {
+  from{
+    transform: translateX(-30%);
+  }
+  to{
+    transform: translateX(0%);
+  }
+}

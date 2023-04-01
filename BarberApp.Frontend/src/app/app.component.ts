@@ -35,7 +35,6 @@ export class AppComponent implements OnInit{
     private route: Router
   ) {
     GlobalVariables.initServices(this.schedulingService, this.serviceTypeService, this.employeeService);
-    GlobalVariables.initStandalone();
   }
 
   ngOnInit(): void {
@@ -43,6 +42,7 @@ export class AppComponent implements OnInit{
       this.route.navigateByUrl('/Login');
       return;
     }
+    GlobalVariables.initStandalone();
   }
 
   logout() {

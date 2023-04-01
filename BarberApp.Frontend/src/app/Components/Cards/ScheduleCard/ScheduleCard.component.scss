@@ -2,17 +2,6 @@
   height: fit-content;
   transition: all .3s var(--default-transition-no-bounce);
   overflow: hidden;
-  &.schedule{
-    width: 100%;
-    border-left-color: var(--main-color);
-    border-left-width: 5px;
-    cursor: pointer;
-  }
-}
-
-.card.empty{
-  padding-left: 0.5rem;
-  border-left-color: var(--app-color-secondary);
 }
 
 .content.empty{
@@ -42,6 +31,13 @@
   p{
     flex-grow: 1;
     font-weight: 600;
+  }
+}
+
+.card:hover{
+  padding-left: 1.5rem !important;
+  .card-line{
+    width: calc(6px + .5rem) !important;
   }
 }
 

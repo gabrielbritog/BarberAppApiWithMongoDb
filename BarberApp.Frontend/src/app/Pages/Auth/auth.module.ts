@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './LoginPage/LoginPage.component';
 import { RegisterPageComponent } from './RegisterPage/RegisterPage.component';
 import { FormInputModule } from '../../Components/FormInput/form-input.module';
+import { ComponentsModule } from 'src/app/Components/components.module';
 
 
 
 @NgModule({
   imports: [
     CommonModule,
-    FormInputModule
+    FormInputModule,
+    ComponentsModule
   ],
   declarations: [
     LoginPageComponent,

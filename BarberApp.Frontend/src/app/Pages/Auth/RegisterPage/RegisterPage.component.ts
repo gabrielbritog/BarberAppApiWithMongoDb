@@ -72,7 +72,6 @@ export class RegisterPageComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.submited = true;
 
-    const toastrString = 'Usuário criado com sucesso.';
     const userModel = new UserModel(form.value);
 
     this.authService.register(userModel).subscribe({
@@ -80,19 +79,7 @@ export class RegisterPageComponent implements OnInit {
         LoaderComponent.SetOptions(false, true, true);
 
         setTimeout(() => {
-          this.toastr.success(toastrString);
           this.goToRoute('/Login');
-        }, LoaderComponent.timeoutOffset);
-      },
-      error: err => {
-        LoaderComponent.SetOptions(false, false, true);
-
-        setTimeout(() => {
-          console.log(err);
-          if (err.error.data)
-            this.toastr.error(err.error.data);
-          else
-            this.toastr.error("Algo deu errado, tente novamente.");
         }, LoaderComponent.timeoutOffset);
       }
     });

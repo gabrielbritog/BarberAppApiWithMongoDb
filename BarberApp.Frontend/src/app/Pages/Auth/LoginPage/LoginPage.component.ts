@@ -63,7 +63,6 @@ export class LoginPageComponent implements OnInit {
       error: (err) => {
         this.authService.loginBarber(userModel).subscribe({
           next: (data: any) => this.loginSuccess(data),
-          error: (err) => this.loginError(err)
         })
       }
     })
@@ -111,21 +110,7 @@ export class LoginPageComponent implements OnInit {
     this.tokenStorage.saveToken(data.data.accessToken);
     this.tokenStorage.saveUser(data.data.dados);
 
-    setTimeout(() => {
-      this.router.navigateByUrl('/Home');
-    }, LoaderComponent.timeoutOffset);
-  }
-
-  loginError(error: any) {
-    LoaderComponent.SetOptions(false, false, true);
-
-    setTimeout(() => {
-      console.log(error.error);
-      if (error.error.data != null)
-        this.toastr.error(error.error.data);
-      else
-        this.toastr.error("Algo deu errado, tente novamente.");
-    }, LoaderComponent.timeoutOffset);
+    this.router.navigateByUrl('/Home');
   }
 
 }
