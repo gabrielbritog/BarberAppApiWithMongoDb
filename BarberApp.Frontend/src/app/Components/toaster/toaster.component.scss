@@ -2,7 +2,17 @@
   background: none !important;
   box-shadow: none !important;
   margin: 0 !important;
+  margin-left: auto !important;
   padding: 0 !important;
+  width: auto !important;
+  max-width: min(100% - 24px, 300px);
+  overflow: visible !important;
+  display: flex;
+  justify-content: end;
+
+  &:not(:hover) .toast.hide{
+    animation: hideToastr .5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  }
 }
 
 :host.toast-success {
@@ -32,9 +42,9 @@
 
 .toast{
   position: relative;
-  overflow: hidden;
   display: grid;
   width: auto;
+  max-width: min(calc(100%), 300px);
   box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 25%);
   transition: box-shadow .2s ease-in-out;
   animation: showToastr .5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
@@ -44,16 +54,13 @@
   }
 }
 
-.toast.hide:not(:hover){
-  animation: hideToastr .5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-
 .toast-progress{
   opacity: 1;
   position: absolute;
   bottom: 0;
   left: 0;
   height: 3px;
+  transition: none;
   background-color: var(--toast-color);
 }
 

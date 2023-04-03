@@ -6,6 +6,7 @@ import { SchedulingService } from './Services/api/SchedulingService.service';
 import { ServiceTypeService } from './Services/api/ServiceType.service';
 import { TokenStorageService } from './Services/auth/token-storage.service';
 import { WindowScrollDetectorDirective } from './Directives/WindowScrollDetector/WindowScrollDetector.directive';
+import { SpinnerService } from './Components/Spinner/spinner.service';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ export class AppComponent implements OnInit{
     private schedulingService: SchedulingService,
     private serviceTypeService: ServiceTypeService,
     private employeeService: EmployeeService,
-    private route: Router
+    private route: Router,
+    public spinnerService: SpinnerService,
   ) {
     GlobalVariables.initServices(this.schedulingService, this.serviceTypeService, this.employeeService);
   }

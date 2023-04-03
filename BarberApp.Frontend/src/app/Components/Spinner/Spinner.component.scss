@@ -1,0 +1,42 @@
+.spinner-container{
+  --spinner-border-width: 6px;
+  --spinner-size: 60px;
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  background-color: var(--body-bg-color);
+}
+
+.spinner{
+  position: absolute;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  border: var(--spinner-border-width) solid;
+  border-radius: 50%;
+  color: var(--bs-main-color);
+  background-color: var(--bs-main-color);
+  animation: 2s pulseFromZero linear infinite;
+  &.second{
+    opacity: 0;
+    animation-delay: 1.25s;
+  }
+  &.third{
+    opacity: 0;
+    animation-delay: .65s;
+  }
+  &.show_success{
+    opacity: 0 !important;
+    animation: none;
+  }
+}
+
+@keyframes pulseFromZero {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to{
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}

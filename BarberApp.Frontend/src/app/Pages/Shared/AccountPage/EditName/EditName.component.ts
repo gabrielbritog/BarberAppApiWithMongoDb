@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
@@ -57,9 +56,7 @@ export class EditNameComponent implements OnInit {
       next: (data: any) => {
         console.log(data);
         this.tokenStorage.saveUser(data.data);
-        setTimeout(() => {
-          this.router.navigateByUrl('/Account')
-        }, LoaderComponent.timeoutOffset);
+        this.router.navigateByUrl('/Account');
       }
     })
   }

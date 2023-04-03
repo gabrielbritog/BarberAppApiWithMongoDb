@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { ServiceTypeService } from 'src/app/Services/api/ServiceType.service';
@@ -78,7 +77,6 @@ export class NewServiceComponent implements OnInit {
 
     apiCall.subscribe({
       next: (data: any) => {
-        LoaderComponent.SetOptions(false);
         console.log(data.message)
         setTimeout(() => {
           if (index < 0)
@@ -92,10 +90,6 @@ export class NewServiceComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        LoaderComponent.SetOptions(false);
-        setTimeout(() => {
-          console.log(err.message);
-        }, 20);
       }
     })
   }

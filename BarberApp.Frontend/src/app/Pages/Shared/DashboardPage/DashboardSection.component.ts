@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import * as moment from 'moment';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { BarberModel } from 'src/app/Models/BarberModel';
 import { ClientModel } from 'src/app/Models/ClientModel';
@@ -155,7 +154,6 @@ export class DashboardSectionComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        LoaderComponent.SetOptions(false);
       }
     })
   }
@@ -266,7 +264,6 @@ export class DashboardSectionComponent implements OnInit {
 
   requestSucceded() {
     if (this.loadedSchedulesInPeriod && this.loadedTopClients && this.loadedTopEmployees && this.loadedTopServices) {
-      LoaderComponent.SetOptions(false);
       this.createIncomeChart();
       this.createSchedulesChart();
       this.loadedSchedulesInPeriod =

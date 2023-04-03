@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { UserService } from 'src/app/Services/user/User.service';
 
@@ -48,15 +47,10 @@ export class EditEmailComponent implements OnInit {
 
     API_CALL.subscribe({
       next: (data: any) => {
-        console.log(data);
-        LoaderComponent.SetOptions(false, true, true);
-        setTimeout(() => {
-          this.tokenStorage.signOut();
-        }, LoaderComponent.timeoutOffset);
+        this.tokenStorage.signOut();
       },
       error: (err: any) => {
         console.log(err);
-        LoaderComponent.SetOptions(false, false, true);
       }
     })
   }

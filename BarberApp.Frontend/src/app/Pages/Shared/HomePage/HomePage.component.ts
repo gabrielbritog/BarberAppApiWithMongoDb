@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
@@ -49,8 +48,6 @@ export class HomePageComponent implements OnInit {
   loadApp() {
     DashboardSectionComponent.clearProperties();
     GlobalVariables.showSidebar = false;
-    LoaderComponent.SetOptions(true);
-
     GlobalVariables.init().subscribe({
       next: (data: any) => {
         this.loadedSchedules =
@@ -61,7 +58,6 @@ export class HomePageComponent implements OnInit {
       },
       error: (err) => {
         console.log('Algo deu errado');
-        LoaderComponent.SetOptions(false);
         this.tokenStorage.signOut();
       }
     })
@@ -80,15 +76,10 @@ export class HomePageComponent implements OnInit {
 
     GlobalVariables.fillProperties();
 
-    const delay = 200;
-    setTimeout(() => {
-      LoaderComponent.SetOptions(false);
+    this.appLoaded = GlobalVariables.isAppLoaded = true;
 
-      this.appLoaded = GlobalVariables.isAppLoaded = true;
-
-      if (GlobalVariables.employees.length == 0)
-        this.router.navigateByUrl('/Employees/New');
-    }, delay);
+    if (GlobalVariables.employees.length == 0)
+      this.router.navigateByUrl('/Employees/New');
   }
 
 }

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
-import { LoaderComponent } from '../../Loader/Loader.component';
 import * as moment from 'moment';
 import { ClientModel } from 'src/app/Models/ClientModel';
 import { IFormInput, IFormOptions } from '../../FormInput/IFormInput';
@@ -174,8 +173,6 @@ export class SchedulingModalComponent implements OnInit {
 
     apiCall.subscribe({
       next: (data: any) => {
-        LoaderComponent.SetOptions(false);
-        console.log(data);
         setTimeout(() => {
           if (index < 0)
             GlobalVariables.schedules.push(new ScheduleModel(data.data));
@@ -186,10 +183,7 @@ export class SchedulingModalComponent implements OnInit {
         }, 20);
       },
       error: (err) => {
-        LoaderComponent.SetOptions(false);
-        setTimeout(() => {
-          console.log(err);
-        }, 20);
+        console.log(err);
       }
     })
 

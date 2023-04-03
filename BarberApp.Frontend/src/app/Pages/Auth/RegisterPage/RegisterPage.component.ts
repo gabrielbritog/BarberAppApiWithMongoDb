@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../Services/auth/Auth.service';
 import { UserModel } from '../../../Models/UserModel';
 import { Router } from '@angular/router';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { IFormInput } from '../../../Components/FormInput/IFormInput';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 
@@ -76,11 +75,7 @@ export class RegisterPageComponent implements OnInit {
 
     this.authService.register(userModel).subscribe({
       next: (data: any) => {
-        LoaderComponent.SetOptions(false, true, true);
-
-        setTimeout(() => {
-          this.goToRoute('/Login');
-        }, LoaderComponent.timeoutOffset);
+        this.goToRoute('/Login');
       }
     });
 

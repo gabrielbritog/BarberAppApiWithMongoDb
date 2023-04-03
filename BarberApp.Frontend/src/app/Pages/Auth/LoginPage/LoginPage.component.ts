@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { UserModel } from 'src/app/Models/UserModel';
 import { AuthService } from '../../../Services/auth/Auth.service';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
-import { LoaderComponent } from '../../../Components/Loader/Loader.component';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 

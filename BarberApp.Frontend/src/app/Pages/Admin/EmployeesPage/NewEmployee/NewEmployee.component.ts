@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { BarberModel } from 'src/app/Models/BarberModel';
 import { AuthService } from 'src/app/Services/auth/Auth.service';
@@ -103,7 +102,6 @@ export class NewEmployeeComponent implements OnInit {
   }
 
   successResponse(data: any, index: number, form: NgForm) {
-    LoaderComponent.SetOptions(false);
     console.log(data.message);
     setTimeout(() => {
       if (index < 0)
@@ -120,7 +118,6 @@ export class NewEmployeeComponent implements OnInit {
   }
 
   errorResponse(err: any) {
-    LoaderComponent.SetOptions(false);
     setTimeout(() => {
       console.log(err.message);
     }, 20);

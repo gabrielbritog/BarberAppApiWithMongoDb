@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoaderComponent } from '../../Components/Loader/Loader.component';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { UserConfig } from '../../Models/UserConfig';
 

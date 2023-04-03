@@ -35,14 +35,45 @@
       </button>
     </div>
 
-    <button
-    class="nav_profile btn border-3 p-0 m-0 btn-outline-main-color shadow-sm"
-    [class.btn-outline-main-color]="!profilePic"
-    [class.btn-white]="profilePic"
-    >
-      <img *ngIf="profilePic" src="{{ profilePic }}" class="border-0 h-100 w-100" />
-      <i *ngIf="!profilePic" class="fa-solid fa-user small"></i>
-    </button>
+    <div class="btn-group" dropdown>
+      <button
+      id="button-basic"
+      aria-controls="dropdown"
+      dropdownToggle
+      type="button"
+      class="nav_profile rounded bg-white text-main-color border border-white p-0 m-0 shadow-sm"
+      [class.border-0]="profilePic"
+      [class.border-3]="!profilePic"
+      >
+        <img *ngIf="profilePic" src="{{ profilePic }}" class="border-0 h-100 w-100" />
+        <i *ngIf="!profilePic" class="fa-solid fa-user small"></i>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu shadow dropdown-menu-end"
+          role="menu" aria-labelledby="button-basic">
+        <li role="menuitem">
+          <a class="dropdown-item" routerLink="/Account" routerLinkActive="active">
+            <i class="fa-solid fa-address-card me-2"></i>
+            Perfil
+
+          </a>
+        </li>
+        <li role="menuitem">
+          <a class="dropdown-item" routerLink="/Customize" routerLinkActive="active">
+            <i class="fa-solid fa-palette me-2"></i>
+            Customização
+
+          </a>
+        </li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem">
+          <a class="dropdown-item" href="#" (click)="logout()">
+            <i class="fa-solid fa-right-from-bracket me-2"></i>
+            Sair
+
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 <app-AdminBoard></app-AdminBoard>

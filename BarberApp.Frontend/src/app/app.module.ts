@@ -16,6 +16,8 @@ import { DirectivesModule } from './Directives/directives.module';
 import { PagesModule } from './Pages/pages.module';
 import { ComponentsModule } from './Components/components.module';
 import { ToasterComponent } from './Components/toaster/toaster.component';
+import { SpinnerModule } from './Components/Spinner/spinner.module';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { ToasterComponent } from './Components/toaster/toaster.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SpinnerModule,
     ToastrModule.forRoot({toastComponent: ToasterComponent, timeOut: 5000, preventDuplicates: true, progressBar: true }),
 
     DirectivesModule,

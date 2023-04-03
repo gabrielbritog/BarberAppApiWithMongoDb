@@ -6,6 +6,7 @@ import { AdminBoardComponent } from './AdminBoard/AdminBoard.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FooterBarComponent } from './footer-bar/footer-bar.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 
@@ -13,7 +14,8 @@ import { FooterBarComponent } from './footer-bar/footer-bar.component';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    BsDropdownModule.forRoot(),
   ],
   declarations: [
     NavBarComponent,

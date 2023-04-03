@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { UserService } from 'src/app/Services/user/User.service';
@@ -54,9 +53,7 @@ export class EditPhoneComponent implements OnInit {
     API_CALL.subscribe({
       next: (data: any) => {
         this.tokenStorage.saveUser(data.data);
-        setTimeout(() => {
-          this.router.navigateByUrl('/Account')
-        }, LoaderComponent.timeoutOffset);
+        this.router.navigateByUrl('/Account');
       }
     })
   }

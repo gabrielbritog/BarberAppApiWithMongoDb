@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Services/user/User.service';
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { WorkingDays } from 'src/app/Models/WorkingDays';
@@ -117,11 +116,8 @@ export class WorkFlowPageComponent implements OnInit {
     const apiCall = this.userService.updateWorkingDays(this._workingDays);
     apiCall.subscribe({
       next: (data) => {
-        LoaderComponent.SetOptions(false, true, true);
         this.tokenStorage.saveUser(data.data);
-        setTimeout(() => {
-          this.router.navigateByUrl('/Home')
-        }, LoaderComponent.timeoutOffset);
+        this.router.navigateByUrl('/Home');
       }
     })
 

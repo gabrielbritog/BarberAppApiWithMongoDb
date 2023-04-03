@@ -62,4 +62,8 @@ export class NavBarComponent implements OnInit {
     const routerUrl = this.routerUrlArray;
     this.router.navigateByUrl(routerUrl[routerUrl.length - 2])
   }
+
+  logout() {
+    this.tokenStorage.signOut();
+  }
 }

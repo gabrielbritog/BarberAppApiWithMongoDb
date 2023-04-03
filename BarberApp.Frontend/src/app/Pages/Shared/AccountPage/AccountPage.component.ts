@@ -1,4 +1,3 @@
-import { LoaderComponent } from 'src/app/Components/Loader/Loader.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -65,26 +64,6 @@ export class AccountPageComponent implements OnInit {
 
     if (!GlobalVariables.isAppLoaded)
       GlobalVariables.initStandalone();
-
-  }
-
-  onSubmit(form: NgForm) {
-
-    const userModel = new UserModel(form.value);
-
-    const apiCall = this.isAdmin ? this.userService.update(userModel) : this.userService.updateBarber(userModel);
-
-    apiCall.subscribe({
-      next: (data: any) => {
-        LoaderComponent.SetOptions(false, true, true);
-        this.tokenStorage.saveUser(data.data);
-        this.router.navigateByUrl('/Home');
-      },
-      error: (err) => {
-        LoaderComponent.SetOptions(false, false, true);
-        console.log(err);
-      }
-    })
 
   }
 

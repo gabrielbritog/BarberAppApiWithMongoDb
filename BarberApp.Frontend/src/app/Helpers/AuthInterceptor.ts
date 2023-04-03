@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpRequest, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, finalize, tap } from 'rxjs';
-import { LoaderComponent } from '../Components/Loader/Loader.component';
 import { TokenStorageService } from '../Services/auth/token-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { SpinnerService } from '../Components/Spinner/spinner.service';
 
 const TOKEN_HEADER_KEY = "Authorization";
 
@@ -12,27 +12,25 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
     private token: TokenStorageService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private spinnerService: SpinnerService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let authReq = req;
     const token = this.token.getToken();
     const hideLoader = req.params.get('HideLoader');
-    if (token != null) {
-      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
-    }
 
     if (hideLoader)
       req = req.clone({ params: req.params.delete('HideLoader', 'true') });
     else
-      LoaderComponent.SetOptions(true);
+      this.spinnerService.show();
+
+    let authReq = req;
+    if (token != null) {
+      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+    }
 
     return next.handle(authReq).pipe(
-      finalize(() => {
-        if(!hideLoader)
-          LoaderComponent.SetOptions(false);
-      }),
       tap(
         event => {
           if (event instanceof HttpResponse) {
@@ -49,10 +47,14 @@ export class AuthInterceptor implements HttpInterceptor {
             else{
               this.toastrService.error('Algo deu errado');
             }
-            LoaderComponent.SetOptions(false);
+            this.spinnerService.hide();
           }
         }
-      )
+      ),
+      finalize(() => {
+        if(!hideLoader)
+          this.spinnerService.hide();
+      })
     );
   }
 }
