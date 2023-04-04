@@ -2,7 +2,7 @@
 [class.shadow-sm]="!hideShadow">
   <ng-container *ngIf="showEmployeePic">
     <div
-    class="card-image d-grid align-content-center justify-content-center p-3 rounded-pill text-bg-main-color"
+    class="card-image d-grid align-content-center justify-content-center p-3 rounded-pill text-bg-main"
     style="width: 42px; height: 42px;"
     >
       <img *ngIf="barberModel?.urlImage" src="{{barberModel?.urlImage}}" alt="" srcset="">
@@ -12,7 +12,7 @@
 
   <ng-container *ngIf="!showEmployeePic">
     <button
-    class="btn btn-main-color card-image d-grid align-content-center justify-content-center p-3 rounded-pill"
+    class="btn btn-main card-image d-grid align-content-center justify-content-center p-3 rounded-pill"
     style="width: 42px; height: 42px;"
     (click)="editService()"
     >

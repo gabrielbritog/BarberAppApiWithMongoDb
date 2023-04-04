@@ -2,7 +2,7 @@
   <div class="nav_container">
     <button
     type="button"
-    class="sidebar_toggle flex-shrink-0 btn p-0 btn-main-color border-0 shadow-sm"
+    class="sidebar_toggle flex-shrink-0 btn p-0 btn-main border-0 shadow-sm"
     (click)="showSidebar()">
       <i class="fa-solid fa-bars"></i>
     </button>
@@ -27,7 +27,7 @@
       style="border-radius: inherit; width: 0;">
       <button
       #searchBtn
-      class="search-btn position-absolute top-0 end-0 bottom-0 flex-shrink-0 flex-grow-0 btn btn-outline-main-color m-1 border-0 rounded d-grid align-items-center justify-content-center"
+      class="search-btn position-absolute top-0 end-0 bottom-0 flex-shrink-0 flex-grow-0 btn btn-outline-main m-1 border-0 rounded d-grid align-items-center justify-content-center"
       [class.active]="searchBar.classList.contains('expand')"
       (click)="searchBar.classList.contains('expand')? [searchBar.classList.remove('expand')] : [searchBar.classList.add('expand'), searchInput.focus()]"
       style="width: 32px;">
@@ -41,7 +41,7 @@
       aria-controls="dropdown"
       dropdownToggle
       type="button"
-      class="nav_profile rounded bg-white text-main-color border border-white p-0 m-0 shadow-sm"
+      class="nav_profile rounded bg-white text-main border border-white p-0 m-0 shadow-sm"
       [class.border-0]="profilePic"
       [class.border-3]="!profilePic"
       >

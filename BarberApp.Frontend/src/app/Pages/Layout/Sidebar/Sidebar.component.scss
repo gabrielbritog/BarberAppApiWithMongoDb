@@ -193,6 +193,15 @@ input[type=number]:focus {
       opacity: 1;
     }
   }
+
+  a:not(.active):hover{
+    color: var(--bs-main-color);
+    font-weight: 600;
+    padding-left: 1rem;
+    i{
+      opacity: 1;
+    }
+  }
   a span, a i{
     transition: none;
   }
@@ -225,9 +234,9 @@ a::before {
   transition: all .2s ease-in-out;
   background-color: transparent;
   width: 100%;
-  height: 100%;
+  height: 0;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   opacity: 0;
   border-radius: inherit;
@@ -238,6 +247,14 @@ a::before {
 a.active::before {
   background-color: var(--bs-main-color);
   opacity: .1;
+  height: 100%;
+}
+
+a:hover:not(.active)::before {
+  height: 2px;
+  top: auto;
+  background-color: var(--bs-main-color);
+  opacity: .5;
 }
 
 .disabled{

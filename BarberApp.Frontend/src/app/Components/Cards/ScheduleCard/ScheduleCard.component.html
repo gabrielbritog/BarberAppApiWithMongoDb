@@ -1,11 +1,11 @@
-<div (click)="!isEmptyModel? editSchedule() : newSchedule()">
+<div (click)="!isEmptyModel? editSchedule() : newSchedule()" class="cursor-pointer">
 
 
   <ng-container *ngIf="isEmptyModel">
     <div class="card border-0 content empty shadow-sm flex-row py-2 ps-3">
       <div
       class="card-line d-grid align-content-center justify-content-center rounded rounded-end-0 position-absolute top-0 start-0 h-100"
-      style="width: 6px; background-color: var(--app-color-secondary);"
+      style="width: 6px; transition: all .2s ease; background-color: var(--app-color-secondary);"
       ></div>
       <div class="time">
         <i class="fa-regular fa-clock"></i>
@@ -17,14 +17,14 @@
 
 <ng-container *ngIf="!isEmptyModel">
   <div
-  class="card border-0 cursor-pointer shadow-sm flex-row p-2 ps-3 gap-2 border-start border-main-color"
+  class="card border-0 shadow-sm flex-row p-2 ps-3 gap-2 border-start border-main"
   >
   <div
-  class="card-line d-grid align-content-center justify-content-center rounded rounded-end-0 text-bg-main-color position-absolute top-0 start-0 h-100"
-  style="width: 6px;"
+  class="card-line d-grid align-content-center justify-content-center rounded rounded-end-0 text-bg-main position-absolute top-0 start-0 h-100"
+  style="width: 6px; transition: all .2s ease;"
   ></div>
     <div
-    class="card-image d-grid align-content-center justify-content-center p-3 rounded text-bg-main-color"
+    class="card-image d-grid align-content-center justify-content-center p-3 rounded text-bg-main"
     style="width: 48px; height: 48px;"
     >
       <i class="fa-solid fa-business-time fs-4"></i>

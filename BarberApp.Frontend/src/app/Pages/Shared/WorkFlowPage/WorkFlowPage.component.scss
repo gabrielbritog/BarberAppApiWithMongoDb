@@ -13,7 +13,7 @@
   border: 1px solid var(--app-color-input-bg);
   line-height: 1.5;
 
-  .section_title{
+  .section_title, .section-title{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,8 +84,4 @@ input[type=checkbox]{
       font-size: .6rem;
     }
   }
-}
-
-.btn_submit{
-  margin-top: auto;
 }

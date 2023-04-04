@@ -37,8 +37,55 @@ export class NavBarComponent implements OnInit {
   }
 
   get currentRoute() {
-    const routerUrl = this.routerUrlArray;
-    return routerUrl[routerUrl.length - 1];
+    const routerUrl = this.router.routerState.snapshot.url;
+
+    const routeNames = [
+      '/Login',
+      '/Register',
+      '/Home',
+      '/Dashboard',
+      '/Schedules',
+      '/History',
+      '/WorkFlow',
+      '/Employees',
+      '/Employees/Edit',
+      '/Employees/New',
+      '/Services',
+      '/Services/Edit',
+      '/Services/New',
+      '/Clients',
+      '/Account',
+      '/Account/Name',
+      '/Account/Email',
+      '/Account/Phone',
+      '/Account/Password',
+    ];
+
+    const routeHeaderNames = [
+      'Login',
+      'Registrar',
+      'Início',
+      'Relatórios',
+      'Agenda',
+      'Histórico',
+      'Horários',
+      'Funcionários',
+      'Editar Funcionário',
+      'Novo Funcionário',
+      'Serviços',
+      'Editar Serviço',
+      'Novo Serviço',
+      'Clientes',
+      'Perfil',
+      'Alterar Nome',
+      'Alterar Email',
+      'Alterar Telefone',
+      'Alterar Senha',
+    ];
+
+    const translatedRoute = routeHeaderNames[routeNames.indexOf(routerUrl)];
+
+    return translatedRoute;
   }
 
   get isCurrentRouteChild() {

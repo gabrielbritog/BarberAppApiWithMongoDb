@@ -14,6 +14,23 @@
   }
 }
 
+.card::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--main-color);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.card:hover:after{
+  opacity: .05;
+}
+
 .card.workday {
   padding: 0.5rem .8rem;
   border-radius: 0;

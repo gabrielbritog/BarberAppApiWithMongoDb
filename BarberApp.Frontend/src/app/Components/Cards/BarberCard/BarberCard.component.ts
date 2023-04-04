@@ -15,6 +15,9 @@ export class BarberCardComponent implements OnInit {
   @Input() showLastName = true;
   @Input() hideShadow = false;
 
+  get barberImage() {
+    return this.barberModel.urlImage?? null;
+  }
   constructor() { }
 
   ngOnInit() {

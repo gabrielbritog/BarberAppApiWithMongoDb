@@ -27,16 +27,16 @@ export class AccountPageComponent implements OnInit {
     let headerText = 'Conta '
     switch (this.router.url) {
       case '/Account/Name':
-        headerText += '/ Editar Nome';
+        headerText = 'Alterar Nome';
         break;
       case '/Account/Email':
-        headerText += '/ Editar Email';
+        headerText = 'Alterar Email';
         break;
       case '/Account/Phone':
-        headerText += '/ Editar Celular';
+        headerText = 'Alterar Telefone';
         break;
       case '/Account/Password':
-        headerText += '/ Alterar Senha';
+        headerText = 'Alterar Senha';
         break;
 
     }

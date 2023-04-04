@@ -9,36 +9,34 @@
 
     <section class="animate_show section_container m-0 mt-3 mb-5 d-flex flex-column">
 
-      <section class="animate_show periodo">
-        <div class="section_header d-flex align-items-center justify-between mb-2">
-          <h4 class="title m-0 lh-1">Período</h4>
-          <div class="quick_dates chips_group d-flex gap-2">
-            <button class="btn btn-outline-main-color rounded-pill lh-1 py-2 btn-sm"
-            [class.active]="quickDate == 'week'"
-            (click)="setQuickDate('week')"
-            style="font-size: .75rem; padding: .75rem;"
-            >
-              Semana
-            </button>
-            <button class="btn btn-outline-main-color rounded-pill lh-1 py-2 btn-sm"
-            [class.active]="quickDate == 'month'"
-            (click)="setQuickDate('month')"
-            style="font-size: .75rem; padding: .75rem;"
-            >
-              Mês
-            </button>
-            <button class="btn btn-outline-main-color rounded-pill lh-1 py-2 btn-sm"
-            [class.active]="quickDate == 'year'"
-            (click)="setQuickDate('year')"
-            style="font-size: .75rem; padding: .75rem;"
-            >
-              Ano
-            </button>
-          </div>
+      <section class="animate_show periodo row m-0 mb-3 p-0 gap-2 flex-wrap align-items-center">
+        <h4 class="p-0 m-0 title m-0 col me-5 lh-1">Período</h4>
+        <div class="p-0 m-0 btn-group col ms-auto shadow-sm flex-sm-grow-1 flex-md-grow-0 order-md-2">
+          <button class="btn btn-outline-main lh-1 py-2 btn-sm"
+          [class.active]="quickDate == 'week'"
+          (click)="setQuickDate('week')"
+          style="font-size: .75rem; padding: .75rem;"
+          >
+            Semana
+          </button>
+          <button class="btn btn-outline-main lh-1 py-2 btn-sm"
+          [class.active]="quickDate == 'month'"
+          (click)="setQuickDate('month')"
+          style="font-size: .75rem; padding: .75rem;"
+          >
+            Mês
+          </button>
+          <button class="btn btn-outline-main lh-1 py-2 btn-sm"
+          [class.active]="quickDate == 'year'"
+          (click)="setQuickDate('year')"
+          style="font-size: .75rem; padding: .75rem;"
+          >
+            Ano
+          </button>
         </div>
-        <div class="p-0 m-0 datas row w-100 gap-3">
-          <input class="col bg-white shadow-sm" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
-          <input class="col bg-white shadow-sm" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
+        <div class="p-0 m-0 datas d-flex col gap-2 ms-md-auto" style="font-size: .875rem;">
+          <input class="bg-white shadow-sm col" style=" height: 32px;" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
+          <input class="bg-white shadow-sm col" style=" height: 32px;" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
         </div>
 
       </section>
