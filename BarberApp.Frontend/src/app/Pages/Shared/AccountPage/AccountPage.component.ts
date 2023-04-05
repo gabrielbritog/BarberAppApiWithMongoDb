@@ -24,7 +24,7 @@ export class AccountPageComponent implements OnInit {
   inputText = "";
 
   get headerUrl() {
-    let headerText = 'Conta '
+    let headerText = 'Perfil'
     switch (this.router.url) {
       case '/Account/Name':
         headerText = 'Alterar Nome';

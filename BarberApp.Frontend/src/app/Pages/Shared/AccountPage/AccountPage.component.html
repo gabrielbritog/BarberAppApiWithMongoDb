@@ -3,9 +3,12 @@
   <div class="cards_container container">
 
     <div class="section_title">
-      <button class="btn btn_return" *ngIf="headerUrl !== 'Serviços'"  (click)="onCancel()" >
+      <a class="btn btn_return d-grid justify-content-center align-items-center"
+      routerLink="/Account"
+      [class.d-none]="headerUrl === 'Perfil'"
+      >
         <i class="fa-solid fa-arrow-left"></i>
-      </button>
+      </a>
       <h3 class="title me-auto">{{headerUrl}}</h3>
       <button class="btn tooltip_btn">
         <i class="fa-solid fa-question"></i>

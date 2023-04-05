@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IFormInput, IFormOptions } from './IFormInput';
 import { NgForm, FormControl, Validators, FormGroup, FormControlOptions, ValidatorFn, AbstractControl } from '@angular/forms';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-FormInput',
@@ -156,6 +157,16 @@ export class FormInputComponent implements OnInit {
 
   checkboxElement(arrayElement: IFormInput) {
     arrayElement.value = arrayElement.formOptions;
+  }
+
+  getSelectedCheckboxes(arrayElement: IFormInput) {
+    const elements = (arrayElement.value as IFormOptions[]).filter((p: IFormOptions) => p.isSelected);
+    return elements;
+  }
+
+  getSelectedNames(arrayElement: IFormInput) {
+    const elements = this.getSelectedCheckboxes(arrayElement);
+    return elements.map(p=>p.label[0]);
   }
 
   getTotalValue(item: IFormInput) {

@@ -78,7 +78,7 @@ export class SchedulingModalComponent implements OnInit {
         id: 'time',
         label: 'Horário',
         value: this.scheduleModel.time,
-        type: 'radio',
+        type: 'select',
         formOptions: this.AvailableSchedulesAsFormOptions
       },
       {

@@ -37,13 +37,28 @@ body{
   &.sidebarOpen{
     overflow: hidden;
   }
-  &.light-mode{
-    // --app-color-text: var(--app-color-text-light);
-    // --body-bg-color: var(--body-bg-color-light);
-    // --body-bg-color-darker: var(--body-bg-color-darker-light);
-    // --body-bg-color-alt: var(--body-bg-color-alt-light);
-    // --app-color-input-bg: var(--app-color-input-bg-light);
-    // --app-color-input-text: var(--app-color-input-text-light);
-    // --app-color-light-border: var(--app-color-light-border-light);
+  // &.light-mode{
+  //   --app-color-text: var(--app-color-text-light);
+  //   --body-bg-color: var(--body-bg-color-light);
+  //   --body-bg-color-darker: var(--body-bg-color-darker-light);
+  //   --body-bg-color-alt: var(--body-bg-color-alt-light);
+  //   --app-color-input-bg: var(--app-color-input-bg-light);
+  //   --app-color-input-text: var(--app-color-input-text-light);
+  //   --app-color-light-border: var(--app-color-light-border-light);
+  // }
+}
+.border-radius-global{
+  border-radius: var(--global-border-radius) !important;
+}
+
+
+.custom-accordion-panel{
+  border: 0 !important;
+  .card-header{
+    padding: 0;
+    border: 0 !important;
+  }
+  .card-body{
+    padding: 0;
   }
 }

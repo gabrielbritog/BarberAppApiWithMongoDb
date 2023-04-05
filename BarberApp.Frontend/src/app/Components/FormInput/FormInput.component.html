@@ -2,7 +2,7 @@
 class="input_container w_100"
 (ngSubmit)="onSubmit(genericForm)">
 
-  <ng-container *ngFor="let item of inputs">
+  <ng-container *ngFor="let item of inputs; let i = index">
 
     <div *ngIf="item.type === 'radio'" class="form_group" [class.form_invalid]="getValidationMessage(item) != null">
       <label class="group_title" [class.collapsed]="!formGroup.checked">
@@ -10,7 +10,7 @@ class="input_container w_100"
         <div class="active_radio">{{item.value}}</div>
         <input type="checkbox" #formGroup (change)="true">
       </label>
-      <div class="collapse_group" [class.collapsed]="!formGroup.checked">
+      <div class="collapse_group shadow-sm" [class.collapsed]="!formGroup.checked">
         <div class="group_item radio_item" *ngFor="let option of item.formOptions; let i = index" [class.selected]="item.value == option.value">
           <label>
             <input type="radio"
@@ -34,38 +34,83 @@ class="input_container w_100"
       </div>
     </div>
 
-    <div *ngIf="item.type === 'checkbox'"  class="form_group" [class.form_invalid]="getValidationMessage(item) != null">
-      <label class="group_title" [class.collapsed]="!formGroup.checked">
-        {{item.label}}
-        <div class="total_values" *ngIf="getTotalValue(item) != null" >{{getTotalValue(item)}}</div>
-        <input type="checkbox" #formGroup (change)="true">
-      </label>
-      <div class="collapse_group" [class.collapsed]="!formGroup.checked">
-        <div class="group_item" *ngFor="let option of item.formOptions; let i = index" [class.selected]="option.isSelected">
-          <label>
-            <input type="checkbox"
-                  id="{{item.id}}_{{i}}"
-                  [value]="option"
-                  (change)="checkboxElement(item)"
-                  [(ngModel)]="option.isSelected"
-                  [ngModelOptions]="{standalone: true}"
-                  >
-            <div class="label_string">
-              <ng-container *ngIf="isArray(option.label)">
-                <span *ngFor="let item of getArrayElements(option.label)">
-                  {{item}}
-                </span>
-              </ng-container>
-              <ng-container *ngIf="!isArray(option.label)">
-                {{option.label}}
-              </ng-container>
+    <label
+    *ngIf="item.type === 'select'"
+    [class.dirty]="item.value != ''"
+    [class.form_invalid]="getValidationMessage(item) != null">
+      <select
+      class="form-select"
+      name="{{item.id}}"
+      [value]="item.value"
+      [(ngModel)]="item.value">
+        <option *ngFor="let option of item.formOptions; let i = index"
+        [value]="option.value"
+        required>
+          <ng-container *ngIf="isArray(option.label)">
+            {{item}}
+          </ng-container>
+          <ng-container *ngIf="!isArray(option.label)">
+            {{option.label}}
+          </ng-container>
+        </option>
+      </select>
+      <div class="placeholder_title">{{item.label}}</div>
+    </label>
+
+    <div *ngIf="item.type === 'checkbox'"  class="p-0 border-radius-global" [class.form_invalid]="getValidationMessage(item) != null">
+
+      <accordion [isAnimated]="true" class="border-radius-global shadow-sm overflow-hidden">
+        <accordion-group panelClass="custom-accordion-panel"
+        (isOpenChange)="$event? groupToggle.classList.add('expanded') : groupToggle.classList.remove('expanded')">
+          <div class="group-header py-2 bg-white position-relative" accordion-heading >
+            <div class="placeholder_title" [class.active]="getSelectedCheckboxes(item).length > 0">
+              {{item.label}}
             </div>
-          </label>
-        </div>
-      </div>
+            <div class="group-header-content d-flex">
+              <span class="me-3">
+                <ng-container *ngFor="let service of getSelectedNames(item); let i = index">
+                  {{service + (i < getSelectedNames(item).length -1? ', ' : '')}}
+                </ng-container>
+              </span>
+              <div class="group-toggle ms-auto" #groupToggle>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          <hr class="border-top opacity-100">
+          <div class="group-options pt-3 overflow-auto"
+          style="max-height: calc(1rem + 43px * 3.5);">
+            <div class="group_item" *ngFor="let option of item.formOptions; let i = index" [class.selected]="option.isSelected">
+              <label class="align-items-center border border-1">
+                <input type="checkbox"
+                      id="{{item.id}}_{{i}}"
+                      [value]="option"
+                      (change)="checkboxElement(item)"
+                      [(ngModel)]="option.isSelected"
+                      [ngModelOptions]="{standalone: true}"
+                      >
+                <div class="label_string">
+                  <ng-container *ngIf="isArray(option.label)">
+                    <span *ngFor="let item of getArrayElements(option.label)">
+                      {{item}}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="!isArray(option.label)">
+                    {{option.label}}
+                  </ng-container>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="group-total border-top p-3 d-flex justify-content-between">
+            <span>Total: </span>
+            <span class="fw-semibold">{{getTotalValue(item)}}</span>
+          </div>
+        </accordion-group>
+      </accordion>
     </div>
 
-    <ng-container *ngIf="item.type != 'radio' && item.type != 'checkbox'">
+    <ng-container *ngIf="item.type != 'radio' && item.type != 'checkbox' && item.type != 'select'">
       <label #genericInputLabel [class.dirty]="item.value != ''" [class.focused]="">
 
 

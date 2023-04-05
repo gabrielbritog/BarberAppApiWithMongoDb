@@ -20,20 +20,17 @@ input:-webkit-autofill:active {
   padding: 0 1rem;
   background-color: var(--app-color-input-bg);
   border-radius: var(--global-border-radius);
-  overflow: hidden;
   justify-content: center;
   display: flex;
   flex-direction: column;
+  &:not(.btn-group){
+    overflow: hidden;
+  }
   label{
     align-items: center;
   }
   .collapse_group.collapsed{
     display: none;
-
-    // RADIO BUTTONS
-    // display: grid;
-    // grid-template-columns: repeat(4, 1fr);
-    // gap: 0 0.5rem;
   }
   .collapse_group{
     font-size: .8rem;
@@ -82,18 +79,32 @@ input:-webkit-autofill:active {
   transform: translate(-50%, -50%) rotate(0deg);
 }
 
+.group-header-content{
+  padding: 1rem 1rem 0;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.group-toggle{
+  i{
+    font-size: .75rem;
+    transform: translateY(calc(-50% - .2rem));
+  }
+  &.expanded i{
+    transform: translateY(calc(-50% - .2rem)) rotateZ(-180deg);
+  }
+}
+
 
 .group_item{
   background-color: var(--body-bg-color-alt);
   border: 1px solid transparent;
   opacity: .5;
-  padding: 0.5rem 1rem;
+  margin: 0 1rem;
   margin-bottom: 0.5rem;
-  padding-left: 0.75rem;
   border-radius: var(--global-border-radius);
   transition: all .3s var(--default-transition), font-weight 0s;
   &.selected{
-    font-weight: 600;
     opacity: 1;
     &.radio_item{
       color: var(--body-bg-color);
@@ -106,6 +117,10 @@ input:-webkit-autofill:active {
   }
   &~:last-child{
     margin-bottom: 1rem;
+  }
+  label{
+    padding: 0.5rem 1rem;
+    padding-left: 0.75rem;
   }
 }
 
@@ -134,7 +149,7 @@ input[type=checkbox]{
     width: 200%;
     height: 200%;
     background-color: white;
-    border: 1px solid var(--app-color-text);
+    border: 1px solid black;
     z-index: 1;
     border-radius: 4px;
   }
@@ -146,7 +161,7 @@ input[type=checkbox]{
     &::after{
       content: "\f00c";
       font-weight: 900;
-      color: var(--app-color-text);
+      color: white;
       font-family: "Font Awesome 6 Free";
       z-index: 2;
       font-size: .6rem;
@@ -182,7 +197,8 @@ input[type=date]::before{
   pointer-events: none;
 }
 
-input{
+input,
+select{
   width: 100%;
   transition: all .3s var(--default-transition) !important;
   background-color: transparent;
@@ -222,36 +238,44 @@ input{
   animation: .3s alternate horizontal-shaking;
 }
 
+.placeholder_title{
+  line-height: 1;
+  margin-left: 1rem;
+  font-size: .9rem;
+  color: black;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  font-weight: 400;
+  &.active{
+    top: 0.5rem;
+    transform: translateY(0);
+    font-size: .7rem;
+    font-weight: 600;
+  }
+}
+
 label {
   display: flex;
   position: relative;
   width: 100%;
   border-radius: var(--global-border-radius);
   background-color: white;
+  color: black;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-  .placeholder_title{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: grid;
-    place-items: center;
-    line-height: 1;
-    margin-left: 1rem;
-    font-size: .85rem;
-    color: var(--app-color-input-text);
-  }
   input{
     color: transparent;
   }
   &.dirty input,
-  input:focus{
-    color: var(--app-color-text);
-    padding-top: 1.4rem;
+  input:focus,
+  &.dirty select{
+    color: black;
     font-size: 1rem;
     +.placeholder_title{
       top: 0.5rem;
       transform: translateY(0);
-      color: var(--app-color-text);
       font-size: .7rem;
       font-weight: 600;
     }
