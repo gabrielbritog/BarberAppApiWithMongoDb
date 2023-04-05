@@ -10,7 +10,10 @@ export class ScheduleModel {
   total?: number;
   schedulingDate: string = "";
   endOfSchedule: string = "";
-  recurrence: Recurrence = new Recurrence();
+  recurrence: Recurrence = {
+    isRecurrence: false,
+    recurrencePeriods: 0
+  };
 
 
   date: string = "";

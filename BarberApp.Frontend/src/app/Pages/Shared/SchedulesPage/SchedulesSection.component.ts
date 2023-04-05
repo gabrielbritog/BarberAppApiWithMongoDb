@@ -51,7 +51,13 @@ export class SchedulesSectionComponent implements OnInit {
   get currentDaySchedules() {
     const currentDay = GlobalVariables.currentDay.format('L');
     const filteredSchedules = GlobalVariables.schedules
-      .filter(p => p.date === currentDay)
+      .filter(p => {
+        if (p.date === currentDay ||
+          moment(p.date).diff(moment(currentDay), 'days') % p.recurrence.recurrencePeriods === 0) {
+          return true;
+        }
+        return false;
+      })
       .sort((n1, n2) => n1.time.localeCompare(n2.time));
     return !this.isAdmin ? filteredSchedules : filteredSchedules.filter(p => p.barberId === this.selectedBarber?.barberId);
   }

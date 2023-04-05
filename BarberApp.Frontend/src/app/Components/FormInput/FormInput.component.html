@@ -57,60 +57,69 @@ class="input_container w_100"
       <div class="placeholder_title">{{item.label}}</div>
     </label>
 
-    <div *ngIf="item.type === 'checkbox'"  class="p-0 border-radius-global" [class.form_invalid]="getValidationMessage(item) != null">
+    <ng-container *ngIf="item.type === 'checkbox'">
 
-      <accordion [isAnimated]="true" class="border-radius-global shadow-sm overflow-hidden">
-        <accordion-group panelClass="custom-accordion-panel"
-        (isOpenChange)="$event? groupToggle.classList.add('expanded') : groupToggle.classList.remove('expanded')">
-          <div class="group-header py-2 bg-white position-relative" accordion-heading >
-            <div class="placeholder_title" [class.active]="getSelectedCheckboxes(item).length > 0">
-              {{item.label}}
-            </div>
-            <div class="group-header-content d-flex">
-              <span class="me-3">
-                <ng-container *ngFor="let service of getSelectedNames(item); let i = index">
-                  {{service + (i < getSelectedNames(item).length -1? ', ' : '')}}
-                </ng-container>
-              </span>
-              <div class="group-toggle ms-auto" #groupToggle>
-                <i class="fa-solid fa-chevron-down"></i>
+      <div class="p-0 border-radius-global" [class.form_invalid]="getValidationMessage(item) != null">
+
+        <accordion [isAnimated]="true" class="border-radius-global shadow-sm overflow-hidden">
+          <accordion-group panelClass="custom-accordion-panel"
+          (isOpenChange)="$event? groupToggle.classList.add('expanded') : groupToggle.classList.remove('expanded')">
+            <div class="group-header py-2 bg-white position-relative" accordion-heading >
+              <div class="placeholder_title" [class.active]="getSelectedCheckboxes(item).length > 0">
+                {{item.label}}
+              </div>
+              <div class="group-header-content d-flex">
+                <span class="me-3">
+                  <ng-container *ngFor="let service of getSelectedNames(item); let i = index">
+                    {{service + (i < getSelectedNames(item).length -1? ', ' : '')}}
+                  </ng-container>
+                </span>
+                <div class="group-toggle ms-auto" #groupToggle>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
               </div>
             </div>
-          </div>
-          <hr class="border-top opacity-100">
-          <div class="group-options pt-3 overflow-auto"
-          style="max-height: calc(1rem + 43px * 3.5);">
-            <div class="group_item" *ngFor="let option of item.formOptions; let i = index" [class.selected]="option.isSelected">
-              <label class="align-items-center border border-1">
-                <input type="checkbox"
-                      id="{{item.id}}_{{i}}"
-                      [value]="option"
-                      (change)="checkboxElement(item)"
-                      [(ngModel)]="option.isSelected"
-                      [ngModelOptions]="{standalone: true}"
-                      >
-                <div class="label_string">
-                  <ng-container *ngIf="isArray(option.label)">
-                    <span *ngFor="let item of getArrayElements(option.label)">
-                      {{item}}
-                    </span>
-                  </ng-container>
-                  <ng-container *ngIf="!isArray(option.label)">
-                    {{option.label}}
-                  </ng-container>
-                </div>
-              </label>
+            <hr class="border-top opacity-100">
+            <div class="group-options pt-3 overflow-auto"
+            style="max-height: calc(1rem + 43px * 3.5);">
+              <div class="group_item" *ngFor="let option of item.formOptions; let i = index" [class.selected]="option.isSelected">
+                <label class="align-items-center border border-1">
+                  <input type="checkbox"
+                        id="{{item.id}}_{{i}}"
+                        [value]="option"
+                        (change)="checkboxElement(item)"
+                        [(ngModel)]="option.isSelected"
+                        [ngModelOptions]="{standalone: true}"
+                        >
+                  <div class="label_string">
+                    <ng-container *ngIf="isArray(option.label)">
+                      <span *ngFor="let item of getArrayElements(option.label)">
+                        {{item}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="!isArray(option.label)">
+                      {{option.label}}
+                    </ng-container>
+                  </div>
+                </label>
+              </div>
             </div>
-          </div>
-          <div class="group-total border-top p-3 d-flex justify-content-between">
-            <span>Total: </span>
-            <span class="fw-semibold">{{getTotalValue(item)}}</span>
-          </div>
-        </accordion-group>
-      </accordion>
-    </div>
+            <ng-container *ngIf="item.options?.showTotal">
+              <div class="group-total border-top p-3 d-flex justify-content-between">
+                <span>Total: </span>
+                <span class="fw-semibold">{{getTotalValue(item)}}</span>
+              </div>
+            </ng-container>
+          </accordion-group>
+        </accordion>
+      </div>
 
-    <ng-container *ngIf="item.type != 'radio' && item.type != 'checkbox' && item.type != 'select'">
+    </ng-container>
+
+    <ng-container
+    *ngIf="item.type != 'radio' &&
+           item.type != 'checkbox' &&
+           item.type != 'select'">
       <label #genericInputLabel [class.dirty]="item.value != ''" [class.focused]="">
 
 
@@ -119,7 +128,8 @@ class="input_container w_100"
         type="{{item.type}}"
         id="{{item.id}}"
         name="{{item.id}}"
-        [min]="item.type === 'date'? item.options?.min : ''"
+        [min]="item.options?.min"
+        [max]="item.options?.max"
         [(ngModel)]="item.value"
         [class.password-input]="item.type == 'password'"
         required>

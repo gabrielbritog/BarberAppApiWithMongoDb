@@ -42,7 +42,8 @@ export class SchedulingService {
       client: schedule.client,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate,
-      endOfSchedule: schedule.schedulingDate
+      endOfSchedule: schedule.schedulingDate,
+      recurrence: schedule.recurrence
     });
   }
 

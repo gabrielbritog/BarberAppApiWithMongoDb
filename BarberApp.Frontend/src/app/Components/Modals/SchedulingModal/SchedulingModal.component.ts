@@ -9,6 +9,7 @@ import { IFormInput, IFormOptions } from '../../FormInput/IFormInput';
 import { ToastrService } from 'ngx-toastr';
 import { SchedulingService } from 'src/app/Services/api/SchedulingService.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
+import { Recurrence } from '../../../Models/Recurrence';
 
 @Component({
   selector: 'app-SchedulingModal',
@@ -86,7 +87,21 @@ export class SchedulingModalComponent implements OnInit {
         label: 'Serviços',
         value: this.scheduleModel.serviceType,
         type: 'checkbox',
-        formOptions: this.ServicesAsFormOptions
+        formOptions: this.ServicesAsFormOptions,
+        options: {
+          min: '1',
+          showTotal: true
+        }
+      },
+      {
+        id: 'recurrence',
+        label: 'Repetir',
+        value: this.scheduleModel.recurrence.recurrencePeriods,
+        type: 'number',
+        options: {
+          min: '0',
+          max: '30',
+        }
       },
     ]
   }
@@ -146,14 +161,22 @@ export class SchedulingModalComponent implements OnInit {
 
     const scheduleForm = form.value;
 
+    const recurrenceForm : Recurrence = {
+      recurrencePeriods: parseInt(scheduleForm.recurrence),
+      isRecurrence: scheduleForm.recurrence > 0,
+    }
+
     const schedule = new ScheduleModel({
       barberId: GlobalVariables.isAdmin? GlobalVariables.selectedBarber?.barberId : this.tokenStorageService.getUserModel().barberId,
       schedulingId: this.isEditModal ? GlobalVariables.editSchedule?.schedulingId : scheduleForm.schedulingId,
       client: new ClientModel({ name: scheduleForm.clientName, phone: scheduleForm.clientPhone }),
       date: scheduleForm.date,
       time: scheduleForm.time,
-      serviceType: scheduleForm.services
+      serviceType: scheduleForm.services,
+      recurrence: recurrenceForm,
     });
+
+    console.log(recurrenceForm);
 
     const timeIsUnavailable = GlobalVariables.schedules.find(p => (
       p.date == schedule.date &&
@@ -179,6 +202,7 @@ export class SchedulingModalComponent implements OnInit {
           else
             GlobalVariables.schedules[index] = new ScheduleModel(data.data);
 
+          console.log(data.data)
           this.onCancel();
         }, 20);
       },

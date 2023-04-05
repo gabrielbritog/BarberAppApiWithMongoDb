@@ -19,4 +19,5 @@ export interface IFormOptions{
 export interface IOptions{
   min: string;
   max?: string;
+  showTotal?: boolean;
 }

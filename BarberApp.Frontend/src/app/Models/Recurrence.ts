@@ -1,4 +1,4 @@
-export class Recurrence {
-  recurrencePeriods = 1;
-  isRecurrence = false;
+export interface Recurrence {
+  recurrencePeriods: number;
+  isRecurrence: boolean;
 }
