@@ -14,17 +14,19 @@ namespace BarberApp.Api.Controllers
     {
         private readonly IUserService _userServices;
         private readonly IBarberService _barberService;
-        public UserController(IUserService userServices, IBarberService barberService)
+        private readonly ICompanyService _companyService;
+        public UserController(IUserService userServices, IBarberService barberService, ICompanyService companyService)
         {
             _userServices = userServices;
             _barberService = barberService;
+            _companyService = companyService;   
         }
         [HttpPost("Register")]
         public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> Register([FromBody]RegisterUserDto user)
         {
             try
-            {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.Register(user)));
+            {            
+                return Ok(new ResponseViewModel(true, "", await _userServices.Register(user)));
             }
             catch (Exception e)
             {
@@ -38,7 +40,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.Login(user)));
+                return Ok(new ResponseViewModel(true, "", await _userServices.Login(user)));
             }
             catch (Exception e)
             {
@@ -52,7 +54,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.GetByEmail(email)));
+                return Ok(new ResponseViewModel(true, "", await _userServices.GetByEmail(email)));
             }
             catch (Exception e)
             {
@@ -68,7 +70,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.Update(user, Email)));
+                return Ok(new ResponseViewModel(true, "", await _userServices.Update(user, Email)));
             }
             catch (Exception e)
             {
@@ -83,7 +85,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _barberService.Update(barber, email, barberId)));
+                return Ok(new ResponseViewModel(true, "", await _barberService.Update(barber, email, barberId)));
             }
             catch (Exception e)
             {
@@ -98,7 +100,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "Sucesso", await _userServices.GetMany(start,count)));
+                return Ok(new ResponseViewModel(true, "", await _userServices.GetMany(start,count)));
             }
             catch (Exception e)
             {

@@ -9,12 +9,10 @@ using System.Threading.Tasks;
 
 namespace BarberApp.Domain.Dto.Client
 {
-    public class ResponseClientDto
+    public class UpdateClientDto
     {
-        [JsonIgnore]
-        [BsonElement("clientId")]
-        public string ClientId { get; set; }
         [BsonElement("schedulingCount")]
+        [JsonIgnore]
         public int SchedulingCount { get; set; }
         [BsonElement("name")]
         public string Name { get; set; }

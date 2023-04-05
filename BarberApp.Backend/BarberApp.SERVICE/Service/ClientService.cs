@@ -19,6 +19,12 @@ namespace BarberApp.Service.Service
         }
         public async Task<Client> GetByPhone(string phone) => await _clientRepository.GetByPhone(phone);
         public async Task<List<ResponseClientDto>> GetTop(string userId, int top, DateTime first, DateTime last) => _mapper.Map<List<ResponseClientDto>>(await _clientRepository.GetTop(userId, top, first, last));
+        public async Task<ResponseClientDto> Update(UpdateClientDto client)
+        {
+            var ClientMap = _mapper.Map<Client>(client);
+            await _clientRepository.Register(ClientMap);
+            return _mapper.Map<ResponseClientDto>(ClientMap);
+        }
         public async Task<ResponseClientDto> Register(RegisterClientDto client, string userId)
         {
             var checkPhone = await this.GetByPhone($"{client.Phone}");
@@ -26,7 +32,6 @@ namespace BarberApp.Service.Service
             
             if (checkPhone != null)
             {
-
                 ClientMap.SchedulingCount = checkPhone.SchedulingCount + 1;
                 ClientMap.LastVisit = DateTime.Now;
                 await _clientRepository.Update(ClientMap);
