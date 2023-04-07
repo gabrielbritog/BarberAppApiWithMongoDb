@@ -52,8 +52,12 @@ export class SchedulesSectionComponent implements OnInit {
     const currentDay = GlobalVariables.currentDay.format('L');
     const filteredSchedules = GlobalVariables.schedules
       .filter(p => {
-        if (p.date === currentDay ||
-          moment(p.date).diff(moment(currentDay), 'days') % p.recurrence.recurrencePeriods === 0) {
+        if (p.date === currentDay) {
+          return true;
+        }
+        if (
+          moment(currentDay).diff(moment(p.date), 'days') > 0 &&
+          moment(currentDay).diff(moment(p.date), 'days') % p.recurrence.recurrencePeriods === 0) {
           return true;
         }
         return false;

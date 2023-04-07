@@ -68,14 +68,14 @@
 
       <ng-container *ngIf="topServices.length > 0">
         <section class="animate_show card border-0 shadow-sm w-100 top5_section">
-          <div class="section_header d-flex justify-between shadow-down p-2 mb-1">
+          <div class="section_header d-flex justify-between p-2 mb-1">
             <h5 class="lh-1 title">Serviços mais procurados</h5>
           </div>
 
           <div class="wrapper animate_show p-0 d-flex rou flex-column gap-1">
             <ng-container *ngFor="let item of topServices; let i = index">
               <app-ServiceTypeCard
-              class="p-2 py-1"
+              class="m-2 my-0"
               [class.shadow-down]="i !== topServices.length -1"
               [hideShadow]="true"
               [model]="item.service"
@@ -90,15 +90,15 @@
 
       <ng-container *ngIf="topEmployees.length > 0 && isAdmin">
         <section class="animate_show card border-0 shadow-sm w-100 top5_section">
-          <div class="section_header d-flex justify-between shadow-down p-2 mb-1">
+          <div class="section_header d-flex justify-between p-2 mb-1">
             <h5 class="lh-1 title">Funcionários</h5>
           </div>
 
-            <div class="wrapper animate_show p-0 d-flex flex-column gap-1">
+            <div class="wrapper animate_show p-0 d-flex flex-column gap-1 mb-1">
 
               <ng-container *ngFor="let item of topEmployees; let i = index">
                 <app-BarberCard
-                class="p-2 py-1"
+                class="m-2 my-0"
                 [class.shadow-down]="i !== topEmployees.length -1"
                 [hideShadow]="true"
                 [model]="item.employee"
@@ -114,14 +114,14 @@
 
       <ng-container *ngIf="topClients.length > 0">
         <section class="animate_show card border-0 shadow-sm w-100 top5_section">
-          <div class="section_header d-flex justify-between shadow-down p-2 mb-1">
+          <div class="section_header d-flex justify-between p-2 mb-1">
             <h5 class="lh-1 title">Clientes</h5>
           </div>
 
-          <div class="wrapper animate_show p-0 d-flex flex-column gap-1">
+          <div class="wrapper animate_show p-0 d-flex flex-column gap-1 mb-1">
             <ng-container *ngFor="let item of topClients; let i = index">
               <app-ClientCard
-              class="p-2 py-1"
+              class="m-2 my-0"
               [class.shadow-down]="i !== topClients.length -1"
               [hideShadow]="true"
               [model]="item.client"

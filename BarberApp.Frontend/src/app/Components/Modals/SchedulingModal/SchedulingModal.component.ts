@@ -176,7 +176,6 @@ export class SchedulingModalComponent implements OnInit {
       recurrence: recurrenceForm,
     });
 
-    console.log(recurrenceForm);
 
     const timeIsUnavailable = GlobalVariables.schedules.find(p => (
       p.date == schedule.date &&
@@ -202,7 +201,6 @@ export class SchedulingModalComponent implements OnInit {
           else
             GlobalVariables.schedules[index] = new ScheduleModel(data.data);
 
-          console.log(data.data)
           this.onCancel();
         }, 20);
       },
