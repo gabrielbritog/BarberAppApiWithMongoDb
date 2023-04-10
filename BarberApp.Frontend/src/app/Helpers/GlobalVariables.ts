@@ -9,6 +9,7 @@ import { UserModel } from '../Models/UserModel';
 import { EmployeeService } from '../Services/api/Employee.service';
 import { SchedulingService } from '../Services/api/SchedulingService.service';
 import { ServiceTypeService } from '../Services/api/ServiceType.service';
+import { ClassesModel } from '../Models/ClassesModel';
 
 export class GlobalVariables {
   // IP DA MÁQUINA
@@ -37,6 +38,8 @@ export class GlobalVariables {
   static selectedBarber?: BarberModel;
 
   static emptySchedules: ScheduleModel[] = [];
+  static allClasses: ClassesModel[] = [];
+  static selectedClass: ClassesModel;
 
   // SIDEBAR
   static showSidebar = false;

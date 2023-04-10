@@ -19,7 +19,7 @@ export class ListClientsComponent implements OnInit {
     )
     .filter((cName, index, self) => self.map(p => p.phone).includes(cName.phone, index + 1) === false)
     .sort((a, b) => a.name.localeCompare(b.name));
-  };
+  }
 
   constructor() { }
 

@@ -23,13 +23,21 @@ import { WorkFlowPageComponent } from './Pages/Shared/WorkFlowPage/WorkFlowPage.
 import { DashboardSectionComponent } from './Pages/Shared/DashboardPage/DashboardSection.component';
 import { SchedulesSectionComponent } from './Pages/Shared/SchedulesPage/SchedulesSection.component';
 import { HistoryPage } from './Pages/Shared/HistoryPage/HistorySection.component';
+import { ScheduleListComponent } from './Pages/Shared/SchedulesPage/schedule-list/schedule-list.component';
+import { ScheduleDetailsComponent } from './Pages/Shared/SchedulesPage/schedule-details/schedule-details.component';
+import { ClassesPageComponent } from './Pages/Shared/ClassesPage/ClassesPage.component';
+import { ClassesListComponent } from './Pages/Shared/ClassesPage/ClassesList/ClassesList.component';
+import { ClassDetailsComponent } from './Pages/Shared/ClassesPage/ClassDetails/ClassDetails.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
   { path: 'Register', component: RegisterPageComponent },
   { path: 'Home', component: HomePageComponent },
   { path: 'Dashboard', component: DashboardSectionComponent },
-  { path: 'Schedules', component: SchedulesSectionComponent },
+  { path: 'Schedules', component: SchedulesSectionComponent , children: [
+    {path: '', component: ScheduleListComponent},
+    {path: 'Details', component: ScheduleDetailsComponent},
+  ] },
   { path: 'History', component: HistoryPage },
   { path: 'WorkFlow', component: WorkFlowPageComponent },
   { path: 'Employees', component: EmployeesPageComponent , children: [
@@ -45,6 +53,10 @@ const routes: Routes = [
   {
     path: 'Clients', component: ClientsPageComponent, children: [
     {path: '', component: ListClientsComponent},
+  ] },
+  { path: 'Classes', component: ClassesPageComponent, children: [
+    {path: '', component: ClassesListComponent},
+    {path: 'Details', component: ClassDetailsComponent},
   ] },
   { path: 'Account', component: AccountPageComponent, children: [
     {path: '', component: UserInfoComponent},

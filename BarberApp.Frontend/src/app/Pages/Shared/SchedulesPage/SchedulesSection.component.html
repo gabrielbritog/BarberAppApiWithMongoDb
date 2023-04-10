@@ -1,32 +1,9 @@
-<ng-container *ngIf="!isBlocked">
-  <app-SchedulingModal *ngIf="showModal"></app-SchedulingModal>
+<ng-container *ngIf="!isBlocked && isButtonShown()">
   <app-PlusButton [onClickEvent]="newSchedule"></app-PlusButton>
+</ng-container>
 
   <div class="page_container">
-    <div class="base_cards_container cards_container container mb-3">
-      <app-CalendarCard></app-CalendarCard>
-
-
-      <div class="container_header">
-        <button type="button" class="btn_chip bg-white shadow-sm with_circle" [class.active]="showAvailable" (click)="showAvailable = !showAvailable; updateSchedulesList()"  >
-          <div class="circle secondary"></div>
-          Disponíveis
-          <i class="fa-solid fa-xmark close_icon"></i>
-        </button>
-        <button type="button" class="btn_chip bg-white shadow-sm with_circle" [class.active]="showFilled" (click)="showFilled = !showFilled; updateSchedulesList()"  >
-          <div class="circle primary"></div>
-          Agendados
-          <i class="fa-solid fa-xmark close_icon"></i>
-        </button>
-      </div>
-
-
-      <div class="cards_container d-flex flex-column gap-2 mb-5">
-        <ng-container *ngFor="let item of schedules; let i = index" >
-            <app-ScheduleCard [model]="item" class="animate_show" ></app-ScheduleCard>
-        </ng-container>
-      </div>
+    <div class="router_container container">
+      <router-outlet></router-outlet>
     </div>
-
   </div>
-</ng-container>

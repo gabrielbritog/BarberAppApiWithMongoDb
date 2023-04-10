@@ -36,7 +36,7 @@ class="input_container w_100"
 
     <label
     *ngIf="item.type === 'select'"
-    [class.dirty]="item.value != ''"
+    [class.dirty]="item.value !== ''"
     [class.form_invalid]="getValidationMessage(item) != null">
       <select
       class="form-select"
@@ -81,7 +81,7 @@ class="input_container w_100"
             </div>
             <hr class="border-top opacity-100">
             <div class="group-options pt-3 overflow-auto"
-            style="max-height: calc(1rem + 43px * 3.5);">
+            style="max-height: 400px;">
               <div class="group_item" *ngFor="let option of item.formOptions; let i = index" [class.selected]="option.isSelected">
                 <label class="align-items-center border border-1">
                   <input type="checkbox"

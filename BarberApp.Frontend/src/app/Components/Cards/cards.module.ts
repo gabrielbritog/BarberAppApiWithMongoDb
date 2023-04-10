@@ -9,6 +9,8 @@ import { ScheduleCardComponent } from './ScheduleCard/ScheduleCard.component';
 import { ServiceTypeCardComponent } from './ServiceTypeCard/ServiceTypeCard.component';
 import { WorkDayCardComponent } from './WorkDayCard/WorkDayCard.component';
 import { FormsModule } from '@angular/forms';
+import { ClassCardComponent } from './ClassCard/ClassCard.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 
 
@@ -21,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     HistoryCardComponent,
     ScheduleCardComponent,
     ServiceTypeCardComponent,
-    WorkDayCardComponent
+    WorkDayCardComponent,
+    ClassCardComponent
   ],
   exports: [
     AccountCardComponent,
@@ -31,11 +34,13 @@ import { FormsModule } from '@angular/forms';
     HistoryCardComponent,
     ScheduleCardComponent,
     ServiceTypeCardComponent,
-    WorkDayCardComponent
+    WorkDayCardComponent,
+    ClassCardComponent
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    AccordionModule
   ]
 })
 export class CardsModule { }

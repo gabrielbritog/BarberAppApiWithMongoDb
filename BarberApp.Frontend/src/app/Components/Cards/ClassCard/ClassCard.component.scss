@@ -1,0 +1,25 @@
+.group-toggle.expanded i{
+  transform: rotateZ(180deg);
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgb(156, 195, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: small;
+  &:nth-child(2){
+    left: 15px;
+    background-color: rgb(65, 139, 252);
+  }
+  &:nth-child(3){
+    left: 30px;
+  }
+}

@@ -1,0 +1,67 @@
+<ng-container *ngIf="classModel">
+
+  <accordion [isAnimated]="true" class="border-radius-global shadow-sm overflow-hidden">
+    <accordion-group panelClass="custom-accordion-panel"
+    (isOpenChange)="$event? groupToggle.classList.add('expanded') : groupToggle.classList.remove('expanded')">
+      <div class="group-header px-3 bg-white position-relative d-flex align-items-center" accordion-heading >
+
+        <div
+        #groupToggle
+        class="group-toggle d-none me-2 d-gridy align-content-center justify-content-center h-100"
+        style="width: 25px; font-size: .75rem;"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+
+        <div class="d-flex py-3 flex-grow-1 align-items-center overflow-hidden">
+          <div
+          style="width: 60px; height: 30px;"
+          class="clients-pics position-relative me-2">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle text-bg-secondary">+16</div>
+          </div>
+          <h4
+          style="text-overflow: ellipsis;"
+          class="title text-nowrap overflow-hidden">
+            {{classModel.name}}
+          </h4>
+        </div>
+      </div>
+      <ng-container *ngIf="classModel.clients.length > 0">
+        <hr class="border-top opacity-100">
+        <div class="group-options d-flex flex-column gap-2 p-3">
+
+          <ng-container *ngFor="let item of classModel.clients">
+            <p class="client-name m-0 p-0 text-capitalize border-bottom">
+              {{item.name}}
+            </p>
+          </ng-container>
+
+        </div>
+      </ng-container>
+      <div class="group-options border-top p-3 d-flex gap-3">
+        <button type="button" class="btn btn-main">Editar</button>
+      </div>
+    </accordion-group>
+  </accordion>
+
+<div class="card mt-2 shadow-sm border-0">
+  <div class="group-header px-3 position-relative d-flex align-items-center">
+    <div class="d-flex py-3 flex-grow-1 align-items-center me-auto overflow-hidden">
+      <div
+      style="width: 60px; height: 30px;"
+      class="clients-pics position-relative me-2">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle text-bg-secondary">+16</div>
+      </div>
+      <h4
+      style="text-overflow: ellipsis;"
+      class="title text-nowrap overflow-hidden">
+        {{classModel.name}}
+      </h4>
+    </div>
+  </div>
+</div>
+</ng-container>

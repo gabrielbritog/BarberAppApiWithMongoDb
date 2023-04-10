@@ -46,3 +46,10 @@
     width: 100%;
   }
 }
+
+@media (min-width: 1080px){
+  .section_title{
+    display: none !important;
+  }
+}
+

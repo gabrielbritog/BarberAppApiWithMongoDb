@@ -8,6 +8,7 @@ import { AccountPageModule } from './AccountPage/account-page.module';
 import { HistoryPageModule } from './HistoryPage/history-page.module';
 import { DashboardPageModule } from './DashboardPage/dashboard-page.module';
 import { SchedulesPageModule } from './SchedulesPage/schedules-page.module';
+import { ClassesPageModule } from './ClassesPage/ClassesPage.module';
 
 
 
@@ -22,14 +23,16 @@ import { SchedulesPageModule } from './SchedulesPage/schedules-page.module';
     AccountPageModule,
     HistoryPageModule,
     DashboardPageModule,
-    SchedulesPageModule
+    SchedulesPageModule,
+    ClassesPageModule
   ],
   exports: [
-    CommonModule,
     WorkFlowPageModule,
     ServicesPageModule,
     HomePageModule,
-    ClientsPageModule
+    ClientsPageModule,
+    SchedulesPageModule,
+    ClassesPageModule
   ],
 })
 export class SharedModule { }

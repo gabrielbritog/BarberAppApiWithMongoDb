@@ -2,6 +2,7 @@ import { ClientModel } from './../../../Models/ClientModel';
 import { Component, Input, OnInit } from '@angular/core';
 import { ScheduleModel } from '../../../Models/ScheduleModel';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ScheduleCard',
@@ -17,7 +18,7 @@ export class ScheduleCardComponent implements OnInit {
     return !this.scheduleModel?.client?.name ?? true;
   }
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -26,14 +27,14 @@ export class ScheduleCardComponent implements OnInit {
     GlobalVariables.modalAsEdit = true;
     GlobalVariables.editSchedule = this.scheduleModel;
 
-    GlobalVariables.showScheduleModal = true;
+    this.router.navigateByUrl('/Schedules/Details')
   }
 
   newSchedule() {
     GlobalVariables.modalAsEdit = false;
     GlobalVariables.editSchedule = this.scheduleModel;
 
-    GlobalVariables.showScheduleModal = true;
+    this.router.navigateByUrl('/Schedules/Details')
   }
 
 }
