@@ -4,6 +4,5 @@ export interface ClassesModel {
   id?: number,
   name: string,
   clients: ClientModel[],
-  presence: ClientModel[],
-  date: string
+  presence: ClientModel[]
 }

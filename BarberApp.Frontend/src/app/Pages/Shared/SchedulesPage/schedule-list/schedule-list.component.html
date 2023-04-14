@@ -19,6 +19,7 @@
 
     <div class="cards_container d-flex flex-column gap-2 mb-5">
       <ng-container *ngFor="let item of schedules; let i = index" >
+        <hr class="border border-0 opacity-100 border-top">
           <app-ScheduleCard [model]="item" class="animate_show" ></app-ScheduleCard>
       </ng-container>
     </div>

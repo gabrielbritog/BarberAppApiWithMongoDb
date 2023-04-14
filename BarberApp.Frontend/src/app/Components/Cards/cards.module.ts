@@ -11,6 +11,7 @@ import { WorkDayCardComponent } from './WorkDayCard/WorkDayCard.component';
 import { FormsModule } from '@angular/forms';
 import { ClassCardComponent } from './ClassCard/ClassCard.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { CardMiniInfoComponent } from './card-mini-info/card-mini-info.component';
 
 
 
@@ -24,7 +25,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     ScheduleCardComponent,
     ServiceTypeCardComponent,
     WorkDayCardComponent,
-    ClassCardComponent
+    ClassCardComponent,
+    CardMiniInfoComponent
   ],
   exports: [
     AccountCardComponent,
@@ -35,7 +37,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     ScheduleCardComponent,
     ServiceTypeCardComponent,
     WorkDayCardComponent,
-    ClassCardComponent
+    ClassCardComponent,
+    CardMiniInfoComponent
   ],
   imports: [
     CommonModule,

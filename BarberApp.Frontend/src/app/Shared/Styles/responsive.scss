@@ -1,0 +1,13 @@
+:root{
+  --max-width-sm: 540px;
+  --max-width-md: 720px;
+  --max-width-lg: 960px;
+}
+
+.max-w-sm{
+  max-width: var(--max-width-sm) !important;
+}
+
+.max-w-md{
+  max-width: var(--max-width-md) !important;
+}

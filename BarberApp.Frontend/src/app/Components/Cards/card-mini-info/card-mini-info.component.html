@@ -1,0 +1,41 @@
+<ng-container *ngIf="infos.length > 0">
+  <div class="row bg-white w-100 rounded shadow-sm border p-0 m-0">
+    <ng-container *ngFor="let item of infos; let i = index">
+      <div class="card bg-transparent position-relative col col-sm-6 col-xl-3 p-0 rounded-0 border-0">
+        <div
+        style="bottom: -1px; left: 50%; transform: translateX(-50%); width: 75%;"
+        class="border-bottom position-absolute"></div>
+        <div
+        style="margin-right: -1px;"
+        class="card-border rounded-0 border-0 my-4 border-end">
+          <div class="card-content position-relative">
+            <div class="content-header d-flex align-items-center">
+              <h1
+              style="padding: 0px 13px;"
+              class="card-header border-0 bg-transparent">
+                {{item.isCurrency === true? formatToMoney(item.currentValue) : item.currentValue}}
+              </h1>
+              <ng-container *ngIf="item.compareValue">
+                <div
+                [class.text-green]="getComparedValue(item) >= 0"
+                [class.text-red]="getComparedValue(item) < 0"
+                class="card-feedback text-end">
+                  <i
+                  [class.fa-arrow-up]="getComparedValue(item) >= 0"
+                  [class.fa-arrow-down]="getComparedValue(item) < 0"
+                  class="fa-solid me-1"></i>
+                  {{getAbsValue(item) + (item.showAsPercentage == true? '%' : '')}}
+                </div>
+              </ng-container>
+            </div>
+            <div
+            style="padding: 0px 13px;"
+            class="card-body fs-14-medium">
+              {{item.infoTitle}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

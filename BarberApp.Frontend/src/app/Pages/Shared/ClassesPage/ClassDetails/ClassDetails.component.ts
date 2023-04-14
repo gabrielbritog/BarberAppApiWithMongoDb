@@ -62,8 +62,7 @@ export class ClassDetailsComponent implements OnInit {
       this.selectedClass = {
         name: 'Teste',
         clients: [],
-        presence: [],
-        date: ''
+        presence: []
     }
   }
 

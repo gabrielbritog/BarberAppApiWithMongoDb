@@ -42,7 +42,8 @@
       </section>
 
       <section class="animate_show">
-        <div class="wrapper charts_wrapper">
+        <app-card-mini-info [infos]="infos"></app-card-mini-info>
+        <div class="wrapper charts_wrapper mt-3">
           <div class="card card-chart income-chart text-bg-green card_item medium-height border-0 shadow-sm p-2">
             <div class="card_content">
               <h5>Receita</h5>
@@ -67,16 +68,15 @@
 
 
       <ng-container *ngIf="topServices.length > 0">
-        <section class="animate_show card border-0 shadow-sm w-100 top5_section">
-          <div class="section_header d-flex justify-between p-2 mb-1">
+        <section class="animate_show card border shadow-sm w-100 top5_section">
+          <div class="section_header d-flex justify-between p-3">
             <h5 class="lh-1 title">Serviços mais procurados</h5>
           </div>
 
-          <div class="wrapper animate_show p-0 d-flex rou flex-column gap-1">
+          <div class="wrapper animate_show p-0 d-flex rou flex-column gap-0 mb-1">
             <ng-container *ngFor="let item of topServices; let i = index">
               <app-ServiceTypeCard
-              class="m-2 my-0"
-              [class.shadow-down]="i !== topServices.length -1"
+              class="m-2 my-0 border-top"
               [hideShadow]="true"
               [model]="item.service"
               [showEmployeePic]="isAdmin"
@@ -89,17 +89,16 @@
 
 
       <ng-container *ngIf="topEmployees.length > 0 && isAdmin">
-        <section class="animate_show card border-0 shadow-sm w-100 top5_section">
-          <div class="section_header d-flex justify-between p-2 mb-1">
+        <section class="animate_show card border shadow-sm w-100 top5_section">
+          <div class="section_header d-flex justify-between p-3">
             <h5 class="lh-1 title">Funcionários</h5>
           </div>
 
-            <div class="wrapper animate_show p-0 d-flex flex-column gap-1 mb-1">
+            <div class="wrapper animate_show p-0 d-flex flex-column gap-0 mb-1">
 
               <ng-container *ngFor="let item of topEmployees; let i = index">
                 <app-BarberCard
-                class="m-2 my-0"
-                [class.shadow-down]="i !== topEmployees.length -1"
+                class="m-2 my-0 border-top"
                 [hideShadow]="true"
                 [model]="item.employee"
                 [showLastName]="false"
@@ -113,16 +112,15 @@
       </ng-container>
 
       <ng-container *ngIf="topClients.length > 0">
-        <section class="animate_show card border-0 shadow-sm w-100 top5_section">
-          <div class="section_header d-flex justify-between p-2 mb-1">
+        <section class="animate_show card border shadow-sm w-100 top5_section">
+          <div class="section_header d-flex justify-between p-3">
             <h5 class="lh-1 title">Clientes</h5>
           </div>
 
-          <div class="wrapper animate_show p-0 d-flex flex-column gap-1 mb-1">
+          <div class="wrapper animate_show p-0 d-flex flex-column gap-0 mb-1">
             <ng-container *ngFor="let item of topClients; let i = index">
               <app-ClientCard
-              class="m-2 my-0"
-              [class.shadow-down]="i !== topClients.length -1"
+              class="m-2 my-0 border-top"
               [hideShadow]="true"
               [model]="item.client"
               [bigInfo]="formatToMoney(item.totalValue)"

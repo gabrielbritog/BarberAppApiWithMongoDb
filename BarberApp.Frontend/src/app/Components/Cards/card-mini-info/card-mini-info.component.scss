@@ -1,0 +1,10 @@
+.card{
+  min-width: 170px;
+}
+
+.card-content{
+  margin: 0 auto;
+  width: fit-content;
+  white-space: nowrap;
+  display: grid;
+}

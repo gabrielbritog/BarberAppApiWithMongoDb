@@ -162,6 +162,8 @@ input[type=date]::after{
   position: absolute;
   right: 1rem;
   pointer-events: none;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 input[type=date]::before{

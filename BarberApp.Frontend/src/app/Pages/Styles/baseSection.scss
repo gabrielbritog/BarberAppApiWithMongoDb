@@ -22,6 +22,7 @@
   display: grid;
   gap: .5rem;
   padding: 0 0 1rem;
+  max-width: var(--max-width-md) !important;
 }
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import * as moment from 'moment';
+import { CardMiniInfoModel } from 'src/app/Components/Cards/card-mini-info/card-mini-info-model';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { BarberModel } from 'src/app/Models/BarberModel';
 import { ClientModel } from 'src/app/Models/ClientModel';
@@ -57,10 +58,13 @@ export class DashboardSectionComponent implements OnInit {
     DashboardSectionComponent._endDate = value;
   }
 
+  infos: CardMiniInfoModel[] = [];
+
   static _topClients: TopClient[] = [];
   static _topEmployees: TopEmployee[] = [];
   static _topServices: TopService[] = [];
   static _schedulesInPeriod: ScheduleModel[] = [];
+  static _schedulesInPreviousPeriod: ScheduleModel[] = [];
 
   get topClients() {
     return DashboardSectionComponent._topClients;
@@ -74,9 +78,15 @@ export class DashboardSectionComponent implements OnInit {
   get schedulesInPeriod() {
     return DashboardSectionComponent._schedulesInPeriod;
   }
+  get schedulesInPreviousPeriod() {
+    return DashboardSectionComponent._schedulesInPreviousPeriod;
+  }
 
   get totalInPeriod() {
     return this.schedulesInPeriod.map(p=>p.total?? 0).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
+  }
+  get totalInPreviousPeriod() {
+    return this.schedulesInPreviousPeriod.map(p=>p.total?? 0).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
   }
 
 
@@ -125,10 +135,10 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   getSchedulesInPeriod() {
-    const startDate = moment(this.startDate).utc(true).toISOString();
-    const endDate = moment(this.endDate).hour(23).minute(59).utc(true).toISOString();
+    const startDate = moment(this.startDate).utc(true);
+    const endDate = moment(this.endDate).hour(23).minute(59).utc(true);
 
-    const API_CALL = this.dashboard.getManySchedulingByDate(startDate, endDate);
+    const API_CALL = this.dashboard.getManySchedulingByDate(startDate.toISOString(), endDate.toISOString());
 
     API_CALL.subscribe({
       next: (data: any) => {
@@ -145,11 +155,62 @@ export class DashboardSectionComponent implements OnInit {
               return new ScheduleModel(element)
             });
         }
-        this.loadedSchedulesInPeriod = true;
 
+        this.getSchedulesInPreviousPeriod();
         this.getTop5Clients();
         this.getTop5Employees();
         this.getTop5Services();
+        this.requestSucceded();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  getSchedulesInPreviousPeriod() {
+    const startDate = moment(this.startDate).utc(true);
+    const endDate = moment(this.endDate).hour(23).minute(59).utc(true);
+    const startEndDateDiff = endDate.diff(startDate);
+    const previousStartDate = startDate.clone().add(-startEndDateDiff).utc(true);
+    const previousEndDate = endDate.clone().add(-startEndDateDiff).utc(true);
+
+    const PREVIUS_API_CALL = this.dashboard.getManySchedulingByDate(previousStartDate.toISOString(), previousEndDate.toISOString());
+
+
+    PREVIUS_API_CALL.subscribe({
+      next: (data: any) => {
+        const schedules: ScheduleModel[] = data.data;
+        if (!this.isAdmin){
+          DashboardSectionComponent._schedulesInPreviousPeriod = schedules
+            .filter(p=>p.barberId === this.tokenStorage.getUserModel().barberId)
+            .map((element: any) => {
+              return new ScheduleModel(element)
+            });
+        } else {
+          DashboardSectionComponent._schedulesInPreviousPeriod = schedules
+            .map((element: any) => {
+              return new ScheduleModel(element)
+            });
+        }
+        console.log('opa')
+
+        this.infos = [];
+
+        this.infos.push({
+          infoTitle: 'Receita',
+          currentValue: this.totalInPeriod,
+          compareValue: this.totalInPreviousPeriod,
+          isCurrency: true,
+          showAsPercentage: true
+        });
+        this.infos.push({
+          infoTitle: 'Agendamentos',
+          currentValue: this.schedulesInPeriod.length,
+          compareValue: this.schedulesInPreviousPeriod.length
+        });
+
+        this.loadedSchedulesInPeriod = true;
         this.requestSucceded();
       },
       error: (err) => {
