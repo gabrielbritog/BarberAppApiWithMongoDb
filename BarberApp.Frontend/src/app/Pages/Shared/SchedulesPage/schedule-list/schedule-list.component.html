@@ -4,12 +4,12 @@
 
 
     <div class="container_header d-flex gap-3 mt-3 mb-2">
-      <button type="button" class="btn_chip bg-white shadow-sm with_circle" [class.active]="showAvailable" (click)="showAvailable = !showAvailable; updateSchedulesList()"  >
+      <button type="button" class="btn_chip bg-body shadow-sm with_circle" [class.active]="showAvailable" (click)="showAvailable = !showAvailable; updateSchedulesList()"  >
         <div class="circle secondary"></div>
         Disponíveis
         <i class="fa-solid fa-xmark close_icon"></i>
       </button>
-      <button type="button" class="btn_chip bg-white shadow-sm with_circle" [class.active]="showFilled" (click)="showFilled = !showFilled; updateSchedulesList()"  >
+      <button type="button" class="btn_chip bg-body shadow-sm with_circle" [class.active]="showFilled" (click)="showFilled = !showFilled; updateSchedulesList()"  >
         <div class="circle primary"></div>
         Agendados
         <i class="fa-solid fa-xmark close_icon"></i>

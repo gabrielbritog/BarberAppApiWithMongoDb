@@ -1,9 +1,9 @@
 <ng-container *ngIf="classModel">
 
-  <accordion [isAnimated]="true" class="border-radius-global shadow-sm overflow-hidden">
+  <accordion [isAnimated]="true" class="border-radius-global mb-2 shadow-sm overflow-hidden">
     <accordion-group panelClass="custom-accordion-panel"
     (isOpenChange)="$event? groupToggle.classList.add('expanded') : groupToggle.classList.remove('expanded')">
-      <div class="group-header px-3 bg-white position-relative d-flex align-items-center" accordion-heading >
+      <div class="group-header px-3 bg-body position-relative d-flex align-items-center" accordion-heading >
 
         <div
         #groupToggle
@@ -41,12 +41,12 @@
         </div>
       </ng-container>
       <div class="group-options border-top p-3 d-flex gap-3">
-        <button type="button" class="btn btn-main">Editar</button>
+        <button type="button" (click)="editClass()" class="btn btn-main">Editar</button>
       </div>
     </accordion-group>
   </accordion>
 
-<div class="card mt-2 shadow-sm border-0">
+<div class="d-none card mt-2 shadow-sm border-0">
   <div class="group-header px-3 position-relative d-flex align-items-center">
     <div class="d-flex py-3 flex-grow-1 align-items-center me-auto overflow-hidden">
       <div

@@ -13,8 +13,8 @@
   height: var(--spinner-size);
   border: var(--spinner-border-width) solid;
   border-radius: 50%;
-  color: var(--bs-main-color);
-  background-color: var(--bs-main-color);
+  color: var(--main);
+  background-color: var(--main);
   animation: 2s pulseFromZero linear infinite;
   &.second{
     opacity: 0;

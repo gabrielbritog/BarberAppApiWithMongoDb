@@ -26,12 +26,64 @@ $black:                #000000;
 
 :root {
   --body-bg-color: #eef1fa;
+  --body-dark-bg-color: #1c1c1c;
 
-  --main-color: var(--bs-main);
+  --main: var(--bs-main);
+  --main-rgb: var(--bs-main-rgb);
+  --main-active: #4b52ba;
 
-  --main-color-rgb: var(--bs-main-rgb);
+  --main-color: var(--bs-main-color);
+  --main-active-color: #4b52ba;
+
+  --red-color: var(--bs-red);
+  --red-active-color: #b02a37;
+
+  --green-color: var(--bs-green);
+  --green-active-color: #146c43;
+
+  --orange-color: var(--bs-orange);
+  --orange-active-color: #fd7e14;
+
+  --pink-color: var(--bs-pink);
+  --pink-active-color: #ab296a;
+
 
   --main-secondary-color: rgb(226, 226, 226);
+  --bs-tertiary-bg: var(--main) !important;
+
+  &.primary-main{
+    --main: var(--main-color);
+    --main-active: var(--main-active-color);
+    --main-rgb: var(--bs-main-rgb);
+  }
+  &.primary-red{
+    --main: var(--red-color);
+    --main-active: var(--red-active-color);
+    --main-rgb: var(--bs-red-rgb);
+  }
+  &.primary-green{
+    --main: var(--green-color);
+    --main-active: var(--green-active-color);
+    --main-rgb: var(--bs-green-rgb);
+  }
+  &.primary-orange{
+    --main: var(--orange-color);
+    --main-active: var(--orange-active-color);
+    --main-rgb: var(--bs-orange-rgb);
+  }
+  &.primary-pink{
+    --main: var(--pink-color);
+    --main-active: var(--pink-active-color);
+    --main-rgb: var(--bs-pink-rgb);
+  }
+  &.dark-mode{
+    --bs-body-color: #fff;
+    --body-bg-color: var(--body-dark-bg-color);
+    --bs-body-bg: rgb(36, 36, 36);
+    --bs-body-bg-rgb: 36, 36, 36;
+    --bs-secondary-color: #727272;
+    --bs-border-color: #2a2a2a;
+  }
 }
 
 .border-transparent{

@@ -1,6 +1,6 @@
 @import "./Styles/root.scss";
-@import "./Styles/button.scss";
 @import "./Styles/colors.scss";
+@import "./Styles/button.scss";
 @import "./Styles/searchBar.scss";
 @import "./Styles/scrollbar.scss";
 @import "./Styles/typography.scss";
@@ -11,4 +11,7 @@
 
 .cursor-pointer{
   cursor: pointer;
+}
+.form-floating:not(.form-control:disabled)::before{
+  background-color: transparent !important;
 }

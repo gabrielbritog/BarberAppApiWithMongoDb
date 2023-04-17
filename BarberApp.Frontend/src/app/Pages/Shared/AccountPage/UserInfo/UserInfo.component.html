@@ -3,11 +3,11 @@ accept="image/*"
 (change)="uploadProfilePic($event)">
 
 <div class="user_info container d-flex flex-column gap-2 animate_show mb-5">
-  <div class="profile_pic border-4 border-main-color border bg-white text-main">
+  <div class="profile_pic border-4 border-main border bg-body text-main">
     <button type="button" class="btn btn-main edit_btn p-0" (click)="fileUpload.showPicker()">
       <i class="fa-solid fa-camera"></i>
     </button>
-    <img *ngIf="userInfo.urlImage" src="{{userInfo.urlImage}}" class="border border-4 border-white">
+    <img *ngIf="userInfo.urlImage" src="{{userInfo.urlImage}}" class="border border-4 border-body">
     <i *ngIf="!userInfo.urlImage" class="fa-solid fa-user placeholder_icon"></i>
   </div>
 

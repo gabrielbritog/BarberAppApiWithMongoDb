@@ -14,7 +14,7 @@ import { ClassesModel } from '../Models/ClassesModel';
 export class GlobalVariables {
   // IP DA MÁQUINA
   // static readonly MACHINE_IP = "localhost";
-  static readonly MACHINE_IP = 'http://192.168.1.71:5066';
+  static readonly MACHINE_IP = 'http://192.168.1.83:5066';
 
   private static schedulingService?: SchedulingService;
   private static serviceTypeService?: ServiceTypeService;
@@ -39,7 +39,7 @@ export class GlobalVariables {
 
   static emptySchedules: ScheduleModel[] = [];
   static allClasses: ClassesModel[] = [];
-  static selectedClass: ClassesModel;
+  static selectedClass?: ClassesModel;
 
   // SIDEBAR
   static showSidebar = false;

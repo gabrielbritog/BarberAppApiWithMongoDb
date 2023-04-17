@@ -14,7 +14,7 @@
 }
 
 .base_container{
-  background-color: white;
+  background-color: var(--bs-body-bg);
   color: var(--app-color-text);
   height: 100%;
   width: min(100vw, 250px);
@@ -120,7 +120,7 @@ input[type=checkbox]{
   &:checked::before{
     transition: all 1s ease;
     left: 75%;
-    background-color: var(--main-color);
+    background-color: var(--main);
   }
 }
 
@@ -185,19 +185,21 @@ input[type=number]:focus {
   }
 
   a.active{
-    color: var(--bs-main-color);
+    color: var(--main);
     font-weight: 600;
     padding-left: 1rem;
     border-left: 8px solid;
+    opacity: 1;
     i{
       opacity: 1;
     }
   }
 
   a:not(.active):hover{
-    color: var(--bs-main-color);
+    color: var(--main);
     font-weight: 600;
     padding-left: 1rem;
+    opacity: 1;
     i{
       opacity: 1;
     }
@@ -227,6 +229,7 @@ input[type=number]:focus {
 
 a{
   position: relative;
+  opacity: .65;
 }
 
 a::before {
@@ -245,7 +248,7 @@ a::before {
 }
 
 a.active::before {
-  background-color: var(--bs-main-color);
+  background-color: var(--main);
   opacity: .1;
   height: 100%;
 }
@@ -253,7 +256,7 @@ a.active::before {
 a:hover:not(.active)::before {
   height: 2px;
   top: auto;
-  background-color: var(--bs-main-color);
+  background-color: var(--main);
   opacity: .5;
 }
 

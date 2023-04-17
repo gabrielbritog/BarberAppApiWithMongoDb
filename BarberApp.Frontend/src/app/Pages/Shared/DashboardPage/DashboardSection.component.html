@@ -35,36 +35,36 @@
           </button>
         </div>
         <div class="p-0 m-0 datas d-flex col gap-2 ms-md-auto" style="font-size: .875rem;">
-          <input class="bg-white shadow-sm col" style=" height: 32px;" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
-          <input class="bg-white shadow-sm col" style=" height: 32px;" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
+          <input class="bg-body shadow-sm col" style=" height: 32px;" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
+          <input class="bg-body shadow-sm col" style=" height: 32px;" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
         </div>
 
       </section>
 
-      <section class="animate_show">
-        <app-card-mini-info [infos]="infos"></app-card-mini-info>
-        <div class="wrapper charts_wrapper mt-3">
-          <div class="card card-chart income-chart text-bg-green card_item medium-height border-0 shadow-sm p-2">
-            <div class="card_content">
-              <h5>Receita</h5>
-              <p class="m-0">{{formatToMoney(totalInPeriod)}}</p>
+        <section class="animate_show">
+          <app-card-mini-info [infos]="infos"></app-card-mini-info>
+          <div class="wrapper d-none charts_wrapper mt-3">
+            <div class="card card-chart income-chart text-bg-green card_item medium-height border-0 shadow-sm p-2">
+              <div class="card_content">
+                <h5>Receita</h5>
+                <p class="m-0">{{formatToMoney(totalInPeriod)}}</p>
+              </div>
+              <div class="chart_container">
+                <canvas id="income-chart"></canvas>
+              </div>
             </div>
-            <div class="chart_container">
-              <canvas id="income-chart"></canvas>
-            </div>
-          </div>
 
-          <div class="card card-chart schedules-chart text-bg-primary card_item medium-height border-0 shadow-sm p-2">
-            <div class="card_content">
-              <h5>Agendamentos</h5>
-              <p class="m-0">{{schedulesInPeriod.length}}</p>
-            </div>
-            <div class="chart_container">
-              <canvas id="schedules-chart"></canvas>
+            <div class="card card-chart schedules-chart text-bg-primary card_item medium-height border-0 shadow-sm p-2">
+              <div class="card_content">
+                <h5>Agendamentos</h5>
+                <p class="m-0">{{schedulesInPeriod.length}}</p>
+              </div>
+              <div class="chart_container">
+                <canvas id="schedules-chart"></canvas>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
 
       <ng-container *ngIf="topServices.length > 0">

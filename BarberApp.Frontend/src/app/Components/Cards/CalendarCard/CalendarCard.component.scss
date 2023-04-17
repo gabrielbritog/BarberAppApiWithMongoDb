@@ -73,8 +73,8 @@ label.datepick_view{
   }
   &.active{
     color: var(--body-bg-color);
-    background-color: var(--main-color);
-    border-color: var(--main-color);
+    background-color: var(--main);
+    border-color: var(--main);
     font-weight: bold;
   }
 }

@@ -14,7 +14,7 @@
       class="btn btn-main ps-2 border-0 dropdown-toggle align-items-center gap-1 shadow-sm d-flex flex-nowrap"
       style="font-size: 0.8rem;"
        >
-       <div class="bg-white text-main rounded-pill overflow-hidden d-grid justify-content-center align-items-center" style="width: 20px; height: 20px;">
+       <div class="bg-body text-main rounded-pill overflow-hidden d-grid justify-content-center align-items-center" style="width: 20px; height: 20px;">
          <img *ngIf="selectedBarber?.urlImage" src="{{ selectedBarber?.urlImage }}" class="border-0 h-100 w-100" style="object-fit: cover;" />
          <i *ngIf="!selectedBarber?.urlImage" class="fa-solid fa-user small"></i>
        </div>
@@ -32,7 +32,7 @@
           [class.active]="selectedBarber == item"
           >
           <div
-          class="bg-white text-primary rounded-pill overflow-hidden d-grid justify-content-center align-items-center" style="width: 20px; height: 20px;">
+          class="bg-body text-primary rounded-pill overflow-hidden d-grid justify-content-center align-items-center" style="width: 20px; height: 20px;">
             <img *ngIf="item.urlImage" src="{{ item.urlImage }}" class="border-0 h-100 w-100" style="object-fit: cover;" />
             <i *ngIf="!item.urlImage" class="fa-solid fa-user small"></i>
           </div>

@@ -64,7 +64,7 @@ class="input_container w_100"
         <accordion [isAnimated]="true" class="border-radius-global shadow-sm overflow-hidden">
           <accordion-group panelClass="custom-accordion-panel"
           (isOpenChange)="$event? groupToggle.classList.add('expanded') : groupToggle.classList.remove('expanded')">
-            <div class="group-header py-2 bg-white position-relative" accordion-heading >
+            <div class="group-header py-2 bg-body position-relative" accordion-heading >
               <div class="placeholder_title" [class.active]="getSelectedCheckboxes(item).length > 0">
                 {{item.label}}
               </div>

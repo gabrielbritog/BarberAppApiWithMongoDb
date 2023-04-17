@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ClassesList',
@@ -11,9 +12,14 @@ export class ClassesListComponent implements OnInit {
     return GlobalVariables.allClasses;
   }
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    GlobalVariables.selectedClass = undefined;
+  }
+
+  newClass() {
+    this.router.navigateByUrl('/Classes/Details');
   }
 
 }

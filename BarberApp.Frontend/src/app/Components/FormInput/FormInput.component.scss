@@ -108,8 +108,8 @@ input:-webkit-autofill:active {
     opacity: 1;
     &.radio_item{
       color: var(--body-bg-color);
-      background-color: var(--main-color);
-      border: 1px solid var(--main-color);
+      background-color: var(--main);
+      border: 1px solid var(--main);
     }
   }
   &~:first-child{
@@ -155,8 +155,8 @@ input[type=checkbox]{
   }
   &:checked{
     &::before{
-      background-color: var(--main-color);
-      border-color: var(--main-color);
+      background-color: var(--main);
+      border-color: var(--main);
     }
     &::after{
       content: "\f00c";
@@ -223,11 +223,11 @@ select{
     transition: all .3s var(--default-transition) !important;
   }
   &:focus{
-    outline: 2px solid var(--main-color);
-    box-shadow: 0px 0px 5px 2px var(--main-color);
+    outline: 2px solid var(--main);
+    box-shadow: 0px 0px 5px 2px var(--main);
     color: var(--app-color-text);
     &~i{
-      color: var(--main-color);
+      color: var(--main);
     }
   }
   &.with_icon{

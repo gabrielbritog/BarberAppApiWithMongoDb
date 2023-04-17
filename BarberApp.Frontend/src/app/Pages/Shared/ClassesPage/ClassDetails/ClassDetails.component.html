@@ -1,41 +1,48 @@
 <div class="cards_container">
 
-  <div class="form-floating border-0 rounded shadow-sm mb-2">
-    <input
-    type="text"
-    class="form-control border-0"
-    id="floatingInput"
-    [(ngModel)]="selectedClass.name"
-    [readonly]="!isAdmin"
-    placeholder="Turma de segunda-feira">
-    <label for="floatingInput">Nome da turma</label>
-  </div>
-  <div class="card p-3 border-0 shadow-sm gap-2">
-    <div class="search-bar rounded text-bg-white shadow-sm mb-2">
+  <form action="" (submit)="onSubmit()">
+    <div class="form-floating border-0 rounded shadow-sm mb-2">
       <input
       type="text"
-      class="small w-100 border"
-      placeholder="Pesquisar"
-      name="search"
-      style="border-radius: inherit;"
-      [(ngModel)]="searchValue">
+      class="form-control border-0"
+      id="floatingInput"
+      name="className"
+      [(ngModel)]="classModel.name"
+      [readonly]="!isAdmin"
+      placeholder="Turma de segunda-feira">
+      <label for="floatingInput">Nome da turma</label>
     </div>
-    <ng-container *ngFor="let item of clientList">
-      <div class="form-check d-flex overflow-hidden border-bottom p-0">
+    <div class="card p-3 border-0 shadow-sm gap-2">
+      <div class="search-bar rounded text-bg-body shadow-sm mb-2">
         <input
-        class="form-check-input p-0 ms-1"
-        type="checkbox"
-        [checked]="hasClient(item)"
-        [value]="item"
-        [id]="item.phone+'-client'"
-        (change)="addClientToClass(item)"
-        >
-        <label
-        style="text-overflow: ellipsis;"
-        class="ms-2 form-check-label flex-grow-1 text-capitalize text-nowrap overflow-hidden" [for]="item.phone+'-client'">
-          {{item.name}}
-        </label>
+        type="text"
+        class="small w-100 border"
+        placeholder="Pesquisar"
+        name="search"
+        style="border-radius: inherit;"
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="searchValue">
       </div>
-    </ng-container>
-  </div>
+      <ng-container *ngFor="let item of clientList">
+        <div class="form-check d-flex overflow-hidden border-bottom p-0">
+          <input
+          class="form-check-input p-0 ms-1"
+          type="checkbox"
+          [checked]="hasClient(item)"
+          [value]="item"
+          [id]="item.phone+'-client'"
+          (change)="addClientToClass(item)"
+          >
+          <label
+          style="text-overflow: ellipsis;"
+          class="ms-2 form-check-label flex-grow-1 text-capitalize text-nowrap overflow-hidden" [for]="item.phone+'-client'">
+            {{item.name}}
+          </label>
+        </div>
+      </ng-container>
+    </div>
+    <button type="submit" class="btn btn-main px-4 py-2 mt-2">
+      Salvar
+    </button>
+  </form>
 </div>

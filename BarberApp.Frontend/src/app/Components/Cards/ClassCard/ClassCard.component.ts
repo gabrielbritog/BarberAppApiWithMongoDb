@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ClassesModel } from 'src/app/Models/ClassesModel';
 import { ClientModel } from '../../../Models/ClientModel';
+import { GlobalVariables } from '../../../Helpers/GlobalVariables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ClassCard',
@@ -10,7 +12,7 @@ import { ClientModel } from '../../../Models/ClientModel';
 export class ClassCardComponent implements OnInit {
   @Input() classModel?: ClassesModel;
 
-  constructor() {
+  constructor(private router: Router) {
     if (!this.classModel) {
       this.classModel = {
         name: 'Matemática - Segunda-feira',
@@ -21,6 +23,13 @@ export class ClassCardComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  editClass() {
+    if(this.classModel){
+      GlobalVariables.selectedClass = this.classModel;
+      this.router.navigateByUrl('/Classes/Details')
+    }
   }
 
 }

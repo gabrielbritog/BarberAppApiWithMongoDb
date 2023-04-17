@@ -6,13 +6,15 @@ import { CardsModule } from '../../../Components/Cards/cards.module';
 import { ClassesListComponent } from './ClassesList/ClassesList.component';
 import { ClassDetailsComponent } from './ClassDetails/ClassDetails.component';
 import { FormsModule } from '@angular/forms';
+import { PlusButtonModule } from '../../../Components/PlusButton/plus-button.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     CardsModule,
-    FormsModule
+    FormsModule,
+    PlusButtonModule
   ],
   declarations: [
     ClassesPageComponent,

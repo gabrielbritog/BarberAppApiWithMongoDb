@@ -1,7 +1,8 @@
 <ng-container *ngIf="infos.length > 0">
-  <div class="row bg-white w-100 rounded shadow-sm border p-0 m-0">
+  <div class="row bg-body w-100 rounded shadow-sm border p-0 m-0">
     <ng-container *ngFor="let item of infos; let i = index">
-      <div class="card bg-transparent position-relative col col-sm-6 col-xl-3 p-0 rounded-0 border-0">
+      <div class="card bg-transparent position-relative col-12 col-md-6 p-0 rounded-0 border-0"
+      [class.col-xl-3]="infos.length >= 4">
         <div
         style="bottom: -1px; left: 50%; transform: translateX(-50%); width: 75%;"
         class="border-bottom position-absolute"></div>
