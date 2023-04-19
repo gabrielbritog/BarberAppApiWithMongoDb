@@ -36,7 +36,7 @@ class="input_container w_100"
 
     <label
     *ngIf="item.type === 'select'"
-    [class.dirty]="item.value !== ''"
+    [class.dirty]="item.value !== '' && item.value !== undefined"
     [class.form_invalid]="getValidationMessage(item) != null">
       <select
       class="form-select"
@@ -174,6 +174,10 @@ class="input_container w_100"
     </div>
   </ng-container>
 
-  <button class="btn btn-main mt-auto px-5 btn_submit shadow-sm" type="submit">{{submitText}}</button>
+  <button 
+  [class.me-auto]="marginOnSubmit"
+  class="btn btn-main mt-auto px-5 btn_submit shadow-sm" type="submit">
+    {{submitText}}
+  </button>
 
 </form>

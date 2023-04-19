@@ -26,21 +26,22 @@ export class ClassDetailsComponent implements OnInit {
 
   get clientList() {
     return GlobalVariables.schedules
+    .filter(p=> p.client && !p.client.name == false)
     .map(p => p.client)
     .filter(p =>
-      p.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-      p.phone.toLowerCase().includes(this.searchValue.toLowerCase())
+      p!.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      p!.phone.toLowerCase().includes(this.searchValue.toLowerCase())
     )
-    .filter((cName, index, self) => self.map(p => p.phone).includes(cName.phone, index + 1) === false)
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .sort((b, a) => {
-        if (this.classModel.clients.some(p => p == a))
-          return 1;
-        if (this.classModel.clients.some(p => p == b))
-          return -1;
+    .filter((cName, index, self) => self.map(p => p!.phone).includes(cName!.phone, index + 1) === false)
+    .sort((a, b) => a!.name.localeCompare(b!.name))
+    .sort((b, a) => {
+      if (this.classModel.clients.some(p => p == a))
+        return 1;
+      if (this.classModel.clients.some(p => p == b))
+        return -1;
 
-        return 0
-      });
+      return 0
+    }) as ClientModel[];
 
   }
 

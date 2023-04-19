@@ -11,6 +11,7 @@ import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { SchedulingService } from 'src/app/Services/api/SchedulingService.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { Router } from '@angular/router';
+import { ClassesModel } from 'src/app/Models/ClassesModel';
 
 @Component({
   selector: 'app-schedule-details',
@@ -47,6 +48,19 @@ export class ScheduleDetailsComponent implements OnInit {
     return this.serviceTypes.map(this.mapServicesToFormOptions);
   }
 
+  get ClassesModelAsFormOptions() {
+    return GlobalVariables.allClasses.map(this.mapClassesModelToFormOptions);
+  }
+
+  mapClassesModelToFormOptions(classModel: ClassesModel, index: number): IFormOptions{
+    return {
+      id: 'class_' + index,
+      label: classModel.name,
+      value: classModel,
+      isSelected: GlobalVariables.editSchedule?.classModel?.id === classModel.id
+    }
+  }
+
   mapServicesToFormOptions(serviceType: ServiceTypeModel, index: number): IFormOptions{
     return {
       id: 'serviceType_' + index,
@@ -66,17 +80,24 @@ export class ScheduleDetailsComponent implements OnInit {
         options: {min: moment().format('YYYY-MM-DD')}
       },
       {
-        id: 'clientName',
-        label: 'Nome do cliente',
-        value: this.scheduleModel.client.name,
-        type: 'text'
+        id: 'classModel',
+        label: 'Turma',
+        value: this.scheduleModel.classModel,
+        type: 'select',
+        formOptions: this.ClassesModelAsFormOptions
       },
-      {
-        id: 'clientPhone',
-        label: 'Celular do cliente',
-        value: this.scheduleModel.client.phone,
-        type: 'tel'
-      },
+      // {
+      //   id: 'clientName',
+      //   label: 'Nome do cliente',
+      //   value: this.scheduleModel.client.name,
+      //   type: 'text'
+      // },
+      // {
+      //   id: 'clientPhone',
+      //   label: 'Celular do cliente',
+      //   value: this.scheduleModel.client.phone,
+      //   type: 'tel'
+      // },
       {
         id: 'time',
         label: 'Horário',

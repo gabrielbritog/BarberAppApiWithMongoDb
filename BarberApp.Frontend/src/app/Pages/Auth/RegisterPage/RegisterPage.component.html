@@ -8,7 +8,7 @@
 
     <div class="container_content d-flex flex-column">
       <h2 class="form_title text-white">Registrar</h2>
-      <app-FormInput [inputs]="registerForm" [submitText]="'Enviar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+      <app-FormInput [inputs]="registerForm" [marginOnSubmit]="false" [submitText]="'Enviar'" (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>
 
     <div class="container_footer text-white">

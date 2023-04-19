@@ -32,6 +32,10 @@ $black:                #000000;
   --main-rgb: var(--bs-main-rgb);
   --main-active: #4b52ba;
 
+  --secondary: var(--bs-secondary);
+  --secondary-rgb: var(--bs-secondary-rgb);
+  --secondary-active:  #4e5357;
+
   --main-color: var(--bs-main-color);
   --main-active-color: #4b52ba;
 
@@ -76,13 +80,40 @@ $black:                #000000;
     --main-active: var(--pink-active-color);
     --main-rgb: var(--bs-pink-rgb);
   }
+
+  &.secondary-main{
+    --secondary: var(--secondary-color);
+    --secondary-active: var(--secondary-active-color);
+    --secondary-rgb: var(--bs-secondary-rgb);
+  }
+  &.secondary-red{
+    --secondary: var(--red-color);
+    --secondary-active: var(--red-active-color);
+    --secondary-rgb: var(--bs-red-rgb);
+  }
+  &.secondary-green{
+    --secondary: var(--green-color);
+    --secondary-active: var(--green-active-color);
+    --secondary-rgb: var(--bs-green-rgb);
+  }
+  &.secondary-orange{
+    --secondary: var(--orange-color);
+    --secondary-active: var(--orange-active-color);
+    --secondary-rgb: var(--bs-orange-rgb);
+  }
+  &.secondary-pink{
+    --secondary: var(--pink-color);
+    --secondary-active: var(--pink-active-color);
+    --secondary-rgb: var(--bs-pink-rgb);
+  }
+
   &.dark-mode{
     --bs-body-color: #fff;
     --body-bg-color: var(--body-dark-bg-color);
-    --bs-body-bg: rgb(36, 36, 36);
+    --bs-body-bg: #242424;
     --bs-body-bg-rgb: 36, 36, 36;
     --bs-secondary-color: #727272;
-    --bs-border-color: #2a2a2a;
+    --bs-border-color: #303030;
   }
 }
 

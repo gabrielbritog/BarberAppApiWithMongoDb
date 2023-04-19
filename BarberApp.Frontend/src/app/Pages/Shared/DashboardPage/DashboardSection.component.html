@@ -11,7 +11,7 @@
 
       <section class="animate_show periodo row m-0 mb-3 p-0 gap-2 flex-wrap align-items-center">
         <h4 class="p-0 m-0 title m-0 col me-5 lh-1">Período</h4>
-        <div class="p-0 m-0 btn-group col ms-auto shadow-sm flex-sm-grow-1 flex-md-grow-0 order-md-2">
+        <div class="p-0 m-0 btn-group col bg-body ms-auto shadow-sm flex-sm-grow-1 flex-md-grow-0 order-md-2">
           <button class="btn btn-outline-main lh-1 py-2 btn-sm"
           [class.active]="quickDate == 'week'"
           (click)="setQuickDate('week')"
@@ -35,8 +35,8 @@
           </button>
         </div>
         <div class="p-0 m-0 datas d-flex col gap-2 ms-md-auto" style="font-size: .875rem;">
-          <input class="bg-body shadow-sm col" style=" height: 32px;" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
-          <input class="bg-body shadow-sm col" style=" height: 32px;" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
+          <input class="bg-body shadow-sm col border" style=" height: 32px;" type="date" [max]="endDate" (change)="dateChanged()" [(ngModel)]="startDate">
+          <input class="bg-body shadow-sm col border" style=" height: 32px;" type="date" [min]="startDate" (change)="dateChanged()" [(ngModel)]="endDate">
         </div>
 
       </section>

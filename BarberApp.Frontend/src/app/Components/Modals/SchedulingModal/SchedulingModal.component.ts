@@ -66,13 +66,13 @@ export class SchedulingModalComponent implements OnInit {
       {
         id: 'clientName',
         label: 'Nome do cliente',
-        value: this.scheduleModel.client.name,
+        value: this.scheduleModel.client?.name,
         type: 'text'
       },
       {
         id: 'clientPhone',
         label: 'Celular do cliente',
-        value: this.scheduleModel.client.phone,
+        value: this.scheduleModel.client?.phone,
         type: 'tel'
       },
       {

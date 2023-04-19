@@ -15,7 +15,7 @@ export class ScheduleCardComponent implements OnInit {
   @Input('showOptions') showOptions = true;
 
   get isEmptyModel() {
-    return !this.scheduleModel?.client?.name ?? true;
+    return this.scheduleModel.serviceType.length == 0;
   }
 
   constructor(private router: Router) { }

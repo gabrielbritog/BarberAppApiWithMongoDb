@@ -16,7 +16,8 @@ export class HistoryPage implements OnInit {
     const today = moment().format('L');
     const todayTime = moment().format('HH:mm');
     const filteredSchedules = GlobalVariables.schedules
-      .filter(p => p.client.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      .filter(p=> p.client && !p.client.name == false)
+      .filter(p => p.client!.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
                   p.date.includes(this.searchValue) ||
                   p.serviceType.some(p=>p.nameService.includes(this.searchValue)))
       .filter(p => p.date < today || (p.date == today && p.time < todayTime))

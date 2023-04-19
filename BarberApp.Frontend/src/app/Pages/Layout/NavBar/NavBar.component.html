@@ -35,6 +35,14 @@
       </button>
     </div>
 
+    <button type="button"
+    style="width: 2.5rem; height: 2.5rem; border-color: var(--bs-body-bg); --bs-btn-bg: var(--bs-body-bg);"
+    (click)="changeDarkmode()"
+    [class.active]="darkMode"
+    class="btn btn-outline-main border-4 border-body rounded p-0 m-0 shadow-sm">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+
     <div class="btn-group" dropdown>
       <button
       id="button-basic"

@@ -10,6 +10,7 @@ import { EmployeeService } from '../Services/api/Employee.service';
 import { SchedulingService } from '../Services/api/SchedulingService.service';
 import { ServiceTypeService } from '../Services/api/ServiceType.service';
 import { ClassesModel } from '../Models/ClassesModel';
+import { AppColors } from '../Models/Enums/app-colors.enum';
 
 export class GlobalVariables {
   // IP DA MÁQUINA
@@ -149,22 +150,26 @@ export class GlobalVariables {
 
   static loadUserConfig(userConfig: UserConfig) {
     const htmlElement = document.documentElement;
-    const bodyElement = document.body;
     const delay = 200;
     const noAnimClass = 'no_anim';
+    const appColors = Object.values(AppColors);
 
     htmlElement.classList.add(noAnimClass);
 
-    if (!userConfig.darkmode) {
-      if (!bodyElement.classList.contains('light-mode'))
-        bodyElement.classList.add('light-mode');
-    } else if (bodyElement.classList.contains('light-mode')) {
-      bodyElement.classList.remove('light-mode');
+    if (userConfig.darkmode) {
+      htmlElement.classList.add('dark-mode');
+    } else {
+      htmlElement.classList.remove('dark-mode');
     }
 
+    appColors.forEach((value, index) => {
+      if (value != userConfig.primaryColor)
+        htmlElement.classList.remove(`primary-${value}`);
+    })
+
+    htmlElement.classList.add(`primary-${userConfig.primaryColor}`);
+
     htmlElement.style.setProperty('font-size', userConfig.fontSize);
-    bodyElement.style.setProperty('--app-color-primary', userConfig.primaryColor);
-    bodyElement.style.setProperty('--app-color-secondary', userConfig.secondaryColor);
 
     setTimeout(() => htmlElement.classList.remove(noAnimClass), delay*2);
   }
@@ -220,7 +225,11 @@ export class GlobalVariables {
   private static getSchedules(): Observable<boolean> {
     return GlobalVariables.schedulingService!.getAllSchedule().pipe(
       map((data: any) => {
-        let schedules: ScheduleModel[] = data.data.map((element: any) => new ScheduleModel(element));
+        let schedules: ScheduleModel[] = data.data.map((element: any) => {
+          const schedule = new ScheduleModel(element);
+          schedule.client = element.client;
+          return schedule;
+        });
         GlobalVariables.schedules = schedules;
         return true;
       }),

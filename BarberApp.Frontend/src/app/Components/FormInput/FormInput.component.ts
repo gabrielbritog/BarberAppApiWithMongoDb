@@ -13,6 +13,7 @@ export class FormInputComponent implements OnInit {
   @Input() inputs: IFormInput[] = [];
   @Input() submitText: string = "Salvar";
   @Output() submitAction = new EventEmitter<NgForm>();
+  @Input() marginOnSubmit = true;
 
   genericFormModel!: FormGroup;
   listOfCheckboxes: any[] = [];

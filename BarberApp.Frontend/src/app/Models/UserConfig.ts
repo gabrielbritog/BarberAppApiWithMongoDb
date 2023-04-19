@@ -1,6 +1,7 @@
+import { AppColors } from './Enums/app-colors.enum';
 export class UserConfig {
   darkmode = true;
-  primaryColor = "#ff9000";
+  primaryColor: AppColors | string = 'main';
   secondaryColor = "#518fa3";
   altColor = "#f4ede8";
   fontSize = "16px";

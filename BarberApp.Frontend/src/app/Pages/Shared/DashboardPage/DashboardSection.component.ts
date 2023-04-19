@@ -223,9 +223,11 @@ export class DashboardSectionComponent implements OnInit {
     const schedules = this.schedulesInPeriod;
     const topClients: TopClient[] = [];
 
-    schedules.forEach(p => {
+    schedules
+      .filter(p=> p.client && !p.client.name == false)
+      .forEach(p => {
       let topClient: TopClient = {
-        client: p.client,
+        client: p.client!,
         count: 1,
         totalValue: p.total ?? 0
       };

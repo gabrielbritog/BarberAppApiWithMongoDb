@@ -5,7 +5,7 @@
     <label
     class="datepick_view btn border-0 shadow-sm"
     [class.btn-main]="datePicked !== undefined"
-    [class.btn-white]="datePicked === undefined"
+    [class.btn-secondary]="datePicked === undefined"
      for="datepick" (click)="datepick.showPicker()">
 
       <input #datepick type="date" name="datepick"
