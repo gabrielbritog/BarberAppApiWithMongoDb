@@ -71,13 +71,6 @@ namespace BarberApp.Service.Service
             {
                 await _clientService.Register(scheduling.Client, UserId);
             }
-            else if (scheduling.ListClient != null)
-            {
-                for (int i = 0; i < scheduling.ListClient.Count; i++)
-                {
-                    await _clientService.Register(scheduling.ListClient[i], UserId);
-                }
-            }
             else
             {
                 throw new Exception("Preencha os dados do cliente");
@@ -146,7 +139,7 @@ namespace BarberApp.Service.Service
                 throw new Exception("Informar Id");
             scheduling.BarberId ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).BarberId;
             scheduling.Client ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
-            scheduling.ListClient ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ListClient;
+            scheduling.Class ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Class;
             scheduling.ServiceType ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
             scheduling.SchedulingDate ??= schedulingDb.SchedulingDate;
             scheduling.EndOfSchedule ??= schedulingDb.EndOfSchedule;

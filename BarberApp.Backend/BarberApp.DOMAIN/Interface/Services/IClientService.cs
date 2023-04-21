@@ -10,6 +10,8 @@ namespace BarberApp.Domain.Interface.Services
         public Task<ResponseClientDto> Update(UpdateClientDto client);
         public Task<Client> GetByPhone(string phone);
         public Task<List<ResponseClientDto>> GetTop(string userId, int top, DateTime first, DateTime last);
+        public Task<List<ResponseClientDto>> GetAll(string userId);
+        public Task<List<ResponseClientDto>> GetMany(string userId,int start, int count);
 
     }
 }

@@ -4,6 +4,7 @@ using BarberApp.Domain.Dto.User;
 using BarberApp.Domain.Interface.Repositories;
 using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace BarberApp.Service.Service
@@ -44,5 +45,9 @@ namespace BarberApp.Service.Service
             }
             return _mapper.Map<ResponseClientDto>(ClientMap);
         }
+        public async Task<List<ResponseClientDto>> GetAll(string userId) => _mapper.Map<List<ResponseClientDto>>(await _clientRepository.GetAll(userId));
+
+        public async Task<List<ResponseClientDto>> GetMany(string userId, int start, int count) => _mapper.Map<List<ResponseClientDto>>(await _clientRepository.GetMany(userId, start, count));
     }
-}
+    }
+

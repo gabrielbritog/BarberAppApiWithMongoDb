@@ -56,8 +56,6 @@ namespace BarberApp.Api.Controllers
                 return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
             }
         }
-
-
         [HttpGet("{nameCompany}")]
         public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> GetCompany(string nameCompany)
         {
@@ -71,6 +69,36 @@ namespace BarberApp.Api.Controllers
                 return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
             }
         }
+        [Authorize("Bearer")]
+        [HttpGet("GetAll")]       
+        public async Task<ActionResult<ResponseViewModel<ResponseClientDto>>> GetAll()
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "", await _clientService.GetAll(Id)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+        }
+
+        [Authorize("Bearer")]
+        [HttpGet("GetMany")]
+        public async Task<ActionResult<ResponseViewModel<ResponseClientDto>>> GetMany([FromQuery] int start, [FromQuery] int count)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "", await _clientService.GetMany(Id, start, count)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+        }
+
         [HttpPost("RegisterScheduling")]
         public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> RegisterScheduling([FromBody] RegisterSchedulingDto scheduling, string userId,string barberId)
         {
