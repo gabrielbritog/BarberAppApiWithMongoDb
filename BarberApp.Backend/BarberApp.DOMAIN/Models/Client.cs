@@ -51,7 +51,10 @@ namespace BarberApp.Domain.Models
         public List<string> ClassesId { get; set; }
         [BsonElement("Observation")]
         public string Observation { get; set; }
-
+        [BsonElement("registerNumber")]
+        public string RegisterNumber { get; set; }
+        [BsonElement("interviewNumber")]
+        public string InterviewNumber { get; set; }
 
 
     }
