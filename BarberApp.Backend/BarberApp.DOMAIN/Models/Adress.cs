@@ -23,5 +23,7 @@ namespace BarberApp.Domain.Models
         public string Number { get; set; }
         [BsonElement("country")]
         public string Country { get; set; }
+        [BsonElement("cep")]
+        public string Cep { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using BarberApp.Domain.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -22,6 +23,21 @@ namespace BarberApp.Infra.Repository
             _clientCollection = mongoDatabase.GetCollection<Client>
                 (clientServices.Value.ClientTypeCollectionName);
         }
+
+        public async Task<List<Client>> GetAll(string userId)
+        {
+            try
+            {
+                var filter = Builders<Client>.Filter.Eq(x => x.UserId, userId);
+                var results = await _clientCollection.Find(filter).ToListAsync();
+                return results;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<Client> GetByPhone(string phone)
         {
             try
@@ -36,6 +52,21 @@ namespace BarberApp.Infra.Repository
                 throw new Exception(e.Message);
             }
         }
+
+        public async Task<List<Client>> GetMany(string userId, int start, int count)
+        {
+            try
+            {
+                var filter = Builders<Client>.Filter.Eq(x => x.UserId, userId);
+                var results = await _clientCollection.Find(filter).Skip(start - 1).Limit(count).ToListAsync();
+                return results;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<List<Client>> GetTop(string userId,int top, DateTime first, DateTime last )
         {
             try
@@ -81,7 +112,23 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.Name, client.Name)
                     .Set(u => u.SchedulingCount, client.SchedulingCount)
                     .Set(u => u.LastVisit, client.LastVisit)
-                    .Set(u => u.Email, client.Email);
+                    .Set(u => u.Email, client.Email)
+                    .Set(u => u.Cpf, client.Cpf)
+                    .Set(u => u.Retiree, client.Retiree)
+                    .Set(u => u.Adress, client.Adress)
+                    .Set(u => u.DateOfBirth, client.DateOfBirth)
+                    .Set(u => u.Age, client.Age)
+                    .Set(u => u.CivilStatus, client.CivilStatus)
+                    .Set(u => u.ClassesId, client.ClassesId)
+                    .Set(u => u.EmergencyContact, client.EmergencyContact)
+                    .Set(u => u.Observation, client.Observation)
+                    .Set(u => u.Occupation, client.Occupation)
+                    .Set(u => u.Phone, client.Phone)
+                    .Set(u => u.Rg, client.Rg)
+                    .Set(u => u.Death, client.Death)
+                    .Set(u => u.InterviewNumber, client.InterviewNumber)
+                    .Set(u => u.RegisterNumber, client.RegisterNumber);
+
                 var result = await _clientCollection.UpdateOneAsync(filter, update);
                 if (result.MatchedCount == 0)
                     throw new Exception("Cliente não encontrado.");

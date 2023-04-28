@@ -193,7 +193,7 @@ namespace BarberApp.Infra.Repository
             var update = Builders<Scheduling>.Update
                 .Set(s => s.BarberId, scheduling.BarberId)
                 .Set(s => s.Client, scheduling.Client)
-                .Set(s => s.ListClient, scheduling.ListClient)
+                .Set(s => s.Class, scheduling.Class)
                 .Set(s => s.ServiceType, scheduling.ServiceType)
                 .Set(s => s.SchedulingDate, scheduling.SchedulingDate)
                 .Set(s => s.EndOfSchedule, scheduling.EndOfSchedule)
