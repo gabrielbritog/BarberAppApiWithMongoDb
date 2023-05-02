@@ -7,6 +7,7 @@ import { AuthService } from '../../../Services/auth/Auth.service';
 import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-LoginPage',
@@ -106,7 +107,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginSuccess(data: any) {
-    this.tokenStorage.saveToken(data.data.accessToken);
+    this.tokenStorage.saveToken(data.data.accessToken, data.data.expiration);
     this.tokenStorage.saveUser(data.data.dados);
 
     this.router.navigateByUrl('/Home');

@@ -197,6 +197,10 @@ export class GlobalVariables {
         });
         GlobalVariables.fillProperties();
         GlobalVariables.isAppLoaded = true;
+
+        if (GlobalVariables.employees.length == 0)
+          GlobalVariables.loadAppService.navigateByUrl('/Employees/New');
+        
       },
       error(err) {
         console.log('Erro inesperado');

@@ -8,6 +8,7 @@ import { TokenStorageService } from './Services/auth/token-storage.service';
 import { WindowScrollDetectorDirective } from './Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { SpinnerService } from './Components/Spinner/spinner.service';
 import { LoadAppService } from './Services/api/LoadApp.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit{
     private loadAppService: LoadAppService,
     private route: Router,
     public spinnerService: SpinnerService,
+    public toastrService: ToastrService
   ) {
   }
 
@@ -42,6 +44,13 @@ export class AppComponent implements OnInit{
       this.route.navigateByUrl('/Login');
       return;
     }
+
+    if (this.tokenStorageService.isTokenExpirated()) {
+      this.toastrService.warning('Sessão expirada');
+      this.logout();
+      return;
+    }
+
     GlobalVariables.init(this.loadAppService);
   }
 

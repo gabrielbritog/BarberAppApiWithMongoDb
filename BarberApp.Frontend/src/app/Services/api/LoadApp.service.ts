@@ -4,6 +4,7 @@ import { ClientService } from './Client.service';
 import { EmployeeService } from './Employee.service';
 import { SchedulingService } from './SchedulingService.service';
 import { ServiceTypeService } from './ServiceType.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class LoadAppService {
     private employeeService: EmployeeService,
     private serviceTypeService: ServiceTypeService,
     private schedulingService: SchedulingService,
+    private router: Router
   ) { }
 
   init() {
@@ -31,6 +33,10 @@ export class LoadAppService {
         schedules
       }))
     );
+  }
+
+  navigateByUrl(url: string) {
+    this.router.navigateByUrl(url);
   }
 
 }

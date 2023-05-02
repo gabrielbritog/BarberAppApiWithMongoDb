@@ -20,19 +20,18 @@ export class HomePageComponent implements OnInit {
     return false;
   }
 
-  get currentSection(){ return GlobalVariables.currentSection };
-
-  loadedSchedules = false;
-  loadedServiceTypes = false;
-  loadedBarbers = false;
-  appLoaded = false;
+  get currentSection() { return GlobalVariables.currentSection };
+  
+  get appLoaded() {
+    return GlobalVariables.isAppLoaded;
+  }
 
   constructor(
       private tokenStorage: TokenStorageService,
       private router: Router,
       private loadAppService: LoadAppService
-    ) {  }
-
+  ) { }
+  
   ngOnInit() {
 
     if (!this.tokenStorage.getToken()) {
@@ -40,54 +39,16 @@ export class HomePageComponent implements OnInit {
       return;
     }
 
-    if (GlobalVariables.isAppLoaded) {
-      this.appLoaded = true;
-    } else {
+    if (!GlobalVariables.isAppLoaded) {
       this.loadApp();
     }
   }
 
+
   loadApp() {
     DashboardSectionComponent.clearProperties();
     GlobalVariables.showSidebar = false;
-    // GlobalVariables.init(this.loadAppService).subscribe({
-    //   next: (data) => {
-    //     if (data){
-    //       this.loadedSchedules =
-    //       this.loadedServiceTypes =
-    //       this.loadedBarbers = true;
-
-    //       this.loadedFunction();
-    //     }
-    //     else {
-    //       console.log('Algo deu errado');
-    //       this.tokenStorage.signOut();
-    //     }
-    //   },
-    //   error: (err) => {
-    //     console.log('Algo deu errado', err);
-    //     this.tokenStorage.signOut();
-    //   }
-    // })
-  }
-
-  isAppLoaded() {
-    let loadCondition = this.loadedBarbers && this.loadedServiceTypes && this.loadedSchedules;
-    return loadCondition;
-  }
-
-  loadedFunction() {
-    if (!this.isAppLoaded() || this.appLoaded)
-      return;
-
-    GlobalVariables.currentSection = 1;
-
-    GlobalVariables.fillProperties();
-
-    this.appLoaded = GlobalVariables.isAppLoaded = true;
-
-    if (GlobalVariables.employees.length == 0)
-      this.router.navigateByUrl('/Employees/New');
+    GlobalVariables.init(this.loadAppService);
   }
 
 }
