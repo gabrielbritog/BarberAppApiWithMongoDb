@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ClientModel } from '../../../Models/ClientModel';
+import { ClientModel, ClientModelHelper } from '../../../Models/ClientModel';
 
 @Component({
   selector: 'app-ClientCard',
@@ -8,7 +8,7 @@ import { ClientModel } from '../../../Models/ClientModel';
 })
 export class ClientCardComponent implements OnInit {
 
-  @Input('model') clientModel = new ClientModel();
+  @Input('model') clientModel: ClientModel = ClientModelHelper.create();
   @Input() bigInfo?: string;
   @Input() smallInfo?: string;
   @Input() hideShadow = false;

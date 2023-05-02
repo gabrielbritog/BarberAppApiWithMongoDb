@@ -1,3 +1,4 @@
+
 nav{
   height: var(--nav-height);
   background-color: var(--body-bg-color);
@@ -83,6 +84,10 @@ nav{
 @media (max-width: 1079px){
   .search-bar{
     max-width: 420px;
+    .search-icon{
+      position: absolute;
+      left: 25%;
+    }
     &:not(.expand){
       width: 40px;
       .search-input{

@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { IFormInput, IFormOptions } from 'src/app/Components/FormInput/IFormInput';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
-import { ClientModel } from 'src/app/Models/ClientModel';
+import { ClientModel, ClientModelHelper } from 'src/app/Models/ClientModel';
 import { Recurrence } from 'src/app/Models/Recurrence';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
@@ -56,8 +56,8 @@ export class ScheduleDetailsComponent implements OnInit {
     return {
       id: 'class_' + index,
       label: classModel.name,
-      value: classModel,
-      isSelected: GlobalVariables.editSchedule?.classModel?.id === classModel.id
+      value: classModel.id,
+      isSelected: GlobalVariables.editSchedule?.class?.id === classModel.id
     }
   }
 
@@ -82,7 +82,7 @@ export class ScheduleDetailsComponent implements OnInit {
       {
         id: 'classModel',
         label: 'Turma',
-        value: this.scheduleModel.classModel,
+        value: this.scheduleModel.class,
         type: 'select',
         formOptions: this.ClassesModelAsFormOptions
       },
@@ -187,7 +187,8 @@ export class ScheduleDetailsComponent implements OnInit {
       return;
     }
     this.scheduleModel = new ScheduleModel(GlobalVariables.editSchedule);
-    this.scheduleModel.client = new ClientModel(GlobalVariables.editSchedule?.client);
+
+    this.scheduleModel.client = ClientModelHelper.clone(GlobalVariables.editSchedule?.client);
     this.currentDay = this.isEditModal ?
       moment.utc(this.scheduleModel.schedulingDate).format('YYYY-MM-DD') :
       GlobalVariables.currentDay.format('YYYY-MM-DD');
@@ -200,6 +201,8 @@ export class ScheduleDetailsComponent implements OnInit {
 
     const scheduleForm = form.value;
 
+    const _classModel = GlobalVariables.allClasses.find(p => p.id === scheduleForm.classModel);
+
     const recurrenceForm : Recurrence = {
       recurrencePeriods: parseInt(scheduleForm.recurrence),
       isRecurrence: scheduleForm.recurrence > 0,
@@ -208,7 +211,11 @@ export class ScheduleDetailsComponent implements OnInit {
     const schedule = new ScheduleModel({
       barberId: GlobalVariables.isAdmin? GlobalVariables.selectedBarber?.barberId : this.tokenStorageService.getUserModel().barberId,
       schedulingId: this.isEditModal ? GlobalVariables.editSchedule?.schedulingId : scheduleForm.schedulingId,
-      client: new ClientModel({ name: scheduleForm.clientName, phone: scheduleForm.clientPhone }),
+      client: {
+        name: scheduleForm.clientName,
+        phone: scheduleForm.clientPhone,
+      },
+      class: _classModel,
       date: scheduleForm.date,
       time: scheduleForm.time,
       serviceType: scheduleForm.services,
@@ -230,7 +237,7 @@ export class ScheduleDetailsComponent implements OnInit {
 
     let index = this.isEditModal? GlobalVariables.schedules.indexOf(GlobalVariables.editSchedule!) : -1;
 
-    const apiCall = this.isEditModal ? this.schedulingService.updateSchedule(schedule) : this.schedulingService.registerSchedule(schedule);
+    const apiCall = this.isEditModal ? this.schedulingService.update(schedule) : this.schedulingService.register(schedule);
 
     apiCall.subscribe({
       next: (data: any) => {
@@ -244,7 +251,7 @@ export class ScheduleDetailsComponent implements OnInit {
         }, 20);
       },
       error: (err) => {
-        console.log(err);
+        console.log(err.error.data);
       }
     })
 

@@ -3,9 +3,8 @@
   <div class="section_title">
     <h3 class="title">Agenda</h3>
     <label
-    class="datepick_view btn border-0 shadow-sm"
-    [class.btn-main]="datePicked !== undefined"
-    [class.btn-secondary]="datePicked === undefined"
+    class="datepick_view btn btn-outline-main border-0 shadow-sm"
+    [class.active]="datePicked !== undefined"
      for="datepick" (click)="datepick.showPicker()">
 
       <input #datepick type="date" name="datepick"

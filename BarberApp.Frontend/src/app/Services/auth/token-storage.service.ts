@@ -41,7 +41,7 @@ export class TokenStorageService {
     return localStorage.getItem(USER_KEY);
   }
 
-  public getUserModel() {
+  public getUserModel(): UserModel {
     let userString = this.getUser();
 
     if (userString)

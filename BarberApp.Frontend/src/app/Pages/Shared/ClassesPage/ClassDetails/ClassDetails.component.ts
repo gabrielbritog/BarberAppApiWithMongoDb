@@ -25,24 +25,21 @@ export class ClassDetailsComponent implements OnInit {
   searchValue = '';
 
   get clientList() {
-    return GlobalVariables.schedules
-    .filter(p=> p.client && !p.client.name == false)
-    .map(p => p.client)
-    .filter(p =>
-      p!.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-      p!.phone.toLowerCase().includes(this.searchValue.toLowerCase())
-    )
-    .filter((cName, index, self) => self.map(p => p!.phone).includes(cName!.phone, index + 1) === false)
-    .sort((a, b) => a!.name.localeCompare(b!.name))
-    .sort((b, a) => {
-      if (this.classModel.clients.some(p => p == a))
-        return 1;
-      if (this.classModel.clients.some(p => p == b))
-        return -1;
+    return GlobalVariables.clients
+      .filter(p =>
+        p.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        p.phone.toLowerCase().includes(this.searchValue.toLowerCase())
+      )
+      .filter((cName, index, self) => self.map(p => p.phone).includes(cName.phone, index + 1) === false)
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .sort((b, a) => {
+        if (this.classModel.clients.some(p => p == a))
+          return 1;
+        if (this.classModel.clients.some(p => p == b))
+          return -1;
 
-      return 0
-    }) as ClientModel[];
-
+        return 0
+      });
   }
 
   hasClient(client: ClientModel) {
@@ -79,20 +76,19 @@ export class ClassDetailsComponent implements OnInit {
   onSubmit() {
 
     if (this.selectedClass === undefined) {
-      this.classModel.id = 1;
-      this.classModel.id += GlobalVariables.allClasses.length > 0 ?
-          GlobalVariables.allClasses
-          .filter(p => p.id != undefined && p.id >= 0)
-          .map(p => p.id!)
-          .sort()
-          .reverse()[0] : 0;
+      let newClassId = 0;
+  
+      do {
+        newClassId++;
+      } while (GlobalVariables.allClasses.some(p => p.id == newClassId.toString()));
+      this.classModel.id = newClassId.toString();
+
       GlobalVariables.allClasses.push({
         id: this.classModel.id,
         name: this.classModel.name,
         clients: [...this.classModel.clients],
         presence: [...this.classModel.presence],
       });
-      console.log(GlobalVariables.allClasses, this.classModel.id);
       this.router.navigateByUrl('/Classes');
       return;
     }

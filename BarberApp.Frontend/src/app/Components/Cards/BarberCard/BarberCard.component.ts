@@ -25,7 +25,7 @@ export class BarberCardComponent implements OnInit {
 
   editBarber() {
     GlobalVariables.modalAsEdit = true;
-    GlobalVariables.editBarber = this.barberModel;
+    GlobalVariables.editEmployee = this.barberModel;
 
     GlobalVariables.showBarberModal = true;
   }

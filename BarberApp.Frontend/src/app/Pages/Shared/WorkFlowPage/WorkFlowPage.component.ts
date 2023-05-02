@@ -6,6 +6,7 @@ import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDe
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { WorkingDays } from 'src/app/Models/WorkingDays';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
+import { LoadAppService } from 'src/app/Services/api/LoadApp.service';
 
 @Component({
   selector: 'app-WorkFlowPage',
@@ -81,6 +82,7 @@ export class WorkFlowPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
+    private loadAppService: LoadAppService,
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService
@@ -92,10 +94,10 @@ export class WorkFlowPageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
 
     if (!GlobalVariables.isAppLoaded)
-      GlobalVariables.initStandalone();
+      GlobalVariables.init(this.loadAppService);
 
     const userWorkingDays = GlobalVariables.userWorkingDays;
-    this._workingDaysBckp = this.tokenStorage.getUserModel().workingDays;
+    this._workingDaysBckp = this.tokenStorage.getUserModel().workingDays!;
     if(!userWorkingDays || userWorkingDays?.length == 0){
       this.workingDays = GlobalVariables.createWorkingDays();
     } else {

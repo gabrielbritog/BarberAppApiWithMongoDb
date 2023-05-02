@@ -41,8 +41,8 @@ export class AuthInterceptor implements HttpInterceptor {
         },
         error => {
           if (error instanceof HttpErrorResponse) {
-            if(error.error.data){
-              this.toastrService.error(error.error.data);
+            if(error.error.message){
+              this.toastrService.error(error.error.message);
             }
             else{
               this.toastrService.error('Algo deu errado');

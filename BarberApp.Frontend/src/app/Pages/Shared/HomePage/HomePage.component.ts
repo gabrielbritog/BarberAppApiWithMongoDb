@@ -4,6 +4,7 @@ import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDe
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { DashboardSectionComponent } from '../DashboardPage/DashboardSection.component';
+import { LoadAppService } from '../../../Services/api/LoadApp.service';
 
 @Component({
   selector: 'app-HomePage',
@@ -28,7 +29,8 @@ export class HomePageComponent implements OnInit {
 
   constructor(
       private tokenStorage: TokenStorageService,
-      private router: Router
+      private router: Router,
+      private loadAppService: LoadAppService
     ) {  }
 
   ngOnInit() {
@@ -48,19 +50,25 @@ export class HomePageComponent implements OnInit {
   loadApp() {
     DashboardSectionComponent.clearProperties();
     GlobalVariables.showSidebar = false;
-    GlobalVariables.init().subscribe({
-      next: (data: any) => {
-        this.loadedSchedules =
-          this.loadedServiceTypes =
-          this.loadedBarbers = true;
+    // GlobalVariables.init(this.loadAppService).subscribe({
+    //   next: (data) => {
+    //     if (data){
+    //       this.loadedSchedules =
+    //       this.loadedServiceTypes =
+    //       this.loadedBarbers = true;
 
-        this.loadedFunction();
-      },
-      error: (err) => {
-        console.log('Algo deu errado');
-        this.tokenStorage.signOut();
-      }
-    })
+    //       this.loadedFunction();
+    //     }
+    //     else {
+    //       console.log('Algo deu errado');
+    //       this.tokenStorage.signOut();
+    //     }
+    //   },
+    //   error: (err) => {
+    //     console.log('Algo deu errado', err);
+    //     this.tokenStorage.signOut();
+    //   }
+    // })
   }
 
   isAppLoaded() {

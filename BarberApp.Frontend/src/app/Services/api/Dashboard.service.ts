@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 
-// IP DA MÁQUINA
-const MACHINE_IP = GlobalVariables.MACHINE_IP;
-const BASE_URL_API = `${MACHINE_IP}/api/Dashboard/`;
+
+const URL_API = GlobalVariables.API_BASE_URL;
+const BASE_URL_API = `${URL_API}/api/Dashboard/`;
 const ROUTE_HISTORIC = 'GetHistoric';
 const ROUTE_GETMANY = 'GetManySchedulingByDate';
 const ROUTE_GETTOP = 'GetTop';

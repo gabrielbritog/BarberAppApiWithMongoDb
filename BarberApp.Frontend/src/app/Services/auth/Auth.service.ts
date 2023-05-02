@@ -5,9 +5,9 @@ import { GlobalVariables } from '../../Helpers/GlobalVariables';
 import { UserConfig } from '../../Models/UserConfig';
 
 
-// IP DA MÁQUINA
-const MACHINE_IP = GlobalVariables.MACHINE_IP;
-const AUTH_API = `${MACHINE_IP}/api/`
+
+const URL_API = GlobalVariables.API_BASE_URL;
+const AUTH_API = `${URL_API}/api/`
 
 const ADMIN_ROUTE = 'User/';
 const BARBER_ROUTE = 'Barber/';

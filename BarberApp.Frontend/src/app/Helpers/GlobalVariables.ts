@@ -4,22 +4,18 @@ import { ServiceTypeModel } from '../Models/ServiceTypeModel';
 import { BarberModel } from '../Models/BarberModel';
 import { UserConfig } from '../Models/UserConfig';
 import { WorkingDays } from '../Models/WorkingDays';
-import { catchError, finalize, forkJoin, map, Observable, of } from 'rxjs';
 import { UserModel } from '../Models/UserModel';
-import { EmployeeService } from '../Services/api/Employee.service';
-import { SchedulingService } from '../Services/api/SchedulingService.service';
-import { ServiceTypeService } from '../Services/api/ServiceType.service';
 import { ClassesModel } from '../Models/ClassesModel';
 import { AppColors } from '../Models/Enums/app-colors.enum';
+import { LoadAppService } from '../Services/api/LoadApp.service';
+import { ClientModel } from '../Models/ClientModel';
+import { map, catchError, of } from 'rxjs';
 
 export class GlobalVariables {
-  // IP DA MÁQUINA
-  // static readonly MACHINE_IP = "localhost";
-  static readonly MACHINE_IP = 'http://192.168.1.83:5066';
 
-  private static schedulingService?: SchedulingService;
-  private static serviceTypeService?: ServiceTypeService;
-  private static employeeService?: EmployeeService;
+  static readonly API_BASE_URL = 'http://192.168.1.83:5066';
+
+  private static loadAppService: LoadAppService;
 
   // PROPERTIES
   static startTime = 9;
@@ -54,7 +50,8 @@ export class GlobalVariables {
   // EDIT MODALS VARIABLES
   static editSchedule: ScheduleModel | undefined;
   static editServiceType: ServiceTypeModel | undefined;
-  static editBarber: BarberModel | undefined;
+  static editEmployee: BarberModel | undefined;
+  static editClient: ClientModel | undefined;
 
   // HOME SECTIONS
   static currentSection = 0;
@@ -86,34 +83,21 @@ export class GlobalVariables {
     this._employees = value;
   }
 
+  private static _clients: ClientModel[] = [];
+  static get clients() {
+    return this._clients;
+  }
+  static set clients(value) {
+    this._clients = value;
+  }
 
 
-  //  MÉTODOS
+
+  /////////////////////////////////////////////////////
+  ////////////////    USER METHODS     ////////////////
+  /////////////////////////////////////////////////////
+
   static currentDay = moment();
-
-  static clearProperties() {
-    GlobalVariables.isAppLoaded = false;
-    GlobalVariables.loadUserConfig(new UserConfig());
-    GlobalVariables._schedules = [];
-    GlobalVariables._serviceTypes = [];
-    GlobalVariables._employees = [];
-  }
-
-  static fillProperties(user?: UserModel) {
-    user = user ?? this.getUserModel();
-    if (user) {
-      GlobalVariables.loadUserConfig(user.userConfig);
-      GlobalVariables.userWorkingDays = user.workingDays!;
-
-      if (GlobalVariables.isAdmin && GlobalVariables._employees.length > 0)
-        GlobalVariables.selectedBarber = GlobalVariables._employees[0];
-      else
-        GlobalVariables.selectedBarber = undefined;
-    }
-    GlobalVariables.currentSection = 1;
-
-    GlobalVariables.getEmptySchedulesBase();
-  }
 
   static getEmptySchedulesBase() {
     const currentDay = moment(GlobalVariables.currentDay);
@@ -193,100 +177,64 @@ export class GlobalVariables {
     return workingDays;
   }
 
-  static init() {
-    return GlobalVariables.loadAppData();
-  }
 
-  static initStandalone() {
-    if (GlobalVariables.isAppLoaded)
-      return;
 
-    GlobalVariables.loadAppData().subscribe({
-      next: (data) => {
+  /////////////////////////////////////////////////
+  ////////////////    LOAD APP     ////////////////
+  /////////////////////////////////////////////////
+
+  static init(
+    _loadAppService: LoadAppService
+  ) {
+    GlobalVariables.loadAppService = _loadAppService;
+    GlobalVariables.loadAppService.init().subscribe({
+      next(value) {
+        GlobalVariables.clients = value.clients.data.filter((p: ClientModel) => p.name !== null);
+        GlobalVariables.employees = value.employees.data;
+        GlobalVariables.serviceTypes = value.serviceTypes.data;
+        GlobalVariables.schedules = value.schedules.data.map((p: any) => {
+          return new ScheduleModel(p);
+        });
         GlobalVariables.fillProperties();
         GlobalVariables.isAppLoaded = true;
       },
-      error: (err) => {
-        console.log(err);
-      }
+      error(err) {
+        console.log('Erro inesperado');
+      },
     });
   }
 
-  static initServices(
-    schedulingService: SchedulingService,
-    serviceTypeService: ServiceTypeService,
-    employeeService: EmployeeService
-  ) {
-    GlobalVariables.serviceTypeService = serviceTypeService;
-    GlobalVariables.schedulingService = schedulingService;
-    GlobalVariables.employeeService = employeeService;
-  }
-
-  private static getSchedules(): Observable<boolean> {
-    return GlobalVariables.schedulingService!.getAllSchedule().pipe(
-      map((data: any) => {
-        let schedules: ScheduleModel[] = data.data.map((element: any) => {
-          const schedule = new ScheduleModel(element);
-          schedule.client = element.client;
-          return schedule;
-        });
-        GlobalVariables.schedules = schedules;
-        return true;
-      }),
-      catchError((err) => {
-        console.log(err.data.message);
-        return of(false);
-      })
-    );
-  }
-
-  private static getServiceTypes(): Observable<boolean> {
-    return GlobalVariables.serviceTypeService!.getAllServiceType().pipe(
-      map((data: any) => {
-        let serviceTypes: ServiceTypeModel[] = data.data.map((element: any) => new ServiceTypeModel(element));
-        GlobalVariables.serviceTypes = serviceTypes;
-        return true;
-      }),
-      catchError(err => {
-        console.log(err.data.message);
-        return of(false);
-      })
-    );
-  }
-
-  private static getEmployees(): Observable<boolean> {
-    return GlobalVariables.employeeService!.getAllEmployees().pipe(
-      map((data: any) => {
-        let employees: BarberModel[] = data.data.map((element: any) => new BarberModel(element));
-        GlobalVariables.employees = employees;
-        return true;
-      }),
-      catchError(err => {
-        console.log(err.data.message);
-        return of(false);
-      })
-    );
-  }
-
-  private static loadAppData() {
-    const isSchedulesLoaded = this.getSchedules();
-    const isServiceTypesLoaded = this.getServiceTypes();
-    const isBarbersLoaded = this.getEmployees();
-
-    return forkJoin([isSchedulesLoaded, isServiceTypesLoaded, isBarbersLoaded]);
-  }
-
-  private static getUser() {
-    const USER_KEY = 'auth-user';
-    return localStorage.getItem(USER_KEY);
-  }
-
   private static getUserModel() {
-    let userString = this.getUser();
+    const USER_KEY = 'auth-user';
+    let userString = localStorage.getItem(USER_KEY);
 
     if (userString)
       return Object.assign(new UserModel(), JSON.parse(userString));
 
     return null;
+  }
+
+  static clearProperties() {
+    GlobalVariables.isAppLoaded = false;
+    GlobalVariables.loadUserConfig(new UserConfig());
+    GlobalVariables._schedules = [];
+    GlobalVariables._serviceTypes = [];
+    GlobalVariables._employees = [];
+  }
+
+  static fillProperties(user?: UserModel) {
+    user = user ?? this.getUserModel();
+    if (user) {
+      GlobalVariables.loadUserConfig(user.userConfig);
+      GlobalVariables.userWorkingDays = user.workingDays!;
+
+      if (GlobalVariables.isAdmin && GlobalVariables._employees.length > 0)
+        GlobalVariables.selectedBarber = GlobalVariables._employees[0];
+      else
+        GlobalVariables.selectedBarber = undefined;
+    }
+    GlobalVariables.currentSection = 1;
+
+    GlobalVariables.getEmptySchedulesBase();
   }
 }

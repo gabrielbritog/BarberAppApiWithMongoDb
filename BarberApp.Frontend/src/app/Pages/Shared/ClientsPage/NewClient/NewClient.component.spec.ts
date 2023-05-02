@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { CarouselServiceTypesComponent } from './CarouselServiceTypes.component';
+import { NewClientComponent } from './NewClient.component';
 
-describe('CarouselServiceTypesComponent', () => {
-  let component: CarouselServiceTypesComponent;
-  let fixture: ComponentFixture<CarouselServiceTypesComponent>;
+describe('NewClientComponent', () => {
+  let component: NewClientComponent;
+  let fixture: ComponentFixture<NewClientComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CarouselServiceTypesComponent ]
+      declarations: [ NewClientComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CarouselServiceTypesComponent);
+    fixture = TestBed.createComponent(NewClientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

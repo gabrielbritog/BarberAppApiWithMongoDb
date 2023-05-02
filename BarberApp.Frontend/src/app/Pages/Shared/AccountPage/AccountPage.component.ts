@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { UserModel } from 'src/app/Models/UserModel';
+import { LoadAppService } from 'src/app/Services/api/LoadApp.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { UserService } from 'src/app/Services/user/User.service';
 
@@ -54,6 +55,7 @@ export class AccountPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
+    private loadAppService: LoadAppService,
     private userService: UserService,
     private router: Router
   ) { }
@@ -63,7 +65,7 @@ export class AccountPageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
 
     if (!GlobalVariables.isAppLoaded)
-      GlobalVariables.initStandalone();
+      GlobalVariables.init(this.loadAppService);
 
   }
 

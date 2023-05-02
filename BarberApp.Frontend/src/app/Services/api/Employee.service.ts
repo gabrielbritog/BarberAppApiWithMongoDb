@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 
-// IP DA MÁQUINA
-const MACHINE_IP = GlobalVariables.MACHINE_IP;
+
+const URL_API = GlobalVariables.API_BASE_URL;
 // const BASE_URL_API = 'http://localhost:5066/api/'
-const BASE_URL_API = `${MACHINE_IP}/api/Barber/`
+const BASE_URL_API = `${URL_API}/api/Barber/`
 const ROUTE_GETMANY = 'GetMany'
 
 
@@ -26,7 +26,7 @@ export class EmployeeService {
     });
   }
 
-  getAllEmployees(): Observable<any> {
+  getAll(): Observable<any> {
     return this.getMany(1, 50);
   }
 

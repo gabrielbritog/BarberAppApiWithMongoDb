@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 
-// IP DA MÁQUINA
-const MACHINE_IP = GlobalVariables.MACHINE_IP;
+
+const URL_API = GlobalVariables.API_BASE_URL;
 // const BASE_URL_API = 'http://localhost:5066/api/'
 const URL_BARBER = 'Barber/'
 const ROUTE_REGISTER = 'ServiceType/Register'
@@ -13,7 +13,7 @@ const ROUTE_GETMANY = 'ServiceType/GetMany'
 const ROUTE_GETBYID = 'ServiceType/GetById/'
 const ROUTE_UPDATE = 'ServiceType/Update'
 
-const BASE_URL_API = `${MACHINE_IP}/api/`
+const BASE_URL_API = `${URL_API}/api/`
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,7 @@ export class ServiceTypeService {
     });
   }
 
-  getAllServiceType(): Observable<any> {
+  getAll(): Observable<any> {
     return this.getManyServiceType(1, 50);
   }
 

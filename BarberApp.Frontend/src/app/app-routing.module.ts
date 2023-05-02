@@ -28,6 +28,7 @@ import { ScheduleDetailsComponent } from './Pages/Shared/SchedulesPage/schedule-
 import { ClassesPageComponent } from './Pages/Shared/ClassesPage/ClassesPage.component';
 import { ClassesListComponent } from './Pages/Shared/ClassesPage/ClassesList/ClassesList.component';
 import { ClassDetailsComponent } from './Pages/Shared/ClassesPage/ClassDetails/ClassDetails.component';
+import { NewClientComponent } from './Pages/Shared/ClientsPage/NewClient/NewClient.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
   {
     path: 'Clients', component: ClientsPageComponent, children: [
     {path: '', component: ListClientsComponent},
+    {path: 'New', component: NewClientComponent},
   ] },
   { path: 'Classes', component: ClassesPageComponent, children: [
     {path: '', component: ClassesListComponent},

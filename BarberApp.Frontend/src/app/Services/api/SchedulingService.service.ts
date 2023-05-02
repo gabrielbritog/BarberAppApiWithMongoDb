@@ -5,8 +5,8 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 
 
-// IP DA MÁQUINA
-const MACHINE_IP = GlobalVariables.MACHINE_IP;
+
+const URL_API = GlobalVariables.API_BASE_URL;
 
 const URL_BARBER = 'Barber/'
 const URL_SCHEDULING = 'Scheduling/'
@@ -16,7 +16,7 @@ const ROUTE_GETMANY = 'GetMany'
 const ROUTE_GETBYID = 'GetById/'
 const ROUTE_UPDATE = 'Update'
 
-const BASE_URL_API = `${MACHINE_IP}/api/`;
+const BASE_URL_API = `${URL_API}/api/`;
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +25,11 @@ export class SchedulingService {
 
   constructor(private http: HttpClient) { }
 
-  registerSchedule(schedule: ScheduleModel): Observable<any> {
+  register(schedule: ScheduleModel): Observable<any> {
     return this.http.post<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_REGISTER, {
       barberId: schedule.barberId,
       client: schedule.client,
+      class: schedule.class,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate,
       endOfSchedule: schedule.schedulingDate,
@@ -36,10 +37,11 @@ export class SchedulingService {
     });
   }
 
-  updateSchedule(schedule: ScheduleModel): Observable<any>{
+  update(schedule: ScheduleModel): Observable<any>{
     return this.http.put<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_UPDATE, {
       schedulingId: schedule.schedulingId,
       client: schedule.client,
+      class: schedule.class,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate,
       endOfSchedule: schedule.schedulingDate,
@@ -47,7 +49,7 @@ export class SchedulingService {
     });
   }
 
-  getAllSchedule(): Observable<any> {
+  getAll(): Observable<any> {
     return this.getManySchedule(1, 50);
   }
 

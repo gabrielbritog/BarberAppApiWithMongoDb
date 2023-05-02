@@ -3,6 +3,7 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { Router } from '@angular/router';
 import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
+import { LoadAppService } from 'src/app/Services/api/LoadApp.service';
 
 @Component({
   selector: 'app-ClientsPage',
@@ -39,6 +40,7 @@ export class ClientsPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
+    private loadAppService: LoadAppService,
     private router: Router
   ) { }
 
@@ -48,7 +50,7 @@ export class ClientsPageComponent implements OnInit {
 
 
       if (!GlobalVariables.isAppLoaded)
-      GlobalVariables.initStandalone();
+      GlobalVariables.init(this.loadAppService);
 
   }
 

@@ -7,7 +7,7 @@ export class ScheduleModel {
   schedulingId: string = "";
   barberId!: string;
   client?: ClientModel;
-  classModel?: ClassesModel;
+  class?: ClassesModel;
   presenceList?: ClientModel[];
   serviceType: ServiceTypeModel[] = [];
   total?: number;

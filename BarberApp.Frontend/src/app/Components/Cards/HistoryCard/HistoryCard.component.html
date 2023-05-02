@@ -13,7 +13,7 @@
     </div>
     <div class="card-subtitle d-flex flex-column text-muted lh-1 small gap-1 m-0">
       <span *ngIf="scheduleModel.client">{{scheduleModel.client.name}}</span>
-      <span *ngIf="scheduleModel.classModel">{{scheduleModel.classModel.name}}</span>
+      <span *ngIf="scheduleModel.class">{{scheduleModel.class.name}}</span>
       <div>
         <span *ngFor="let item of scheduleModel.serviceType; let i = index">
           {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}

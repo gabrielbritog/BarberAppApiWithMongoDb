@@ -35,7 +35,7 @@ export class EditPhoneComponent implements OnInit {
   ngOnInit() {
   }
 
-  getNumbersInsideString(storedString: string = this.userModel.phoneNumber) {
+  getNumbersInsideString(storedString: string = this.userModel.phoneNumber?? '') {
     const numbersFound = storedString.match(/\d+/g);
     return numbersFound?? '';
   }

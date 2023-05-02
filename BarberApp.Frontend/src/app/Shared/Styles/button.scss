@@ -100,6 +100,7 @@ button{
 }
 
 .btn.btn-outline-main {
+  --bs-btn-bg: var(--bs-body-bg);
   --bs-btn-color: var(--main);
   --bs-btn-border-color: var(--main);
   --bs-btn-hover-color: #ffffff;

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { LoadAppService } from 'src/app/Services/api/LoadApp.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 
 @Component({
@@ -54,6 +55,7 @@ export class EmployeesPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
+    private loadAppService: LoadAppService,
     private router: Router
   ) { }
 
@@ -63,7 +65,7 @@ export class EmployeesPageComponent implements OnInit {
 
 
       if (!GlobalVariables.isAppLoaded)
-      GlobalVariables.initStandalone();
+      GlobalVariables.init(this.loadAppService);
 
   }
 

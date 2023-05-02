@@ -7,6 +7,7 @@ import { ServiceTypeService } from './Services/api/ServiceType.service';
 import { TokenStorageService } from './Services/auth/token-storage.service';
 import { WindowScrollDetectorDirective } from './Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { SpinnerService } from './Components/Spinner/spinner.service';
+import { LoadAppService } from './Services/api/LoadApp.service';
 
 @Component({
   selector: 'app-root',
@@ -30,13 +31,10 @@ export class AppComponent implements OnInit{
 
   constructor(
     private tokenStorageService: TokenStorageService,
-    private schedulingService: SchedulingService,
-    private serviceTypeService: ServiceTypeService,
-    private employeeService: EmployeeService,
+    private loadAppService: LoadAppService,
     private route: Router,
     public spinnerService: SpinnerService,
   ) {
-    GlobalVariables.initServices(this.schedulingService, this.serviceTypeService, this.employeeService);
   }
 
   ngOnInit(): void {
@@ -44,7 +42,7 @@ export class AppComponent implements OnInit{
       this.route.navigateByUrl('/Login');
       return;
     }
-    GlobalVariables.initStandalone();
+    GlobalVariables.init(this.loadAppService);
   }
 
   logout() {

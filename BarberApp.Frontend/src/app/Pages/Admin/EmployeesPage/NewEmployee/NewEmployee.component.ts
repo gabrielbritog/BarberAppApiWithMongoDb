@@ -69,7 +69,7 @@ export class NewEmployeeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.barberModel = new BarberModel(GlobalVariables.editBarber);
+    this.barberModel = new BarberModel(GlobalVariables.editEmployee);
 
     if (this.isEditModal){
       this.modalInputs[0].value = this.barberModel.firstName;
@@ -87,7 +87,7 @@ export class NewEmployeeComponent implements OnInit {
     let barber = new BarberModel(barberForm);
     barber.workingDays = this.tokenStorage.getUserModel().workingDays;
 
-    let index = this.isEditModal? GlobalVariables.employees.indexOf(GlobalVariables.editBarber!) : -1;
+    let index = this.isEditModal? GlobalVariables.employees.indexOf(GlobalVariables.editEmployee!) : -1;
 
     const apiCall = this.isEditModal ? this.userService.updateBarber(barber) : this.authService.registerBarber(barber);
 

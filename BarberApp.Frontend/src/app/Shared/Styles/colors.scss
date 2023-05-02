@@ -150,3 +150,8 @@ $theme-colors: (
 
 /* Importing Bootstrap SCSS file. */
 @import "../../../../node_modules/bootstrap/scss/bootstrap";
+
+
+.border-body{
+  border-color: var(--bs-body-bg) !important;
+}

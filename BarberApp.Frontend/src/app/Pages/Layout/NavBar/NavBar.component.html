@@ -31,17 +31,22 @@
       [class.active]="searchBar.classList.contains('expand')"
       (click)="searchBar.classList.contains('expand')? [searchBar.classList.remove('expand')] : [searchBar.classList.add('expand'), searchInput.focus()]"
       style="width: 32px;">
-        <i class="fa-solid fa-magnifying-glass small"></i>
+        <i class="fa-solid fa-magnifying-glass small search-icon"></i>
+        <!-- <i class="fa-solid fa-xmark small search-icon inactive"></i> -->
       </button>
     </div>
 
-    <button type="button"
-    style="width: 2.5rem; height: 2.5rem; border-color: var(--bs-body-bg); --bs-btn-bg: var(--bs-body-bg);"
+    <div
+    style="width: 2.5rem; height: 2.5rem;"
     (click)="changeDarkmode()"
-    [class.active]="darkMode"
-    class="btn btn-outline-main border-4 border-body rounded p-0 m-0 shadow-sm">
-      <i class="fa-solid fa-moon"></i>
-    </button>
+    class="bg-body rounded m-0 shadow-sm p-1">
+      <button
+      type="button"
+      class="h-100 w-100 btn btn-outline-main border-0 rounded p-0"
+      [class.active]="darkMode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
 
     <div class="btn-group" dropdown>
       <button

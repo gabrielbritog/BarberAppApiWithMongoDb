@@ -11,10 +11,10 @@ import { UserConfig } from '../../Models/UserConfig';
 // BarberLevel = 1  => BARBEIRO
 // AdminLevel = 2   => EMPRESA
 
-// IP DA MÁQUINA
-const MACHINE_IP = GlobalVariables.MACHINE_IP;
 
-const API_URL = `${MACHINE_IP}/api/`;
+const URL_API = GlobalVariables.API_BASE_URL;
+
+const API_URL = `${URL_API}/api/`;
 
 const ADMIN_ROUTE = 'User/'
 const BARBER_ROUTE = 'Barber/'

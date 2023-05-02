@@ -14,8 +14,17 @@ export class ScheduleCardComponent implements OnInit {
   @Input('model') scheduleModel = new ScheduleModel();
   @Input('showOptions') showOptions = true;
 
+  getCardTitle() {
+    if (this.scheduleModel.class)
+      return 'Turma: ' + this.scheduleModel.class.name;
+    if (this.scheduleModel.client)
+      return 'Cliente: ' + this.scheduleModel.client.name;
+
+    return ' ';
+  }
+
   get isEmptyModel() {
-    return this.scheduleModel.serviceType.length == 0;
+    return !GlobalVariables.schedules.some(p => p.schedulingId === this.scheduleModel.schedulingId);
   }
 
   constructor(private router: Router) { }
