@@ -2,17 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WindowScrollDetectorDirective } from './WindowScrollDetector/WindowScrollDetector.directive';
 import { CurrencyCursorDirective } from './CurrencyCursor/CurrencyCursor.directive';
+import { MiscConditionsDirective } from './MiscConditions/MiscConditions.directive';
 
 
 
 @NgModule({
   declarations: [
     WindowScrollDetectorDirective,
-    CurrencyCursorDirective
-  ],
+    CurrencyCursorDirective,
+    MiscConditionsDirective
+   ],
   exports: [
     WindowScrollDetectorDirective,
-    CurrencyCursorDirective
+    CurrencyCursorDirective,
+    MiscConditionsDirective
   ],
   imports: [
     CommonModule

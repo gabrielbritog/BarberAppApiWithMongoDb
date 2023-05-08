@@ -1,0 +1,13 @@
+:host{
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+button.btn-search{
+  aspect-ratio: 1;
+  place-items: center;
+  margin: 4px;
+  height: calc(100% - 8px);
+}

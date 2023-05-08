@@ -5,6 +5,9 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { DashboardSectionComponent } from '../DashboardPage/DashboardSection.component';
 import { LoadAppService } from '../../../Services/api/LoadApp.service';
+import { DefaultTable } from '../../../Components/Tables/default-table/default-table';
+import { AppColors } from 'src/app/Models/Enums/app-colors.enum';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-HomePage',
@@ -21,7 +24,7 @@ export class HomePageComponent implements OnInit {
   }
 
   get currentSection() { return GlobalVariables.currentSection };
-  
+
   get appLoaded() {
     return GlobalVariables.isAppLoaded;
   }
@@ -31,7 +34,7 @@ export class HomePageComponent implements OnInit {
       private router: Router,
       private loadAppService: LoadAppService
   ) { }
-  
+
   ngOnInit() {
 
     if (!this.tokenStorage.getToken()) {
@@ -43,12 +46,40 @@ export class HomePageComponent implements OnInit {
       this.loadApp();
     }
   }
-
-
   loadApp() {
-    DashboardSectionComponent.clearProperties();
-    GlobalVariables.showSidebar = false;
-    GlobalVariables.init(this.loadAppService);
+    // DashboardSectionComponent.clearProperties();
+    // GlobalVariables.showSidebar = false;
+    // GlobalVariables.init(this.loadAppService);
   }
+
+  tables() {
+    const _tables: DefaultTable = {
+      titles: ['Nome', 'Telefone'],
+      objects: [],
+      onClick: () => this.metodoTeste()
+    }
+
+    GlobalVariables.employees.forEach((employee, i) => {
+      _tables.objects.push({
+        object: {
+          name: `${employee.firstName} ${employee.lastName}`,
+          phone: employee.phoneNumber,
+        },
+        fontawesomeIcon: "fa-solid fa-user",
+        imgUrl: employee.urlImage,
+        iconBgColor: AppColors.main
+      })
+    })
+
+
+    return _tables;
+  }
+
+  metodoTeste():boolean {
+    console.log('Esse foi o método teste');
+    return true;
+  }
+
+
 
 }

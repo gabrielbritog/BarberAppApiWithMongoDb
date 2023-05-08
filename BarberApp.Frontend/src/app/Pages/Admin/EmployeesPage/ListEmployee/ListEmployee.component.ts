@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { Router } from '@angular/router';
+import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
+import { AppColors } from 'src/app/Models/Enums/app-colors.enum';
 
 @Component({
   selector: 'app-ListEmployee',
@@ -18,6 +20,28 @@ export class ListEmployeeComponent implements OnInit {
       p.phoneNumber?.toLowerCase().includes(this.searchValue.toLowerCase())
     )
     .sort((a, b) => a.firstName.localeCompare(b.firstName));
+  }
+
+  get employeesTable() {
+    const _tables: DefaultTable = {
+      titles: ['Nome', 'Telefone'],
+      objects: [],
+      // onClick: () => this.metodoTeste()
+    }
+
+    GlobalVariables.employees.forEach((employee, i) => {
+      _tables.objects.push({
+        object: {
+          name: `${employee.firstName} ${employee.lastName}`,
+          phone: employee.phoneNumber,
+        },
+        fontawesomeIcon: "fa-solid fa-user",
+        imgUrl: employee.urlImage,
+        iconBgColor: AppColors.main
+      })
+    })
+
+    return _tables;
   }
 
   constructor(

@@ -8,6 +8,8 @@ import { GlobalVariables } from '../../../Helpers/GlobalVariables';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import * as moment from 'moment';
+import { LoadAppService } from 'src/app/Services/api/LoadApp.service';
+import { DashboardSectionComponent } from '../../Shared/DashboardPage/DashboardSection.component';
 
 @Component({
   selector: 'app-LoginPage',
@@ -38,6 +40,7 @@ export class LoginPageComponent implements OnInit {
     private toastr: ToastrService,
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
+    private loadAppService: LoadAppService,
     private router: Router) { }
 
   ngOnInit() {
@@ -110,7 +113,16 @@ export class LoginPageComponent implements OnInit {
     this.tokenStorage.saveToken(data.data.accessToken, data.data.expiration);
     this.tokenStorage.saveUser(data.data.dados);
 
+    if (!GlobalVariables.isAppLoaded) {
+      this.loadApp();
+    }
+
     this.router.navigateByUrl('/Home');
+  }
+  loadApp() {
+    DashboardSectionComponent.clearProperties();
+    GlobalVariables.showSidebar = false;
+    GlobalVariables.init(this.loadAppService);
   }
 
 }

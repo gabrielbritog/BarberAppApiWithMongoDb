@@ -1,0 +1,135 @@
+<ng-container *ngIf="table">
+  <!-- style="height: calc(95vh - var(--nav-height))" -->
+
+  <div
+    [style]="'height: '+ (maxElements === 0? ' calc(95vh - var(--nav-height))': 'auto')"
+    class="card border shadow-sm mb-3 p-2"
+  >
+    <ng-container
+    *ngIf="tableTitle || searchBar"
+    >
+      <div
+        style="height: 40px;"
+        class="table-caption w-100 d-flex align-items-center justify-content-between mb-2"
+      >
+        <caption
+          *ngIf="tableTitle"
+          [class.collapsed]="searchFocused"
+          class="w-100 h5 text-nowrap"
+        >
+          {{
+            tableTitle
+          }}
+        </caption>
+
+        <app-SearchBar
+          *ngIf="searchBar"
+          (searchEvent)="setSearchFilter($event)"
+          (focusEvent)="onSearchFocused($event)"
+          [expanded]="!tableTitle"
+        ></app-SearchBar>
+      </div>
+    </ng-container>
+    <div
+      class="table-responsive position-relative m-0"
+    >
+      <table class="table m-0">
+        <thead class="position-sticky top-0 z-1">
+          <tr>
+            <ng-container *ngFor="let header of table.titles; let i = index">
+              <th
+                scope="col"
+                style="
+                  color: rgba(
+                    var(--bs-body-color-rgb),
+                    var(--bs-text-opacity)
+                  ) !important;
+                "
+                [class.w-100]="i === 0"
+                [class.text-opacity-50]="!isOrderedBy(i) && orderedBy !== 0"
+                [class.text-opacity-100]="isOrderedBy(i) || orderedBy === 0"
+                class="px-3 bg-body py-2 text-nowrap fs-16-medium cursor-pointer h6 fw-semibold"
+                (click)="setOrderedBy(i)"
+              >
+                {{ header }}
+                <i
+                  [class.visibility-hidden]="!isOrderedBy(i)"
+                  [class.fa-arrow-down-a-z]="orderedBy >= 0"
+                  [class.fa-arrow-up-a-z]="orderedBy < 0"
+                  class="fa-solid ms-2"
+                ></i>
+              </th>
+            </ng-container>
+          </tr>
+          <!-- <span class="table-group-divider"></span> -->
+        </thead>
+
+        <tbody>
+          <ng-container
+            *ngFor="let item of getFilteredTable().objects; let i = index"
+          >
+            <tr
+              [class.border-transparent]="
+                i === getFilteredTable().objects.length - 1
+              "
+              [class.cursor-pointer]="table.onClick"
+              (click)="onClick()"
+              class="text-header-color border-bottom bg-main"
+            >
+              <ng-container *ngFor="let header of table.titles; let j = index">
+                <td
+                  *ngIf="j === 0"
+                  style="vertical-align: middle"
+                  scope="row"
+                  class="p-3"
+                >
+                  <div
+                    class="content position-relative text-nowrap align-items-center w-100 d-flex gap-3"
+                  >
+                  <ng-container *ngIf="item.fontawesomeIcon || item.imgUrl">
+
+                    <div
+                    style="
+                      width: 40px;
+                      aspect-ratio: 1;
+                      place-items: center;"
+                    [class]="'d-grid overflow-hidden bg-opacity-100 icon-container rounded-pill text-bg-' + item.iconBgColor">
+
+                      <ng-container *ngIf="item.fontawesomeIcon && !item.imgUrl">
+                        <i
+                          [class]="item.fontawesomeIcon + ' fs-4 row-icon'"
+                        ></i>
+                      </ng-container>
+
+                      <ng-container *ngIf="item.imgUrl">
+                        <img
+                        style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;"
+                        [src]="item.imgUrl">
+                      </ng-container>
+
+                    </div>
+
+                  </ng-container>
+
+                    {{ item.object[propertiesOfObjects[j]] }}
+                  </div>
+                </td>
+
+                <td *ngIf="j > 0" style="vertical-align: middle" class="p-3">
+                  <div
+                    class="content position-relative text-nowrap align-items-center w-100 d-flex gap-3"
+                  >
+                    {{ item.object[propertiesOfObjects[j]] }}
+                  </div>
+                </td>
+              </ng-container>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>

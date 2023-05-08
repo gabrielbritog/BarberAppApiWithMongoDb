@@ -64,8 +64,8 @@ export class EmployeesPageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
 
 
-      if (!GlobalVariables.isAppLoaded)
-      GlobalVariables.init(this.loadAppService);
+    // if (!GlobalVariables.isAppLoaded)
+    //   GlobalVariables.init(this.loadAppService);
 
   }
 

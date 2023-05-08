@@ -9,7 +9,6 @@ export class BarberModel {
   email!: string;
   urlImage?: string;
   password!: string;
-  urlImagem?: string;
   phoneNumber?: string;
   userRegistration?: string;
   disabled?: boolean;

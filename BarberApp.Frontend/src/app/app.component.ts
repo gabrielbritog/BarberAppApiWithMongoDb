@@ -30,6 +30,10 @@ export class AppComponent implements OnInit{
     return url.includes('Login') || url.includes('Register');
   }
 
+  get isAppLoaded(){
+    return GlobalVariables.isAppLoaded;
+  }
+
   constructor(
     private tokenStorageService: TokenStorageService,
     private loadAppService: LoadAppService,
@@ -37,9 +41,6 @@ export class AppComponent implements OnInit{
     public spinnerService: SpinnerService,
     public toastrService: ToastrService
   ) {
-  }
-
-  ngOnInit(): void {
     if (!this.tokenStorageService.getToken() && !this.isAuthPage) {
       this.route.navigateByUrl('/Login');
       return;
@@ -52,6 +53,9 @@ export class AppComponent implements OnInit{
     }
 
     GlobalVariables.init(this.loadAppService);
+  }
+
+  ngOnInit(): void {
   }
 
   logout() {

@@ -33,7 +33,7 @@ export interface ClientModel {
   ],
   observation?: string,
   registerNumber?: string,
-  interviewNumber?: string
+  interviewNumber?: string,
 }
 
 export class ClientModelHelper {

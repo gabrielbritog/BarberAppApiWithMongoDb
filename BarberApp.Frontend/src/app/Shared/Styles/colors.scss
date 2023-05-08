@@ -25,6 +25,7 @@ $black:                #000000;
 
 
 :root {
+  --bs-body-color-rgb: var(--bs-black-rgb);
   --body-bg-color: #eef1fa;
   --body-dark-bg-color: #1c1c1c;
 
@@ -109,16 +110,13 @@ $black:                #000000;
 
   &.dark-mode{
     --bs-body-color: #fff;
+    --bs-body-color-rgb: var(--bs-white-rgb);
     --body-bg-color: var(--body-dark-bg-color);
     --bs-body-bg: #242424;
     --bs-body-bg-rgb: 36, 36, 36;
     --bs-secondary-color: #727272;
     --bs-border-color: #303030;
   }
-}
-
-.border-transparent{
-  border-color: transparent;
 }
 
 $theme-colors: (
@@ -154,4 +152,8 @@ $theme-colors: (
 
 .border-body{
   border-color: var(--bs-body-bg) !important;
+}
+
+.border-transparent{
+  border-color: transparent !important;
 }

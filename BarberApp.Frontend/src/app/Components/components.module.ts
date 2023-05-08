@@ -5,6 +5,7 @@ import { FormInputModule } from './FormInput/form-input.module';
 import { ModalsModule } from './Modals/modals.module';
 import { PlusButtonModule } from './PlusButton/plus-button.module';
 import { LogoComponent } from './logo/logo.component';
+import { TablesModule } from './Tables/Tables.module';
 
 
 
@@ -17,7 +18,8 @@ import { LogoComponent } from './logo/logo.component';
     CardsModule,
     FormInputModule,
     ModalsModule,
-    PlusButtonModule
+    PlusButtonModule,
+    TablesModule
   ],
   exports: [
     LogoComponent,
@@ -25,7 +27,8 @@ import { LogoComponent } from './logo/logo.component';
     CardsModule,
     FormInputModule,
     ModalsModule,
-    PlusButtonModule
+    PlusButtonModule,
+    TablesModule
   ],
 })
 export class ComponentsModule { }

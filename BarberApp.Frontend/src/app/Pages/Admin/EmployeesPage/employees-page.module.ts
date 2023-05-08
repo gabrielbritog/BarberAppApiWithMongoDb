@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     ComponentsModule,
-    RouterModule
+    RouterModule,
   ],
   declarations: [
     EmployeesPageComponent,

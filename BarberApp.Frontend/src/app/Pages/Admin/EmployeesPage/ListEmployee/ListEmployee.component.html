@@ -1,8 +1,10 @@
 <app-PlusButton [onClickEvent]="newBarber"></app-PlusButton>
 <div class="cards_container animate_show">
 
-  <ng-container *ngFor="let item of barberList" >
+  <app-default-table [table]="employeesTable"></app-default-table>
+
+  <!-- <ng-container *ngFor="let item of barberList" >
     <app-BarberCard [model]="item" ></app-BarberCard>
-  </ng-container>
+  </ng-container> -->
 
 </div>

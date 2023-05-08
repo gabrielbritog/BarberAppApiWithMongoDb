@@ -121,15 +121,12 @@ button{
   background-color: RGBA(var(--main-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 .text-main{
-  --bs-text-opacity: 1;
   color: rgba(var(--main-rgb), var(--bs-text-opacity)) !important;
 }
 .bg-main{
-  --bs-bg-opacity: 1;
   background-color: rgba(var(--main-rgb), var(--bs-bg-opacity)) !important;
 }
 .border-main{
-  --bs-border-opacity: 1;
   border-color: rgba(var(--main-rgb), var(--bs-border-opacity)) !important;
 }
 
@@ -171,14 +168,11 @@ button{
   background-color: RGBA(var(--secondary-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 .text-secondary{
-  --bs-text-opacity: 1;
   color: rgba(var(--secondary-rgb), var(--bs-text-opacity)) !important;
 }
 .bg-secondary{
-  --bs-bg-opacity: 1;
   background-color: rgba(var(--secondary-rgb), var(--bs-bg-opacity)) !important;
 }
 .border-secondary{
-  --bs-border-opacity: 1;
   border-color: rgba(var(--secondary-rgb), var(--bs-border-opacity)) !important;
 }

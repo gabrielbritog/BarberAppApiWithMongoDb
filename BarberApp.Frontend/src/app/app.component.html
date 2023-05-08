@@ -5,7 +5,9 @@
     <app-NavBar *ngIf="!isAuthPage"></app-NavBar>
     <div class="router_container flex-grow-1 d-flex flex-column position-relative">
       <app-Spinner *ngIf="(spinnerService.isLoading$ | async)"></app-Spinner>
-      <router-outlet></router-outlet>
+      <ng-container  *ngIf="isAuthPage || isAppLoaded">
+        <router-outlet></router-outlet>
+      </ng-container>
     </div>
     <app-footer-bar></app-footer-bar>
   </div>

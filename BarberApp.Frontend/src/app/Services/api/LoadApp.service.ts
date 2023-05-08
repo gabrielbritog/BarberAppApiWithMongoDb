@@ -5,6 +5,7 @@ import { EmployeeService } from './Employee.service';
 import { SchedulingService } from './SchedulingService.service';
 import { ServiceTypeService } from './ServiceType.service';
 import { Router } from '@angular/router';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 
 @Injectable({
   providedIn: 'root'
