@@ -1,9 +1,5 @@
-<ng-container *ngIf="!isBlocked && isButtonShown()">
-  <app-PlusButton [onClickEvent]="newSchedule"></app-PlusButton>
-</ng-container>
-
-  <div class="page_container">
-    <div class="router_container container">
-      <router-outlet></router-outlet>
-    </div>
+<div class="page_container">
+  <div class="router_container container">
+    <router-outlet></router-outlet>
   </div>
+</div>

@@ -4,7 +4,6 @@ import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDe
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { DashboardSectionComponent } from '../DashboardPage/DashboardSection.component';
-import { LoadAppService } from '../../../Services/api/LoadApp.service';
 import { DefaultTable } from '../../../Components/Tables/default-table/default-table';
 import { AppColors } from 'src/app/Models/Enums/app-colors.enum';
 import * as moment from 'moment';
@@ -30,9 +29,8 @@ export class HomePageComponent implements OnInit {
   }
 
   constructor(
-      private tokenStorage: TokenStorageService,
-      private router: Router,
-      private loadAppService: LoadAppService
+    private tokenStorage: TokenStorageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -41,15 +39,6 @@ export class HomePageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
       return;
     }
-
-    if (!GlobalVariables.isAppLoaded) {
-      this.loadApp();
-    }
-  }
-  loadApp() {
-    // DashboardSectionComponent.clearProperties();
-    // GlobalVariables.showSidebar = false;
-    // GlobalVariables.init(this.loadAppService);
   }
 
   tables() {
@@ -75,7 +64,7 @@ export class HomePageComponent implements OnInit {
     return _tables;
   }
 
-  metodoTeste():boolean {
+  metodoTeste(): boolean {
     console.log('Esse foi o método teste');
     return true;
   }

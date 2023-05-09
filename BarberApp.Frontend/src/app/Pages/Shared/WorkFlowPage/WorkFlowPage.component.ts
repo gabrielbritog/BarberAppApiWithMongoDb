@@ -6,12 +6,11 @@ import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDe
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { WorkingDays } from 'src/app/Models/WorkingDays';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
-import { LoadAppService } from 'src/app/Services/api/LoadApp.service';
 
 @Component({
   selector: 'app-WorkFlowPage',
   templateUrl: './WorkFlowPage.component.html',
-  styleUrls: ['../../Styles/basePage.scss','./WorkFlowPage.component.scss']
+  styleUrls: ['../../Styles/basePage.scss', './WorkFlowPage.component.scss']
 })
 export class WorkFlowPageComponent implements OnInit {
   @ViewChild(WindowScrollDetectorDirective) scrollDetector?: WindowScrollDetectorDirective;
@@ -61,7 +60,7 @@ export class WorkFlowPageComponent implements OnInit {
   get headerUrl() {
     let headerText = 'Horários de Funcionamento ';
     const routerUrl = this.router.url.split('/');
-    switch (routerUrl[routerUrl.length-1]) {
+    switch (routerUrl[routerUrl.length - 1]) {
       case '/Name':
         headerText += '/ Editar Nome';
         break;
@@ -82,7 +81,6 @@ export class WorkFlowPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private loadAppService: LoadAppService,
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService
@@ -93,12 +91,9 @@ export class WorkFlowPageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
-    if (!GlobalVariables.isAppLoaded)
-      GlobalVariables.init(this.loadAppService);
-
     const userWorkingDays = GlobalVariables.userWorkingDays;
     this._workingDaysBckp = this.tokenStorage.getUserModel().workingDays!;
-    if(!userWorkingDays || userWorkingDays?.length == 0){
+    if (!userWorkingDays || userWorkingDays?.length == 0) {
       this.workingDays = GlobalVariables.createWorkingDays();
     } else {
       this.workingDays = userWorkingDays;

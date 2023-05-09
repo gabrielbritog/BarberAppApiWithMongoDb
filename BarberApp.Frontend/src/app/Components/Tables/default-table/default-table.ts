@@ -4,7 +4,7 @@ export interface DefaultTable {
   titles: string[],
   titlesToHide?: string[],
   objects: DefaultObjectInTable[],
-  onClick?: () => any;
+  onClick?: (event: any) => any;
 }
 
 export interface DefaultObjectInTable {

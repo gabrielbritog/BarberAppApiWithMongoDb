@@ -38,6 +38,7 @@ const routes: Routes = [
   { path: 'Schedules', component: SchedulesSectionComponent , children: [
     {path: '', component: ScheduleListComponent},
     {path: 'Details', component: ScheduleDetailsComponent},
+    {path: 'New', component: ScheduleDetailsComponent},
   ] },
   { path: 'History', component: HistoryPage },
   { path: 'WorkFlow', component: WorkFlowPageComponent },
@@ -59,6 +60,7 @@ const routes: Routes = [
   { path: 'Classes', component: ClassesPageComponent, children: [
     {path: '', component: ClassesListComponent},
     {path: 'Details', component: ClassDetailsComponent},
+    {path: 'New', component: ClassDetailsComponent},
   ] },
   { path: 'Account', component: AccountPageComponent, children: [
     {path: '', component: UserInfoComponent},

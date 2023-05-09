@@ -24,7 +24,7 @@ export class EmployeesPageComponent implements OnInit {
   get headerUrl() {
     let header = 'Funcionários'
     const route = this.router.url.split('/');
-    const lastRoute = route[route.length -1];
+    const lastRoute = route[route.length - 1];
     switch (lastRoute) {
       case 'New':
         header = 'Novo Funcionário'
@@ -44,29 +44,23 @@ export class EmployeesPageComponent implements OnInit {
     return GlobalVariables.showBarberModal;
   };
 
-  get barberList(){
+  get barberList() {
     return GlobalVariables.employees
-    .filter(p =>
-      (p.firstName.toLowerCase() + ' ' + p.lastName.toLowerCase()).includes(this.searchValue.toLowerCase()) ||
-      p.phoneNumber?.toLowerCase().includes(this.searchValue.toLowerCase())
-    )
-    .sort((a, b) => a.firstName.localeCompare(b.firstName));
+      .filter(p =>
+        (p.firstName.toLowerCase() + ' ' + p.lastName.toLowerCase()).includes(this.searchValue.toLowerCase()) ||
+        p.phoneNumber?.toLowerCase().includes(this.searchValue.toLowerCase())
+      )
+      .sort((a, b) => a.firstName.localeCompare(b.firstName));
   }
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private loadAppService: LoadAppService,
     private router: Router
   ) { }
 
   ngOnInit() {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
-
-
-    // if (!GlobalVariables.isAppLoaded)
-    //   GlobalVariables.init(this.loadAppService);
-
   }
 
   newBarber() {
@@ -75,7 +69,7 @@ export class EmployeesPageComponent implements OnInit {
 
   onCancel() {
     if (this.router.url == '/Employees') {
-      if(GlobalVariables.employees.length > 0)
+      if (GlobalVariables.employees.length > 0)
         this.router.navigateByUrl('/Home');
     }
     else

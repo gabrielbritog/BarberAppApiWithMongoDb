@@ -1,8 +1,9 @@
-<app-PlusButton [onClickEvent]="newServiceType" [marginBot]="false" ></app-PlusButton>
 <div class="cards_container animate_show">
 
-  <ng-container *ngFor="let item of allServiceTypes" >
+  <app-default-table [table]="servicesTable"></app-default-table>
+
+  <!-- <ng-container *ngFor="let item of allServiceTypes" >
     <app-ServiceTypeCard [model]="item"></app-ServiceTypeCard>
-  </ng-container>
+  </ng-container> -->
 
 </div>

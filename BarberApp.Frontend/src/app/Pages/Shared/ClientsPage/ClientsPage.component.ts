@@ -3,7 +3,6 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { Router } from '@angular/router';
 import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
-import { LoadAppService } from 'src/app/Services/api/LoadApp.service';
 
 @Component({
   selector: 'app-ClientsPage',
@@ -22,7 +21,7 @@ export class ClientsPageComponent implements OnInit {
   get headerUrl() {
     let header = 'Clientes'
     const route = this.router.url.split('/');
-    const lastRoute = route[route.length -1];
+    const lastRoute = route[route.length - 1];
     switch (lastRoute) {
       case 'New':
         header = 'Novo Cliente'
@@ -40,18 +39,12 @@ export class ClientsPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private loadAppService: LoadAppService,
     private router: Router
   ) { }
 
   ngOnInit() {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
-
-
-      if (!GlobalVariables.isAppLoaded)
-      GlobalVariables.init(this.loadAppService);
-
   }
 
   onCancel() {

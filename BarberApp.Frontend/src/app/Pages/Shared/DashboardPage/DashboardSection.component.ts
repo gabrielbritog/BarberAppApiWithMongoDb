@@ -107,12 +107,12 @@ export class DashboardSectionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (!DashboardSectionComponent.isDashboardLoaded)
+    // if (!DashboardSectionComponent.isDashboardLoaded)
       this.loadProperties();
-    else{
-      this.createIncomeChart();
-      this.createSchedulesChart();
-    }
+    // else{
+    //   this.createIncomeChart();
+    //   this.createSchedulesChart();
+    // }
   }
 
   static clearProperties() {
@@ -193,7 +193,6 @@ export class DashboardSectionComponent implements OnInit {
               return new ScheduleModel(element)
             });
         }
-        console.log('opa')
 
         this.infos = [];
 
@@ -421,6 +420,7 @@ export class DashboardSectionComponent implements OnInit {
       chartExist.destroy();
 
 
+    return;
     new Chart('income-chart', {
       type: 'line',
       data: {
@@ -545,6 +545,7 @@ export class DashboardSectionComponent implements OnInit {
     if (chartExist != undefined)
       chartExist.destroy();
 
+    return;
 
     new Chart('schedules-chart', {
       type: 'line',

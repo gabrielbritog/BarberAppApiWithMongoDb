@@ -91,12 +91,12 @@ export class DefaultTableComponent implements OnInit {
     this.propertiesOfObjects = this.getObjectProps();
   }
 
-  onClick() {
+  onClick(event: any) {
     if (!this.table)
       return;
     if (!this.table.onClick)
       return;
-    this.table.onClick();
+    this.table.onClick(event);
   }
 
   onSearchFocused(value: boolean) {

@@ -211,10 +211,10 @@ export class ScheduleDetailsComponent implements OnInit {
     const schedule = new ScheduleModel({
       barberId: GlobalVariables.isAdmin? GlobalVariables.selectedBarber?.barberId : this.tokenStorageService.getUserModel().barberId,
       schedulingId: this.isEditModal ? GlobalVariables.editSchedule?.schedulingId : scheduleForm.schedulingId,
-      client: {
+      client: scheduleForm.clientName? {
         name: scheduleForm.clientName,
         phone: scheduleForm.clientPhone,
-      },
+      } : undefined,
       class: _classModel,
       date: scheduleForm.date,
       time: scheduleForm.time,

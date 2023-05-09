@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
-import { ClientModel } from '../../../../Models/ClientModel';
 import { Router } from '@angular/router';
+import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
+import { AppColors } from 'src/app/Models/Enums/app-colors.enum';
 
 @Component({
   selector: 'app-ListClients',
@@ -10,16 +11,26 @@ import { Router } from '@angular/router';
 })
 export class ListClientsComponent implements OnInit {
 
-  searchValue = "";
+  get clientsTable() {
+    const _tables: DefaultTable = {
+      titles: ['Nome', 'Telefone'],
+      objects: [],
+      // onClick: () => this.metodoTeste()
+    }
 
-  get clientList() {
-    return GlobalVariables.clients
-    .filter(p =>
-      p.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-      p.phone.toLowerCase().includes(this.searchValue.toLowerCase())
-    )
-    .filter((cName, index, self) => self.map(p => p.phone).includes(cName.phone, index + 1) === false)
-    .sort((a, b) => a.name.localeCompare(b.name));
+    GlobalVariables.clients.forEach((client, i) => {
+      _tables.objects.push({
+        object: {
+          name: client.name,
+          phone: client.phone,
+        },
+        fontawesomeIcon: "fa-brands fa-whatsapp",
+        // imgUrl: client.urlImage,
+        iconBgColor: AppColors.green
+      })
+    })
+
+    return _tables;
   }
 
   constructor(
@@ -27,10 +38,6 @@ export class ListClientsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  }
-
-  newClient() {
-    this.router.navigateByUrl('/Clients/New');
   }
 
 }

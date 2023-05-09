@@ -1,9 +1,9 @@
-<app-PlusButton [onClickEvent]="newClient" [marginBot]="false" ></app-PlusButton>
-
 <div class="cards_container animate_show">
 
-  <ng-container *ngFor="let item of clientList" >
+  <app-default-table [table]="clientsTable"></app-default-table>
+
+  <!-- <ng-container *ngFor="let item of clientList" >
     <app-ClientCard [model]="item" ></app-ClientCard>
-  </ng-container>
+  </ng-container> -->
 
 </div>

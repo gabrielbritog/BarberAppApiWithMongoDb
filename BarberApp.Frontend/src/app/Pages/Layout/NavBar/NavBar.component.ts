@@ -5,6 +5,7 @@ import { TokenStorageService } from 'src/app/Services/auth/token-storage.service
 import { Router } from '@angular/router';
 import { UserConfig } from 'src/app/Models/UserConfig';
 import { UserService } from 'src/app/Services/user/User.service';
+import { RouteHistoryService } from '../../../Services/misc/route-history.service';
 
 @Component({
   selector: 'app-NavBar',
@@ -50,6 +51,7 @@ export class NavBarComponent implements OnInit {
       '/Dashboard',
       '/Schedules',
       '/Schedules/Details',
+      '/Schedules/New',
       '/History',
       '/WorkFlow',
       '/Employees',
@@ -60,6 +62,7 @@ export class NavBarComponent implements OnInit {
       '/Services/New',
       '/Classes',
       '/Classes/Details',
+      '/Classes/New',
       '/Clients',
       '/Clients/New',
       '/Account',
@@ -76,6 +79,7 @@ export class NavBarComponent implements OnInit {
       'Relatórios',
       'Agenda',
       'Agendamento',
+      'Novo Agendamento',
       'Histórico',
       'Horários',
       'Funcionários',
@@ -86,6 +90,7 @@ export class NavBarComponent implements OnInit {
       'Novo Serviço',
       'Turmas',
       this.isAdmin? 'Editar Turma' : 'Detalhes da turma',
+      'Nova turma',
       'Clientes',
       'Novo Cliente',
       'Perfil',
@@ -109,6 +114,7 @@ export class NavBarComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private router: Router,
     private userService: UserService,
+    private routeHistory: RouteHistoryService
   ) {
     const userConfig = this.tokenStorage.getUserModel();
 
@@ -123,8 +129,7 @@ export class NavBarComponent implements OnInit {
   }
 
   onReturn() {
-    const routerUrl = this.routerUrlArray;
-    this.router.navigateByUrl(routerUrl[routerUrl.length - 2])
+    this.routeHistory.navigateBack();
   }
 
   changeDarkmode() {

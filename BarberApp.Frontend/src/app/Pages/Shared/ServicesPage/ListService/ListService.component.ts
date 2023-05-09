@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { Router } from '@angular/router';
+import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
+import { AppColors } from 'src/app/Models/Enums/app-colors.enum';
+import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 
 @Component({
   selector: 'app-ListService',
@@ -9,33 +12,6 @@ import { Router } from '@angular/router';
 })
 export class ListServiceComponent implements OnInit {
 
-  searchValue = '';
-
-  get isBlocked() {
-    if (GlobalVariables.isAdmin && GlobalVariables.employees.length == 0)
-      return true;
-
-    return false;
-  }
-
-  get showModal() {
-    return GlobalVariables.showServiceTypeModal;
-  }
-
-  get allServiceTypes() {
-    const serviceTypes = GlobalVariables.serviceTypes
-      .filter(p => p.nameService.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-                   p.valueService.toString().includes(this.searchValue));
-    if (GlobalVariables.isAdmin)
-      return serviceTypes.filter(p=>p.barberId == GlobalVariables.selectedBarber?.barberId)
-
-    return serviceTypes;
-  };
-
-  set allServiceTypes(value) {
-    GlobalVariables.serviceTypes = value;
-  };
-
   constructor(
     private router: Router
   ) { }
@@ -43,8 +19,48 @@ export class ListServiceComponent implements OnInit {
   ngOnInit() {
   }
 
-  newServiceType() {
-    this.router.navigateByUrl('/Services/New');
+  get servicesTable() {
+    const _tables: DefaultTable = {
+      titles: ['Nome', 'Valor', 'Duração'],
+      objects: [],
+      onClick: (event: any) => this.editService(event)
+    }
+
+    GlobalVariables.serviceTypes
+      .filter(p => p.barberId === GlobalVariables.selectedBarber?.barberId)
+      .forEach((service, i) => {
+        _tables.objects.push({
+          object: {
+            name: service.nameService,
+            value: this.formatToMoney(service.valueService),
+            duration: `${service.duration} min.`,
+            id: service.serviceTypeId
+          },
+          fontawesomeIcon: "fa-solid fa-pen",
+          // imgUrl: client.urlImage,
+          iconBgColor: AppColors.main
+        })
+      })
+
+    return _tables;
+  }
+
+  formatToMoney(value: number | string) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  editService(event: any) {
+    if (!event.object.id)
+      return;
+
+    const serviceModel = GlobalVariables.serviceTypes.find(p => p.serviceTypeId === event.object.id);
+    if (!serviceModel)
+      return;
+    
+    GlobalVariables.modalAsEdit = true;
+    GlobalVariables.editServiceType = serviceModel;
+    this.router.navigateByUrl('/Services/Edit')
+    
   }
 
 }

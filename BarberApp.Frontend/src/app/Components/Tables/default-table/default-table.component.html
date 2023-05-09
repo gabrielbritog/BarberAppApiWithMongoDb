@@ -73,7 +73,7 @@
                 i === getFilteredTable().objects.length - 1
               "
               [class.cursor-pointer]="table.onClick"
-              (click)="onClick()"
+              (click)="onClick(item)"
               class="text-header-color border-bottom bg-main"
             >
               <ng-container *ngFor="let header of table.titles; let j = index">
@@ -97,7 +97,7 @@
 
                       <ng-container *ngIf="item.fontawesomeIcon && !item.imgUrl">
                         <i
-                          [class]="item.fontawesomeIcon + ' fs-4 row-icon'"
+                          [class]="item.fontawesomeIcon + ' fs-6 row-icon'"
                         ></i>
                       </ng-container>
 

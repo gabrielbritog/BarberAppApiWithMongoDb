@@ -1,5 +1,7 @@
-<div class="plus_btn_container">
-  <button class="btn plus_btn" (click)="disableEditModal(); onClickEvent()">
-    <i class="fa-solid fa-plus"></i>
-  </button>
-</div>
+<ng-container *ngIf="show()">
+  <div class="plus_btn_container">
+    <button class="btn plus_btn" (click)="disableEditModal(); onClick()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+</ng-container>

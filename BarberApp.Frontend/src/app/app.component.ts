@@ -1,11 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from './Helpers/GlobalVariables';
 import { Router } from '@angular/router';
-import { EmployeeService } from './Services/api/Employee.service';
-import { SchedulingService } from './Services/api/SchedulingService.service';
-import { ServiceTypeService } from './Services/api/ServiceType.service';
 import { TokenStorageService } from './Services/auth/token-storage.service';
-import { WindowScrollDetectorDirective } from './Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { SpinnerService } from './Components/Spinner/spinner.service';
 import { LoadAppService } from './Services/api/LoadApp.service';
 import { ToastrService } from 'ngx-toastr';
@@ -16,13 +12,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  @ViewChild(WindowScrollDetectorDirective) scrollDetector?: WindowScrollDetectorDirective;
-  get scrolledUp() {
-    if (this.scrollDetector)
-      return this.scrollDetector.scrolledUp;
-
-    return false;
-  }
   title = 'Barber-App';
 
   get isAuthPage() {
@@ -39,7 +28,7 @@ export class AppComponent implements OnInit{
     private loadAppService: LoadAppService,
     private route: Router,
     public spinnerService: SpinnerService,
-    public toastrService: ToastrService
+    public toastrService: ToastrService,
   ) {
     if (!this.tokenStorageService.getToken() && !this.isAuthPage) {
       this.route.navigateByUrl('/Login');
