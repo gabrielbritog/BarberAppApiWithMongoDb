@@ -2,7 +2,7 @@
 accept="image/*"
 (change)="uploadProfilePic($event)">
 
-<div class="user_info container d-flex flex-column gap-2 animate_show mb-5">
+<div class="user_info overflow-hidden position-relative p-2 p-md-3 container d-flex flex-column gap-2 animate_show mb-5 card border shadow-sm">
   <div class="profile_pic border-4 border-main border bg-body text-main">
     <button type="button" class="btn btn-main edit_btn p-0" (click)="fileUpload.showPicker()">
       <i class="fa-solid fa-camera"></i>

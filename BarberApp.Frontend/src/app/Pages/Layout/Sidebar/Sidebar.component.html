@@ -5,7 +5,7 @@ class="base_bg d-flex"
 id="base-bg">
   <div class="base_container btn-outline-primary d-flex flex-column pt-0 border-end">
 
-    <div class="user_container mb-3">
+    <div class="user_container mb-3 border-bottom">
 
     </div>
     <nav class="sidebar_nav flex-grow-1">
@@ -34,6 +34,15 @@ id="base-bg">
           </span>
           </a>
         </li>
+        <li class="nav_item"  >
+          <a routerLink="/WorkFlow" routerLinkActive="active">
+          <i class="fa-solid fa-briefcase"></i>
+          <span>
+            Horários
+          </span>
+          </a>
+        </li>
+        <hr class="border-top opacity-100">
         <li *ngIf="isAdmin" class="nav_item"  >
           <a routerLink="/Employees" routerLinkActive="active">
             <i class="fa-solid fa-people-group"></i>
@@ -64,14 +73,6 @@ id="base-bg">
             <span>
               Clientes
             </span>
-          </a>
-        </li>
-        <li class="nav_item"  >
-          <a routerLink="/WorkFlow" routerLinkActive="active">
-          <i class="fa-solid fa-briefcase"></i>
-          <span>
-            Horários
-          </span>
           </a>
         </li>
         <!-- <li class="nav_item"  >

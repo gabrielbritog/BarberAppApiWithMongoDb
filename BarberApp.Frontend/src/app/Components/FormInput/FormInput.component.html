@@ -1,5 +1,5 @@
 <form #genericForm="ngForm"
-class="input_container w_100"
+class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
 (ngSubmit)="onSubmit(genericForm)">
 
   <ng-container *ngFor="let item of inputs; let i = index">
@@ -59,7 +59,7 @@ class="input_container w_100"
 
     <ng-container *ngIf="item.type === 'checkbox'">
 
-      <div class="p-0 border-radius-global" [class.form_invalid]="getValidationMessage(item) != null">
+      <div class="p-0 border-radius-global border" [class.form_invalid]="getValidationMessage(item) != null">
 
         <accordion [isAnimated]="true" class="border-radius-global shadow-sm overflow-hidden">
           <accordion-group panelClass="custom-accordion-panel"
@@ -174,7 +174,7 @@ class="input_container w_100"
     </div>
   </ng-container>
 
-  <button 
+  <button
   [class.me-auto]="marginOnSubmit"
   class="btn btn-main mt-auto px-5 btn_submit shadow-sm" type="submit">
     {{submitText}}
