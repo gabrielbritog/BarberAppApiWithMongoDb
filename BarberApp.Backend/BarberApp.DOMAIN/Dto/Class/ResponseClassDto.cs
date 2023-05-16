@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BarberApp.Domain.Models
+namespace BarberApp.Domain.Dto.Class
 {
-    public class Class
+    public class ResponseClassDto
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         [BsonElement("id")]
         public string Id { get; set; }
         [BsonElement("userId")]
@@ -22,6 +20,5 @@ namespace BarberApp.Domain.Models
         public List<string> ClientsId { get; set; }
         [BsonElement("presenceId")]
         public List<string> PresencesId { get; set; }
-
     }
 }

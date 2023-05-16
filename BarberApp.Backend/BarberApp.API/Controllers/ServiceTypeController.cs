@@ -25,7 +25,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "", await _serviceServiceType.Register(serviceType, Id,serviceType.barberId)));
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.Register(serviceType, Id,serviceType.barberId)));
             }
             catch (Exception e)
             {
@@ -40,7 +40,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "", await _serviceServiceType.GetMany(Id,start,count)));
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.GetMany(Id,start,count)));
 
             }
             catch (Exception e )
@@ -56,7 +56,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "", await _serviceServiceType.GetById(Id, serviceTypeId)));
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.GetById(Id, serviceTypeId)));
 
             }
             catch (Exception e)
@@ -72,7 +72,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                return Ok(new ResponseViewModel(true, "", await _serviceServiceType.Update(serviceType, Id)));
+                return Ok(new ResponseViewModel(true, "Sucesso", await _serviceServiceType.Update(serviceType, Id)));
 
             }
             catch (Exception e)

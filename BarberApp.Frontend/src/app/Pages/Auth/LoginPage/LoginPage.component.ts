@@ -17,6 +17,7 @@ import { DashboardSectionComponent } from '../../Shared/DashboardPage/DashboardS
   styleUrls: ['./LoginPage.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+  title = 'Login';
 
   loginForm: IFormInput[] = [
     { // Company Name

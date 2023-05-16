@@ -2,13 +2,17 @@
 
 <section class="container-fluid position-relative w-100 overflow-hidden p-0 bg-black bg-opacity-50">
   <div class="container base_container h-100 overflow-auto d-flex flex-column" [class.hide]="hide">
-    <div class="container_header">
+    <div class="container_header my-3">
       <app-logo></app-logo>
     </div>
 
     <div class="container_content d-flex flex-column">
-      <h2 class="form_title text-white">Registrar</h2>
-      <app-FormInput [inputs]="registerForm" [marginOnSubmit]="false" [submitText]="'Enviar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+      <app-FormInput
+      [formTitle]="'Registrar'"
+      [inputs]="registerForm"
+      [marginOnSubmit]="false"
+      [submitText]="'Enviar'"
+      (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>
 
     <div class="container_footer text-white">

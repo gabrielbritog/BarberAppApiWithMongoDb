@@ -16,8 +16,8 @@ export class ClassCardComponent implements OnInit {
     if (!this.classModel) {
       this.classModel = {
         name: 'Matemática - Segunda-feira',
-        clients: [],
-        presence: []
+        clientsId: [],
+        presencesId: []
       }
     }
   }

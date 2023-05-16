@@ -24,9 +24,9 @@ export class ListClientsComponent implements OnInit {
           name: client.name,
           phone: client.phone,
         },
-        fontawesomeIcon: "fa-brands fa-whatsapp",
+        // fontawesomeIcon: "fa-brands fa-whatsapp",
         // imgUrl: client.urlImage,
-        iconBgColor: AppColors.green
+        // iconBgColor: AppColors.green
       })
     })
 

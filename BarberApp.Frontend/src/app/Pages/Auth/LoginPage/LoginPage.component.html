@@ -2,13 +2,17 @@
 
 <section class="container-fluid position-relative w-100 p-0 bg-black bg-opacity-50">
   <div class="container base_container h-100" [class.hide]="hide">
-    <div class="container_header">
+    <div class="container_header my-3">
       <app-logo></app-logo>
     </div>
 
     <div class="container_content d-flex flex-column">
-      <h2 class="form_title text-white">Login</h2>
-      <app-FormInput [inputs]="loginForm" [marginOnSubmit]="false" [submitText]="'Entrar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+      <app-FormInput
+      [formTitle]="'Login'"
+      [inputs]="loginForm"
+      [marginOnSubmit]="false"
+      [submitText]="'Entrar'"
+      (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>
 
     <div class="container_footer text-white">

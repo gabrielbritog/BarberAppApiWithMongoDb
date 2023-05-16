@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ClientModel } from '../../../../Models/ClientModel';
-import { ClassesModel } from '../../../../Models/ClassesModel';
+import { ClassesFrontModel, ClassesUtilities } from '../../../../Models/ClassesModel';
 import { Router } from '@angular/router';
+import { ClassesService } from '../../../../Services/api/Classes.service';
+import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ClassDetails',
@@ -10,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['../../../Styles/baseSection.scss', './ClassDetails.component.css']
 })
 export class ClassDetailsComponent implements OnInit {
-  classModel: ClassesModel;
+  classModel: ClassesFrontModel;
   get selectedClass() {
     return GlobalVariables.selectedClass;
   }
@@ -26,47 +29,42 @@ export class ClassDetailsComponent implements OnInit {
 
   get clientList() {
     return GlobalVariables.clients
-      .filter(p =>
-        p.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-        p.phone.toLowerCase().includes(this.searchValue.toLowerCase())
-      )
-      .filter((cName, index, self) => self.map(p => p.phone).includes(cName.phone, index + 1) === false)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .sort((b, a) => {
-        if (this.classModel.clients.some(p => p == a))
-          return 1;
-        if (this.classModel.clients.some(p => p == b))
+      .sort((a, b) => {
+        if (this.classModel.clientsModel.some(p => p.clientId === a.clientId))
           return -1;
+        if (this.classModel.clientsModel.some(p => p.clientId === b.clientId))
+          return 1;
 
-        return 0
-      });
+        return 0;
+      })
   }
 
   hasClient(client: ClientModel) {
-    return this.classModel.clients.some(p => p == client);
+    return this.classModel.clientsModel.some(p => p == client);
   }
 
   addClientToClass(client: ClientModel) {
-    if (this.classModel.clients.some(p => p == client))
-      this.classModel.clients = this.classModel.clients.filter(p=> p !== client);
+    if (this.classModel.clientsModel.some(p => p == client))
+      this.classModel.clientsModel = this.classModel.clientsModel.filter(p=> p !== client);
     else
-      this.classModel.clients.push(client);
+      this.classModel.clientsModel.push(client);
   }
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private classesService: ClassesService,
+    private toastr: ToastrService
+  ) {
     if (!this.selectedClass){
       this.classModel = {
         name: 'Teste',
-        clients: [],
-        presence: []
+        clientsModel: [],
+        clientsPresence: []
       }
     }
     else {
-      this.classModel = {
-        name: this.selectedClass.name,
-        clients: this.selectedClass.clients,
-        presence: this.selectedClass.presence
-      }
+      this.classModel = ClassesUtilities.convertApiModelToFrontModel(this.selectedClass);
     }
   }
 
@@ -75,34 +73,37 @@ export class ClassDetailsComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.selectedClass === undefined) {
-      let newClassId = 0;
-  
-      do {
-        newClassId++;
-      } while (GlobalVariables.allClasses.some(p => p.id == newClassId.toString()));
-      this.classModel.id = newClassId.toString();
-
-      GlobalVariables.allClasses.push({
-        id: this.classModel.id,
-        name: this.classModel.name,
-        clients: [...this.classModel.clients],
-        presence: [...this.classModel.presence],
-      });
-      this.router.navigateByUrl('/Classes');
+    if(!this.classModel.name){
+      this.toastr.warning('O campo nome deve ser preenchido');
       return;
     }
 
-
-    const existedClass = GlobalVariables.allClasses.find(p => p.id === this.selectedClass!.id?? -1);
-
-    if (existedClass) {
-      existedClass.name = this.classModel.name;
-      existedClass.clients = [...this.classModel.clients];
-      existedClass.presence = [...this.classModel.presence];
+    if(this.classModel.clientsModel.length < 1){
+      this.toastr.warning('Deve possuir pelo menos um cliente');
+      return;
     }
 
-    console.log(GlobalVariables.allClasses);
+    const apiModel = ClassesUtilities.convertFrontModelToApiModel(this.classModel);
+    const apiCall = this.selectedClass? this.classesService.update(apiModel) :  this.classesService.register(apiModel);
+
+    apiCall.subscribe({
+      next: (value) => {
+        this.successResponse(value);
+      },
+      error(err) {
+        console.log(err)
+      },
+    })
+  }
+
+  successResponse(apiResponse: any) {
+    if(!this.selectedClass)
+      GlobalVariables.allClasses.push(apiResponse.data);
+    else{
+      const existedClass = GlobalVariables.allClasses.findIndex(p => p.id === apiResponse.data.id)!;
+      GlobalVariables.allClasses[existedClass] = apiResponse.data;
+    }
+
     this.router.navigateByUrl('/Classes');
   }
 

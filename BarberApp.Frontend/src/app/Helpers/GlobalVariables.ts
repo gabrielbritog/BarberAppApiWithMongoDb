@@ -195,12 +195,13 @@ export class GlobalVariables {
         GlobalVariables.schedules = value.schedules.data.map((p: any) => {
           return new ScheduleModel(p);
         });
+        GlobalVariables.allClasses = value.classes.data;
         GlobalVariables.fillProperties();
         GlobalVariables.isAppLoaded = true;
 
         if (GlobalVariables.employees.length == 0)
           GlobalVariables.loadAppService.navigateByUrl('/Employees/New');
-        
+
       },
       error(err) {
         console.log('Erro inesperado');
@@ -224,6 +225,8 @@ export class GlobalVariables {
     GlobalVariables._schedules = [];
     GlobalVariables._serviceTypes = [];
     GlobalVariables._employees = [];
+    GlobalVariables.allClasses = [];
+    GlobalVariables.clients = [];
   }
 
   static fillProperties(user?: UserModel) {

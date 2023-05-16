@@ -7,6 +7,7 @@ import { ClassesListComponent } from './ClassesList/ClassesList.component';
 import { ClassDetailsComponent } from './ClassDetails/ClassDetails.component';
 import { FormsModule } from '@angular/forms';
 import { PlusButtonModule } from '../../../Components/PlusButton/plus-button.module';
+import { TablesModule } from '../../../Components/Tables/Tables.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { PlusButtonModule } from '../../../Components/PlusButton/plus-button.mod
     RouterModule,
     CardsModule,
     FormsModule,
-    PlusButtonModule
+    PlusButtonModule,
+    TablesModule
   ],
   declarations: [
     ClassesPageComponent,

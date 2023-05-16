@@ -82,7 +82,7 @@ export class ScheduleDetailsComponent implements OnInit {
       {
         id: 'classModel',
         label: 'Turma',
-        value: this.scheduleModel.class,
+        value: this.scheduleModel.class?.id,
         type: 'select',
         formOptions: this.ClassesModelAsFormOptions
       },
@@ -251,7 +251,7 @@ export class ScheduleDetailsComponent implements OnInit {
         }, 20);
       },
       error: (err) => {
-        console.log(err.error.data);
+        console.log(err.error);
       }
     })
 

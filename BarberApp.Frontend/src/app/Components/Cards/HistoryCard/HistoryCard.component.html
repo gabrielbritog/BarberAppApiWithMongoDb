@@ -1,19 +1,20 @@
 
-<div class="card border-0 shadow-sm flex-row p-2 gap-2">
-  <button
-  class="card-image d-grid align-content-center justify-content-center p-3 rounded btn btn-main"
-  style="width: 48px; height: 48px;"
+<div class="card border shadow-sm flex-row p-2 gap-2">
+  <div
+  class="card-image d-grid align-content-center justify-content-center p-3 rounded text-bg-main"
+  style="width: 48px;"
   >
     <i class="fa-solid fa-screwdriver-wrench fs-4"></i>
-  </button>
+  </div>
   <div class="card-body p-0 my-auto">
-    <div class="d-flex align-items-start justify-content-between lh-1 mb-2">
-      <h5 class="card-title m-0">Agendamento</h5>
+    <div class="d-flex align-items-start justify-content-between lh-1 mb-1">
+      <h5 class="card-title m-0">
+        <ng-container *ngIf="scheduleModel.client">Cliente: {{scheduleModel.client.name}}</ng-container>
+        <ng-container *ngIf="scheduleModel.class">Turma: {{scheduleModel.class.name}}</ng-container>
+      </h5>
       <span class="card-title m-0 text-uppercase small text-muted">{{formatedDate}}</span>
     </div>
     <div class="card-subtitle d-flex flex-column text-muted lh-1 small gap-1 m-0">
-      <span *ngIf="scheduleModel.client">{{scheduleModel.client.name}}</span>
-      <span *ngIf="scheduleModel.class">{{scheduleModel.class.name}}</span>
       <div>
         <span *ngFor="let item of scheduleModel.serviceType; let i = index">
           {{item.nameService}}{{i+1 < scheduleModel.serviceType.length ? ', ' : ''}}

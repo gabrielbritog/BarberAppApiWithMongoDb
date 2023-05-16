@@ -2,6 +2,9 @@
 class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
 (ngSubmit)="onSubmit(genericForm)">
 
+  <ng-container *ngIf="formTitle">
+    <h2 class="mb-2">{{formTitle}}</h2>
+  </ng-container>
   <ng-container *ngFor="let item of inputs; let i = index">
 
     <div *ngIf="item.type === 'radio'" class="form_group" [class.form_invalid]="getValidationMessage(item) != null">

@@ -36,9 +36,9 @@ export class ListServiceComponent implements OnInit {
             duration: `${service.duration} min.`,
             id: service.serviceTypeId
           },
-          fontawesomeIcon: "fa-solid fa-pen",
+          // fontawesomeIcon: "fa-solid fa-pen",
           // imgUrl: client.urlImage,
-          iconBgColor: AppColors.main
+          // iconBgColor: AppColors.main
         })
       })
 
@@ -56,11 +56,11 @@ export class ListServiceComponent implements OnInit {
     const serviceModel = GlobalVariables.serviceTypes.find(p => p.serviceTypeId === event.object.id);
     if (!serviceModel)
       return;
-    
+
     GlobalVariables.modalAsEdit = true;
     GlobalVariables.editServiceType = serviceModel;
     this.router.navigateByUrl('/Services/Edit')
-    
+
   }
 
 }

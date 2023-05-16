@@ -6,6 +6,7 @@ import { SchedulingService } from './SchedulingService.service';
 import { ServiceTypeService } from './ServiceType.service';
 import { Router } from '@angular/router';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { ClassesService } from './Classes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class LoadAppService {
     private employeeService: EmployeeService,
     private serviceTypeService: ServiceTypeService,
     private schedulingService: SchedulingService,
+    private classesService: ClassesService,
     private router: Router
   ) { }
 
@@ -25,13 +27,15 @@ export class LoadAppService {
     const employees = this.employeeService.getAll();
     const serviceTypes = this.serviceTypeService.getAll();
     const schedules = this.schedulingService.getAll();
+    const classes = this.classesService.getAll();
 
-    return forkJoin([ clients, employees, serviceTypes, schedules ]).pipe(
-      map(([clients, employees, serviceTypes, schedules]) => ({
+    return forkJoin([ clients, employees, serviceTypes, schedules, classes ]).pipe(
+      map(([clients, employees, serviceTypes, schedules, classes]) => ({
         clients,
         employees,
         serviceTypes,
-        schedules
+        schedules,
+        classes
       }))
     );
   }

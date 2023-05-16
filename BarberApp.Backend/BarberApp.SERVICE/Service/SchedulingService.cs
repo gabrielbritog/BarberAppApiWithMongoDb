@@ -35,10 +35,10 @@ namespace BarberApp.Service.Service
             checkClient.SchedulingCount = checkClient.SchedulingCount - 1;
             await _clientRepository.Update(checkClient);
             return await _schedulingRepository.DeleteById(userId, schedulingId);
-        } 
+        }
         public async Task<List<ResponseSchedulingDto>> GetMany(string userId, int start, int count)
         {
-            var result = await _schedulingRepository.GetMany(userId,start,count);
+            var result = await _schedulingRepository.GetMany(userId, start, count);
             return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
         public async Task<List<ResponseSchedulingDto>> GetManyDesc(string userId, int start, int count)
@@ -49,32 +49,32 @@ namespace BarberApp.Service.Service
 
         public async Task<List<ResponseSchedulingDto>> GetMany(string userId, string barberId, int start, int count)
         {
-            var result = await _schedulingRepository.GetMany(userId,barberId,start,count);
+            var result = await _schedulingRepository.GetMany(userId, barberId, start, count);
             return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
 
-        public async Task<ResponseSchedulingDto> GetById(string schedulingId,string userId)
+        public async Task<ResponseSchedulingDto> GetById(string schedulingId, string userId)
         {
-           
+
             var result = await _schedulingRepository.GetById(schedulingId, userId);
             return _mapper.Map<ResponseSchedulingDto>(result);
         }
         public async Task<List<ResponseSchedulingDto>> GetManyByDate(string userId, DateTime startDate, DateTime endDate)
         {
-            var result = await _schedulingRepository.GetManyByDate(userId,startDate, endDate);
-            return _mapper.Map<List<ResponseSchedulingDto>> (result);
+            var result = await _schedulingRepository.GetManyByDate(userId, startDate, endDate);
+            return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
         {
 
-            if (scheduling.Client != null)
-            {
-                await _clientService.Register(scheduling.Client, UserId);
-            }
-            else
-            {
-                throw new Exception("Preencha os dados do cliente");
-            }
+            // if (scheduling.Client != null)
+            // {
+            //     await _clientService.Register(scheduling.Client, UserId);
+            // }
+            // else
+            // {
+            //     throw new Exception("Preencha os dados do cliente");
+            // }
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);
             schedulingMap.UserId = UserId;
             var quantity = scheduling.ServiceType.Count();
@@ -93,7 +93,7 @@ namespace BarberApp.Service.Service
             return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
         }
 
-        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId,string barberId)
+        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId, string barberId)
         {
             var checkBarber = await _barberRepository.GetById(barberId);
             var checkUser = await _userRepository.GetById(UserId);
@@ -162,8 +162,8 @@ namespace BarberApp.Service.Service
             for (int i = 0; i < quantity; i++)
             {
                 var counting = schedulingsDb[i].ServiceType.Count();
-               
-                    Barber barber =  await _barberRepository.GetById(schedulingsDb[i].BarberId);
+
+                Barber barber = await _barberRepository.GetById(schedulingsDb[i].BarberId);
                 DateTime schedulingDate = schedulingsDb[i].SchedulingDate;
                 string clientName = schedulingsDb[i].Client.Name;
                 string barberName = barber.FirstName;
@@ -186,12 +186,12 @@ namespace BarberApp.Service.Service
                 result.PeriodTotal = calc.ToString("C", new CultureInfo("pt-BR"));
 
             }
-                return result;
+            return result;
         }
 
         public async Task<List<ResponseSchedulingDto>> GetManyByDate(string userId, string barberId, DateTime startDate, DateTime endDate)
         {
-            var result = await _schedulingRepository.GetManyByDate(userId,barberId, startDate, endDate);
+            var result = await _schedulingRepository.GetManyByDate(userId, barberId, startDate, endDate);
             return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
     }

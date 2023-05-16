@@ -28,13 +28,14 @@
           </h4>
         </div>
       </div>
-      <ng-container *ngIf="classModel.clients.length > 0">
+      <ng-container *ngIf="classModel.clientsId.length > 0">
         <hr class="border-top opacity-100">
         <div class="group-options d-flex flex-column gap-2 p-3">
 
-          <ng-container *ngFor="let item of classModel.clients">
+          <ng-container *ngFor="let item of classModel.clientsId">
             <p class="client-name m-0 p-0 text-capitalize border-bottom">
-              {{item.name}}
+
+              <!-- {{item.name}} -->
             </p>
           </ng-container>
 

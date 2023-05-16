@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BarberApp.Domain.Dto.Barber;
+using BarberApp.Domain.Dto.Class;
 using BarberApp.Domain.Dto.Client;
 using BarberApp.Domain.Dto.Company;
 using BarberApp.Domain.Dto.Scheduling;
@@ -55,6 +56,13 @@ namespace BarberApp.Service.Configurations
             CreateMap<Company, ResponseCompanyDto>()
               .ReverseMap(); 
             CreateMap<Company, UpdateCompanyDto>()
+              .ReverseMap();
+
+            CreateMap<Class, RegisterClassDto>()
+             .ReverseMap();
+            CreateMap<Class, ResponseClassDto>()
+              .ReverseMap();
+            CreateMap<Class, UpdateClassDto>()
               .ReverseMap();
 
             CreateMap<ResponseSchedulingDto, UpdateSchedulingDto>().ReverseMap();

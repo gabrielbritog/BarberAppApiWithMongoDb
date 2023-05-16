@@ -2,21 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { ClassesFrontModel, ClassesModel } from 'src/app/Models/ClassesModel';
+import { ClientModel } from 'src/app/Models/ClientModel';
 import { TokenStorageService } from '../auth/token-storage.service';
-import { ClientModel } from '../../Models/ClientModel';
-
 
 const URL_API = GlobalVariables.API_BASE_URL;
-const BASE_URL_API = `${URL_API}/api/Client/`;
+const BASE_URL_API = `${URL_API}/api/Class/`;
 const ROUTE_REGISTER = 'Register';
-const ROUTE_UPDATE = 'Register';
+const ROUTE_UPDATE = 'Update';
 const ROUTE_GETMANY = 'GetMany';
 const ROUTE_GETALL = 'GetAll';
+const ROUTE_GETBYID = 'GetById';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService {
+export class ClassesService {
 
   constructor(
     private http: HttpClient,
@@ -36,12 +37,12 @@ export class ClientService {
     });
   }
 
-  register(client: ClientModel): Observable<any> {
-    return this.http.post<any>(BASE_URL_API + ROUTE_REGISTER, client);
+  register(_class: ClassesModel): Observable<any> {
+    return this.http.post<any>(BASE_URL_API + ROUTE_REGISTER, _class);
   }
 
-  update(client: ClientModel): Observable<any> {
-    return this.http.put<any>(BASE_URL_API + ROUTE_UPDATE, client);
+  update(_class: ClassesModel): Observable<any> {
+    return this.http.put<any>(BASE_URL_API + ROUTE_UPDATE, _class);
   }
 
 }
