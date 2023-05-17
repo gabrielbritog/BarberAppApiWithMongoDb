@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserConfig } from 'src/app/Models/UserConfig';
 import { UserService } from 'src/app/Services/user/User.service';
 import { RouteHistoryService } from '../../../Services/misc/route-history.service';
@@ -42,7 +42,8 @@ export class NavBarComponent implements OnInit {
   }
 
   get currentRoute() {
-    const routerUrl = this.router.routerState.snapshot.url;
+    // const routerUrl = this.router.routerState.snapshot.url;
+    const routerUrl = this.router.routerState.snapshot.url.split('/', 3).toString().replaceAll(',', '/');
 
     const routeNames = [
       '/Login',
@@ -65,6 +66,7 @@ export class NavBarComponent implements OnInit {
       '/Classes/New',
       '/Clients',
       '/Clients/New',
+      '/Clients/Edit',
       '/Account',
       '/Account/Name',
       '/Account/Email',
@@ -93,6 +95,7 @@ export class NavBarComponent implements OnInit {
       'Nova turma',
       'Clientes',
       'Novo Cliente',
+      this.isAdmin? 'Editar Cliente' : 'Detalhes do cliente',
       'Perfil',
       'Alterar Nome',
       'Alterar Email',
@@ -113,6 +116,7 @@ export class NavBarComponent implements OnInit {
   constructor(
     private tokenStorage: TokenStorageService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private routeHistory: RouteHistoryService
   ) {

@@ -20,8 +20,8 @@ export class ClientsPageComponent implements OnInit {
 
   get headerUrl() {
     let header = 'Clientes'
-    const route = this.router.url.split('/');
-    const lastRoute = route[route.length - 1];
+    const route = this.router.url.split('/').filter(p=>p!='');
+    const lastRoute = route[1];
     switch (lastRoute) {
       case 'New':
         header = 'Novo Cliente'

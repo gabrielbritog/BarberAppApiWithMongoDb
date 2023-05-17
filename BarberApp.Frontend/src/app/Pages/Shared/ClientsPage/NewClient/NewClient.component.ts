@@ -27,12 +27,6 @@ export class NewClientComponent implements OnInit {
       type: 'text',
       value: '',
     },
-    // {
-    //   id: 'duration',
-    //   label: 'Duração em minutos',
-    //   type: 'tel',
-    //   value: GlobalVariables.intervalTimeMinutes
-    // }
   ]
 
   constructor(

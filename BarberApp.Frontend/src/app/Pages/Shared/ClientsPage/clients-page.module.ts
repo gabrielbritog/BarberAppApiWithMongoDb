@@ -6,6 +6,7 @@ import { NewClientComponent } from './NewClient/NewClient.component';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../../../Components/components.module';
 import { FormsModule } from '@angular/forms';
+import { EditClientComponent } from './EditClient/EditClient.component';
 
 
 
@@ -19,12 +20,14 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     ClientsPageComponent,
     ListClientsComponent,
-    NewClientComponent
+    NewClientComponent,
+    EditClientComponent,
   ],
   exports: [
     ClientsPageComponent,
     ListClientsComponent,
-    NewClientComponent
+    NewClientComponent,
+    EditClientComponent,
   ],
 })
 export class ClientsPageModule { }

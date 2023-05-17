@@ -29,6 +29,7 @@ import { ClassesPageComponent } from './Pages/Shared/ClassesPage/ClassesPage.com
 import { ClassesListComponent } from './Pages/Shared/ClassesPage/ClassesList/ClassesList.component';
 import { ClassDetailsComponent } from './Pages/Shared/ClassesPage/ClassDetails/ClassDetails.component';
 import { NewClientComponent } from './Pages/Shared/ClientsPage/NewClient/NewClient.component';
+import { EditClientComponent } from './Pages/Shared/ClientsPage/EditClient/EditClient.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
@@ -56,6 +57,7 @@ const routes: Routes = [
     path: 'Clients', component: ClientsPageComponent, children: [
     {path: '', component: ListClientsComponent},
     {path: 'New', component: NewClientComponent},
+    {path: 'Edit/:id', component: EditClientComponent},
   ] },
   { path: 'Classes', component: ClassesPageComponent, children: [
     {path: '', component: ClassesListComponent},

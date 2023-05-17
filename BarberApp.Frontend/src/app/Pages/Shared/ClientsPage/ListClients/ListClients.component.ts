@@ -15,7 +15,7 @@ export class ListClientsComponent implements OnInit {
     const _tables: DefaultTable = {
       titles: ['Nome', 'Telefone'],
       objects: [],
-      // onClick: () => this.metodoTeste()
+      onClick: (event: any) => this.editClient(event)
     }
 
     GlobalVariables.clients.forEach((client, i) => {
@@ -23,6 +23,7 @@ export class ListClientsComponent implements OnInit {
         object: {
           name: client.name,
           phone: client.phone,
+          id: client.clientId
         },
         // fontawesomeIcon: "fa-brands fa-whatsapp",
         // imgUrl: client.urlImage,
@@ -31,6 +32,13 @@ export class ListClientsComponent implements OnInit {
     })
 
     return _tables;
+  }
+
+  editClient(event: any) {
+    if (!event.object.id)
+      return;
+
+    this.router.navigateByUrl(`/Clients/Edit/${event.object.id}`);
   }
 
   constructor(
