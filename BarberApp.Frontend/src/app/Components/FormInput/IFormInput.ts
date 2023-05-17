@@ -7,6 +7,7 @@ export interface IFormInput {
   options?: IOptions;
   currency?: boolean;
   alert?: string;
+  disabled?: boolean;
 }
 
 export interface IFormOptions{

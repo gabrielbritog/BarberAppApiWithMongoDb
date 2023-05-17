@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../../../Components/components.module';
 import { FormsModule } from '@angular/forms';
 import { EditClientComponent } from './EditClient/EditClient.component';
+import { DetailsClientComponent } from './DetailsClient/DetailsClient.component';
 
 
 
@@ -22,12 +23,14 @@ import { EditClientComponent } from './EditClient/EditClient.component';
     ListClientsComponent,
     NewClientComponent,
     EditClientComponent,
+    DetailsClientComponent,
   ],
   exports: [
     ClientsPageComponent,
     ListClientsComponent,
     NewClientComponent,
     EditClientComponent,
+    DetailsClientComponent,
   ],
 })
 export class ClientsPageModule { }

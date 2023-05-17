@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
@@ -8,11 +8,11 @@ import { ClientModel, ClientModelHelper } from 'src/app/Models/ClientModel';
 import { ClientService } from 'src/app/Services/api/Client.service';
 
 @Component({
-  selector: 'app-EditClient',
-  templateUrl: './EditClient.component.html',
-  styleUrls: ['./EditClient.component.css']
+  selector: 'app-DetailsClient',
+  templateUrl: './DetailsClient.component.html',
+  styleUrls: ['./DetailsClient.component.css']
 })
-export class EditClientComponent implements OnInit, OnDestroy {
+export class DetailsClientComponent implements OnInit, OnDestroy {
 
   id: string = '';
   subscription?: Subscription;

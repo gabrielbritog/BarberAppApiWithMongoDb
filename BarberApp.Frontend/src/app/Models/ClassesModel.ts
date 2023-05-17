@@ -17,8 +17,6 @@ export interface ClassesFrontModel {
 
 export class ClassesUtilities{
   static convertApiModelToFrontModel(original: ClassesModel) {
-    console.log(GlobalVariables.clients.map(p=>p.clientId))
-    console.log(original.clientsId)
     const clients = GlobalVariables.clients
       .filter(p => p.clientId && original.clientsId.includes(p.clientId));
     const clientsPresence = GlobalVariables.clients

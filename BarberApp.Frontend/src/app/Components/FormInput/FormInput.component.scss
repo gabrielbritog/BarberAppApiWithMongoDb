@@ -207,7 +207,6 @@ select{
   color: var(--app-color-input-text);
   border: none;
   padding: 1.4rem 1rem 0.5rem;
-  border-radius: var(--global-border-radius);
   option{
     color: black;
   }
@@ -262,11 +261,15 @@ select{
   }
 }
 
+*:disabled, *.disabled{
+  background-color: var(--bs-border-color) !important;
+}
+
 label {
   display: flex;
   position: relative;
   width: 100%;
-  border-radius: var(--global-border-radius);
+  border-radius: var(--bs-border-radius);
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border: 1px solid var(--bs-border-color);
