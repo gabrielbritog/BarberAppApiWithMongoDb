@@ -45,7 +45,18 @@ export class ClientModelHelper {
     };
   }
 
-  static clone(model?: ClientModel): ClientModel {
+  static clone(model?: any): ClientModel {
+
+    if(model){
+      const modelKeys = Object.keys(model);
+
+      modelKeys.forEach(prop => {
+        if (model[prop] === '')
+          model[prop] = undefined;
+        console.log(model[prop])
+      });
+    }
+
     const clone: ClientModel = {
       name: '',
       phone: '',

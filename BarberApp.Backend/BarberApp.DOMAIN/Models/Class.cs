@@ -23,5 +23,8 @@ namespace BarberApp.Domain.Models
         [BsonElement("presenceId")]
         public List<string> PresencesId { get; set; }
 
+        [BsonElement("disabled")]
+        public bool Disabled { get; set; } = false;
+
     }
 }

@@ -30,6 +30,7 @@ import { ClassesListComponent } from './Pages/Shared/ClassesPage/ClassesList/Cla
 import { ClassDetailsComponent } from './Pages/Shared/ClassesPage/ClassDetails/ClassDetails.component';
 import { NewClientComponent } from './Pages/Shared/ClientsPage/NewClient/NewClient.component';
 import { EditClientComponent } from './Pages/Shared/ClientsPage/EditClient/EditClient.component';
+import { SchedulePresenceComponent } from './Pages/Shared/SchedulesPage/schedule-presence/schedule-presence.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'Dashboard', component: DashboardSectionComponent },
   { path: 'Schedules', component: SchedulesSectionComponent , children: [
     {path: '', component: ScheduleListComponent},
+    {path: 'Presence/:id', component: SchedulePresenceComponent},
     {path: 'Details', component: ScheduleDetailsComponent},
     {path: 'New', component: ScheduleDetailsComponent},
   ] },

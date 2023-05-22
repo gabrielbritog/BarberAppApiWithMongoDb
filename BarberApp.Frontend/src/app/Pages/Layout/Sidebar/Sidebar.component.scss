@@ -185,10 +185,9 @@ input[type=number]:focus {
   }
 
   a.active{
-    color: var(--main);
+    color: white;
     font-weight: 600;
     padding-left: 1rem;
-    border-left: 8px solid;
     opacity: 1;
     i{
       opacity: 1;
@@ -198,13 +197,14 @@ input[type=number]:focus {
   a:not(.active):hover{
     color: var(--main);
     font-weight: 600;
-    padding-left: 1rem;
+    padding-left: .7rem;
     opacity: 1;
     i{
       opacity: 1;
     }
   }
   a span, a i{
+    position: relative;
     transition: none;
   }
   &.last{
@@ -243,21 +243,19 @@ a::before {
   left: 0;
   opacity: 0;
   border-radius: inherit;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
 }
 
 a.active::before {
   background-color: var(--main);
-  opacity: .1;
+  opacity: 1;
   height: 100%;
 }
 
 a:hover:not(.active)::before {
-  height: 2px;
-  top: auto;
+  height: 100%;
   background-color: var(--main);
-  opacity: .5;
+  opacity: 0.05;
+  border-radius: inherit;
 }
 
 .disabled{

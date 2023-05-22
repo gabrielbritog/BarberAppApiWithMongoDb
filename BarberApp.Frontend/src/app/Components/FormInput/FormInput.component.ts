@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IFormInput, IFormOptions } from './IFormInput';
+import { ExtraBtn, IFormInput, IFormOptions } from './IFormInput';
 import { NgForm, FormControl, Validators, FormGroup, FormControlOptions, ValidatorFn, AbstractControl } from '@angular/forms';
 import { map } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { map } from 'rxjs';
 export class FormInputComponent implements OnInit {
 
   @Input() inputs: IFormInput[] = [];
+  @Input() extraBtn?: ExtraBtn;
   @Input() formTitle?: string;
   @Input() submitText: string = "Salvar";
   @Output() submitAction = new EventEmitter<NgForm>();
@@ -28,6 +29,7 @@ export class FormInputComponent implements OnInit {
     this.listOfCheckboxes.forEach(element => {
       this.checkboxElement(element);
     })
+
   }
 
   createForm() {
@@ -68,7 +70,7 @@ export class FormInputComponent implements OnInit {
   getValidatorFields(item: IFormInput): FormControlOptions {
     const formControlOptions: FormControlOptions = {};
     const validators: ValidatorFn[] = [];
-    if (item.type != 'checkbox')
+    if (item.type != 'checkbox' && item.options?.required !== false)
       validators.push(Validators.required);
     switch (item.type) {
       case 'email':
@@ -78,7 +80,8 @@ export class FormInputComponent implements OnInit {
         validators.push(Validators.minLength(8));
         break;
       case 'checkbox':
-        validators.push(this.checkAtLeastOneSelectedValidator());
+        if (item.options?.required !== false && item.options?.min !== '0')
+          validators.push(this.checkAtLeastOneSelectedValidator());
         break;
       default:
         break;
@@ -149,6 +152,7 @@ export class FormInputComponent implements OnInit {
                                      .filter((p: IFormOptions) => p.isSelected)
                                      .map((p: IFormOptions)=> p.value);
     })
+
     this.genericFormModel.setValue(form.value);
 
     if (!this.genericFormModel.valid)

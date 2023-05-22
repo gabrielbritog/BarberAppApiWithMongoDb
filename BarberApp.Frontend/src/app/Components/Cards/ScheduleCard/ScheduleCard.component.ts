@@ -36,6 +36,7 @@ export class ScheduleCardComponent implements OnInit {
     GlobalVariables.modalAsEdit = true;
     GlobalVariables.editSchedule = this.scheduleModel;
 
+    // this.router.navigateByUrl('/Schedules/Presence/'+this.scheduleModel.schedulingId)
     this.router.navigateByUrl('/Schedules/Details')
   }
 
@@ -43,7 +44,7 @@ export class ScheduleCardComponent implements OnInit {
     GlobalVariables.modalAsEdit = false;
     GlobalVariables.editSchedule = this.scheduleModel;
 
-    this.router.navigateByUrl('/Schedules/Details')
+    this.router.navigateByUrl('/Schedules/New')
   }
 
 }

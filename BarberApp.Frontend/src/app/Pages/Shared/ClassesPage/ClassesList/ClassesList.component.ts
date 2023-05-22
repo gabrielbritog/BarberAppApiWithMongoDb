@@ -15,7 +15,7 @@ export class ClassesListComponent implements OnInit {
 
   get classesTable() {
     const _tables: DefaultTable = {
-      titles: ['Nome', 'Quantidade'],
+      titles: ['Nome', 'Alunos'],
       objects: [],
       onClick: (event: any) => this.editClass(event)
     }

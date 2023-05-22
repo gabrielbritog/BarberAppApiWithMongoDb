@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { IFormInput, IFormOptions } from 'src/app/Components/FormInput/IFormInput';
+import { ExtraBtn, IFormInput, IFormOptions } from 'src/app/Components/FormInput/IFormInput';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ClientModel, ClientModelHelper } from 'src/app/Models/ClientModel';
 import { Recurrence } from 'src/app/Models/Recurrence';
@@ -32,16 +32,15 @@ export class ScheduleDetailsComponent implements OnInit {
 
   currentTime = moment.utc(this.scheduleModel.schedulingDate).format('HH:mm');
 
-  get AvailableSchedulesAsFormOptions() {
-    return this.availableSchedules.map(this.mapScheduleTimeToFormOption);
+  presenceListButton: ExtraBtn = {
+    label: 'Presença',
+    onClick: () => {
+      this.router.navigateByUrl('/Schedules/Presence/'+this.scheduleModel.schedulingId)
+    }
   }
 
-  mapScheduleTimeToFormOption(schedule: ScheduleModel, index: number): IFormOptions{
-    return {
-      id: 'schedule_' + index,
-      label: schedule.time,
-      value: schedule.time
-    }
+  get AvailableSchedulesAsFormOptions() {
+    return this.availableSchedules.map(this.mapScheduleTimeToFormOption);
   }
 
   get ServicesAsFormOptions() {
@@ -52,12 +51,39 @@ export class ScheduleDetailsComponent implements OnInit {
     return GlobalVariables.allClasses.map(this.mapClassesModelToFormOptions);
   }
 
+  get ClassesModelClientsAsFormOptions() {
+    const iFormOptions: IFormOptions[] = [];
+    this.scheduleModel.class?.clientsId.forEach((client, index) => {
+      iFormOptions.push(this.mapClassesModelClientsToFormOptions(client, index))
+    });
+    return iFormOptions;
+  }
+
+  mapScheduleTimeToFormOption(schedule: ScheduleModel, index: number): IFormOptions{
+    return {
+      id: 'schedule_' + index,
+      label: schedule.time,
+      value: schedule.time
+    }
+  }
+
   mapClassesModelToFormOptions(classModel: ClassesModel, index: number): IFormOptions{
     return {
       id: 'class_' + index,
       label: classModel.name,
       value: classModel.id,
       isSelected: GlobalVariables.editSchedule?.class?.id === classModel.id
+    }
+  }
+
+  mapClassesModelClientsToFormOptions(_clientId: string, index: number): IFormOptions{
+    const clientModel = GlobalVariables.clients.find(client => client.clientId === _clientId)!
+
+    return {
+      id: 'classClients_' + index,
+      label: [clientModel.name, ''],
+      value: clientModel.clientId,
+      isSelected: GlobalVariables.editSchedule?.class?.presencesId.includes(clientModel.clientId!)
     }
   }
 
@@ -80,9 +106,16 @@ export class ScheduleDetailsComponent implements OnInit {
         options: {min: moment().format('YYYY-MM-DD')}
       },
       {
+        id: 'time',
+        label: 'Horário',
+        value: this.scheduleModel.time,
+        type: 'select',
+        formOptions: this.AvailableSchedulesAsFormOptions
+      },
+      {
         id: 'classModel',
         label: 'Turma',
-        value: this.scheduleModel.class?.id,
+        value: this.scheduleModel.class?.id?? '',
         type: 'select',
         formOptions: this.ClassesModelAsFormOptions
       },
@@ -98,13 +131,6 @@ export class ScheduleDetailsComponent implements OnInit {
       //   value: this.scheduleModel.client.phone,
       //   type: 'tel'
       // },
-      {
-        id: 'time',
-        label: 'Horário',
-        value: this.scheduleModel.time,
-        type: 'select',
-        formOptions: this.AvailableSchedulesAsFormOptions
-      },
       {
         id: 'services',
         label: 'Serviços',

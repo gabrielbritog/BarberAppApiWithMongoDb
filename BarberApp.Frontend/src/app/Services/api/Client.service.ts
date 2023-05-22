@@ -9,7 +9,7 @@ import { ClientModel } from '../../Models/ClientModel';
 const URL_API = GlobalVariables.API_BASE_URL;
 const BASE_URL_API = `${URL_API}/api/Client/`;
 const ROUTE_REGISTER = 'Register';
-const ROUTE_UPDATE = 'Register';
+const ROUTE_UPDATE = 'Update';
 const ROUTE_GETMANY = 'GetMany';
 const ROUTE_GETALL = 'GetAll';
 

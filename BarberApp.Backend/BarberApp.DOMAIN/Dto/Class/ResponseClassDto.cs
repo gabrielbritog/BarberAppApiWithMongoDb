@@ -20,5 +20,7 @@ namespace BarberApp.Domain.Dto.Class
         public List<string> ClientsId { get; set; }
         [BsonElement("presenceId")]
         public List<string> PresencesId { get; set; }
+        [BsonElement("disabled")]
+        public bool Disabled { get; set; }
     }
 }

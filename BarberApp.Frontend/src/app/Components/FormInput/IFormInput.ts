@@ -18,7 +18,13 @@ export interface IFormOptions{
 }
 
 export interface IOptions{
-  min: string;
+  min?: string;
   max?: string;
   showTotal?: boolean;
+  required?: boolean;
+}
+
+export interface ExtraBtn{
+  label: string;
+  onClick: () => void;
 }

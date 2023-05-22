@@ -1,6 +1,17 @@
 
 <div class="edit_container animate_show container">
 
-  <app-FormInput [inputs]="modalInputs" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+
+  <button (click)="formIndex = formIndex -1">Esquerda</button>
+  <button (click)="formIndex = formIndex +1">Direita</button>
+
+  <app-FormInput class="animate_show" [inputs]="modalInputs[formIndex]" [formTitle]="formTitles[formIndex]" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+
+  <!-- <ng-container *ngIf="formIndex === 0">
+    <app-FormInput class="animate_show" [inputs]="modalInputs[0]" [formTitle]="formTitles[0]" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+  </ng-container>
+  <ng-container *ngIf="formIndex === 1">
+    <app-FormInput class="animate_show" [inputs]="modalInputs[1]" [formTitle]="formTitles[1]" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+  </ng-container> -->
 
 </div>

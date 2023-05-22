@@ -37,7 +37,7 @@ export class ListEmployeeComponent implements OnInit {
         },
         fontawesomeIcon: "fa-solid fa-user",
         imgUrl: employee.urlImage,
-        iconBgColor: AppColors.main
+        iconBgColor: 'main'
       })
     })
 

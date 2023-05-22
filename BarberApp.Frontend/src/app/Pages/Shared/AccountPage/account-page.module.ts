@@ -5,11 +5,11 @@ import { EditEmailComponent } from './EditEmail/EditEmail.component';
 import { EditPasswordComponent } from './EditPassword/EditPassword.component';
 import { EditPhoneComponent } from './EditPhone/EditPhone.component';
 import { UserInfoComponent } from './UserInfo/UserInfo.component';
-import { ComponentsModule } from '../../../Components/components.module';
 import { RouterModule } from '@angular/router';
 import { FormInputModule } from '../../../Components/FormInput/form-input.module';
 import { CardsModule } from '../../../Components/Cards/cards.module';
 import { EditNameComponent } from './EditName/EditName.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 
@@ -34,6 +34,7 @@ import { EditNameComponent } from './EditName/EditName.component';
     CommonModule,
     FormInputModule,
     RouterModule,
+    BsDropdownModule.forRoot(),
     CardsModule
   ]
 })

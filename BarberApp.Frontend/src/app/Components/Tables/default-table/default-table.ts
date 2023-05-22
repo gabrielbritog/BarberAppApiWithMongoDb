@@ -11,5 +11,5 @@ export interface DefaultObjectInTable {
   object: any,
   fontawesomeIcon?: string,
   imgUrl?: string,
-  iconBgColor?: AppColors
+  iconBgColor?: AppColors | string
 }

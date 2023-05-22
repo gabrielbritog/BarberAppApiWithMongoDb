@@ -13,7 +13,7 @@ import { map, catchError, of } from 'rxjs';
 
 export class GlobalVariables {
 
-  static readonly API_BASE_URL = 'http://192.168.1.83:5066';
+  static readonly API_BASE_URL = 'http://192.168.1.71:5066';
 
   private static loadAppService: LoadAppService;
 

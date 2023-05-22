@@ -56,7 +56,7 @@ $black:                #000000;
   --main-secondary-color: rgb(226, 226, 226);
   --bs-tertiary-bg: var(--main) !important;
 
-  &.primary-main{
+  &.primary-main-color{
     --main: var(--main-color);
     --main-active: var(--main-active-color);
     --main-rgb: var(--bs-main-rgb);

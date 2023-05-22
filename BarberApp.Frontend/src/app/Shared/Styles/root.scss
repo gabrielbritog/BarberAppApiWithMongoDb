@@ -11,7 +11,7 @@
   --modal-zindex: 1000;
   --loader-zindex: 10000;
 
-  --global-border-radius: 10px;
+  --global-border-radius: var(--bs-border-radius);
 
   --default-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --default-transition-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1);

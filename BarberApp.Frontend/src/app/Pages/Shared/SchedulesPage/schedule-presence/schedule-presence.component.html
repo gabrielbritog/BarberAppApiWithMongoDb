@@ -1,0 +1,67 @@
+<div class="cards_container mt-0 mt-lg-3 animate_show" *ngIf="schedule">
+
+  <div class="section_title">
+    <button class="btn btn_return" (click)="onCancel()">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <h3 class="title me-auto">Lista de presença</h3>
+    <button class="btn tooltip_btn">
+      <i class="fa-solid fa-question"></i>
+    </button>
+  </div>
+
+  <form
+  style="height: 75vh;"
+  class="card p-3 border shadow-sm" action="" (submit)="onSubmit()">
+    <div class="header-container mb-3 d-md-flex justify-content-between align-items-center">
+
+      <div class="class-container flex-grow-1 w-100 text-center text-md-start">
+        <h4>Turma: {{classModel.name}}</h4>
+      </div>
+      <div class="date-container align-items-center d-flex small flex-nowrap text-end text-md-start gap-0 mt-1 mt-md-0 justify-content-center">
+        <p class="rounded-start-pill time text-bg-main px-2 ps-3 py-1 border border-main">
+          {{schedule.time}}
+        </p>
+        <p class="rounded-end-pill date text-main border border-main px-2 pe-3 py-1">
+          {{schedule.date}}
+        </p>
+      </div>
+
+    </div>
+    <div class="card p-0 border flex-grow-1 shadow-sm gap-0">
+      <div class="search-bar rounded-0 border-bottom text-bg-body shadow-sm">
+        <input
+        type="text"
+        class="small w-100 rounded-0 rounded-top"
+        placeholder="Pesquisar"
+        name="search"
+        style="border-radius: inherit;"
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="searchValue">
+      </div>
+      <div
+      class="d-flex flex-column flex-grow-1 p-3 overflow-auto gap-3">
+        <ng-container *ngFor="let item of clientList">
+          <div class="form-check d-flex overflow-hidden border-bottom p-0 align-items-center">
+            <input
+            class="form-check-input p-0 ms-1"
+            type="checkbox"
+            [checked]="hasClient(item)"
+            [value]="item"
+            [id]="item.phone+'-client'"
+            (change)="addClientToClass(item)"
+            >
+            <label
+            style="text-overflow: ellipsis;"
+            class="ms-2 form-check-label flex-grow-1 text-capitalize text-nowrap overflow-hidden" [for]="item.phone+'-client'">
+              {{item.name}}
+            </label>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-main me-auto px-4 py-2 mt-2">
+      Salvar
+    </button>
+  </form>
+</div>

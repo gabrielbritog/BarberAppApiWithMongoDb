@@ -29,6 +29,7 @@ export class ClassDetailsComponent implements OnInit {
 
   get clientList() {
     return GlobalVariables.clients
+      .filter(p=> p.name.toLowerCase().includes(this.searchValue))
       .sort((a, b) => a.name.localeCompare(b.name))
       .sort((a, b) => {
         if (this.classModel.clientsModel.some(p => p.clientId === a.clientId))

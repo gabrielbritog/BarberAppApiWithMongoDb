@@ -21,7 +21,7 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
                   name="{{item.id}}"
                   [value]="option.value"
                   [(ngModel)]="item.value"
-                  required>
+                  [required]="item.options?.required !== false">
             <div class="label_string">
               <ng-container *ngIf="isArray(option.label)">
                 <span *ngFor="let item of getArrayElements(option.label)">
@@ -37,8 +37,17 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
       </div>
     </div>
 
-    <label
-    *ngIf="item.type === 'select'"
+    <div *ngIf="item.type === 'simple-radio'" class="form_group label py-2">
+      {{item.label}}
+      <ng-container *ngFor="let option of item.formOptions; let i =  index">
+        <label class="border-0 shadow-none">
+          <input type="radio" class="d-block w-auto me-2" [name]="option.id" [id]="option.id" [value]="option.value" [(ngModel)]="item.value">
+          {{option.label}}
+        </label>
+      </ng-container>
+    </div>
+
+    <label *ngIf="item.type === 'select'"
     [class.dirty]="item.value !== '' && item.value !== undefined"
     [class.form_invalid]="getValidationMessage(item) != null">
       <select
@@ -48,8 +57,7 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
       [disabled]="item.disabled === true"
       [(ngModel)]="item.value">
         <option *ngFor="let option of item.formOptions; let i = index"
-        [value]="option.value"
-        required>
+        [value]="option.value">
           <ng-container *ngIf="isArray(option.label)">
             {{item}}
           </ng-container>
@@ -124,9 +132,29 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
 
     </ng-container>
 
+    <ng-container *ngIf="item.type  === 'textarea'">
+      <label #textAreaLabel [class.dirty]="item.value != ''">
+        <textarea
+        style="resize: none; outline: none; height: 250px; border-radius: inherit;"
+        class="border-0"
+        id="{{item.id}}"
+        name="{{item.id}}"
+        [(ngModel)]="item.value"
+        [required]="item.options?.required !== false"
+        (focus)="textAreaLabel.classList.add('dirty')"
+        (blur)="item.value === ''? textAreaLabel.classList.remove('dirty') : textAreaLabel.classList.add('dirty')"
+        ></textarea>
+        <div class="placeholder_title">
+          {{item.label}}
+        </div>
+      </label>
+    </ng-container>
+
     <ng-container
     *ngIf="item.type != 'radio' &&
            item.type != 'checkbox' &&
+           item.type != 'simple-radio' &&
+           item.type != 'textarea' &&
            item.type != 'select'">
       <label #genericInputLabel [class.dirty]="item.value != ''" [class.focused]="">
 
@@ -141,7 +169,7 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
         [(ngModel)]="item.value"
         [class.password-input]="item.type == 'password'"
         [disabled]="item.disabled === true"
-        required>
+        [required]="item.options?.required !== false">
 
         <input *ngIf="item.currency"
         [class.form_invalid]="getValidationMessage(item) != null"
@@ -158,7 +186,7 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
         }"
         appCurrencyCursor
         [disabled]="item.disabled === true"
-        required>
+        [required]="item.options?.required !== false">
 
 
         <div class="placeholder_title">
@@ -184,10 +212,24 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
     </div>
   </ng-container>
 
-  <button
+  <div
   [class.me-auto]="marginOnSubmit"
-  class="btn btn-main mt-auto px-5 btn_submit shadow-sm" type="submit">
-    {{submitText}}
-  </button>
+  class="form-footer d-flex w-100 gap-3">
+    <button
+    class="btn btn-main mt-auto px-5 btn_submit shadow-sm" type="submit">
+      {{submitText}}
+    </button>
+
+    <ng-container
+    *ngIf="extraBtn">
+      <button
+      (click)="extraBtn.onClick()"
+      style="max-width: 50%;"
+      class="btn btn-main mt-auto px-4 btn_submit shadow-sm flex-shrink-1" type="button">
+        {{extraBtn.label}}
+      </button>
+    </ng-container>
+
+  </div>
 
 </form>

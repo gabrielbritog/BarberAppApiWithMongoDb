@@ -92,6 +92,9 @@ export class EditClientComponent implements OnInit, OnDestroy {
       return;
 
     let clientModel: ClientModel = ClientModelHelper.clone(form.value);
+    clientModel.clientId = this.clientModel?.clientId;
+
+    console.log(clientModel)
 
     const apiCall = this.clientsService.update(clientModel);
 

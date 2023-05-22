@@ -5,6 +5,8 @@ import { ComponentsModule } from '../../../Components/components.module';
 import { ScheduleListComponent } from './schedule-list/schedule-list.component';
 import { ScheduleDetailsComponent } from './schedule-details/schedule-details.component';
 import { RouterModule } from '@angular/router';
+import { SchedulePresenceComponent } from './schedule-presence/schedule-presence.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -12,17 +14,20 @@ import { RouterModule } from '@angular/router';
   declarations: [
     SchedulesSectionComponent,
     ScheduleListComponent,
-    ScheduleDetailsComponent
+    ScheduleDetailsComponent,
+    SchedulePresenceComponent
   ],
   exports: [
     SchedulesSectionComponent,
     ScheduleListComponent,
-    ScheduleDetailsComponent
+    ScheduleDetailsComponent,
+    SchedulePresenceComponent
   ],
   imports: [
     CommonModule,
     ComponentsModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class SchedulesPageModule { }

@@ -52,6 +52,7 @@ export class NavBarComponent implements OnInit {
       '/Dashboard',
       '/Schedules',
       '/Schedules/Details',
+      '/Schedules/Presence',
       '/Schedules/New',
       '/History',
       '/WorkFlow',
@@ -81,6 +82,7 @@ export class NavBarComponent implements OnInit {
       'Relatórios',
       'Agenda',
       'Agendamento',
+      'Lista de presença',
       'Novo Agendamento',
       'Histórico',
       'Horários',
@@ -146,11 +148,14 @@ export class NavBarComponent implements OnInit {
 
   get darkMode() { return this.userConfig.darkmode; }
   set darkMode(value) {
+    this.userConfig = new UserConfig(this.tokenStorage.getUserModel().userConfig);
     this.userConfig.darkmode = value;
+
     this.updateUserConfig();
   }
 
   updateUserConfig() {
+
     const API_CALL = this.userService.updateUserConfig(this.userConfig);
 
     API_CALL.subscribe({

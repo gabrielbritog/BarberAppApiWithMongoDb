@@ -6,7 +6,7 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 @Component({
   selector: 'app-schedule-list',
   templateUrl: './schedule-list.component.html',
-  styleUrls: ['./schedule-list.component.css']
+  styleUrls: ['../../../Styles/baseSection.scss', './schedule-list.component.css']
 })
 export class ScheduleListComponent implements OnInit {
 
