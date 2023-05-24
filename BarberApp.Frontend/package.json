@@ -24,6 +24,7 @@
     "moment": "^2.29.4",
     "ngx-bootstrap": "^10.2.0",
     "ngx-currency": "^3.0.0",
+    "ngx-mask": "^14.2.4",
     "ngx-toastr": "^16.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

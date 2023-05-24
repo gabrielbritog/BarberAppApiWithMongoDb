@@ -1,16 +1,6 @@
-<div
-class="base_bg d-flex"
-[class.show]="showSidebar"
-[class.collapse]="!showSidebar"
-id="base-bg">
-  <div class="base_container btn-outline-primary d-flex flex-column pt-0 border-end">
-
-    <div class="user_container mb-3 border-bottom d-flex gap-0">
-
-      <div class="favicon">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500"
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500"
   zoomAndPan="magnify"
-  viewBox="0 0 375 374.999991" height="50" width="50" preserveAspectRatio="xMidYMid meet" version="1.0">
+  viewBox="0 0 375 374.999991" height="500" preserveAspectRatio="xMidYMid meet" version="1.0">
   <defs>
     <clipPath id="74a76c74e7">
       <path d="M 94 144 L 375 144 L 375 352 L 94 352 Z M 94 144 " clip-rule="nonzero" />
@@ -26,18 +16,18 @@ id="base-bg">
         clip-rule="nonzero" />
     </clipPath>
   </defs>
-  <rect x="-37.5" width="450" fill="var(--bs-body-color)" y="-37.499999" height="449.999989" fill-opacity="1" />
-  <rect x="-37.5" width="450" fill="var(--bs-body-color)" y="-37.499999" height="449.999989" fill-opacity="1" />
+  <rect x="-37.5" width="450" fill="#ffffff" y="-37.499999" height="449.999989" fill-opacity="1" />
+  <rect x="-37.5" width="450" fill="#ffffff" y="-37.499999" height="449.999989" fill-opacity="1" />
 
   <!-- BACKGROUND -->
-  <rect x="-37.5" width="450" fill="var(--bs-body-bg)" y="-37.499999" height="449.999989" fill-opacity="1" />
-  <path fill="var(--bs-body-color)"
+  <rect x="-37.5" width="450" fill="#444444" y="-37.499999" height="449.999989" fill-opacity="1" />
+  <path fill="#ffffff"
     d="M 175.132812 205.160156 C 179.753906 210.683594 182.453125 213.765625 187.589844 213.765625 C 192.214844 213.765625 195.9375 209.910156 199.921875 205.160156 L 237.425781 156.863281 L 237.425781 259.492188 C 237.425781 264.757812 239.480469 268.480469 242.5625 270.921875 C 245.519531 273.492188 249.242188 274.648438 252.324219 274.648438 C 256.820312 274.648438 260.675781 272.847656 263.371094 270.152344 C 265.941406 267.453125 267.480469 263.601562 267.480469 259.492188 L 267.480469 139.652344 C 267.480469 132.332031 267.867188 124.625 265.941406 118.972656 C 264.015625 113.324219 260.03125 109.46875 251.683594 109.46875 C 249.5 109.46875 247.832031 109.597656 246.417969 109.855469 C 243.589844 110.367188 241.535156 111.394531 240.378906 112.808594 C 239.222656 114.351562 238.453125 115.25 237.296875 117.046875 C 236.65625 117.945312 235.757812 119.359375 234.34375 121.15625 C 231.644531 124.882812 227.152344 130.664062 219.699219 139.910156 C 212.25 149.285156 201.71875 162.003906 187.203125 179.855469 L 134.027344 114.863281 C 131.589844 112.292969 129.535156 110.882812 126.964844 110.238281 C 124.265625 109.597656 121.054688 109.46875 116.046875 109.46875 C 111.421875 109.46875 108.855469 110.109375 107.3125 111.140625 C 105.773438 112.292969 105.386719 113.835938 105.386719 115.761719 C 105.386719 117.5625 105.644531 119.230469 106.15625 120.644531 C 106.542969 122.183594 106.800781 123.855469 106.800781 125.652344 C 106.925781 135.800781 106.925781 146.71875 106.925781 158.148438 L 106.925781 259.492188 C 106.925781 263.730469 108.597656 267.582031 111.292969 270.28125 C 113.863281 272.976562 117.714844 274.648438 121.957031 274.648438 C 126.449219 274.648438 130.175781 272.847656 132.875 270.152344 C 135.570312 267.453125 137.113281 263.601562 137.113281 259.492188 L 137.113281 211.195312 C 136.984375 193.855469 136.984375 175.746094 136.984375 156.609375 Z M 175.132812 205.160156 "
     fill-opacity="1" fill-rule="nonzero" />
   <g clip-path="url(#74a76c74e7)">
     <g clip-path="url(#dfccf7f449)">
       <g clip-path="url(#c23bfc2fae)">
-        <path fill="var(--bs-body-bg)"
+        <path fill="#444444"
           d="M 357.089844 142.832031 C 342.242188 145.460938 343.253906 163.132812 321.65625 172.824219 C 306.65625 179.554688 261.589844 167.332031 230.011719 188.421875 C 211.4375 200.824219 213.039062 218.816406 199.082031 232.722656 C 177.820312 253.90625 135.792969 242.359375 110.726562 261.472656 C 87.554688 279.140625 90.230469 314.335938 112.894531 333.621094 C 148.546875 363.96875 226.15625 348.546875 251.601562 343.492188 C 268.890625 340.054688 365.179688 320.921875 401.480469 260.464844 C 428.375 215.667969 406.34375 174.835938 386.746094 156.25 C 381.988281 151.734375 369.898438 140.570312 357.089844 142.832031 Z M 357.089844 142.832031 "
           fill-opacity="1" fill-rule="nonzero" />
       </g>
@@ -45,104 +35,7 @@ id="base-bg">
   </g>
 
   <!-- POINT -->
-  <path fill="var(--main)"
+  <path fill="#ff9000"
     d="M 238.847656 216.0625 C 238.847656 220.882812 240.585938 224.898438 243.664062 227.84375 C 246.746094 230.789062 250.894531 232.664062 255.714844 232.664062 C 260.398438 232.664062 264.550781 230.789062 267.761719 227.84375 C 270.839844 224.898438 272.714844 220.882812 272.714844 216.0625 C 272.714844 211.378906 270.839844 207.09375 267.761719 204.148438 C 264.550781 201.203125 260.398438 199.464844 255.714844 199.464844 C 250.894531 199.464844 246.746094 201.203125 243.664062 204.148438 C 240.585938 207.09375 238.847656 211.378906 238.847656 216.0625 Z M 238.847656 216.0625 "
     fill-opacity="1" fill-rule="nonzero" />
 </svg>
-      </div>
-      <h1 class="fs-5">
-        Marcaí
-      </h1>
-    </div>
-
-
-    <nav class="sidebar_nav flex-grow-1">
-      <ul class="nav_list">
-        <li class="nav_item"  >
-          <a routerLink="/Dashboard" routerLinkActive="active">
-            <i class="fa-solid fa-chart-line"></i>
-          <span>
-            Relatórios
-          </span>
-          </a>
-        </li>
-        <li class="nav_item"  >
-          <a routerLink="/Schedules" routerLinkActive="active">
-            <i class="fa-solid fa-calendar-week"></i>
-          <span>
-            Agenda
-          </span>
-          </a>
-        </li>
-        <li class="nav_item"  >
-          <a routerLink="/History" routerLinkActive="active">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-          <span>
-            Histórico
-          </span>
-          </a>
-        </li>
-        <li class="nav_item"  >
-          <a routerLink="/WorkFlow" routerLinkActive="active">
-          <i class="fa-solid fa-briefcase"></i>
-          <span>
-            Horários
-          </span>
-          </a>
-        </li>
-        <hr class="border-top opacity-100">
-        <li *ngIf="isAdmin" class="nav_item"  >
-          <a routerLink="/Employees" routerLinkActive="active">
-            <i class="fa-solid fa-people-group"></i>
-          <span>
-            Funcionários
-          </span>
-          </a>
-        </li>
-        <li class="nav_item"  >
-          <a routerLink="/Services" routerLinkActive="active">
-          <i class="fa-solid fa-screwdriver-wrench"></i>
-          <span>
-            Serviços
-          </span>
-          </a>
-        </li>
-        <li class="nav_item"  >
-          <a routerLink="/Classes" routerLinkActive="active">
-            <i class="fa-solid fa-user-group"></i>
-            <span>
-              Turmas
-            </span>
-          </a>
-        </li>
-        <li class="nav_item"  >
-          <a routerLink="/Clients" routerLinkActive="active">
-            <i class="fa-solid fa-user-group"></i>
-            <span>
-              Clientes
-            </span>
-          </a>
-        </li>
-        <!-- <li class="nav_item"  >
-          <a routerLink="/Account" routerLinkActive="active">
-          <i class="fa-solid fa-user-pen"></i>
-          <span>
-            Editar
-          </span>
-          </a>
-        </li> -->
-      </ul>
-      <li class="nav_item mt-auto last" (click)="logout()" >
-        <div>
-          <span>
-            Logout
-          </span>
-        </div>
-      </li>
-    </nav>
-
-  </div>
-  <div class="empty_area" (click)="closeSidebar()">
-
-  </div>
-</div>

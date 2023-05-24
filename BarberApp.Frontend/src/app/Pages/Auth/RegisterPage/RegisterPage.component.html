@@ -1,7 +1,5 @@
-<div class="auth-bg w-100 h-100 position-absolute top-0 left-0"></div>
-
-<section class="container-fluid position-relative w-100 overflow-hidden p-0 bg-black bg-opacity-50">
-  <div class="container base_container h-100 overflow-auto d-flex flex-column" [class.hide]="hide">
+<section class="container-fluid position-relative w-100 p-0 hide-scrollbar">
+  <div class="container base_container h-100 d-flex flex-column" [class.hide]="hide">
     <div class="container_header my-3">
       <app-logo></app-logo>
     </div>
@@ -15,7 +13,7 @@
       (submitAction)="onSubmit($event)" ></app-FormInput>
     </div>
 
-    <div class="container_footer text-white">
+    <div class="container_footer">
       <a (click)="goToRoute('/Login')" class="primary">
         <i class="fa-solid fa-arrow-left"></i>
         <span class="px-4">Voltar</span>

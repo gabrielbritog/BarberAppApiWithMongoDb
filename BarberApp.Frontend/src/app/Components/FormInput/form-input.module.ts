@@ -7,8 +7,10 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 
 
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     CommonModule,
     FormsModule,
     DirectivesModule,
-    NgxCurrencyModule
-  ]
+    NgxCurrencyModule,
+    NgxMaskModule.forRoot()
+  ],
+  providers: []
 })
 export class FormInputModule { }

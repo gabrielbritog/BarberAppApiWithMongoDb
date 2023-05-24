@@ -3,7 +3,9 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
 (ngSubmit)="onSubmit(genericForm)">
 
   <ng-container *ngIf="formTitle">
-    <h2 class="mb-2">{{formTitle}}</h2>
+    <h2
+    [class.d-md-none]="titleOnMobileOnly"
+    class="mb-2">{{formTitle}}</h2>
   </ng-container>
   <ng-container *ngFor="let item of inputs; let i = index">
 
@@ -159,7 +161,7 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
       <label #genericInputLabel [class.dirty]="item.value != ''" [class.focused]="">
 
 
-        <input *ngIf="item.currency != true"
+        <input *ngIf="item.currency != true && item.options?.mask === undefined"
         [class.form_invalid]="getValidationMessage(item) != null"
         type="{{item.type}}"
         id="{{item.id}}"
@@ -167,6 +169,21 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
         [min]="item.options?.min"
         [max]="item.options?.max"
         [(ngModel)]="item.value"
+        [class.password-input]="item.type == 'password'"
+        [disabled]="item.disabled === true"
+        [required]="item.options?.required !== false">
+
+        <input *ngIf="item.currency != true && item.options?.mask !== undefined"
+        [class.form_invalid]="getValidationMessage(item) != null"
+
+        type="{{item.type}}"
+        id="{{item.id}}"
+        name="{{item.id}}"
+        [min]="item.options?.min"
+        [max]="item.options?.max"
+        [(ngModel)]="item.value"
+        [mask]="formMask(item.options?.mask!, item.options?.max)"
+        [showMaskTyped]="true"
         [class.password-input]="item.type == 'password'"
         [disabled]="item.disabled === true"
         [required]="item.options?.required !== false">
@@ -214,19 +231,30 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
 
   <div
   [class.me-auto]="marginOnSubmit"
-  class="form-footer d-flex w-100 gap-3">
+  class="form-footer d-flex justify-content-between w-100 gap-3">
+
+  <ng-container
+  *ngIf="extraBtnLeft">
+    <button
+    (click)="extraBtnLeft.onClick()"
+    style="max-width: 50%;"
+    class="btn btn-main mt-auto px-4 btn_submit shadow-sm flex-shrink-1" type="button">
+      {{extraBtnLeft.label}}
+    </button>
+  </ng-container>
+
     <button
     class="btn btn-main mt-auto px-5 btn_submit shadow-sm" type="submit">
       {{submitText}}
     </button>
 
     <ng-container
-    *ngIf="extraBtn">
+    *ngIf="extraBtnRight">
       <button
-      (click)="extraBtn.onClick()"
+      (click)="extraBtnRight.onClick()"
       style="max-width: 50%;"
       class="btn btn-main mt-auto px-4 btn_submit shadow-sm flex-shrink-1" type="button">
-        {{extraBtn.label}}
+        {{extraBtnRight.label}}
       </button>
     </ng-container>
 

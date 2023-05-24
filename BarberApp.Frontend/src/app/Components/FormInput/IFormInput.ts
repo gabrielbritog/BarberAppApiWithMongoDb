@@ -22,6 +22,7 @@ export interface IOptions{
   max?: string;
   showTotal?: boolean;
   required?: boolean;
+  mask?: 'cep' | 'tel' | 'cpf' | 'rg' | 'number'
 }
 
 export interface ExtraBtn{

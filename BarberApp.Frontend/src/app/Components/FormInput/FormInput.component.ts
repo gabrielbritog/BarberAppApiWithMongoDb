@@ -11,8 +11,10 @@ import { map } from 'rxjs';
 export class FormInputComponent implements OnInit {
 
   @Input() inputs: IFormInput[] = [];
-  @Input() extraBtn?: ExtraBtn;
+  @Input() extraBtnLeft?: ExtraBtn;
+  @Input() extraBtnRight?: ExtraBtn;
   @Input() formTitle?: string;
+  @Input() titleOnMobileOnly: boolean = false;
   @Input() submitText: string = "Salvar";
   @Output() submitAction = new EventEmitter<NgForm>();
   @Input() marginOnSubmit = true;
@@ -182,6 +184,33 @@ export class FormInputComponent implements OnInit {
       .reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
 
     return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+
+
+  // FORM MASKS
+
+  formMask(mask: 'cep' | 'tel' | 'cpf' | 'rg' | 'number', max?: string) {
+    switch (mask) {
+      case 'cep':
+        return '00000-000';
+      case 'tel':
+        return '(00) 0000-0000||(00) 0 0000-0000';
+      case 'cpf':
+        return '000.000.000-00';
+      case 'rg':
+        return '00.000.000-0';
+      case 'number':
+        let tempMask = '0'
+        const maxAmount = parseInt(max ?? '6');
+        for (let index = 1; index < maxAmount; index++) {
+          tempMask += '0';
+        }
+        return tempMask;
+
+      default:
+        return '';
+    }
   }
 
 }

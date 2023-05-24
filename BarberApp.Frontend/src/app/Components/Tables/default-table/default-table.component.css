@@ -20,7 +20,7 @@ thead::before{
   left: 0;
   right: 0;
   height: 2px;
-  background-color:var(--bs-body-color);
+  background-color:var(--main);
 }
 
 /* thead::after{

@@ -1,17 +1,37 @@
 
 <div class="edit_container animate_show container">
 
+  <div class="d-flex align-items-start justify-content-evenly mb-3 row flex-nowrap">
+    <ng-container *ngFor="let item of formTitles; let i = index">
+      <div class="d-flex flex-column align-items-center col p-0 m-0 text-center">
+        <button
+        style="width: 50px; aspect-ratio: 1; font-size: 1.25rem;"
+        [class.active]="formIndex === i"
+        (click)="formIndex = i"
+        class="rounded-pill btn btn-outline-main p-0 m-0">
+        {{i}}
+        </button>
+        <p
+        [class.text-muted]="formIndex !== i"
+        class="mt-2 small d-none d-md-block">{{formTitles[i]}}</p>
+      </div>
+    </ng-container>
+  </div>
 
-  <button (click)="formIndex = formIndex -1">Esquerda</button>
-  <button (click)="formIndex = formIndex +1">Direita</button>
-
-  <app-FormInput class="animate_show" [inputs]="modalInputs[formIndex]" [formTitle]="formTitles[formIndex]" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
-
-  <!-- <ng-container *ngIf="formIndex === 0">
-    <app-FormInput class="animate_show" [inputs]="modalInputs[0]" [formTitle]="formTitles[0]" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+  <ng-container *ngIf="formIndex === 0">
+    <app-FormInput class="animate_show" [inputs]="modalInputs[0]"   [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [submitText]="'Próximo'" (submitAction)="onSubmit($event)" ></app-FormInput>
   </ng-container>
   <ng-container *ngIf="formIndex === 1">
-    <app-FormInput class="animate_show" [inputs]="modalInputs[1]" [formTitle]="formTitles[1]" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
-  </ng-container> -->
+    <app-FormInput class="animate_show" [inputs]="modalInputs[1]"   [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [extraBtnLeft]="backBtn" [submitText]="'Próximo'" (submitAction)="onSubmit($event)" ></app-FormInput>
+  </ng-container>
+  <ng-container *ngIf="formIndex === 2">
+    <app-FormInput class="animate_show" [inputs]="modalInputs[2]"   [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [extraBtnLeft]="backBtn" [submitText]="'Próximo'" (submitAction)="onSubmit($event)" ></app-FormInput>
+  </ng-container>
+  <ng-container *ngIf="formIndex === 3">
+    <app-FormInput class="animate_show" [inputs]="modalInputs[3]"   [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [extraBtnLeft]="backBtn" [submitText]="'Próximo'" (submitAction)="onSubmit($event)" ></app-FormInput>
+  </ng-container>
+  <ng-container *ngIf="formIndex === 4">
+    <app-FormInput class="animate_show" [inputs]="modalInputs[4]"   [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [extraBtnLeft]="backBtn" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+  </ng-container>
 
 </div>

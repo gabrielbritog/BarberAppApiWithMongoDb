@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
+import { ExtraBtn, IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { ClientService } from '../../../../Services/api/Client.service';
 import { ClientModel, ClientModelHelper } from '../../../../Models/ClientModel';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-NewClient',
@@ -15,7 +16,12 @@ import { ClientModel, ClientModelHelper } from '../../../../Models/ClientModel';
 export class NewClientComponent implements OnInit {
 
   formIndex = 0;
+  maxFormIndex = 0;
 
+  backBtn: ExtraBtn = {
+    label: 'Voltar',
+    onClick: () => this.formIndex--
+  }
   formTitles = ['Dados de Cadastro', 'Dados Pessoais', 'Endereço', 'Contato de emergência', 'Dados complementares']
   modalInputs: IFormInput[][] =
     [
@@ -31,13 +37,21 @@ export class NewClientComponent implements OnInit {
           id: 'registerNumber',
           label: 'N° do Cadastro',
           type: 'text',
-          value: ''
+          value: '',
+          options: {
+            max: '12',
+            mask: 'number'
+          }
         },
         {
           id: 'interviewNumber',
           label: 'N° da Entrevista',
           type: 'text',
-          value: ''
+          value: '',
+          options: {
+            max: '12',
+            mask: 'number'
+          }
         },
       ],
       // 1 - Dados pessoais
@@ -47,6 +61,9 @@ export class NewClientComponent implements OnInit {
           label: 'Contato',
           type: 'text',
           value: '',
+          options: {
+            mask: 'tel'
+          }
         },
         {
           id: 'email',
@@ -59,18 +76,27 @@ export class NewClientComponent implements OnInit {
           label: 'Data de nascimento',
           type: 'date',
           value: '',
+          options: {
+            max: moment().format('YYYY-MM-DD')
+          }
         },
         {
           id: 'rg',
           label: 'RG',
           type: 'text',
           value: '',
+          options: {
+            mask: 'rg'
+          }
         },
         {
           id: 'cpf',
           label: 'CPF',
           type: 'text',
           value: '',
+          options: {
+            mask: 'cpf'
+          }
         },
       ],
       // 2 - Endereço
@@ -79,37 +105,55 @@ export class NewClientComponent implements OnInit {
           id: 'cep',
           label: 'CEP',
           type: 'text',
+          options: {
+            required: false
+          },
           value: ''
         },
         {
           id: 'uf',
           label: 'Estado',
           type: 'text',
+          options: {
+            required: false
+          },
           value: ''
         },
         {
           id: 'city',
           label: 'Cidade',
           type: 'text',
+          options: {
+            required: false
+          },
           value: ''
         },
         {
           id: 'street',
           label: 'Rua',
           type: 'text',
+          options: {
+            required: false
+          },
           value: ''
         },
         {
           id: 'zone',
           label: 'Bairro',
           type: 'text',
+          options: {
+            required: false
+          },
           value: ''
         },
         {
           id: 'number',
           label: 'Número',
           type: 'text',
-          value: ''
+          value: '',
+          options: {
+            required: false
+          },
         },
       ],
       // 3 - Contato de emergência
@@ -118,24 +162,38 @@ export class NewClientComponent implements OnInit {
           id: 'name',
           label: 'Nome',
           type: 'text',
+          options: {
+            required: false
+          },
           value: ''
         },
         {
           id: 'phone',
           label: 'Telefone',
           type: 'text',
+          options: {
+            required: false,
+            mask: 'tel'
+          },
           value: ''
         },
         {
           id: 'phoneResidential',
           label: 'Celular',
           type: 'text',
+          options: {
+            required: false,
+            mask: 'tel'
+          },
           value: ''
         },
         {
           id: 'kinship',
           label: 'Parentesco',
           type: 'text',
+          options: {
+            required: false
+          },
           value: ''
         },
       ],
@@ -145,23 +203,29 @@ export class NewClientComponent implements OnInit {
           id: 'occupation',
           label: 'Profissão',
           type: 'text',
+          options: {
+            required: false
+          },
           value: ''
         },
         {
           id: 'retiree',
           label: 'Aposentado',
           type: 'simple-radio',
-          value: 'false',
+          options: {
+            required: false
+          },
+          value: false,
           formOptions: [
             {
-              id: 'true',
+              id: 'retiree',
               label: 'Sim',
-              value: 'true'
+              value: true
             },
             {
-              id: 'false',
+              id: 'retiree',
               label: 'Não',
-              value: 'false'
+              value: false
             },
           ]
         },
@@ -169,10 +233,14 @@ export class NewClientComponent implements OnInit {
           id: 'observation',
           label: 'Observações',
           type: 'textarea',
+          options: {
+            required: false
+          },
           value: '',
         },
       ],
     ]
+  clientModel: ClientModel = ClientModelHelper.create();
 
   constructor(
     private clientsService: ClientService,
@@ -184,14 +252,23 @@ export class NewClientComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
+    if (this.formIndex === 2) // Endereço
+      this.clientModel.adress = form.value;
+    else if (this.formIndex === 3) // Contato de emergência
+      this.clientModel.emergencyContact = form.value;
+    else
+      Object.assign(this.clientModel, form.value)
+
     if (form.invalid)
       return;
 
-    let clientModel: ClientModel = ClientModelHelper.clone(form.value);
+    if (this.formIndex < this.formTitles.length - 1){
+      this.formIndex++;
+      this.maxFormIndex = Math.max(this.maxFormIndex, this.formIndex);
+      return;
+    }
 
-    console.log(form.value, clientModel);
-
-    const apiCall = this.clientsService.register(clientModel);
+    const apiCall = this.clientsService.register(this.clientModel);
 
     apiCall.subscribe({
       next: (data: any) => {

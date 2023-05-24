@@ -37,7 +37,7 @@ import { SpinnerModule } from './Components/Spinner/spinner.module';
 
     DirectivesModule,
     PagesModule,
-    ComponentsModule
+    ComponentsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
