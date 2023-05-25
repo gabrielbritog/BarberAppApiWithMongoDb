@@ -39,6 +39,8 @@ export class HomePageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
       return;
     }
+
+    this.router.navigateByUrl('/Schedules');
   }
 
   tables() {

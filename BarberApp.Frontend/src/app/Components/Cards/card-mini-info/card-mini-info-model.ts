@@ -3,5 +3,6 @@ export interface CardMiniInfoModel {
   currentValue: number,
   compareValue?: number,
   isCurrency?: boolean,
-  showAsPercentage?: boolean
+  showAsPercentage?: boolean,
+  roundValue?: boolean,
 }

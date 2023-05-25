@@ -60,20 +60,12 @@ export class DashboardSectionComponent implements OnInit {
 
   infos: CardMiniInfoModel[] = [];
 
-  static _topClients: TopClient[] = [];
-  static _topEmployees: TopEmployee[] = [];
-  static _topServices: TopService[] = [];
+  static _BirthdaysOfTheMonth: ClientModel[] = [];
   static _schedulesInPeriod: ScheduleModel[] = [];
   static _schedulesInPreviousPeriod: ScheduleModel[] = [];
 
-  get topClients() {
-    return DashboardSectionComponent._topClients;
-  }
-  get topEmployees() {
-    return DashboardSectionComponent._topEmployees;
-  }
-  get topServices() {
-    return DashboardSectionComponent._topServices;
+  get BirthdaysOfTheMonth() {
+    return DashboardSectionComponent._BirthdaysOfTheMonth;
   }
   get schedulesInPeriod() {
     return DashboardSectionComponent._schedulesInPeriod;
@@ -94,7 +86,7 @@ export class DashboardSectionComponent implements OnInit {
     return GlobalVariables.isAdmin;
   }
 
-  loadedTopClients = false;
+  loaded_BirthdaysOfTheMonth = false;
   loadedTopEmployees = false;
   loadedTopServices = false;
   loadedSchedulesInPeriod = false;
@@ -107,18 +99,12 @@ export class DashboardSectionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // if (!DashboardSectionComponent.isDashboardLoaded)
-      this.loadProperties();
-    // else{
-    //   this.createIncomeChart();
-    //   this.createSchedulesChart();
-    // }
+    this.loadProperties();
   }
 
   static clearProperties() {
-    DashboardSectionComponent._topEmployees =
-      DashboardSectionComponent._topClients =
-        DashboardSectionComponent._schedulesInPeriod = [];
+    DashboardSectionComponent._BirthdaysOfTheMonth =
+      DashboardSectionComponent._schedulesInPeriod = [];
 
     DashboardSectionComponent._startDate = moment().add(-7, 'days').format('YYYY-MM-DD');
     DashboardSectionComponent._endDate = moment().format('YYYY-MM-DD');
@@ -138,6 +124,7 @@ export class DashboardSectionComponent implements OnInit {
     const startDate = moment(this.startDate).utc(true);
     const endDate = moment(this.endDate).hour(23).minute(59).utc(true);
 
+    console.log(startDate, endDate);
     const API_CALL = this.dashboard.getManySchedulingByDate(startDate.toISOString(), endDate.toISOString());
 
     API_CALL.subscribe({
@@ -157,9 +144,7 @@ export class DashboardSectionComponent implements OnInit {
         }
 
         this.getSchedulesInPreviousPeriod();
-        this.getTop5Clients();
-        this.getTop5Employees();
-        this.getTop5Services();
+        this.getBirthdaysOfTheMonth();
         this.requestSucceded();
       },
       error: (err) => {
@@ -168,12 +153,50 @@ export class DashboardSectionComponent implements OnInit {
     })
   }
 
+  getBirthdaysOfTheMonth() {
+    DashboardSectionComponent._BirthdaysOfTheMonth = GlobalVariables.clients.filter(p => {
+      const birthdayAsMoment = moment(p.dateOfBirth);
+
+      if (birthdayAsMoment.month() >= moment(this.startDate).month() &&
+        birthdayAsMoment.month() <= moment(this.startDate).month())
+        return p;
+
+      return 0;
+    }).sort((a, b) => {
+      const birthdayAsMomentA = parseInt(moment(a.dateOfBirth).format('DD'));
+      const birthdayAsMomentB = parseInt(moment(b.dateOfBirth).format('DD'));
+
+      return birthdayAsMomentA - birthdayAsMomentB;
+    })
+  }
+
+  getClientBirthday(client: ClientModel) {
+    return moment(client.dateOfBirth).format('DD/MM');
+  }
+
+  getAbsenceOfClient(client: ClientModel) {
+    const classesInPerid = this.schedulesInPeriod.map(p => p.class).filter(c=> c?.clientsId.includes(client.clientId?? ''));
+    const presenceInPeriod = this.schedulesInPeriod.map(p => p.class).filter(c=> c?.presencesId.includes(client.clientId?? ''));
+
+    return classesInPerid.length - presenceInPeriod.length;
+  }
+
+  getTotalAbsencesInPeriod() {
+    const classesInPeriod = this.schedulesInPeriod.flatMap(p => p.class?.clientsId);
+    const presenceInPeriod = this.schedulesInPeriod.flatMap(p => p.class?.presencesId);
+
+    console.log(classesInPeriod, classesInPeriod.length)
+    console.log(presenceInPeriod, presenceInPeriod.length)
+  }
+
   getSchedulesInPreviousPeriod() {
     const startDate = moment(this.startDate).utc(true);
     const endDate = moment(this.endDate).hour(23).minute(59).utc(true);
     const startEndDateDiff = endDate.diff(startDate);
     const previousStartDate = startDate.clone().add(-startEndDateDiff).utc(true);
     const previousEndDate = endDate.clone().add(-startEndDateDiff).utc(true);
+
+    console.log('Previous period: ', previousStartDate.format('DD-MM-YYYY'), previousEndDate.format('DD-MM-YYYY'));
 
     const PREVIUS_API_CALL = this.dashboard.getManySchedulingByDate(previousStartDate.toISOString(), previousEndDate.toISOString());
 
@@ -206,7 +229,8 @@ export class DashboardSectionComponent implements OnInit {
         this.infos.push({
           infoTitle: 'Agendamentos',
           currentValue: this.schedulesInPeriod.length,
-          compareValue: this.schedulesInPreviousPeriod.length
+          compareValue: this.schedulesInPreviousPeriod.length,
+          roundValue: false
         });
 
         this.loadedSchedulesInPeriod = true;
@@ -218,118 +242,11 @@ export class DashboardSectionComponent implements OnInit {
     })
   }
 
-  getTop5Clients() {
-    const schedules = this.schedulesInPeriod;
-    const topClients: TopClient[] = [];
-
-    schedules
-      .filter(p=> p.client && !p.client.name == false)
-      .forEach(p => {
-      let topClient: TopClient = {
-        client: p.client!,
-        count: 1,
-        totalValue: p.total ?? 0
-      };
-      const topClientInArray = topClients.find(p=> p.client.phone === topClient.client.phone)
-
-      if (!topClientInArray){
-        topClients.push(topClient);
-      }
-      else{
-        topClientInArray.count++;
-        topClientInArray.totalValue += topClient.totalValue;
-      }
-    });
-
-    DashboardSectionComponent._topClients = topClients.sort((a, b) => {
-        if (a.count > b.count) return -1;
-        if (a.count < b.count) return 1;
-        if (a.totalValue > b.totalValue) return -1;
-        if (a.totalValue < b.totalValue) return 1;
-
-        return 0;
-      }).slice(0, 10);
-    this.loadedTopClients = true;
-    return;
-  }
-
-  getTop5Employees() {
-    const schedules = this.schedulesInPeriod;
-    const topEmployees: TopEmployee[] = [];
-
-    schedules.forEach(p => {
-      const barberById = GlobalVariables.employees.find(d => d.barberId === p.barberId);
-      let topEmployee: TopEmployee = {
-        employee: barberById!,
-        count: 1,
-        totalValue: p.total ?? 0
-      };
-
-      const topEmployeeInArray = topEmployees.find(d=> d.employee.barberId === topEmployee.employee.barberId)
-
-      if (!topEmployeeInArray){
-        topEmployees.push(topEmployee);
-      }
-      else{
-        topEmployeeInArray.count++;
-        topEmployeeInArray.totalValue += topEmployee.totalValue;
-      }
-    });
-
-    DashboardSectionComponent._topEmployees = topEmployees.sort((a, b) => {
-        if (a.count > b.count) return -1;
-        if (a.count < b.count) return 1;
-        if (a.totalValue > b.totalValue) return -1;
-        if (a.totalValue < b.totalValue) return 1;
-
-        return 0;
-      });
-    this.loadedTopEmployees = true;
-    return;
-  }
-
-  getTop5Services() {
-    const schedules = this.schedulesInPeriod;
-    const topServices: TopService[] = [];
-
-    schedules.forEach(p => {
-      p.serviceType.forEach(service => {
-        let topService: TopService = {
-          service: service,
-          count: 1,
-          totalValue: service.valueService
-        };
-
-        const topServiceInArray = topServices.find(d=> d.service.serviceTypeId === topService.service.serviceTypeId)
-
-        if (!topServiceInArray){
-          topServices.push(topService);
-        }
-        else{
-          topServiceInArray.count++;
-          topServiceInArray.totalValue += topService.totalValue;
-        }
-      })
-    });
-
-    DashboardSectionComponent._topServices = topServices.sort((a, b) => {
-        if (a.count > b.count) return -1;
-        if (a.count < b.count) return 1;
-        if (a.totalValue > b.totalValue) return -1;
-        if (a.totalValue < b.totalValue) return 1;
-
-        return 0;
-      }).splice(0, 5);
-    this.loadedTopServices = true;
-    return;
-  }
-
   requestSucceded() {
-    if (this.loadedSchedulesInPeriod && this.loadedTopClients && this.loadedTopEmployees && this.loadedTopServices) {
-      this.createIncomeChart();
-      this.createSchedulesChart();
+    this.getTotalAbsencesInPeriod()
+    if (this.loadedSchedulesInPeriod && this.loaded_BirthdaysOfTheMonth && this.loadedTopEmployees && this.loadedTopServices) {
       this.loadedSchedulesInPeriod =
-        this.loadedTopClients =
+        this.loaded_BirthdaysOfTheMonth =
         this.loadedTopEmployees =
         this.loadedTopServices = false;
       DashboardSectionComponent.isDashboardLoaded = true;
@@ -364,258 +281,6 @@ export class DashboardSectionComponent implements OnInit {
     }
 
     this.loadProperties();
-  }
-
-  createIncomeChart() {
-    const startDate = moment(this.startDate);
-    const endDate = moment(this.endDate).hour(23).minute(59);
-    const diffDates = endDate.diff(startDate, 'days');
-    const diffDatesInMonths = endDate.diff(startDate, 'months');
-    const diffDatesInYears = endDate.diff(startDate, 'years');
-    const labelsInChart: string[] = [];
-    const dataInChart: number[] = [];
-
-
-    if (diffDatesInMonths <= 1){
-      for (let index = 0; index <= diffDates; index++) {
-        const currentDate = moment(this.startDate).add(index, 'days');
-        const filteredSchedules = this.schedulesInPeriod.filter(p => p.date == currentDate.format('MM/DD/YYYY'));
-        const totalFromSchedules = filteredSchedules.map(p => p.total!).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
-
-        dataInChart.push(totalFromSchedules);
-        labelsInChart.push(currentDate.format('DD/MM'));
-      }
-    }
-    else if (diffDatesInMonths <= 12) {
-      for (let index = 0; index <= diffDatesInMonths; index++) {
-        const currentDate = moment(this.startDate).add(index, 'months');
-
-        const filteredSchedules = this.schedulesInPeriod
-          .filter(p =>
-            p.date.includes(currentDate.format('MM/')) &&
-            p.date.includes(currentDate.format('YYYY')));
-        const totalFromSchedules = filteredSchedules.map(p => p.total!).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
-
-        dataInChart.push(totalFromSchedules);
-        labelsInChart.push(currentDate.locale('pt-br').format('MMM'));
-      }
-    }
-    else {
-      for (let index = 0; index <= diffDatesInYears; index++) {
-        const currentDate = moment(this.startDate).add(index, 'years');
-
-        const filteredSchedules = this.schedulesInPeriod
-          .filter(p =>
-            p.date.includes(currentDate.format('YYYY')));
-        const totalFromSchedules = filteredSchedules.map(p => p.total!).reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
-
-        dataInChart.push(totalFromSchedules);
-        labelsInChart.push(currentDate.format('YYYY'));
-      }
-    }
-
-
-    const chartExist = Chart.getChart('income-chart');
-    if (chartExist != undefined)
-      chartExist.destroy();
-
-
-    return;
-    new Chart('income-chart', {
-      type: 'line',
-      data: {
-        labels: labelsInChart,
-        datasets: [{
-          data: dataInChart,
-          backgroundColor: 'white',
-          borderColor: 'white',
-          pointRadius: 0,
-          tension: 0.5
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        scales: {
-          x: {
-            border: {
-              display: false
-            },
-            grid: {
-              display: false
-            },
-            ticks: {
-              display: false,
-              color: 'black'
-            }
-          },
-          y: {
-            border: {
-              display: false
-            },
-            grid: {
-              display: false
-            },
-            ticks: {
-              display: false,
-              color: 'black'
-            },
-            beginAtZero: true
-          }
-        },
-        layout: {
-          padding: {
-            top: -1,
-            right: 0,
-            left: -10,
-            bottom: -7
-          }
-        },
-        plugins: {
-          legend: {
-              display: false
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                let label = '';
-
-                if (context.parsed.y !== null) {
-                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
-                }
-
-                return label;
-              }
-            }
-          }
-        }
-      }
-    });
-  }
-
-  createSchedulesChart() {
-    const startDate = moment(this.startDate);
-    const endDate = moment(this.endDate).hour(23).minute(59);
-    const diffDates = endDate.diff(startDate, 'days');
-    const diffDatesInMonths = endDate.diff(startDate, 'months');
-    const diffDatesInYears = endDate.diff(startDate, 'years');
-    const labelsInChart: string[] = [];
-    const dataInChart: number[] = [];
-
-
-    if (diffDatesInMonths <= 1){
-      for (let index = 0; index <= diffDates; index++) {
-        const currentDate = moment(this.startDate).add(index, 'days');
-        const filteredSchedules = this.schedulesInPeriod.filter(p => p.date == currentDate.format('MM/DD/YYYY'));
-        const totalFromSchedules = filteredSchedules.length;
-
-        dataInChart.push(totalFromSchedules);
-        labelsInChart.push(currentDate.format('DD/MM'));
-      }
-    }
-    else if (diffDatesInMonths <= 12) {
-      for (let index = 0; index <= diffDatesInMonths; index++) {
-        const currentDate = moment(this.startDate).add(index, 'months');
-
-        const filteredSchedules = this.schedulesInPeriod
-          .filter(p =>
-            p.date.includes(currentDate.format('MM/')) &&
-            p.date.includes(currentDate.format('YYYY')));
-        const totalFromSchedules = filteredSchedules.length;
-
-        dataInChart.push(totalFromSchedules);
-        labelsInChart.push(currentDate.locale('pt-br').format('MMM'));
-      }
-    }
-    else {
-      for (let index = 0; index <= diffDatesInYears; index++) {
-        const currentDate = moment(this.startDate).add(index, 'years');
-
-        const filteredSchedules = this.schedulesInPeriod
-          .filter(p =>
-            p.date.includes(currentDate.format('YYYY')));
-        const totalFromSchedules = filteredSchedules.length;
-
-        dataInChart.push(totalFromSchedules);
-        labelsInChart.push(currentDate.format('YYYY'));
-      }
-    }
-
-
-    const chartExist = Chart.getChart('schedules-chart');
-    if (chartExist != undefined)
-      chartExist.destroy();
-
-    return;
-
-    new Chart('schedules-chart', {
-      type: 'line',
-      data: {
-        labels: labelsInChart,
-        datasets: [{
-          data: dataInChart,
-          backgroundColor: 'white',
-          borderColor: 'white',
-          pointRadius: 0,
-          tension: 0.5
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        scales: {
-          x: {
-            border: {
-              display: false
-            },
-            grid: {
-              display: false
-            },
-            ticks: {
-              display: false,
-              color: 'black'
-            }
-          },
-          y: {
-            border: {
-              display: false
-            },
-            grid: {
-              display: false
-            },
-            ticks: {
-              display: false,
-              color: 'black'
-            },
-            beginAtZero: true
-          }
-        },
-        layout: {
-          padding: {
-            top: 2,
-            right: 0,
-            left: -10,
-            bottom: -7
-          }
-        },
-        plugins: {
-          legend: {
-              display: false
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                let label = '';
-
-                if (context.parsed.y !== null) {
-                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
-                }
-
-                return label;
-              }
-            }
-          }
-        }
-      }
-    });
   }
 
   onCancel() {

@@ -293,13 +293,10 @@ export class EditClientComponent implements OnInit, OnDestroy {
     let clientModel: ClientModel = ClientModelHelper.clone(form.value);
     clientModel.clientId = this.clientModel?.clientId;
 
-    console.log(clientModel)
-
     const apiCall = this.clientsService.update(clientModel);
 
     apiCall.subscribe({
       next: (data: any) => {
-        console.log(data.message)
         setTimeout(() => {
           GlobalVariables.clients.push(data.data);
 
@@ -369,7 +366,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           id: 'dateOfBirth',
           label: 'Data de nascimento',
           type: 'date',
-          value: this.clientModel.dateOfBirth,
+          value: moment(this.clientModel.dateOfBirth).format('YYYY-MM-DD'),
           options: {
             max: moment().format('YYYY-MM-DD')
           }

@@ -23,7 +23,8 @@ export class CardMiniInfoComponent {
   }
 
   getAbsValue(info: CardMiniInfoModel) {
-    return Math.round(Math.abs(this.getComparedValue(info)));
+    const absValue = Math.abs(this.getComparedValue(info));
+    return Math.round(absValue);
   }
 
   formatToMoney(value: number | string) {
