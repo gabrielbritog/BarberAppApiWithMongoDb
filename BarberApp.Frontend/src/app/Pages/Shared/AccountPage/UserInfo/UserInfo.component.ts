@@ -29,7 +29,6 @@ export class UserInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.userInfo.userConfig.primaryColor)
   }
 
   goToRoute(route: string) {
@@ -63,7 +62,6 @@ export class UserInfoComponent implements OnInit {
 
     this.userService.updateUserConfig(userConfig).subscribe({
       next: (data: any) => {
-        console.log(data)
         this.tokenStorage.saveUser(data.data);
         GlobalVariables.loadUserConfig(this.userInfo.userConfig)
       },

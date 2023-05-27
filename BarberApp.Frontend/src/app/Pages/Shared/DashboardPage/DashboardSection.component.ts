@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { CardMiniInfoModel } from 'src/app/Components/Cards/card-mini-info/card-mini-info-model';
+import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { BarberModel } from 'src/app/Models/BarberModel';
 import { ClientModel } from 'src/app/Models/ClientModel';
@@ -9,7 +10,6 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { DashboardService } from 'src/app/Services/api/Dashboard.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
-Chart.register(...registerables);
 
 export interface TopClient{
   client: ClientModel;
@@ -63,15 +63,48 @@ export class DashboardSectionComponent implements OnInit {
   static _BirthdaysOfTheMonth: ClientModel[] = [];
   static _schedulesInPeriod: ScheduleModel[] = [];
   static _schedulesInPreviousPeriod: ScheduleModel[] = [];
+  static _classesInPeriod: {
+    date: string,
+    time: string,
+    className: string | undefined,
+    clients: (ClientModel | undefined)[] | undefined,
+    presence: (ClientModel | undefined)[] | undefined,
+    absence: (ClientModel | undefined)[] | undefined,
+  }[] = [];
 
   get BirthdaysOfTheMonth() {
     return DashboardSectionComponent._BirthdaysOfTheMonth;
   }
+
+  get classesInPeriod() {
+    return DashboardSectionComponent._classesInPeriod;
+  }
+
   get schedulesInPeriod() {
     return DashboardSectionComponent._schedulesInPeriod;
   }
   get schedulesInPreviousPeriod() {
     return DashboardSectionComponent._schedulesInPreviousPeriod;
+  }
+
+  get AbsencesInPeriod() {
+    const absencesInPeriod = this.classesInPeriod.flatMap(p => p.absence)
+      .reduce((acc: {clientId?: string, clientName?: string, totalClasses: number, totalAbsences: number}[], current) => {
+      const existingClient = acc.find(item => item.clientId === current?.clientId);
+      if (existingClient) {
+        existingClient.totalAbsences++;
+      } else {
+        acc.push({
+          clientId: current?.clientId,
+          clientName: current?.name,
+          totalClasses: this.classesInPeriod.flatMap(p=>p.clients).filter(p=> p?.clientId === current?.clientId).length,
+          totalAbsences: 1
+        });
+      }
+      return acc;
+      }, []);
+
+    return absencesInPeriod;
   }
 
   get totalInPeriod() {
@@ -95,7 +128,8 @@ export class DashboardSectionComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private dashboard: DashboardService
+    private dashboard: DashboardService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -124,7 +158,6 @@ export class DashboardSectionComponent implements OnInit {
     const startDate = moment(this.startDate).utc(true);
     const endDate = moment(this.endDate).hour(23).minute(59).utc(true);
 
-    console.log(startDate, endDate);
     const API_CALL = this.dashboard.getManySchedulingByDate(startDate.toISOString(), endDate.toISOString());
 
     API_CALL.subscribe({
@@ -175,18 +208,79 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   getAbsenceOfClient(client: ClientModel) {
-    const classesInPerid = this.schedulesInPeriod.map(p => p.class).filter(c=> c?.clientsId.includes(client.clientId?? ''));
-    const presenceInPeriod = this.schedulesInPeriod.map(p => p.class).filter(c=> c?.presencesId.includes(client.clientId?? ''));
+    const absences = this.schedulesInPeriod.map(p => p.class).filter(c=> c?.clientsId.includes(client.clientId?? '') && !c.presencesId.includes(client.clientId?? ''));
 
-    return classesInPerid.length - presenceInPeriod.length;
+    return absences.length;
   }
 
-  getTotalAbsencesInPeriod() {
-    const classesInPeriod = this.schedulesInPeriod.flatMap(p => p.class?.clientsId);
-    const presenceInPeriod = this.schedulesInPeriod.flatMap(p => p.class?.presencesId);
+  getClassesInPeriod() {
+    const classesInPeriod = this.schedulesInPeriod.map(p => {
+      return {
+        date: p.date,
+        time: p.time,
+        className: p.class?.name,
+        clients: p.class?.clientsId.map(clientId => GlobalVariables.clients.find(client => client.clientId === clientId)),
+        presence: p.class?.presencesId.map(clientId => GlobalVariables.clients.find(client => client.clientId === clientId)),
+        absence: p.class?.clientsId.filter(_client => !p.class?.presencesId.includes(_client)).map(clientId => GlobalVariables.clients.find(client => client.clientId === clientId)),
+      }
+    });
 
-    console.log(classesInPeriod, classesInPeriod.length)
-    console.log(presenceInPeriod, presenceInPeriod.length)
+    DashboardSectionComponent._classesInPeriod = classesInPeriod;
+  }
+
+  // TABLES
+
+  getAbsencesTable() {
+    const absencesTable: DefaultTable = {
+      titles: ['Nome do aluno', 'Aulas totais', 'Faltas'],
+      objects: [],
+      onClick: (event: any) => this.clientDetails(event)
+    }
+
+    this.AbsencesInPeriod.forEach((client, i) => {
+      absencesTable.objects.push({
+        object: {
+          name: client.clientName,
+          classes: client.totalClasses,
+          absences: client.totalAbsences,
+          id: client.clientId
+        }
+      })
+    })
+
+    return absencesTable;
+  }
+
+  getBirthdaysTable() {
+    const absencesTable: DefaultTable = {
+      titles: ['Nome do aluno', 'Aniversário'],
+      objects: [],
+      onClick: (event: any) => this.clientDetails(event)
+    }
+
+    this.BirthdaysOfTheMonth.forEach((client, i) => {
+      absencesTable.objects.push({
+        object: {
+          name: client.name,
+          birthday: moment(client.dateOfBirth).format('DD/MM'),
+          id: client.clientId
+        }
+      })
+    })
+
+    return absencesTable;
+  }
+
+  clientDetails(event: any) {
+    if (!event.object.id)
+      return;
+
+    const clientModel = GlobalVariables.clients.find(p => p.clientId === event.object.id);
+    if (!clientModel)
+      return;
+
+    this.router.navigateByUrl('/Clients/Edit/'+event.object.id)
+
   }
 
   getSchedulesInPreviousPeriod() {
@@ -195,8 +289,6 @@ export class DashboardSectionComponent implements OnInit {
     const startEndDateDiff = endDate.diff(startDate);
     const previousStartDate = startDate.clone().add(-startEndDateDiff).utc(true);
     const previousEndDate = endDate.clone().add(-startEndDateDiff).utc(true);
-
-    console.log('Previous period: ', previousStartDate.format('DD-MM-YYYY'), previousEndDate.format('DD-MM-YYYY'));
 
     const PREVIUS_API_CALL = this.dashboard.getManySchedulingByDate(previousStartDate.toISOString(), previousEndDate.toISOString());
 
@@ -243,7 +335,7 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   requestSucceded() {
-    this.getTotalAbsencesInPeriod()
+    this.getClassesInPeriod();
     if (this.loadedSchedulesInPeriod && this.loaded_BirthdaysOfTheMonth && this.loadedTopEmployees && this.loadedTopServices) {
       this.loadedSchedulesInPeriod =
         this.loaded_BirthdaysOfTheMonth =

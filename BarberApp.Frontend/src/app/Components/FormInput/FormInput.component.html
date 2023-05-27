@@ -171,6 +171,7 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
         [(ngModel)]="item.value"
         [class.password-input]="item.type == 'password'"
         [disabled]="item.disabled === true"
+        (ngModelChange)="onChangeOfInput($event, item.options)"
         [required]="item.options?.required !== false">
 
         <input *ngIf="item.currency != true && item.options?.mask !== undefined"
@@ -186,6 +187,7 @@ class="input_container w_100 card border p-2 p-md-3 gap-2 shadow-sm"
         [showMaskTyped]="true"
         [class.password-input]="item.type == 'password'"
         [disabled]="item.disabled === true"
+        (ngModelChange)="onChangeOfInput($event, item.options)"
         [required]="item.options?.required !== false">
 
         <input *ngIf="item.currency"

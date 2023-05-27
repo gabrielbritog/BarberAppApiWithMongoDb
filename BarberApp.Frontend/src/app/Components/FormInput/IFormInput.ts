@@ -23,6 +23,7 @@ export interface IOptions{
   showTotal?: boolean;
   required?: boolean;
   mask?: 'cep' | 'tel' | 'cpf' | 'rg' | 'number'
+  onChangeUpdateFields?: string[];
 }
 
 export interface ExtraBtn{

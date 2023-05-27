@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { ExtraBtn, IFormInput } from 'src/app/Components/FormInput/IFormInput';
+import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ClientModel, ClientModelHelper } from 'src/app/Models/ClientModel';
 import { ClientService } from 'src/app/Services/api/Client.service';
@@ -27,7 +28,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
     label: 'Voltar',
     onClick: () => this.formIndex--
   }
-  formTitles = ['Dados de Cadastro', 'Dados Pessoais', 'Endereço', 'Contato de emergência', 'Dados complementares']
+  formTitles = ['Dados de Cadastro', 'Endereço', 'Contato de emergência', 'Dados complementares', 'Lista de presença']
   modalInputs: IFormInput[][] =
     [
       // 0 - Dados de cadastro
@@ -58,9 +59,6 @@ export class EditClientComponent implements OnInit, OnDestroy {
             mask: 'number'
           }
         },
-      ],
-      // 1 - Dados pessoais
-      [
         {
           id: 'phone',
           label: 'Contato',
@@ -104,14 +102,16 @@ export class EditClientComponent implements OnInit, OnDestroy {
           }
         },
       ],
-      // 2 - Endereço
+      // 1 - Endereço
       [
         {
           id: 'cep',
           label: 'CEP',
           type: 'text',
           options: {
-            required: false
+            required: false,
+            mask: 'cep',
+            onChangeUpdateFields: ['uf', 'city', 'street', 'zone']
           },
           value: ''
         },
@@ -161,7 +161,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           },
         },
       ],
-      // 3 - Contato de emergência
+      // 2 - Contato de emergência
       [
         {
           id: 'name',
@@ -202,7 +202,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: ''
         },
       ],
-      // 4 - Dados complementares
+      // 3 - Dados complementares
       [
         {
           id: 'occupation',
@@ -246,6 +246,51 @@ export class EditClientComponent implements OnInit, OnDestroy {
       ],
     ]
 
+
+
+  getAbsencesTable() {
+    const absencesTable: DefaultTable = {
+      titles: ['Turma', 'Data', 'Presença'],
+      objects: [],
+      onClick: (event: any) => this.goToScheduleDetails(event)
+    }
+
+    const classesWithClient = GlobalVariables.schedules
+      .filter(p => p.class && p.class.clientsId.includes(this.id))
+      .map(p => {
+        return {
+          date: p.date,
+          time: p.time,
+          className: p.class?.name,
+          presence: p.class?.presencesId.includes(this.id),
+          scheduleId: p.schedulingId
+        }
+    });
+
+    classesWithClient.forEach((classWithClient, i) => {
+      absencesTable.objects.push({
+        object: {
+          className: classWithClient.className,
+          date: classWithClient.date,
+          presence: classWithClient.presence? 'Presente' : 'Faltou',
+          id: classWithClient.scheduleId
+        }
+      })
+    })
+
+    return absencesTable;
+  }
+
+  goToScheduleDetails(event: any) {
+    if (!event.object.id)
+      return;
+
+    GlobalVariables.modalAsEdit = true;
+    GlobalVariables.editSchedule = GlobalVariables.schedules.find(p=>p.schedulingId === event.object.id);
+
+    this.router.navigateByUrl(`/Schedules/Details`);
+  }
+
   constructor(
     private clientsService: ClientService,
     private router: Router,
@@ -275,7 +320,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
             return;
           }
 
-          this.clientModel = existedClientModel;
+          this.clientModel = ClientModelHelper.clone(existedClientModel);
           this.updateModalInputs();
         }
       )
@@ -287,13 +332,25 @@ export class EditClientComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm) {
 
+    if (this.formIndex === 1) // Endereço
+    {
+      this.clientModel.adress = form.value;
+    }
+    else if (this.formIndex === 2) // Contato de emergência
+      this.clientModel.emergencyContact = form.value;
+    else
+      Object.assign(this.clientModel, form.value)
+
     if (form.invalid)
       return;
 
-    let clientModel: ClientModel = ClientModelHelper.clone(form.value);
-    clientModel.clientId = this.clientModel?.clientId;
+    if (this.formIndex < this.formTitles.length - 2){
+      this.formIndex++;
+      this.maxFormIndex = Math.max(this.maxFormIndex, this.formIndex);
+      return;
+    }
 
-    const apiCall = this.clientsService.update(clientModel);
+    const apiCall = this.clientsService.update(this.clientModel);
 
     apiCall.subscribe({
       next: (data: any) => {
@@ -319,16 +376,10 @@ export class EditClientComponent implements OnInit, OnDestroy {
       // 0 - Dados de cadastro
       [
         {
-          id: 'name',
-          label: 'Nome',
-          type: 'text',
-          value: this.clientModel.name
-        },
-        {
           id: 'registerNumber',
           label: 'N° do Cadastro',
           type: 'text',
-          value: this.clientModel.registerNumber,
+          value: this.clientModel.registerNumber?? '',
           options: {
             max: '12',
             mask: 'number'
@@ -338,20 +389,23 @@ export class EditClientComponent implements OnInit, OnDestroy {
           id: 'interviewNumber',
           label: 'N° da Entrevista',
           type: 'text',
-          value: this.clientModel.interviewNumber,
+          value: this.clientModel.interviewNumber?? '',
           options: {
             max: '12',
             mask: 'number'
           }
         },
-      ],
-      // 1 - Dados pessoais
-      [
+        {
+          id: 'name',
+          label: 'Nome',
+          type: 'text',
+          value: this.clientModel.name
+        },
         {
           id: 'phone',
           label: 'Contato',
           type: 'text',
-          value: this.clientModel.phone,
+          value: this.clientModel.phone?? '',
           options: {
             mask: 'tel'
           }
@@ -360,7 +414,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           id: 'email',
           label: 'E-mail',
           type: 'email',
-          value: this.clientModel.email,
+          value: this.clientModel.email?? '',
         },
         {
           id: 'dateOfBirth',
@@ -375,7 +429,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           id: 'rg',
           label: 'RG',
           type: 'text',
-          value: this.clientModel.rg,
+          value: this.clientModel.rg?? '',
           options: {
             mask: 'rg'
           }
@@ -384,22 +438,24 @@ export class EditClientComponent implements OnInit, OnDestroy {
           id: 'cpf',
           label: 'CPF',
           type: 'text',
-          value: this.clientModel.cpf,
+          value: this.clientModel.cpf?? '',
           options: {
             mask: 'cpf'
           }
         },
       ],
-      // 2 - Endereço
+      // 1 - Endereço
       [
         {
           id: 'cep',
           label: 'CEP',
           type: 'text',
           options: {
-            required: false
+            required: false,
+            mask: 'cep',
+            onChangeUpdateFields: ['uf', 'city', 'street', 'zone']
           },
-          value: this.clientModel.adress?.cep
+          value: this.clientModel.adress?.cep?? '',
         },
         {
           id: 'uf',
@@ -408,7 +464,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             required: false
           },
-          value: this.clientModel.adress?.uf
+          value: this.clientModel.adress?.uf?? '',
         },
         {
           id: 'city',
@@ -417,7 +473,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             required: false
           },
-          value: this.clientModel.adress?.city
+          value: this.clientModel.adress?.city?? '',
         },
         {
           id: 'street',
@@ -426,7 +482,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             required: false
           },
-          value: this.clientModel.adress?.street
+          value: this.clientModel.adress?.street?? '',
         },
         {
           id: 'zone',
@@ -435,19 +491,19 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             required: false
           },
-          value: this.clientModel.adress?.zone
+          value: this.clientModel.adress?.zone?? '',
         },
         {
           id: 'number',
           label: 'Número',
           type: 'text',
-          value: this.clientModel.adress?.number,
+          value: this.clientModel.adress?.number?? '',
           options: {
             required: false
           },
         },
       ],
-      // 3 - Contato de emergência
+      // 2 - Contato de emergência
       [
         {
           id: 'name',
@@ -456,7 +512,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             required: false
           },
-          value: this.clientModel.emergencyContact?.name
+          value: this.clientModel.emergencyContact?.name?? '',
         },
         {
           id: 'phone',
@@ -466,7 +522,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
             required: false,
             mask: 'tel'
           },
-          value: this.clientModel.emergencyContact?.phone
+          value: this.clientModel.emergencyContact?.phone?? '',
         },
         {
           id: 'phoneResidential',
@@ -476,7 +532,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
             required: false,
             mask: 'tel'
           },
-          value: this.clientModel.emergencyContact?.phoneResidential
+          value: this.clientModel.emergencyContact?.phoneResidential?? '',
         },
         {
           id: 'kinship',
@@ -485,10 +541,10 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             required: false
           },
-          value: this.clientModel.emergencyContact?.kinship
+          value: this.clientModel.emergencyContact?.kinship?? '',
         },
       ],
-      // 4 - Dados complementares
+      // 3 - Dados complementares
       [
         {
           id: 'occupation',
@@ -497,13 +553,13 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             required: false
           },
-          value: this.clientModel.occupation
+          value: this.clientModel.occupation?? '',
         },
         {
           id: 'retiree',
           label: 'Aposentado',
           type: 'simple-radio',
-          value: this.clientModel.retiree,
+          value: this.clientModel.retiree?? false,
           options: {
             required: false
           },
@@ -527,7 +583,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             required: false
           },
-          value: this.clientModel.observation,
+          value: this.clientModel.observation?? '',
         },
       ],
     ]

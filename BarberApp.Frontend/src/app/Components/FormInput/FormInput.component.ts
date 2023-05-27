@@ -1,7 +1,10 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ExtraBtn, IFormInput, IFormOptions } from './IFormInput';
 import { NgForm, FormControl, Validators, FormGroup, FormControlOptions, ValidatorFn, AbstractControl } from '@angular/forms';
 import { map } from 'rxjs';
+import { CepApiService } from 'src/app/Services/cepApi/cep-api.service';
+import { CepAdressModel } from 'src/app/Services/cepApi/cep-model';
 
 @Component({
   selector: 'app-FormInput',
@@ -23,7 +26,10 @@ export class FormInputComponent implements OnInit {
   listOfCheckboxes: any[] = [];
   submitted = false;
 
-  constructor() {
+  constructor(
+    private cepApiService: CepApiService,
+    private toastrService: ToastrService
+  ) {
   }
 
   ngOnInit() {
@@ -186,7 +192,51 @@ export class FormInputComponent implements OnInit {
     return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
+  onChangeOfInput(event: any, itemOption?: any) {
+    if (!itemOption?.onChangeUpdateFields)
+      return;
 
+    if (itemOption.mask === 'cep')
+      this.updateCepFields(event, itemOption.onChangeUpdateFields)
+
+  }
+
+  updateCepFields(cep: string, idFields: string[]) {
+    if (cep.length < 8)
+      return;
+
+    this.cepApiService.getAdressByCep(cep).subscribe({
+      next: (response: CepAdressModel) => {
+        if (response.erro) {
+          this.toastrService.error('Cep inválido')
+          return;
+        }
+
+        idFields.forEach(p => {
+          const existedInput = this.inputs.find(b => b.id === p);
+          if (!existedInput)
+            return;
+
+          if (p === 'uf')
+            existedInput.value = response.uf;
+
+          if (p === 'city')
+            existedInput.value = response.localidade;
+
+          if (p === 'street')
+            existedInput.value = response.logradouro;
+
+          if (p === 'zone')
+            existedInput.value = response.bairro;
+        })
+
+
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
 
   // FORM MASKS
 

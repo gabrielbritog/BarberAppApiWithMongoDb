@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardSectionComponent } from 'src/app/Pages/Shared/DashboardPage/DashboardSection.component';
 import { FormsModule } from '@angular/forms';
 import { CardsModule } from '../../../Components/Cards/cards.module';
+import { TablesModule } from 'src/app/Components/Tables/Tables.module';
 
 
 
@@ -16,7 +17,8 @@ import { CardsModule } from '../../../Components/Cards/cards.module';
   imports: [
     CommonModule,
     FormsModule,
-    CardsModule
+    CardsModule,
+    TablesModule
   ]
 })
 export class DashboardPageModule { }

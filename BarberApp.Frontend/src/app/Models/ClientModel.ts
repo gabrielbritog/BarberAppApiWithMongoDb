@@ -53,7 +53,6 @@ export class ClientModelHelper {
       modelKeys.forEach(prop => {
         if (model[prop] === '')
           model[prop] = undefined;
-        console.log(model[prop])
       });
     }
 

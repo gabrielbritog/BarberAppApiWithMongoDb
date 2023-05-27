@@ -34,7 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
       tap(
         event => {
           if (event instanceof HttpResponse) {
-            if(event.body.message != ''){
+            if(event.body.message != '' && !hideLoader){
               this.toastrService.success(event.body.message);
             }
           }

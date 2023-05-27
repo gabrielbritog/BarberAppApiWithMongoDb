@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExtraBtn, IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
-import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { ClientService } from '../../../../Services/api/Client.service';
 import { ClientModel, ClientModelHelper } from '../../../../Models/ClientModel';
 import * as moment from 'moment';
@@ -28,12 +27,6 @@ export class NewClientComponent implements OnInit {
       // 0 - Dados de cadastro
       [
         {
-          id: 'name',
-          label: 'Nome',
-          type: 'text',
-          value: ''
-        },
-        {
           id: 'registerNumber',
           label: 'N° do Cadastro',
           type: 'text',
@@ -51,7 +44,13 @@ export class NewClientComponent implements OnInit {
           options: {
             max: '12',
             mask: 'number'
-          }
+          },
+        },
+        {
+          id: 'name',
+          label: 'Nome',
+          type: 'text',
+          value: ''
         },
       ],
       // 1 - Dados pessoais
@@ -106,7 +105,9 @@ export class NewClientComponent implements OnInit {
           label: 'CEP',
           type: 'text',
           options: {
-            required: false
+            required: false,
+            mask: 'cep',
+            onChangeUpdateFields: ['uf', 'city', 'street', 'zone']
           },
           value: ''
         },
@@ -244,7 +245,7 @@ export class NewClientComponent implements OnInit {
 
   constructor(
     private clientsService: ClientService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {

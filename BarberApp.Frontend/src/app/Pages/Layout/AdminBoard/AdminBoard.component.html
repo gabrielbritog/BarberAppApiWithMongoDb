@@ -1,46 +1,48 @@
 <ng-container *ngIf="show">
-  <div class="container d-flex justify-content-between align-items-center py-2">
-    <div
-    style="font-size: 0.8rem;"
-    class="title fw-semibold">
-      Visão do funcionário:
-    </div>
-    <div class="btn-group me-md-auto ms-2" dropdown>
-      <button
-      id="button-basic"
-      aria-controls="dropdown"
-      dropdownToggle
-      type="button"
-      class="btn btn-main ps-2 border-0 dropdown-toggle align-items-center gap-1 shadow-sm d-flex flex-nowrap"
+  <div class="container">
+    <div class="d-flex justify-content-between text-bg-main rounded mt-2 shadow-sm align-items-center p-2 ps-3">
+      <div
       style="font-size: 0.8rem;"
-       >
-       <div class="bg-body text-main rounded-pill overflow-hidden d-grid justify-content-center align-items-center" style="width: 20px; height: 20px;">
-         <img *ngIf="selectedBarber?.urlImage" src="{{ selectedBarber?.urlImage }}" class="border-0 h-100 w-100" style="object-fit: cover;" />
-         <i *ngIf="!selectedBarber?.urlImage" class="fa-solid fa-user small"></i>
-       </div>
-        {{selectedBarber?.firstName}}
-      </button>
-      <ul
-      id="dropdown-basic"
-      *dropdownMenu
-      class="dropdown-menu shadow dropdown-menu-end"
-      role="menu" aria-labelledby="button-basic">
-        <li role="menuitem" *ngFor="let item of barberList">
-          <button
-          class="dropdown-item border-0 ps-2 d-flex gap-1 flex-nowrap"
-          (click)="setAgenda(item)"
-          [class.active]="selectedBarber == item"
-          >
-          <div
-          class="bg-body text-main rounded-pill overflow-hidden d-grid justify-content-center align-items-center" style="width: 20px; height: 20px;">
-            <img *ngIf="item.urlImage" src="{{ item.urlImage }}" class="border-0 h-100 w-100" style="object-fit: cover;" />
-            <i *ngIf="!item.urlImage" class="fa-solid fa-user small"></i>
-          </div>
-            {{item.firstName}} {{item.lastName}}
+      class="title fw-semibold">
+        Visão do funcionário:
+      </div>
+      <div class="btn-group me-md-auto ms-2" dropdown>
+        <button
+        id="button-basic"
+        aria-controls="dropdown"
+        dropdownToggle
+        type="button"
+        class="btn btn-main ps-2 border-0 dropdown-toggle align-items-center gap-1 d-flex flex-nowrap"
+        style="font-size: 0.8rem;"
+        >
+        <div class="bg-body text-main rounded-pill overflow-hidden d-grid justify-content-center align-items-center" style="width: 20px; height: 20px;">
+          <img *ngIf="selectedBarber?.urlImage" src="{{ selectedBarber?.urlImage }}" class="border-0 h-100 w-100" style="object-fit: cover;" />
+          <i *ngIf="!selectedBarber?.urlImage" class="fa-solid fa-user small"></i>
+        </div>
+          {{selectedBarber?.firstName}}
+        </button>
+        <ul
+        id="dropdown-basic"
+        *dropdownMenu
+        class="dropdown-menu shadow dropdown-menu-end"
+        role="menu" aria-labelledby="button-basic">
+          <li role="menuitem" *ngFor="let item of barberList">
+            <button
+            class="dropdown-item border-0 ps-2 d-flex gap-1 flex-nowrap"
+            (click)="setAgenda(item)"
+            [class.active]="selectedBarber == item"
+            >
+            <div
+            class="bg-body text-main rounded-pill overflow-hidden d-grid justify-content-center align-items-center" style="width: 20px; height: 20px;">
+              <img *ngIf="item.urlImage" src="{{ item.urlImage }}" class="border-0 h-100 w-100" style="object-fit: cover;" />
+              <i *ngIf="!item.urlImage" class="fa-solid fa-user small"></i>
+            </div>
+              {{item.firstName}} {{item.lastName}}
 
-          </button>
-        </li>
-      </ul>
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </ng-container>

@@ -2,7 +2,7 @@
   <!-- style="height: calc(95vh - var(--nav-height))" -->
 
   <div
-    [style]="'height: '+ (maxElements === 0? ' calc(95vh - var(--nav-height))': 'auto')"
+    [style]="'height: '+ (maxElements !== 0 || heightAuto? 'auto' : 'calc(95vh - var(--nav-height))')"
     class="card border shadow-sm mb-3 p-2"
   >
     <ng-container
@@ -131,6 +131,11 @@
           </ng-container>
         </tbody>
       </table>
+      <ng-container *ngIf="getFilteredTable().objects.length === 0">
+        <p class="text-center display-6 p-4 text-muted">
+          Nenhum resultado encontrado
+        </p>
+      </ng-container>
     </div>
   </div>
 </ng-container>

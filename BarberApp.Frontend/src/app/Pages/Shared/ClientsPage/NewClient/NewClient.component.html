@@ -7,7 +7,7 @@
         <button
         style="width: 50px; aspect-ratio: 1; font-size: 1.25rem;"
         [class.active]="formIndex === i"
-        (click)="formIndex = i"
+        (click)="maxFormIndex >= i? formIndex = i : null"
         class="rounded-pill btn btn-outline-main p-0 m-0">
         {{i}}
         </button>

@@ -45,24 +45,12 @@
           <app-card-mini-info [infos]="infos"></app-card-mini-info>
         </section>
 
+        <ng-container *ngIf="schedulesInPeriod.length > 0">
+          <app-default-table [tableTitle]="'Aniversariantes do mês'" [heightAuto]="true" [table]="getBirthdaysTable()"></app-default-table>
+        </ng-container>
 
-        <ng-container *ngIf="BirthdaysOfTheMonth.length > 0">
-          <section class="animate_show card border shadow-sm w-100 top5_section">
-            <div class="section_header d-flex justify-between p-3">
-              <h5 class="lh-1 title">Aniversariantes do mês</h5>
-            </div>
-
-            <div class="wrapper animate_show p-0 d-flex flex-column gap-0 mb-1">
-              <ng-container *ngFor="let item of BirthdaysOfTheMonth; let i = index">
-                <app-ClientCard
-                class="m-2 my-0 border-top"
-                [hideShadow]="true"
-                [model]="item"
-                [bigInfo]="getClientBirthday(item)"></app-ClientCard>
-              </ng-container>
-            </div>
-
-          </section>
+        <ng-container *ngIf="schedulesInPeriod.length > 0">
+          <app-default-table [maxElements]="5" [tableTitle]="'Alunos mais faltosos'" [table]="getAbsencesTable()"></app-default-table>
         </ng-container>
 
     </section>

@@ -11,6 +11,7 @@ export class DefaultTableComponent implements OnInit {
   @Input() tableTitle?: string;
   @Input() table?: DefaultTable;
   @Input() searchBar: boolean = true;
+  @Input() heightAuto: boolean = false;
   @Input() maxElements: number = 0; // 0 = altura fixa
 
   searchFocused = false;
@@ -36,7 +37,7 @@ export class DefaultTableComponent implements OnInit {
         initialTable.titles.forEach((_title, i) => {
           if (!obj.object[objectProps[i]])
             return;
-          if (obj.object[objectProps[i]].toString().toLowerCase().includes(this.searchFilter) || !this.searchFilter)
+          if (obj.object[objectProps[i]].toString().toLowerCase().includes(this.searchFilter.toLowerCase()) || !this.searchFilter)
             containsFilterString = true;
         });
 

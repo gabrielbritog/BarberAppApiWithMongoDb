@@ -1,6 +1,8 @@
 import { ScheduleModel } from './../../../Models/ScheduleModel';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 
 @Component({
   selector: 'app-HistoryCard',
@@ -26,11 +28,19 @@ export class HistoryCardComponent implements OnInit {
   }
   get formatedMoney() { return this.scheduleModel.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
+  onClick() {
+    GlobalVariables.modalAsEdit = true;
+    GlobalVariables.editSchedule = this.scheduleModel;
 
+    // this.router.navigateByUrl('/Schedules/Presence/'+this.scheduleModel.schedulingId)
+    this.router.navigateByUrl('/Schedules/Details')
+  }
 
 }
