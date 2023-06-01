@@ -4,6 +4,7 @@ import { DashboardSectionComponent } from 'src/app/Pages/Shared/DashboardPage/Da
 import { FormsModule } from '@angular/forms';
 import { CardsModule } from '../../../Components/Cards/cards.module';
 import { TablesModule } from 'src/app/Components/Tables/Tables.module';
+import { RouterHeaderModule } from 'src/app/Components/RouteHeader/router-header.module';
 
 
 
@@ -18,7 +19,8 @@ import { TablesModule } from 'src/app/Components/Tables/Tables.module';
     CommonModule,
     FormsModule,
     CardsModule,
-    TablesModule
+    TablesModule,
+    RouterHeaderModule
   ]
 })
 export class DashboardPageModule { }

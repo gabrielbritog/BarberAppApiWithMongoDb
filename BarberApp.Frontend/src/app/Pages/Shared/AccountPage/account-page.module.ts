@@ -10,6 +10,7 @@ import { FormInputModule } from '../../../Components/FormInput/form-input.module
 import { CardsModule } from '../../../Components/Cards/cards.module';
 import { EditNameComponent } from './EditName/EditName.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { RouterHeaderModule } from 'src/app/Components/RouteHeader/router-header.module';
 
 
 
@@ -35,7 +36,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     FormInputModule,
     RouterModule,
     BsDropdownModule.forRoot(),
-    CardsModule
+    CardsModule,
+    RouterHeaderModule
   ]
 })
 export class AccountPageModule { }

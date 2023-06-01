@@ -43,10 +43,11 @@ export class ScheduleListComponent implements OnInit {
   }
 
   get currentDaySchedules() {
-    const currentDay = GlobalVariables.currentDay.format('L');
+    const currentDay = GlobalVariables.currentDay;
+    const currentDayString = currentDay.format('L');
     const filteredSchedules = GlobalVariables.schedules
       .filter(p => {
-        if (p.date === currentDay) {
+        if (p.date === currentDayString) {
           return true;
         }
         if (
@@ -56,9 +57,9 @@ export class ScheduleListComponent implements OnInit {
           return true;
         }
         if (
-          moment(currentDay).diff(moment(p.date), 'days') > 0 &&
-          moment(currentDay).diff(moment(p.date), 'days') < 30 &&
-          moment(currentDay).diff(moment(p.date), 'days') % p.recurrence.recurrencePeriods === 0) {
+          moment(currentDay).diff(moment(p.schedulingDate), 'days') > 0 &&
+          moment(currentDay).diff(moment(p.schedulingDate), 'days') < 30 &&
+          moment(currentDay).diff(moment(p.schedulingDate), 'days') % p.recurrence.recurrencePeriods === 0) {
           return true;
         }
         return false;

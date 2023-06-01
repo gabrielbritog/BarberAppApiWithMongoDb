@@ -13,13 +13,13 @@ export class RouteHistoryService {
   constructor(
     private router: Router,
     private plusButtonService: PlusButtonService
-  ) { 
+  ) {
     if (this.getHistory().length !== 0)
       return;
-    
+
     RouteHistoryService.currentUrl = this.router.url;
     router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {  
+      if (event instanceof NavigationEnd) {
         if (event.url != RouteHistoryService.previousUrl){
           RouteHistoryService.previousUrl = RouteHistoryService.currentUrl;
           RouteHistoryService.historyRoutes.push(RouteHistoryService.previousUrl!);
@@ -61,16 +61,16 @@ export class RouteHistoryService {
 
   getLastHistoryUrl() {
     const history = RouteHistoryService.historyRoutes;
-    if (history.length > 0)
+    if (history.length > 1)
       return history[history.length - 1];
-    
-    return null;
+
+    const urlSplitted = this.router.url.split('/', 2).toString().replaceAll(',', '/');
+    return urlSplitted;
   }
 
   navigateBack() {
-    if (RouteHistoryService.historyRoutes.length > 1 && this.getLastHistoryUrl() !== '/'){
-      this.router.navigateByUrl(RouteHistoryService.historyRoutes.pop()!);
-    }
+    this.router.navigateByUrl(this.getLastHistoryUrl());
+    RouteHistoryService.historyRoutes.pop();
   }
 
 }

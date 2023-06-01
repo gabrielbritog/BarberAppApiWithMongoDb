@@ -27,7 +27,13 @@ export class ClientsPageComponent implements OnInit {
         header = 'Novo Aluno'
         break;
       case 'Edit':
-        header = 'Editar Aluno'
+        header = this.tokenStorage.isAdmin()? 'Editar Aluno' : 'Detalhes'
+        break;
+      case 'History':
+        header = 'Aulas'
+        break;
+      case 'Avaliation':
+        header = 'Ficha de avaliação'
         break;
 
       default:
@@ -39,7 +45,7 @@ export class ClientsPageComponent implements OnInit {
 
   constructor(
     private tokenStorage: TokenStorageService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {

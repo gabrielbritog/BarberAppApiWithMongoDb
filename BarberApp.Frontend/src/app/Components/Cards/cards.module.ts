@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ClassCardComponent } from './ClassCard/ClassCard.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { CardMiniInfoComponent } from './card-mini-info/card-mini-info.component';
+import { RouterHeaderModule } from '../RouteHeader/router-header.module';
 
 
 
@@ -43,7 +44,8 @@ import { CardMiniInfoComponent } from './card-mini-info/card-mini-info.component
   imports: [
     CommonModule,
     FormsModule,
-    AccordionModule
+    AccordionModule,
+    RouterHeaderModule
   ]
 })
 export class CardsModule { }

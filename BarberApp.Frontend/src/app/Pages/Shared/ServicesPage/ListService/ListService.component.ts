@@ -23,7 +23,13 @@ export class ListServiceComponent implements OnInit {
     const _tables: DefaultTable = {
       titles: ['Nome', 'Valor', 'Duração'],
       objects: [],
-      onClick: (event: any) => this.editService(event)
+      buttons: [{
+        label: 'Editar',
+        fontawesomeIcon: 'fa-solid fa-pen-to-square',
+        bgColor: 'main',
+        onClick: (event: any) => this.editService(event),
+      }],
+      // onClick: (event: any) => this.editService(event)
     }
 
     GlobalVariables.serviceTypes

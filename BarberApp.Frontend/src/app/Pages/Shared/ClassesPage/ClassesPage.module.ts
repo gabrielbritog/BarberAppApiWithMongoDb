@@ -8,6 +8,7 @@ import { ClassDetailsComponent } from './ClassDetails/ClassDetails.component';
 import { FormsModule } from '@angular/forms';
 import { PlusButtonModule } from '../../../Components/PlusButton/plus-button.module';
 import { TablesModule } from '../../../Components/Tables/Tables.module';
+import { RouterHeaderModule } from '../../../Components/RouteHeader/router-header.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { TablesModule } from '../../../Components/Tables/Tables.module';
     CardsModule,
     FormsModule,
     PlusButtonModule,
-    TablesModule
+    TablesModule,
+    RouterHeaderModule
   ],
   declarations: [
     ClassesPageComponent,

@@ -59,7 +59,7 @@ id="base-bg">
     <nav class="sidebar_nav flex-grow-1">
       <ul class="nav_list">
         <li class="nav_item"  >
-          <a routerLink="/Dashboard" routerLinkActive="active">
+          <a routerLink="/Dashboard" routerLinkActive="active"  (click)="closeSidebar()" >
             <i class="fa-solid fa-chart-line"></i>
           <span>
             Relatórios
@@ -67,7 +67,7 @@ id="base-bg">
           </a>
         </li>
         <li class="nav_item"  >
-          <a routerLink="/Schedules" routerLinkActive="active">
+          <a routerLink="/Schedules" routerLinkActive="active"  (click)="closeSidebar()" >
             <i class="fa-solid fa-calendar-week"></i>
           <span>
             Agenda
@@ -75,7 +75,7 @@ id="base-bg">
           </a>
         </li>
         <li class="nav_item"  >
-          <a routerLink="/History" routerLinkActive="active">
+          <a routerLink="/History" routerLinkActive="active"  (click)="closeSidebar()" >
             <i class="fa-solid fa-clock-rotate-left"></i>
           <span>
             Histórico
@@ -83,7 +83,7 @@ id="base-bg">
           </a>
         </li>
         <li class="nav_item"  >
-          <a routerLink="/WorkFlow" routerLinkActive="active">
+          <a routerLink="/WorkFlow" routerLinkActive="active"  (click)="closeSidebar()" >
           <i class="fa-solid fa-briefcase"></i>
           <span>
             Horários
@@ -92,7 +92,7 @@ id="base-bg">
         </li>
         <hr class="border-top opacity-100">
         <li *ngIf="isAdmin" class="nav_item"  >
-          <a routerLink="/Employees" routerLinkActive="active">
+          <a routerLink="/Employees" routerLinkActive="active"  (click)="closeSidebar()" >
             <i class="fa-solid fa-people-group"></i>
           <span>
             Funcionários
@@ -100,7 +100,7 @@ id="base-bg">
           </a>
         </li>
         <li class="nav_item"  >
-          <a routerLink="/Services" routerLinkActive="active">
+          <a routerLink="/Services" routerLinkActive="active"  (click)="closeSidebar()" >
           <i class="fa-solid fa-screwdriver-wrench"></i>
           <span>
             Serviços
@@ -108,7 +108,7 @@ id="base-bg">
           </a>
         </li>
         <li class="nav_item"  >
-          <a routerLink="/Classes" routerLinkActive="active">
+          <a routerLink="/Classes" routerLinkActive="active"  (click)="closeSidebar()" >
             <i class="fa-solid fa-user-group"></i>
             <span>
               Turmas
@@ -116,7 +116,7 @@ id="base-bg">
           </a>
         </li>
         <li class="nav_item"  >
-          <a routerLink="/Clients" routerLinkActive="active">
+          <a routerLink="/Clients" routerLinkActive="active"  (click)="closeSidebar()" >
             <i class="fa-solid fa-user-group"></i>
             <span>
               Alunos
@@ -124,7 +124,7 @@ id="base-bg">
           </a>
         </li>
         <!-- <li class="nav_item"  >
-          <a routerLink="/Account" routerLinkActive="active">
+          <a routerLink="/Account" routerLinkActive="active"  (click)="closeSidebar()" >
           <i class="fa-solid fa-user-pen"></i>
           <span>
             Editar

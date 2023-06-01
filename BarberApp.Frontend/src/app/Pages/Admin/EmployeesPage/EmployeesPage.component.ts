@@ -24,7 +24,7 @@ export class EmployeesPageComponent implements OnInit {
   get headerUrl() {
     let header = 'Funcionários'
     const route = this.router.url.split('/');
-    const lastRoute = route[route.length - 1];
+    const lastRoute = route[2];
     switch (lastRoute) {
       case 'New':
         header = 'Novo Funcionário'
@@ -61,6 +61,9 @@ export class EmployeesPageComponent implements OnInit {
   ngOnInit() {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
+
+    if (!this.tokenStorage.isAdmin())
+      this.router.navigateByUrl('/Schedules');
   }
 
   newBarber() {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { WorkFlowPageComponent } from './WorkFlowPage.component';
 import { ComponentsModule } from '../../../Components/components.module';
 import { FormsModule } from '@angular/forms';
+import { RouterHeaderModule } from 'src/app/Components/RouteHeader/router-header.module';
 
 
 
@@ -13,7 +14,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ComponentsModule,
-    FormsModule
+    FormsModule,
+    RouterHeaderModule
   ]
 })
 export class WorkFlowPageModule { }

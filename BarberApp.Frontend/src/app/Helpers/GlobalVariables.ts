@@ -27,7 +27,7 @@ export class GlobalVariables {
     const userModel = this.getUserModel();
     if (!userModel)
       return false;
-    let userBarberId: string | null = userModel.barberId;
+    let userBarberId: string | null | undefined = userModel.barberId;
 
     return !userBarberId;
   }
@@ -50,8 +50,6 @@ export class GlobalVariables {
   // EDIT MODALS VARIABLES
   static editSchedule: ScheduleModel | undefined;
   static editServiceType: ServiceTypeModel | undefined;
-  static editEmployee: BarberModel | undefined;
-  static editClient: ClientModel | undefined;
 
   // HOME SECTIONS
   static currentSection = 0;

@@ -51,12 +51,4 @@ export class ServicesPageComponent implements OnInit {
       this.router.navigateByUrl('/Login');
   }
 
-  onCancel() {
-    if (this.router.url == '/Services')
-      this.router.navigateByUrl('/Home');
-    else
-      this.router.navigateByUrl('/Services');
-  }
-
-
 }

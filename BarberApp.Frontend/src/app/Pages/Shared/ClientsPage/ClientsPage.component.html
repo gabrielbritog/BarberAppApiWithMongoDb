@@ -2,15 +2,7 @@
 
   <div class="cards_container container">
 
-    <div class="section_title">
-      <button class="btn btn_return" *ngIf="headerUrl !== 'Alunos'" (click)="onCancel()" >
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-      <h3 class="title me-auto">{{headerUrl}}</h3>
-      <button class="btn tooltip_btn">
-        <i class="fa-solid fa-question"></i>
-      </button>
-    </div>
+    <app-RouteHeader></app-RouteHeader>
 
 
     <section class="router_container">

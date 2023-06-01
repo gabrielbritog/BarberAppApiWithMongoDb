@@ -1,19 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ClientModel } from '../../../../Models/ClientModel';
 import { ClassesFrontModel, ClassesUtilities } from '../../../../Models/ClassesModel';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClassesService } from '../../../../Services/api/Classes.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ClassDetails',
   templateUrl: './ClassDetails.component.html',
   styleUrls: ['../../../Styles/baseSection.scss', './ClassDetails.component.css']
 })
-export class ClassDetailsComponent implements OnInit {
-  classModel: ClassesFrontModel;
+export class ClassDetailsComponent implements OnInit, OnDestroy {
+  id: string = '';
+  subscription?: Subscription;
+
+
+  classModel!: ClassesFrontModel;
   get selectedClass() {
     return GlobalVariables.selectedClass;
   }
@@ -54,22 +59,54 @@ export class ClassDetailsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private classesService: ClassesService,
     private toastr: ToastrService
   ) {
-    if (!this.selectedClass){
-      this.classModel = {
-        name: 'Teste',
-        clientsModel: [],
-        clientsPresence: []
-      }
-    }
-    else {
-      this.classModel = ClassesUtilities.convertApiModelToFrontModel(this.selectedClass);
-    }
+    this.loadClassModelTemplate();
   }
 
   ngOnInit() {
+    if (!this.activatedRoute.snapshot.params['id'] && !this.router.url.includes('New')){
+      this.router.navigateByUrl('/Classes');
+      return;
+    }
+
+    if (this.router.url.includes('New')) {
+      this.selectedClass = undefined;
+      this.loadClassModelTemplate();
+      return;
+    }
+
+    this.subscription =
+      this.activatedRoute.params.subscribe(
+        (params: any) => {
+          if (this.router.url.includes('New'))
+            return;
+
+          if (!params['id']){
+            this.router.navigateByUrl('/Classes');
+            return;
+          }
+
+          this.id = params['id'];
+
+          const existedClassModel = GlobalVariables.allClasses.find(classModel => classModel.id === this.id);
+
+          if (!existedClassModel) {
+            this.router.navigateByUrl('/Classes');
+            return;
+          }
+
+
+          this.selectedClass =  existedClassModel;
+          this.loadClassModelTemplate();
+        }
+      )
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   onSubmit() {
@@ -97,6 +134,19 @@ export class ClassDetailsComponent implements OnInit {
     })
   }
 
+  loadClassModelTemplate() {
+    if (!this.selectedClass){
+      this.classModel = {
+        name: '',
+        clientsModel: [],
+        clientsPresence: []
+      }
+    }
+    else {
+      this.classModel = ClassesUtilities.convertApiModelToFrontModel(this.selectedClass);
+    }
+  }
+
   successResponse(apiResponse: any) {
     if(!this.selectedClass)
       GlobalVariables.allClasses.push(apiResponse.data);
@@ -108,4 +158,10 @@ export class ClassDetailsComponent implements OnInit {
     this.router.navigateByUrl('/Classes');
   }
 
+  formatIdNumber(numero: number): string {
+    return numero.toLocaleString(undefined, {
+      minimumIntegerDigits: 3,
+      useGrouping: false
+    });
+  }
 }

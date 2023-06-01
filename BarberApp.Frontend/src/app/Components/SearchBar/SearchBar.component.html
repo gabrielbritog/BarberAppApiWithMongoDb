@@ -1,10 +1,10 @@
 <div class="d-flex w-100 h-100 position-relative border-0 rounded">
-  <input 
+  <input
   #searchBar
   id="search-bar"
-  class="rounded flex-grow-1 p-0 flex-shrink-1" 
+  class="rounded flex-grow-1 p-0 flex-shrink-1"
   style="width: 0; padding-left: 40px !important"
-  type="text" 
+  type="text"
   name="search"
   [class.pe-2]="isFocusedOrDirty()"
   [placeholder]="placeholder"
@@ -13,12 +13,12 @@
   (blur)="changeFocus(false)"
   >
 
-  <button 
+  <button
   type="button"
   class="d-grid d-md-none btn border-0 btn-search p-0 position-absolute top-0 start-0"
   [class.active]="isFocusedOrDirty()"
   [class.btn-outline-main]="isFocusedOrDirty()"
-  [class.btn-secondary]="!isFocusedOrDirty() && !expanded"
+  [class.btn-main]="!isFocusedOrDirty() && !expanded"
   [class.btn-outline-secondary]="!isFocusedOrDirty() && expanded"
   [class.rounded-pill]="!isFocusedOrDirty()"
   (click)="searchButtonClick(searchBar)"
@@ -26,7 +26,7 @@
     <i class="fa-solid fa-magnifying-glass small search-icon"></i>
   </button>
 
-  <button 
+  <button
   type="button"
   class="d-none d-md-grid btn btn-search border-0 p-0 position-absolute top-0 start-0"
   [class.active]="isFocusedOrDirty()"

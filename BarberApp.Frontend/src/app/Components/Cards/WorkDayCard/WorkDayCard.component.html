@@ -1,9 +1,19 @@
 <div class="card workday border-0 shadow-sm" [class.inactive]="!weekDay.isOpen">
 
   <div class="content d-flex w-100">
-    <input type="checkbox" [(ngModel)]="weekDay.isOpen" >
-    <div class="title me-auto">
-      <span>{{weekDay.day}}</span>
+    <div class="form-check d-flex overflow-hidden align-items-center p-0">
+      <input
+      style="width: 1.25em; height: 1.25em;"
+      class="form-check-input p-0 m-0 ms-1 cursor-pointer"
+      type="checkbox"
+      [id]="weekDay.day"
+      [(ngModel)]="weekDay.isOpen"
+      >
+      <label
+      style="text-overflow: ellipsis;"
+      class="ms-2 form-check-label flex-grow-1 text-capitalize text-nowrap overflow-hidden cursor-pointer" [for]="weekDay.day">
+        {{weekDay.day}}
+      </label>
     </div>
     <div class="desc_area">
       <span class="cursor-pointer" (click)="openingTime.showPicker()">

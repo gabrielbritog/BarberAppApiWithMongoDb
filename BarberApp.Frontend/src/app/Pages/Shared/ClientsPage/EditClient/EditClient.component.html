@@ -28,10 +28,10 @@
     <app-FormInput class="animate_show" [inputs]="modalInputs[2]"  [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [extraBtnLeft]="backBtn" [submitText]="'Próximo'" (submitAction)="onSubmit($event)" ></app-FormInput>
   </ng-container>
   <ng-container *ngIf="formIndex === 3">
-    <app-FormInput class="animate_show" [inputs]="modalInputs[3]"  [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [extraBtnLeft]="backBtn" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+    <app-FormInput class="animate_show" [inputs]="modalInputs[3]"  [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [extraBtnLeft]="backBtn" [submitText]="'Próximo'" (submitAction)="onSubmit($event)" ></app-FormInput>
   </ng-container>
   <ng-container *ngIf="formIndex === 4">
-    <app-default-table [tableTitle]="'Lista de presença'" [table]="getAbsencesTable()"></app-default-table>
+    <app-FormInput class="animate_show" [inputs]="modalInputs[4]"  [formTitle]="formTitles[formIndex]" [titleOnMobileOnly]="true" [extraBtnLeft]="backBtn" [submitText]="'Salvar'" (submitAction)="onSubmit($event)" ></app-FormInput>
   </ng-container>
 
 </div>

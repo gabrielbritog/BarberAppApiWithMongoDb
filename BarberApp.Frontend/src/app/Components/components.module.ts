@@ -6,6 +6,7 @@ import { ModalsModule } from './Modals/modals.module';
 import { PlusButtonModule } from './PlusButton/plus-button.module';
 import { LogoComponent } from './logo/logo.component';
 import { TablesModule } from './Tables/Tables.module';
+import { RouterHeaderModule } from './RouteHeader/router-header.module';
 
 
 
@@ -19,7 +20,8 @@ import { TablesModule } from './Tables/Tables.module';
     FormInputModule,
     ModalsModule,
     PlusButtonModule,
-    TablesModule
+    TablesModule,
+    RouterHeaderModule
   ],
   exports: [
     LogoComponent,
@@ -28,7 +30,8 @@ import { TablesModule } from './Tables/Tables.module';
     FormInputModule,
     ModalsModule,
     PlusButtonModule,
-    TablesModule
+    TablesModule,
+    RouterHeaderModule
   ],
 })
 export class ComponentsModule { }

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FooterBarComponent } from './footer-bar/footer-bar.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { RouterHeaderModule } from 'src/app/Components/RouteHeader/router-header.module';
 
 
 
@@ -16,6 +17,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     FormsModule,
     RouterModule,
     BsDropdownModule.forRoot(),
+    RouterHeaderModule
   ],
   declarations: [
     NavBarComponent,

@@ -1,11 +1,7 @@
 <div class="page_container">
   <div class="cards_container container">
-    <div class="section_title">
-      <h3 class="title">Histórico</h3>
-      <button class="btn tooltip_btn">
-        <i class="fa-solid fa-question"></i>
-      </button>
-    </div>
+    <app-RouteHeader></app-RouteHeader>
+
     <div class="mt-3 d-flex flex-column gap-2">
       <ng-container *ngFor="let item of schedules; let i = index" >
         <app-HistoryCard [model]="item"></app-HistoryCard>

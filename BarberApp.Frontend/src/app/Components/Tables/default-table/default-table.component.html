@@ -3,14 +3,14 @@
 
   <div
     [style]="'height: '+ (maxElements !== 0 || heightAuto? 'auto' : 'calc(95vh - var(--nav-height))')"
-    class="card border shadow-sm mb-3 p-2"
+    class="card border shadow-sm mb-3 p-0"
   >
     <ng-container
     *ngIf="tableTitle || searchBar"
     >
       <div
         style="height: 40px;"
-        class="table-caption w-100 d-flex align-items-center justify-content-between mb-2"
+        class="table-caption w-auto d-flex align-items-center justify-content-between m-2"
       >
         <caption
           *ngIf="tableTitle"
@@ -32,7 +32,7 @@
     </ng-container>
     <div
     style="height: 100%;"
-      class="table-responsive position-relative m-0"
+      class="table-responsive position-relative m-0 m-2"
     >
       <table class="table m-0">
         <thead class="position-sticky top-0 z-1">
@@ -124,6 +124,22 @@
                     class="content position-relative text-nowrap align-items-center w-100 d-flex gap-3"
                   >
                     {{ item.object[propertiesOfObjects[j]] }}
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container *ngIf="table.buttons && table.buttons.length > 0">
+                <td style="vertical-align: middle;" class="p-3">
+                  <div style="gap: 2px;" class="btn-group" role="group" aria-label="Basic example">
+                    <ng-container *ngFor="let btn of table.buttons">
+                      <button
+                      type="button"
+                      style="width: 2.5rem; height: 2.5rem;"
+                      (click)="btn.onClick? btn.onClick(item) : ''"
+                      [attr.data-label]="btn.label"
+                      [class]="'table-btn btn btn-'+btn.bgColor+' text-nowrap p-0'">
+                        <i *ngIf="btn.fontawesomeIcon" [class]="btn.fontawesomeIcon"></i>
+                      </button>
+                    </ng-container>
                   </div>
                 </td>
               </ng-container>

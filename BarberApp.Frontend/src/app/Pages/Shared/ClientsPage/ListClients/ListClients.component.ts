@@ -13,16 +13,35 @@ export class ListClientsComponent implements OnInit {
 
   get clientsTable() {
     const _tables: DefaultTable = {
-      titles: ['Nome', 'Telefone'],
+      titles: ['Nome'],
       objects: [],
-      onClick: (event: any) => this.editClient(event)
+      buttons: [
+        {
+          label: 'Detalhes',
+          fontawesomeIcon: 'fa-solid fa-arrow-up-right-from-square',
+          bgColor: 'main',
+          onClick: (event: any) => this.editClient(event, 'Edit')
+        },
+        {
+          label: 'Avaliação',
+          fontawesomeIcon: 'fa-solid fa-file-lines',
+          bgColor: 'main',
+          onClick: (event: any) => this.editClient(event, 'Avaliation')
+        },
+        {
+          label: 'Aulas',
+          fontawesomeIcon: 'fa-solid fa-chart-line',
+          bgColor: 'main',
+          onClick: (event: any) => this.editClient(event, 'History')
+        },
+      ]
+      // onClick: (event: any) => this.editClient(event)
     }
 
     GlobalVariables.clients.forEach((client, i) => {
       _tables.objects.push({
         object: {
           name: client.name,
-          phone: client.phone,
           id: client.clientId
         },
         // fontawesomeIcon: "fa-brands fa-whatsapp",
@@ -34,11 +53,11 @@ export class ListClientsComponent implements OnInit {
     return _tables;
   }
 
-  editClient(event: any) {
-    if (!event.object.id)
+  editClient(event: any, route: string) {
+    if (!event.object?.id)
       return;
 
-    this.router.navigateByUrl(`/Clients/Edit/${event.object.id}`);
+    this.router.navigateByUrl(`/Clients/${route}/${event.object.id}`);
   }
 
   constructor(

@@ -69,7 +69,7 @@ export class NewEmployeeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.barberModel = new BarberModel(GlobalVariables.editEmployee);
+    this.barberModel = new BarberModel();
 
     if (this.isEditModal){
       this.modalInputs[0].value = this.barberModel.firstName;
@@ -87,12 +87,10 @@ export class NewEmployeeComponent implements OnInit {
     let barber = new BarberModel(barberForm);
     barber.workingDays = this.tokenStorage.getUserModel().workingDays;
 
-    let index = this.isEditModal? GlobalVariables.employees.indexOf(GlobalVariables.editEmployee!) : -1;
-
-    const apiCall = this.isEditModal ? this.userService.updateBarber(barber) : this.authService.registerBarber(barber);
+    const apiCall = this.authService.registerBarber(barber);
 
     apiCall.subscribe({
-      next: (data: any) => this.successResponse(data, index, form),
+      next: (data: any) => this.successResponse(data, form),
       error: (err) => this.errorResponse(err)
     })
   }
@@ -101,13 +99,10 @@ export class NewEmployeeComponent implements OnInit {
     this.router.navigateByUrl('/Employees')
   }
 
-  successResponse(data: any, index: number, form: NgForm) {
+  successResponse(data: any, form: NgForm) {
     console.log(data.message);
     setTimeout(() => {
-      if (index < 0)
-        GlobalVariables.employees.push(new BarberModel(data.data));
-      else
-        GlobalVariables.employees[index] = new BarberModel(data.data);
+      GlobalVariables.employees.push(new BarberModel(data.data));
 
       if (GlobalVariables.employees.length == 1)
         GlobalVariables.selectedBarber = GlobalVariables.employees[0];

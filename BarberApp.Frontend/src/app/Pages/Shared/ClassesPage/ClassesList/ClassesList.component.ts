@@ -15,8 +15,14 @@ export class ClassesListComponent implements OnInit {
 
   get classesTable() {
     const _tables: DefaultTable = {
-      titles: ['Nome', 'Alunos'],
+      titles: ['Nome'],
       objects: [],
+      buttons: [{
+        label: 'Detalhes',
+        fontawesomeIcon: 'fa-solid fa-arrow-up-right-from-square',
+        bgColor: 'main',
+        onClick: (event: any) => this.editClass(event),
+      }],
       onClick: (event: any) => this.editClass(event)
     }
 
@@ -46,8 +52,7 @@ export class ClassesListComponent implements OnInit {
     if (!classModel)
       return;
 
-    GlobalVariables.selectedClass = classModel;
-    this.router.navigateByUrl('/Classes/Details')
+    this.router.navigateByUrl('/Classes/Details/'+event.object.id)
   }
 
   constructor(private router: Router) { }

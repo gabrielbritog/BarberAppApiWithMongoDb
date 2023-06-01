@@ -24,8 +24,16 @@ export class ListEmployeeComponent implements OnInit {
 
   get employeesTable() {
     const _tables: DefaultTable = {
-      titles: ['Nome', 'Telefone'],
+      titles: ['Nome'],
       objects: [],
+      buttons: [
+        {
+          label: 'Detalhes',
+          fontawesomeIcon: 'fa-solid fa-arrow-up-right-from-square',
+          bgColor: 'main',
+          onClick: (event: any) => this.editEmployee(event)
+        },
+      ]
       // onClick: () => this.metodoTeste()
     }
 
@@ -33,7 +41,7 @@ export class ListEmployeeComponent implements OnInit {
       _tables.objects.push({
         object: {
           name: `${employee.firstName} ${employee.lastName}`,
-          phone: employee.phoneNumber,
+          id: employee.barberId
         },
         fontawesomeIcon: "fa-solid fa-user",
         imgUrl: employee.urlImage,
@@ -53,6 +61,13 @@ export class ListEmployeeComponent implements OnInit {
 
   newBarber() {
     this.router.navigateByUrl('/Employees/New');
+  }
+
+  editEmployee(event: any) {
+    if (!event.object?.id)
+      return;
+
+    this.router.navigateByUrl(`/Employees/Edit/${event.object.id}`);
   }
 
 }

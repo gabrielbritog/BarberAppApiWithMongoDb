@@ -31,6 +31,8 @@ import { ClassDetailsComponent } from './Pages/Shared/ClassesPage/ClassDetails/C
 import { NewClientComponent } from './Pages/Shared/ClientsPage/NewClient/NewClient.component';
 import { EditClientComponent } from './Pages/Shared/ClientsPage/EditClient/EditClient.component';
 import { SchedulePresenceComponent } from './Pages/Shared/SchedulesPage/schedule-presence/schedule-presence.component';
+import { HistoryClientComponent } from './Pages/Shared/ClientsPage/HistoryClient/HistoryClient.component';
+import { AvaliationClientComponent } from './Pages/Shared/ClientsPage/AvaliationClient/AvaliationClient.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginPageComponent },
@@ -47,7 +49,7 @@ const routes: Routes = [
   { path: 'WorkFlow', component: WorkFlowPageComponent },
   { path: 'Employees', component: EmployeesPageComponent , children: [
     {path: '', component: ListEmployeeComponent},
-    {path: 'Edit', component: EditEmployeeComponent},
+    {path: 'Edit/:id', component: EditEmployeeComponent},
     {path: 'New', component: NewEmployeeComponent},
   ] },
   { path: 'Services', component: ServicesPageComponent , children: [
@@ -60,10 +62,13 @@ const routes: Routes = [
     {path: '', component: ListClientsComponent},
     {path: 'New', component: NewClientComponent},
     {path: 'Edit/:id', component: EditClientComponent},
+    {path: 'Details/:id', component: EditClientComponent},
+    {path: 'History/:id', component: HistoryClientComponent},
+    {path: 'Avaliation/:id', component: AvaliationClientComponent},
   ] },
   { path: 'Classes', component: ClassesPageComponent, children: [
     {path: '', component: ClassesListComponent},
-    {path: 'Details', component: ClassDetailsComponent},
+    {path: 'Details/:id', component: ClassDetailsComponent},
     {path: 'New', component: ClassDetailsComponent},
   ] },
   { path: 'Account', component: AccountPageComponent, children: [

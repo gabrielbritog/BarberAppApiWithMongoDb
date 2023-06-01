@@ -28,17 +28,11 @@ export class EditClientComponent implements OnInit, OnDestroy {
     label: 'Voltar',
     onClick: () => this.formIndex--
   }
-  formTitles = ['Dados de Cadastro', 'Endereço', 'Contato de emergência', 'Dados complementares', 'Lista de presença']
+  formTitles = ['Dados de Cadastro', 'Dados pessoais', 'Endereço', 'Contato de emergência', 'Dados complementares']
   modalInputs: IFormInput[][] =
     [
       // 0 - Dados de cadastro
       [
-        {
-          id: 'name',
-          label: 'Nome',
-          type: 'text',
-          value: ''
-        },
         {
           id: 'registerNumber',
           label: 'N° do Cadastro',
@@ -57,8 +51,17 @@ export class EditClientComponent implements OnInit, OnDestroy {
           options: {
             max: '12',
             mask: 'number'
-          }
+          },
         },
+        {
+          id: 'name',
+          label: 'Nome',
+          type: 'text',
+          value: ''
+        },
+      ],
+      // 1 - Dados pessoais
+      [
         {
           id: 'phone',
           label: 'Contato',
@@ -102,7 +105,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           }
         },
       ],
-      // 1 - Endereço
+      // 2 - Endereço
       [
         {
           id: 'cep',
@@ -161,7 +164,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           },
         },
       ],
-      // 2 - Contato de emergência
+      // 3 - Contato de emergência
       [
         {
           id: 'name',
@@ -202,7 +205,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: ''
         },
       ],
-      // 3 - Dados complementares
+      // 4 - Dados complementares
       [
         {
           id: 'occupation',
@@ -332,11 +335,11 @@ export class EditClientComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm) {
 
-    if (this.formIndex === 1) // Endereço
+    if (this.formIndex === 2) // Endereço
     {
       this.clientModel.adress = form.value;
     }
-    else if (this.formIndex === 2) // Contato de emergência
+    else if (this.formIndex === 3) // Contato de emergência
       this.clientModel.emergencyContact = form.value;
     else
       Object.assign(this.clientModel, form.value)
@@ -344,7 +347,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
     if (form.invalid)
       return;
 
-    if (this.formIndex < this.formTitles.length - 2){
+    if (this.formIndex < this.formTitles.length - 1){
       this.formIndex++;
       this.maxFormIndex = Math.max(this.maxFormIndex, this.formIndex);
       return;
@@ -401,6 +404,9 @@ export class EditClientComponent implements OnInit, OnDestroy {
           type: 'text',
           value: this.clientModel.name
         },
+      ],
+      // 1 - Dados pessoais
+      [
         {
           id: 'phone',
           label: 'Contato',
@@ -444,7 +450,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           }
         },
       ],
-      // 1 - Endereço
+      // 2 - Endereço
       [
         {
           id: 'cep',
@@ -503,7 +509,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           },
         },
       ],
-      // 2 - Contato de emergência
+      // 3 - Contato de emergência
       [
         {
           id: 'name',
@@ -544,7 +550,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.emergencyContact?.kinship?? '',
         },
       ],
-      // 3 - Dados complementares
+      // 4 - Dados complementares
       [
         {
           id: 'occupation',

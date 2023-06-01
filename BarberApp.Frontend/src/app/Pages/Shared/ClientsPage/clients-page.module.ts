@@ -8,6 +8,8 @@ import { ComponentsModule } from '../../../Components/components.module';
 import { FormsModule } from '@angular/forms';
 import { EditClientComponent } from './EditClient/EditClient.component';
 import { DetailsClientComponent } from './DetailsClient/DetailsClient.component';
+import { AvaliationClientComponent } from './AvaliationClient/AvaliationClient.component';
+import { HistoryClientComponent } from './HistoryClient/HistoryClient.component';
 
 
 
@@ -24,6 +26,8 @@ import { DetailsClientComponent } from './DetailsClient/DetailsClient.component'
     NewClientComponent,
     EditClientComponent,
     DetailsClientComponent,
+    AvaliationClientComponent,
+    HistoryClientComponent
   ],
   exports: [
     ClientsPageComponent,
@@ -31,6 +35,8 @@ import { DetailsClientComponent } from './DetailsClient/DetailsClient.component'
     NewClientComponent,
     EditClientComponent,
     DetailsClientComponent,
+    AvaliationClientComponent,
+    HistoryClientComponent
   ],
 })
 export class ClientsPageModule { }

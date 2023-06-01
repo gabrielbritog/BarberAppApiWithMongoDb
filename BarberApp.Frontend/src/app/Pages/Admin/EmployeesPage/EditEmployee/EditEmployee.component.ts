@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { BarberModel } from 'src/app/Models/BarberModel';
+import { EmployeeService } from 'src/app/Services/api/Employee.service';
+import { RouteHistoryService } from '../../../../Services/misc/route-history.service';
 
 @Component({
   selector: 'app-EditEmployee',
@@ -7,9 +15,126 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditEmployeeComponent implements OnInit {
 
-  constructor() { }
+  id: string = '';
+  subscription?: Subscription;
+
+  barberModel = new BarberModel();
+
+  modalInputs: IFormInput[] = [
+    {
+      id: 'firstName',
+      label: 'Nome',
+      type: 'text',
+      value: ''
+    },
+    {
+      id: 'lastName',
+      label: 'Sobrenome',
+      type: 'text',
+      value: ''
+    },
+    {
+      id: 'phoneNumber',
+      label: 'Celular',
+      type: 'text',
+      value: ''
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      type: 'email',
+      value: ''
+    }
+  ]
+  constructor(
+    private employeeService: EmployeeService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private routeHistoryService: RouteHistoryService,
+  ) { }
 
   ngOnInit() {
+    if (!this.activatedRoute.snapshot.params['id']){
+      this.router.navigateByUrl('/Employees');
+      return;
+    }
+
+    this.subscription =
+      this.activatedRoute.params.subscribe(
+        (params: any) => {
+          if (!params['id']){
+            this.router.navigateByUrl('/Employees');
+            return;
+          }
+
+          this.id = params['id'];
+
+          const existedEmployeeModel = GlobalVariables.employees.find(emp => emp.barberId === this.id);
+
+          if (!existedEmployeeModel) {
+            this.router.navigateByUrl('/Clients');
+            return;
+          }
+
+          this.barberModel = {...existedEmployeeModel};
+          this.updateModalInputs();
+        }
+      )
+  }
+
+  updateModalInputs() {
+    this.modalInputs = [
+      {
+        id: 'firstName',
+        label: 'Nome',
+        type: 'text',
+        value: this.barberModel.firstName
+      },
+      {
+        id: 'lastName',
+        label: 'Sobrenome',
+        type: 'text',
+        value: this.barberModel.lastName
+      },
+      {
+        id: 'phoneNumber',
+        label: 'Celular',
+        type: 'text',
+        value: this.barberModel.phoneNumber
+      },
+      {
+        id: 'email',
+        label: 'Email',
+        type: 'email',
+        value: this.barberModel.email
+      }
+    ]
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.invalid)
+      return;
+
+
+    if (form.value.email === this.barberModel.email) {
+      form.value.email = null;
+    }
+
+    const APICALL = this.employeeService.updateEmployee(form.value, this.barberModel.email, this.barberModel.barberId ?? '');
+
+    APICALL.subscribe({
+      next: (response: any) => {
+        this.barberModel = response.data;
+        const existedEmployee = GlobalVariables.employees.find(p => p.barberId === this.barberModel.barberId);
+        if (existedEmployee)
+          Object.assign(existedEmployee, this.barberModel);
+
+        this.routeHistoryService.navigateBack();
+      },
+      error(err) {
+        console.log(err)
+      },
+    })
   }
 
 }

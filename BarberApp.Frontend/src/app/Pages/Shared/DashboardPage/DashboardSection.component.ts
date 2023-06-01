@@ -262,7 +262,7 @@ export class DashboardSectionComponent implements OnInit {
       absencesTable.objects.push({
         object: {
           name: client.name,
-          birthday: moment(client.dateOfBirth).format('DD/MM'),
+          birthday: moment(client.dateOfBirth).format('DD/MM/YYYY'),
           id: client.clientId
         }
       })
@@ -288,10 +288,9 @@ export class DashboardSectionComponent implements OnInit {
     const endDate = moment(this.endDate).hour(23).minute(59).utc(true);
     const startEndDateDiff = endDate.diff(startDate);
     const previousStartDate = startDate.clone().add(-startEndDateDiff).utc(true);
-    const previousEndDate = endDate.clone().add(-startEndDateDiff).utc(true);
+    const previousEndDate = endDate.clone().add(-startEndDateDiff -1).utc(true);
 
     const PREVIUS_API_CALL = this.dashboard.getManySchedulingByDate(previousStartDate.toISOString(), previousEndDate.toISOString());
-
 
     PREVIUS_API_CALL.subscribe({
       next: (data: any) => {

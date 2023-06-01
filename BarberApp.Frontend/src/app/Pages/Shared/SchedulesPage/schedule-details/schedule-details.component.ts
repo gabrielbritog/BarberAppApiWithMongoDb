@@ -103,7 +103,7 @@ export class ScheduleDetailsComponent implements OnInit {
         label: 'Data',
         value: this.currentDay,
         type: 'date',
-        options: {min: moment().format('YYYY-MM-DD')}
+        options: {min: moment().toISOString()}
       },
       {
         id: 'time',

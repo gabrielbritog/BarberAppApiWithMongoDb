@@ -2,17 +2,19 @@
 
   <div class="cards_container container">
 
-    <div class="section_title">
-      <h3 class="title me-auto">Horários</h3>
-      <button class="btn tooltip_btn">
-        <i class="fa-solid fa-question"></i>
-      </button>
-    </div>
+    <app-RouteHeader></app-RouteHeader>
 
     <div class="section_container d-flex flex-column container">
       <div class="table_container d-flex flex-column shadow-sm">
         <div class="section-title bg-body m-0">
-          <input type="checkbox" [(ngModel)]="toggleAll" >
+          <div class="form-check d-flex overflow-hidden align-items-center p-0">
+            <input
+            style="width: 1.25em; height: 1.25em;"
+            class="form-check-input p-0 m-1 me-2 cursor-pointer"
+            type="checkbox"
+            [(ngModel)]="toggleAll"
+            >
+          </div>
           <h4 class="flex-grow">Dia da semana</h4>
           <h4 class="time_header">Horário</h4>
         </div>
@@ -32,7 +34,7 @@
 
       </div>
 
-      <button (click)="onSubmit()" class="btn btn-main btn_submit mt-3">Salvar</button>
+      <button (click)="onSubmit()" class="btn btn-main btn_submit mt-3 me-auto px-4">Salvar</button>
     </div>
   </div>
 </div>

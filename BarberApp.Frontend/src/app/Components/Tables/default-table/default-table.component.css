@@ -8,12 +8,63 @@ tbody tr:nth-of-type(2n){
   background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity)) !important;
 }
 
-tbody tr.cursor-pointer:hover{
+tbody tr:hover{
   --bs-bg-opacity: .25;
   background-color: rgba(var(--main-rgb), var(--bs-bg-opacity)) !important;
 }
 
+tbody button.table-btn.btn::after,
+tbody button.table-btn.btn::before{
+  opacity: 0;
+  display: none;
+  font-size: 0.875rem;
+  font-family: var(--bs-font-sans-serif);
+}
+
+tbody button.table-btn.btn::after{
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translate(-50%);
+  padding: 5px 0.75rem;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+tbody button.table-btn.btn::before{
+  content: '';
+  position: absolute;
+  bottom: calc(100% - .25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+tbody button.table-btn.btn:hover:after,
+tbody button.table-btn.btn:hover:before{
+  opacity: 1;
+  display: block;
+}
+
 thead::before{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: -1;
+
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity)) !important;
+}
+
+thead::after{
   content: '';
   position: absolute;
   bottom: -1px;

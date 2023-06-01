@@ -1,11 +1,6 @@
 <div class="page_container hide-scrollbar">
   <div class="cards_container container">
-    <div class="section_title">
-      <h3 class="title">Relatórios</h3>
-      <button class="btn tooltip_btn">
-        <i class="fa-solid fa-question"></i>
-      </button>
-    </div>
+    <app-RouteHeader></app-RouteHeader>
 
     <section class="animate_show section_container m-0 mt-3 mb-5 d-flex flex-column">
 
@@ -46,11 +41,11 @@
         </section>
 
         <ng-container *ngIf="schedulesInPeriod.length > 0">
-          <app-default-table [tableTitle]="'Aniversariantes do mês'" [heightAuto]="true" [table]="getBirthdaysTable()"></app-default-table>
+          <app-default-table [tableTitle]="'Aniversariantes'" [heightAuto]="true" [table]="getBirthdaysTable()"></app-default-table>
         </ng-container>
 
         <ng-container *ngIf="schedulesInPeriod.length > 0">
-          <app-default-table [maxElements]="5" [tableTitle]="'Alunos mais faltosos'" [table]="getAbsencesTable()"></app-default-table>
+          <app-default-table [maxElements]="5" [tableTitle]="'Alunos'" [table]="getAbsencesTable()"></app-default-table>
         </ng-container>
 
     </section>

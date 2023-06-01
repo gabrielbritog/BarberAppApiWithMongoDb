@@ -2,18 +2,7 @@
 
   <div class="cards_container container max-w-md">
 
-    <div class="section_title container">
-      <a class="btn btn_return d-grid justify-content-center align-items-center"
-      routerLink="/Account"
-      [class.d-none]="headerUrl === 'Perfil'"
-      >
-        <i class="fa-solid fa-arrow-left"></i>
-      </a>
-      <h3 class="title me-auto">{{headerUrl}}</h3>
-      <button class="btn tooltip_btn">
-        <i class="fa-solid fa-question"></i>
-      </button>
-    </div>
+    <app-RouteHeader></app-RouteHeader>
 
 
     <section class="router_container">

@@ -1,14 +1,6 @@
 <div class="cards_container mt-0 mt-lg-3 animate_show" *ngIf="schedule">
 
-  <div class="section_title">
-    <button class="btn btn_return" (click)="onCancel()">
-      <i class="fa-solid fa-arrow-left"></i>
-    </button>
-    <h3 class="title me-auto">Lista de presença</h3>
-    <button class="btn tooltip_btn">
-      <i class="fa-solid fa-question"></i>
-    </button>
-  </div>
+  <app-RouteHeader></app-RouteHeader>
 
   <form
   style="height: 75vh;"

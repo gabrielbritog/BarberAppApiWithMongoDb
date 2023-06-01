@@ -5,12 +5,7 @@
       <i class="fa-solid fa-bars"></i>
     </button>
 
-    <h3 class="router-name d-none align-items-center" style="height: 40px;">
-      <button class="btn btn_return" *ngIf="isCurrentRouteChild" (click)="onReturn()">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-      {{currentRoute}}
-    </h3>
+    <app-RouteHeader [showOn]="'desktop'"></app-RouteHeader>
 
     <!-- <div
     #searchBar

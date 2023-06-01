@@ -1,0 +1,13 @@
+
+<h3
+[class.d-none]="showOn === 'desktop'"
+[class.d-md-flex]="showOn === 'desktop'"
+[class.d-flex]="showOn === 'mobile'"
+[class.d-md-none]="showOn === 'mobile'"
+[class.mt-2]="showOn === 'mobile' && margin"
+class="router-name align-items-center" style="height: 40px;">
+  <button class="btn btn_return" *ngIf="isCurrentRouteChild" (click)="onReturn()">
+    <i class="fa-solid fa-arrow-left"></i>
+  </button>
+  {{currentRoute}}
+</h3>

@@ -4,6 +4,7 @@ export interface DefaultTable {
   titles: string[],
   titlesToHide?: string[],
   objects: DefaultObjectInTable[],
+  buttons?: DefaultButtonInTable[],
   onClick?: (event: any) => any;
 }
 
@@ -12,4 +13,13 @@ export interface DefaultObjectInTable {
   fontawesomeIcon?: string,
   imgUrl?: string,
   iconBgColor?: AppColors | string
+}
+
+export interface DefaultButtonInTable {
+  label?: string,
+  fontawesomeIcon?: string,
+  imgUrl?: string,
+  bgColor?: AppColors | string,
+  roundedPill?: boolean;
+  onClick?: (event: any) => any;
 }

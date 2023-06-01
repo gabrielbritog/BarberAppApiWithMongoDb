@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { DefaultTable } from './default-table';
 
 @Component({
   selector: 'app-default-table',
   templateUrl: './default-table.component.html',
-  styleUrls: ['./default-table.component.css']
+  styleUrls: ['./default-table.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class DefaultTableComponent implements OnInit {
@@ -98,6 +99,20 @@ export class DefaultTableComponent implements OnInit {
     if (!this.table.onClick)
       return;
     this.table.onClick(event);
+  }
+
+  onClickObjectBtn(event: any) {
+    if (!this.table)
+      return;
+    if (!this.table.onClick)
+      return;
+
+    console.log(event);
+    // this.table.onClick(event);
+  }
+
+  objectHasOnClick(object: any) {
+    return object.onClick? true : false;
   }
 
   onSearchFocused(value: boolean) {

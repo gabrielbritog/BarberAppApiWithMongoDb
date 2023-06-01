@@ -36,91 +36,9 @@ export class NavBarComponent implements OnInit {
     return moment().format('mm');
   }
 
-  get routerUrlArray() {
-    const routerUrl = this.router.routerState.snapshot.url.split('/').slice(1);
-    return routerUrl;
-  }
-
-  get currentRoute() {
-    // const routerUrl = this.router.routerState.snapshot.url;
-    const routerUrl = this.router.routerState.snapshot.url.split('/', 3).toString().replaceAll(',', '/');
-
-    const routeNames = [
-      '/Login',
-      '/Register',
-      '/Home',
-      '/Dashboard',
-      '/Schedules',
-      '/Schedules/Details',
-      '/Schedules/Presence',
-      '/Schedules/New',
-      '/History',
-      '/WorkFlow',
-      '/Employees',
-      '/Employees/Edit',
-      '/Employees/New',
-      '/Services',
-      '/Services/Edit',
-      '/Services/New',
-      '/Classes',
-      '/Classes/Details',
-      '/Classes/New',
-      '/Clients',
-      '/Clients/New',
-      '/Clients/Edit',
-      '/Account',
-      '/Account/Name',
-      '/Account/Email',
-      '/Account/Phone',
-      '/Account/Password',
-    ];
-
-    const routeHeaderNames = [
-      'Login',
-      'Registrar',
-      'Início',
-      'Relatórios',
-      'Agenda',
-      'Agendamento',
-      'Lista de presença',
-      'Novo Agendamento',
-      'Histórico',
-      'Horários',
-      'Funcionários',
-      'Editar Funcionário',
-      'Novo Funcionário',
-      'Serviços',
-      'Editar Serviço',
-      'Novo Serviço',
-      'Turmas',
-      this.isAdmin? 'Editar Turma' : 'Detalhes da turma',
-      'Nova turma',
-      'Alunos',
-      'Novo Aluno',
-      this.isAdmin? 'Editar Aluno' : 'Detalhes do Aluno',
-      'Perfil',
-      'Alterar Nome',
-      'Alterar Email',
-      'Alterar Telefone',
-      'Alterar Senha',
-    ];
-
-    const translatedRoute = routeHeaderNames[routeNames.indexOf(routerUrl)];
-
-    return translatedRoute;
-  }
-
-  get isCurrentRouteChild() {
-    const routerUrl = this.routerUrlArray;
-    return routerUrl.length > 1;
-  }
-
   constructor(
     private tokenStorage: TokenStorageService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private userService: UserService,
-    private routeHistory: RouteHistoryService
   ) {
     const userConfig = this.tokenStorage.getUserModel();
 
@@ -132,10 +50,6 @@ export class NavBarComponent implements OnInit {
 
   showSidebar() {
     GlobalVariables.showSidebar = !GlobalVariables.showSidebar;
-  }
-
-  onReturn() {
-    this.routeHistory.navigateBack();
   }
 
   changeDarkmode() {
