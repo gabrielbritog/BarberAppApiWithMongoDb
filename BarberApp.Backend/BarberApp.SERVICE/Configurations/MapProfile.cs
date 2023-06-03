@@ -49,6 +49,8 @@ namespace BarberApp.Service.Configurations
                .ReverseMap();
             CreateMap<Client, ResponseClientDto>()
               .ReverseMap();
+            CreateMap<Client, UpdateClientDto>()
+              .ReverseMap();
 
             CreateMap<Company, RegisterCompanyDto>()
               .ReverseMap();

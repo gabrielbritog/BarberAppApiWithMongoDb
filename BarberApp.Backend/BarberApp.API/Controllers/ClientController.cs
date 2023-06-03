@@ -43,7 +43,7 @@ namespace BarberApp.Api.Controllers
         }
 
         [Authorize("Bearer")]
-        [HttpPost("Update")]
+        [HttpPut("Update")]
         public async Task<ActionResult<ResponseViewModel<ResponseClientDto>>> Update([FromBody] UpdateClientDto client)
         {
             try

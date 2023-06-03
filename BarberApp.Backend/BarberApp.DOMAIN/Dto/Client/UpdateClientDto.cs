@@ -13,6 +13,8 @@ namespace BarberApp.Domain.Dto.Client
 {
     public class UpdateClientDto
     {
+        [BsonElement("clientId")]
+        public string ClientId { get; set; }
         [BsonElement("schedulingCount")]
         [JsonIgnore]
         public int SchedulingCount { get; set; }
