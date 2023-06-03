@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { environment } from 'src/app/Helpers/environment';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 
 
 
-const URL_API = GlobalVariables.API_BASE_URL;
+const URL_API = environment.apiUrl;
 
 const URL_BARBER = 'Barber/'
 const URL_SCHEDULING = 'Scheduling/'

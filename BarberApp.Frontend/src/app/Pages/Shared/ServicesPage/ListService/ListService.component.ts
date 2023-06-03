@@ -29,7 +29,7 @@ export class ListServiceComponent implements OnInit {
         bgColor: 'main',
         onClick: (event: any) => this.editService(event),
       }],
-      // onClick: (event: any) => this.editService(event)
+      onClick: (event: any) => this.editService(event)
     }
 
     GlobalVariables.serviceTypes

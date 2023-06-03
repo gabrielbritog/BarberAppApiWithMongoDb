@@ -2,7 +2,7 @@
   <!-- style="height: calc(95vh - var(--nav-height))" -->
 
   <div
-    [style]="'height: '+ (maxElements !== 0 || heightAuto? 'auto' : 'calc(95vh - var(--nav-height))')"
+    [style]="'height: '+ tableHeight()"
     class="card border shadow-sm mb-3 p-0"
   >
     <ng-container
@@ -30,12 +30,17 @@
         ></app-SearchBar>
       </div>
     </ng-container>
+
     <div
-    style="height: 100%;"
-      class="table-responsive position-relative m-0 m-2"
+      #tableContainer
+      style="height: 100%;"
+      class="table-container position-relative m-2"
     >
-      <table class="table m-0">
-        <thead class="position-sticky top-0 z-1">
+      <table
+      #tableTemplate
+      class="table m-0">
+        <thead class="top-0 z-1 bg-body">
+        <!-- <thead> -->
           <tr>
             <ng-container *ngFor="let header of table.titles; let i = index">
               <th
@@ -49,7 +54,7 @@
                 [class.w-100]="i === 0"
                 [class.text-opacity-50]="!isOrderedBy(i) && orderedBy !== 0"
                 [class.text-opacity-100]="isOrderedBy(i) || orderedBy === 0"
-                class="px-3 bg-body py-2 text-nowrap fs-16-medium cursor-pointer h6 fw-semibold"
+                class="px-3 py-2 text-nowrap fs-16-medium cursor-pointer h6 fw-semibold"
                 (click)="setOrderedBy(i)"
               >
                 {{ header }}
@@ -59,6 +64,10 @@
                   [class.fa-arrow-up-a-z]="orderedBy < 0"
                   class="fa-solid ms-2"
                 ></i>
+              </th>
+            </ng-container>
+            <ng-container *ngIf="table.buttons && table.buttons.length > 0">
+              <th style="vertical-align: middle;" class="p-3">
               </th>
             </ng-container>
           </tr>
@@ -75,7 +84,7 @@
               "
               [class.cursor-pointer]="table.onClick"
               (click)="onClick(item)"
-              class="text-header-color border-bottom bg-main"
+              class="text-header-color border-bottom"
             >
               <ng-container *ngFor="let header of table.titles; let j = index">
                 <td
@@ -120,11 +129,21 @@
                 </td>
 
                 <td *ngIf="j > 0" style="vertical-align: middle" class="p-3">
-                  <div
-                    class="content position-relative text-nowrap align-items-center w-100 d-flex gap-3"
-                  >
-                    {{ item.object[propertiesOfObjects[j]] }}
-                  </div>
+                  <ng-container *ngIf="propertiesOfObjects[j] !== 'checkbox'">
+                    <div
+                      class="content position-relative text-nowrap align-items-center w-100 d-flex gap-3"
+                    >
+                      {{ item.object[propertiesOfObjects[j]] }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="propertiesOfObjects[j] === 'checkbox'">
+                    <input
+                    class="form-check-input p-0 ms-1 cursor-pointer"
+                    type="checkbox"
+                    [checked]="item.object[propertiesOfObjects[j]]"
+                    (click)="item.object.onChange(item.object.id)"
+                    >
+                  </ng-container>
                 </td>
               </ng-container>
               <ng-container *ngIf="table.buttons && table.buttons.length > 0">

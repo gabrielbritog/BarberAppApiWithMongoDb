@@ -22,6 +22,9 @@ export class EditPhoneComponent implements OnInit {
     id: 'phoneNumber',
     label: 'Celular',
     type: 'text',
+    options: {
+      mask: 'tel'
+    },
     value: this.getNumbersInsideString().toString()
   };
 

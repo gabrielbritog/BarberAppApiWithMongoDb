@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
+
+import { environment } from 'src/app/Helpers/environment';
 import { UserConfig } from '../../Models/UserConfig';
 
 
@@ -12,7 +14,7 @@ import { UserConfig } from '../../Models/UserConfig';
 // AdminLevel = 2   => EMPRESA
 
 
-const URL_API = GlobalVariables.API_BASE_URL;
+const URL_API = environment.apiUrl;
 
 const API_URL = `${URL_API}/api/`;
 

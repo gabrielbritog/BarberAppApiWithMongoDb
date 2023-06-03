@@ -7,6 +7,7 @@ import { ClassesService } from '../../../../Services/api/Classes.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
 
 @Component({
   selector: 'app-ClassDetails',
@@ -16,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class ClassDetailsComponent implements OnInit, OnDestroy {
   id: string = '';
   subscription?: Subscription;
+
 
 
   classModel!: ClassesFrontModel;
@@ -36,7 +38,7 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     return GlobalVariables.clients
       .filter(p=> p.name.toLowerCase().includes(this.searchValue))
       .sort((a, b) => a.name.localeCompare(b.name))
-      .sort((a, b) => {
+      .sort((b, a) => {
         if (this.classModel.clientsModel.some(p => p.clientId === a.clientId))
           return -1;
         if (this.classModel.clientsModel.some(p => p.clientId === b.clientId))
@@ -46,15 +48,63 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
+  clientsTable() {
+    const table: DefaultTable = {
+      titles: ['Aluno', 'Cadastro N°', ''],
+      objects: [],
+      onClick: (event: any) => this.addClientEventToClass(event)
+    }
+
+    GlobalVariables.clients.forEach(client => {
+      table.objects.push({
+        object: {
+          name: client.name,
+          registerNumber: client.registerNumber,
+          checkbox: this.hasClient(client),
+          onChange: (clientId: string) => this.addClientIdToClass(clientId),
+          id: client.clientId,
+        }
+      })
+    })
+
+    return table;
+  }
+
   hasClient(client: ClientModel) {
-    return this.classModel.clientsModel.some(p => p == client);
+    if (!client.clientId)
+      return false;
+
+    return this.hasClientId(client.clientId);
+  }
+
+  hasClientId(clientId: string) {
+    return this.classModel.clientsModel.some(p => p.clientId == clientId);
+  }
+
+  addClientIdToClass(clientId: string) {
+    const client = GlobalVariables.clients.find(p => p.clientId === clientId);
+
+    if (!client)
+      return;
+
+    if (this.classModel.clientsModel.some(p => p == client)){
+      this.classModel.clientsModel = this.classModel.clientsModel.filter(p => p !== client);
+    }
+    else{
+      this.classModel.clientsModel.push(client);
+    }
   }
 
   addClientToClass(client: ClientModel) {
-    if (this.classModel.clientsModel.some(p => p == client))
-      this.classModel.clientsModel = this.classModel.clientsModel.filter(p=> p !== client);
-    else
-      this.classModel.clientsModel.push(client);
+    if (client.clientId)
+      this.addClientIdToClass(client.clientId)
+  }
+
+  addClientEventToClass(event: any) {
+    if (!event.object?.id)
+      return;
+
+    this.addClientIdToClass(event.object.id);
   }
 
   constructor(

@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { environment } from 'src/app/Helpers/environment';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { ClientModel } from '../../Models/ClientModel';
 
 
-const URL_API = GlobalVariables.API_BASE_URL;
+const URL_API = environment.apiUrl;
 const BASE_URL_API = `${URL_API}/api/Client/`;
 const ROUTE_REGISTER = 'Register';
 const ROUTE_UPDATE = 'Update';

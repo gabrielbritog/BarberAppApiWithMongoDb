@@ -1,4 +1,4 @@
-<div class="cards_container">
+<div class="edit_container animate_show container">
 
   <form
   class="card p-2 p-md-3 mb-3 border shadow-sm overflow-auto" action="" (submit)="onSubmit()">
@@ -14,42 +14,9 @@
       [readonly]="!isAdmin"
       placeholder="Nome da turma">
     </div>
-    <div
-    style="max-height: 65vh;"
-    class="card p-0 border flex-grow-1 shadow-sm gap-0">
-      <div
-      style="border-radius: inherit; background-color: inherit;"
-      class="search-bar rounded-bottom-0 border-bottom text-bg-body shadow-sm position-sticky top-0">
-        <input
-        type="text"
-        class="small w-100 rounded-0 rounded-top"
-        placeholder="Pesquisar"
-        name="search"
-        style="border-radius: inherit;"
-        [ngModelOptions]="{standalone: true}"
-        [(ngModel)]="searchValue">
-      </div>
-      <div
-      class="d-flex flex-column flex-grow-1 flex-shrink-1 p-3 overflow-auto gap-3">
-        <ng-container *ngFor="let item of clientList; let i = index">
-          <div class="form-check d-flex overflow-hidden border-bottom p-0">
-            <input
-            class="form-check-input p-0 ms-1 cursor-pointer"
-            type="checkbox"
-            [checked]="hasClient(item)"
-            [value]="item"
-            [id]="formatIdNumber(i+1)+'-client'"
-            (change)="addClientToClass(item)"
-            >
-            <label
-            style="text-overflow: ellipsis;"
-            class="ms-2 form-check-label flex-grow-1 text-capitalize text-nowrap overflow-hidden cursor-pointer" [for]="formatIdNumber(i+1)+'-client'">
-              {{item.name}}
-            </label>
-          </div>
-        </ng-container>
-      </div>
-    </div>
+
+    <app-default-table [table]="clientsTable()" [customHeight]="'calc(65vh - var(--nav-height))'"></app-default-table>
+
     <button type="submit" class="btn btn-main me-auto px-4 py-2 mt-2">
       Salvar
     </button>

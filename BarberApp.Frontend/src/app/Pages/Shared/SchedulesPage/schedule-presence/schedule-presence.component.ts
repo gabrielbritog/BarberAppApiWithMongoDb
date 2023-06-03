@@ -7,6 +7,7 @@ import { ClassesFrontModel, ClassesUtilities } from 'src/app/Models/ClassesModel
 import { ClientModel } from 'src/app/Models/ClientModel';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { SchedulingService } from '../../../../Services/api/SchedulingService.service';
+import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
 
 @Component({
   selector: 'app-schedule-presence',
@@ -37,17 +38,6 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
 
         return 0;
       })
-  }
-
-  hasClient(client: ClientModel) {
-    return this.classModel.clientsPresence.some(p => p == client);
-  }
-
-  addClientToClass(client: ClientModel) {
-    if (this.classModel.clientsPresence.some(p => p == client))
-      this.classModel.clientsPresence = this.classModel.clientsPresence.filter(p=> p !== client);
-    else
-      this.classModel.clientsPresence.push(client);
   }
 
   constructor(
@@ -86,6 +76,65 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
           this.classModel = ClassesUtilities.convertApiModelToFrontModel(existedSchedule.class);
         }
       )
+  }
+
+  clientsTable() {
+    const table: DefaultTable = {
+      titles: ['Aluno', ''],
+      objects: [],
+      onClick: (event: any) => this.addClientEventToClass(event)
+    }
+
+    this.classModel.clientsModel.forEach(client => {
+      table.objects.push({
+        object: {
+          name: client.name,
+          // registerNumber: client.registerNumber,
+          checkbox: this.hasClient(client),
+          onChange: (clientId: string) => this.addClientIdToClass(clientId),
+          id: client.clientId,
+        }
+      })
+    })
+
+    return table;
+  }
+
+  hasClient(client: ClientModel) {
+    if (!client.clientId)
+      return false;
+
+    return this.hasClientId(client.clientId);
+  }
+
+  hasClientId(clientId: string) {
+    return this.classModel.clientsPresence.some(p => p.clientId == clientId);
+  }
+
+  addClientIdToClass(clientId: string) {
+    const client = GlobalVariables.clients.find(p => p.clientId === clientId);
+
+    if (!client)
+      return;
+
+    if (this.classModel.clientsPresence.some(p => p == client)){
+      this.classModel.clientsPresence = this.classModel.clientsPresence.filter(p => p !== client);
+    }
+    else{
+      this.classModel.clientsPresence.push(client);
+    }
+  }
+
+  addClientToClass(client: ClientModel) {
+    if (client.clientId)
+      this.addClientIdToClass(client.clientId)
+  }
+
+  addClientEventToClass(event: any) {
+    if (!event.object?.id)
+      return;
+
+    this.addClientIdToClass(event.object.id);
   }
 
   ngOnDestroy() {

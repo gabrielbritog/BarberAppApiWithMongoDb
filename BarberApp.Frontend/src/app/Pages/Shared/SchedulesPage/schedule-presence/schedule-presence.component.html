@@ -1,9 +1,9 @@
-<div class="cards_container mt-0 mt-lg-3 animate_show" *ngIf="schedule">
+<div class="edit_container container mt-0 mt-lg-3 animate_show" *ngIf="schedule">
 
   <app-RouteHeader></app-RouteHeader>
 
   <form
-  style="height: 75vh;"
+  style="height: 80vh;"
   class="card p-3 border shadow-sm" action="" (submit)="onSubmit()">
     <div class="header-container mb-3 d-md-flex justify-content-between align-items-center">
 
@@ -20,7 +20,10 @@
       </div>
 
     </div>
-    <div class="card p-0 border flex-grow-1 shadow-sm gap-0">
+
+    <app-default-table [table]="clientsTable()" [customHeight]="'100%'" style="height: 0; flex: 1;"></app-default-table>
+
+    <!-- <div class="card p-0 border flex-grow-1 shadow-sm gap-0">
       <div class="search-bar rounded-0 border-bottom text-bg-body shadow-sm">
         <input
         type="text"
@@ -51,7 +54,9 @@
           </div>
         </ng-container>
       </div>
-    </div>
+    </div> -->
+
+
     <button type="submit" class="btn btn-main me-auto px-4 py-2 mt-2">
       Salvar
     </button>

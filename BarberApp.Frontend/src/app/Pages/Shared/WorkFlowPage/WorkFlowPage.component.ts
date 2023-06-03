@@ -10,7 +10,7 @@ import { TokenStorageService } from 'src/app/Services/auth/token-storage.service
 @Component({
   selector: 'app-WorkFlowPage',
   templateUrl: './WorkFlowPage.component.html',
-  styleUrls: ['../../Styles/basePage.scss', './WorkFlowPage.component.scss']
+  styleUrls: ['../../Styles/baseSection.scss', './WorkFlowPage.component.scss']
 })
 export class WorkFlowPageComponent implements OnInit {
   @ViewChild(WindowScrollDetectorDirective) scrollDetector?: WindowScrollDetectorDirective;

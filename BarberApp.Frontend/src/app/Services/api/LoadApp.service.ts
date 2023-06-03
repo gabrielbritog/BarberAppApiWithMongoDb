@@ -5,7 +5,6 @@ import { EmployeeService } from './Employee.service';
 import { SchedulingService } from './SchedulingService.service';
 import { ServiceTypeService } from './ServiceType.service';
 import { Router } from '@angular/router';
-import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ClassesService } from './Classes.service';
 
 @Injectable({
@@ -44,4 +43,20 @@ export class LoadAppService {
     this.router.navigateByUrl(url);
   }
 
+  setKey(key: AppKeys , value: any) {
+    localStorage.setItem(AppKeys[key], JSON.stringify(value));
+  }
+
+  getKey(key: AppKeys) {
+    return JSON.parse(localStorage.getItem(AppKeys[key])?? '{}');
+  }
+
+}
+
+export enum AppKeys {
+  SERVICES,
+  CLIENTS,
+  EMPLOYEES,
+  CLASSES,
+  SCHEDULES,
 }

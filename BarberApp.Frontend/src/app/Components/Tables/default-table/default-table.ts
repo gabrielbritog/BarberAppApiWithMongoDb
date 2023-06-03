@@ -21,5 +21,7 @@ export interface DefaultButtonInTable {
   imgUrl?: string,
   bgColor?: AppColors | string,
   roundedPill?: boolean;
+  checkbox?: boolean;
+  radio?: boolean;
   onClick?: (event: any) => any;
 }

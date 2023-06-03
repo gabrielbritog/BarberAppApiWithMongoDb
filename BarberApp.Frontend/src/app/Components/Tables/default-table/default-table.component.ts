@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, NgZone, OnInit, Renderer2 } from '@angular/core';
 import { DefaultTable } from './default-table';
 
 @Component({
@@ -8,11 +8,13 @@ import { DefaultTable } from './default-table';
   changeDetection: ChangeDetectionStrategy.Default
 })
 
-export class DefaultTableComponent implements OnInit {
+export class DefaultTableComponent implements OnInit, AfterViewInit {
+
   @Input() tableTitle?: string;
   @Input() table?: DefaultTable;
   @Input() searchBar: boolean = true;
   @Input() heightAuto: boolean = false;
+  @Input() customHeight?: string;
   @Input() maxElements: number = 0; // 0 = altura fixa
 
   searchFocused = false;
@@ -35,10 +37,12 @@ export class DefaultTableComponent implements OnInit {
     const filteredObjects = initialTable.objects.filter((obj) => {
         let containsFilterString = false;
 
+
         initialTable.titles.forEach((_title, i) => {
-          if (!obj.object[objectProps[i]])
+          const objValue = obj.object[objectProps[i]];
+          if (objValue === undefined || objValue === null)
             return;
-          if (obj.object[objectProps[i]].toString().toLowerCase().includes(this.searchFilter.toLowerCase()) || !this.searchFilter)
+          if (objValue.toString().toLowerCase().includes(this.searchFilter.toLowerCase()) || !this.searchFilter)
             containsFilterString = true;
         });
 
@@ -53,14 +57,26 @@ export class DefaultTableComponent implements OnInit {
 
         const orderedByTitle = objectProps[Math.abs(this.orderedBy) - 1];
 
-        if (!n1.object[orderedByTitle])
+        n1 = n1.object[orderedByTitle];
+        n2 = n2.object[orderedByTitle];
+
+        if (
+          n1 === null ||
+          n1 === undefined ||
+          n2 === null ||
+          n2 === undefined )
           return 0;
 
+        const n1String = n1.toString();
+        const n2String = n2.toString();
 
-        if (this.orderedBy > 0)
-          return n1.object[orderedByTitle].toString().localeCompare(n2.object[orderedByTitle].toString());
-        else
-          return n2.object[orderedByTitle].toString().localeCompare(n1.object[orderedByTitle].toString());
+
+        if (this.orderedBy > 0){
+          return n1String.localeCompare(n2String);
+        }
+        else{
+          return n2String.localeCompare(n1String);
+        }
       });
 
     return {
@@ -87,10 +103,21 @@ export class DefaultTableComponent implements OnInit {
     this.searchFilter = value;
   }
 
-  constructor() { }
+  tableHeight() {
+    if (this.customHeight)
+      return this.customHeight;
+
+    return this.maxElements !== 0 || this.heightAuto? 'auto' : 'calc(95vh - var(--nav-height))'
+  }
+
+  constructor(
+  ) { }
 
   ngOnInit() {
     this.propertiesOfObjects = this.getObjectProps();
+  }
+
+  ngAfterViewInit(): void {
   }
 
   onClick(event: any) {

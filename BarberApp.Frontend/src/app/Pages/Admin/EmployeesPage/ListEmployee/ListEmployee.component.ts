@@ -33,8 +33,8 @@ export class ListEmployeeComponent implements OnInit {
           bgColor: 'main',
           onClick: (event: any) => this.editEmployee(event)
         },
-      ]
-      // onClick: () => this.metodoTeste()
+      ],
+      onClick: (event: any) => this.editEmployee(event)
     }
 
     GlobalVariables.employees.forEach((employee, i) => {

@@ -34,8 +34,8 @@ export class ListClientsComponent implements OnInit {
           bgColor: 'main',
           onClick: (event: any) => this.editClient(event, 'History')
         },
-      ]
-      // onClick: (event: any) => this.editClient(event)
+      ],
+      onClick: (event: any) => this.editClient(event, 'Edit')
     }
 
     GlobalVariables.clients.forEach((client, i) => {

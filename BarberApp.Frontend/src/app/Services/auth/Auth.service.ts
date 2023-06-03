@@ -2,11 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
+
+import { environment } from 'src/app/Helpers/environment';
 import { UserConfig } from '../../Models/UserConfig';
 
 
 
-const URL_API = GlobalVariables.API_BASE_URL;
+const URL_API = environment.apiUrl;
 const AUTH_API = `${URL_API}/api/`
 
 const ADMIN_ROUTE = 'User/';

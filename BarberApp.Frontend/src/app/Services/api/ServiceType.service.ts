@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { environment } from 'src/app/Helpers/environment';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 
 
-const URL_API = GlobalVariables.API_BASE_URL;
+const URL_API = environment.apiUrl;
 // const BASE_URL_API = 'http://localhost:5066/api/'
 const URL_BARBER = 'Barber/'
 const ROUTE_REGISTER = 'ServiceType/Register'

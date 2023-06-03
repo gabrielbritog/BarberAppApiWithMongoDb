@@ -7,15 +7,11 @@ import { WorkingDays } from '../Models/WorkingDays';
 import { UserModel } from '../Models/UserModel';
 import { ClassesModel } from '../Models/ClassesModel';
 import { AppColors } from '../Models/Enums/app-colors.enum';
-import { LoadAppService } from '../Services/api/LoadApp.service';
+import { AppKeys, LoadAppService } from '../Services/api/LoadApp.service';
 import { ClientModel } from '../Models/ClientModel';
-import { map, catchError, of } from 'rxjs';
-
 export class GlobalVariables {
 
-  static readonly API_BASE_URL = 'http://192.168.1.71:5066';
-
-  private static loadAppService: LoadAppService;
+  private static loadAppService?: LoadAppService;
 
   // PROPERTIES
   static startTime = 9;
@@ -76,8 +72,15 @@ export class GlobalVariables {
   private static _employees: BarberModel[] = [];
   static get employees() {
     return this._employees;
+    // const emp: BarberModel[] = [];
+    // if(this.loadAppService){
+    //   Object.assign(emp, this.loadAppService.getKey(AppKeys.EMPLOYEES));
+    //   console.log(emp)
+    // }
+    // return emp;
   }
   static set employees(value) {
+    // this.loadAppService?.setKey(AppKeys.EMPLOYEES, value)
     this._employees = value;
   }
 
@@ -198,7 +201,7 @@ export class GlobalVariables {
         GlobalVariables.isAppLoaded = true;
 
         if (GlobalVariables.employees.length == 0)
-          GlobalVariables.loadAppService.navigateByUrl('/Employees/New');
+          GlobalVariables.loadAppService!.navigateByUrl('/Employees/New');
 
       },
       error(err) {
