@@ -13,11 +13,12 @@ namespace BarberApp.Domain.Models
         public string UserId { get; set; }
         [BsonElement("class")]
         public Class Class { get; set; } = null!;
-
         [BsonElement("client")]
         public Client Client { get; set; } = null!;
         [BsonElement("serviceType")]
         public List<ServiceType> ServiceType { get; set; }
+        [BsonElement("schedulingClass")]
+        public SchedulingClass SchedulingClass { get; set; }
         [BsonElement("total")]
         public decimal Total { get; set; }
         [BsonElement("schedulingDate")]

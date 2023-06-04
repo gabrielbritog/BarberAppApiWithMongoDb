@@ -20,8 +20,6 @@ namespace BarberApp.Domain.Models
         public string Name { get; set; }
         [BsonElement("clientsId")]
         public List<string> ClientsId { get; set; }
-        [BsonElement("presenceId")]
-        public List<string> PresencesId { get; set; }
         [BsonElement("servicesId")]
         public List<string> ServicesId { get; set; }
 

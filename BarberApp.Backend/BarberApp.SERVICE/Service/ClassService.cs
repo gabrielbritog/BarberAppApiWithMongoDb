@@ -43,7 +43,6 @@ namespace BarberApp.Service.Service
         {
             var classDb = await _classRepository.GetById(userId, classItem.Id);
             classItem.Name ??= classDb.Name;
-            classItem.PresencesId ??= classDb.PresencesId;
             classItem.ClientsId ??= classDb.ClientsId;
 
             var result = await _classRepository.Update(_mapper.Map<Class>(classItem));

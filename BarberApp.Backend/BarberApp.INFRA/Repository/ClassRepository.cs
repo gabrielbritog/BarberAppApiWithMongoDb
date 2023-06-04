@@ -88,7 +88,6 @@ namespace BarberApp.Infra.Repository
                 var filter = Builders<Class>.Filter.Eq(u => u.Id, classItem.Id);
                 var update = Builders<Class>.Update
                     .Set(u => u.ClientsId, classItem.ClientsId)
-                    .Set(u => u.PresencesId, classItem.PresencesId)
                     .Set(u => u.Name, classItem.Name);
                     
 
