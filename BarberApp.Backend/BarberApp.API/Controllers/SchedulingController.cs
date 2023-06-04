@@ -48,7 +48,22 @@ namespace BarberApp.Api.Controllers
                 return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
             }
         }
-        
+
+        [HttpGet("GetManySchedulingByDate")]
+        [Authorize("Bearer")]
+        public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> GetManySchedulingByDate([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "", await _schedulingService.GetManyByDate(Id, startDate, endDate)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+        }
+
         [HttpGet("GetById")]
         [Authorize("Bearer")]
         public async Task<ActionResult<ResponseViewModel<ResponseSchedulingDto>>> GetById(string schedulingId)
