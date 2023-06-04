@@ -5,6 +5,7 @@ using BarberApp.Domain.Interface.Services;
 using BarberApp.Domain.Models;
 using MongoDB.Driver;
 using System.Globalization;
+using static BarberApp.Domain.Models.Recurrence;
 
 namespace BarberApp.Service.Service
 {
@@ -64,7 +65,7 @@ namespace BarberApp.Service.Service
             var result = await _schedulingRepository.GetManyByDate(userId, startDate, endDate);
             return _mapper.Map<List<ResponseSchedulingDto>>(result);
         }
-        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId)
+        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string userId)
         {
 
             // if (scheduling.Client != null)
@@ -76,29 +77,72 @@ namespace BarberApp.Service.Service
             //     throw new Exception("Preencha os dados do cliente");
             // }
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);
-            schedulingMap.UserId = UserId;
+            schedulingMap.UserId = userId;
             var quantity = scheduling.ServiceType.Count();
-            for (int i = 0; i < quantity;)
+            for (int i = 0; i < quantity; i++)
             {
                 schedulingMap.Total += schedulingMap.ServiceType[i].ValueService;
-                schedulingMap.ServiceType[i].UserId = UserId;
-                i++;
+                schedulingMap.ServiceType[i].UserId = userId;
             }
-            if (scheduling.Recurrence == null)
+
+            if (scheduling.Recurrence != null && scheduling.Recurrence.IsRecurrence)
             {
-                schedulingMap.Recurrence = new Recurrence();
-                schedulingMap.Recurrence.IsRecurrence = false;
+                var startDate = schedulingMap.SchedulingDate;
+                var endDate = startDate.AddMonths(6);
+
+                switch (scheduling.Recurrence.RecurrencePeriods)
+                {
+                    case RecurrencePeriod.Daily:
+                        while (startDate < endDate)
+                        {
+                            await _schedulingRepository.Register(schedulingMap, userId);
+                            startDate = startDate.AddDays(1);
+                            schedulingMap.SchedulingDate = startDate;
+                        }
+                        break;
+                    case RecurrencePeriod.Weekly:
+                        while (startDate < endDate)
+                        {
+                            await _schedulingRepository.Register(schedulingMap, userId);
+                            startDate = startDate.AddDays(7);
+                            schedulingMap.SchedulingDate = startDate;
+                        }
+                        break;
+                    case RecurrencePeriod.EveryTwoWeeks:
+                        while (startDate < endDate)
+                        {
+                            await _schedulingRepository.Register(schedulingMap, userId);
+                            startDate = startDate.AddDays(14);
+                            schedulingMap.SchedulingDate = startDate;
+                        }
+                        break;
+                    case RecurrencePeriod.Monthly:
+                        while (startDate < endDate)
+                        {
+                            await _schedulingRepository.Register(schedulingMap, userId);
+                            startDate = startDate.AddMonths(1);
+                            schedulingMap.SchedulingDate = startDate;
+                        }
+                        break;
+                    default:
+                        throw new Exception("Período de recorrência inválido");
+                }
             }
-            await _schedulingRepository.Register(schedulingMap, UserId);
+            else
+            {
+                await _schedulingRepository.Register(schedulingMap, userId);
+            }
+
             return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
         }
 
-        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string UserId, string barberId)
+        public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string userId,string barberId)
         {
             var checkBarber = await _barberRepository.GetById(barberId);
-            var checkUser = await _userRepository.GetById(UserId);
+            var checkUser = await _userRepository.GetById(userId);
+
             if (checkBarber == null)
-                throw new Exception("Funcionario não encontrado");
+                throw new Exception("Funcionário não encontrado");
             if (checkUser == null)
                 throw new Exception("Empresa não encontrada");
             if (checkBarber.UserId != checkUser.UserId)
@@ -106,21 +150,64 @@ namespace BarberApp.Service.Service
 
             scheduling.barberId = barberId;
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);
-            schedulingMap.UserId = UserId;
+            schedulingMap.UserId = userId;
             var quantity = scheduling.ServiceType.Count();
-            for (int i = 0; i < quantity;)
+
+            for (int i = 0; i < quantity; i++)
             {
                 schedulingMap.Total += schedulingMap.ServiceType[i].ValueService;
                 schedulingMap.ServiceType[i].BarberId = barberId;
-                schedulingMap.ServiceType[i].UserId = UserId;
-                i++;
+                schedulingMap.ServiceType[i].UserId = userId;
             }
-            if (scheduling.Recurrence == null)
+
+            if (scheduling.Recurrence != null && scheduling.Recurrence.IsRecurrence)
             {
-                schedulingMap.Recurrence = new Recurrence();
-                schedulingMap.Recurrence.IsRecurrence = false;
+                var startDate = schedulingMap.SchedulingDate;
+                var endDate = startDate.AddMonths(6);
+
+                switch (scheduling.Recurrence.RecurrencePeriods)
+                {
+                    case RecurrencePeriod.Daily:
+                        while (startDate < endDate)
+                        {
+                            await _schedulingRepository.Register(schedulingMap, userId);
+                            startDate = startDate.AddDays(1);
+                            schedulingMap.SchedulingDate = startDate;
+                        }
+                        break;
+                    case RecurrencePeriod.Weekly:
+                        while (startDate < endDate)
+                        {
+                            await _schedulingRepository.Register(schedulingMap, userId);
+                            startDate = startDate.AddDays(7);
+                            schedulingMap.SchedulingDate = startDate;
+                        }
+                        break;
+                    case RecurrencePeriod.EveryTwoWeeks:
+                        while (startDate < endDate)
+                        {
+                            await _schedulingRepository.Register(schedulingMap, userId);
+                            startDate = startDate.AddDays(14);
+                            schedulingMap.SchedulingDate = startDate;
+                        }
+                        break;
+                    case RecurrencePeriod.Monthly:
+                        while (startDate < endDate)
+                        {
+                            await _schedulingRepository.Register(schedulingMap, userId);
+                            startDate = startDate.AddMonths(1);
+                            schedulingMap.SchedulingDate = startDate;
+                        }
+                        break;
+                    default:
+                        throw new Exception("Período de recorrência inválido");
+                }
             }
-            await _schedulingRepository.Register(schedulingMap, UserId);
+            else
+            {
+                await _schedulingRepository.Register(schedulingMap, userId);
+            }
+
             return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
         }
 

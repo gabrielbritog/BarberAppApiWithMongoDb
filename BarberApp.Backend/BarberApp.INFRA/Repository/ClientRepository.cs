@@ -108,6 +108,18 @@ namespace BarberApp.Infra.Repository
             try
             {
                 var filter = Builders<Client>.Filter.Eq(u => u.Phone, client.Phone);
+
+                if (existingClient == null)
+                    throw new Exception("Cliente não encontrado.");
+
+
+                if (existingClient == null)
+                    throw new Exception("Cliente não encontrado.");
+
+
+                if (existingClient == null)
+                    throw new Exception("Cliente não encontrado.");
+
                 var update = Builders<Client>.Update
                     .Set(u => u.Name, client.Name)
                     .Set(u => u.SchedulingCount, client.SchedulingCount)
@@ -129,9 +141,11 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.InterviewNumber, client.InterviewNumber)
                     .Set(u => u.RegisterNumber, client.RegisterNumber);
 
-                var result = await _clientCollection.UpdateOneAsync(filter, update);
+                var result = await _clientCollection.UpdateOneAsync(c => c.ClientId == client.ClientId, update);
+
                 if (result.MatchedCount == 0)
                     throw new Exception("Cliente não encontrado.");
+
                 return client;
             }
             catch (Exception e)

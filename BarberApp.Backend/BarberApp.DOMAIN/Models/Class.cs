@@ -22,9 +22,12 @@ namespace BarberApp.Domain.Models
         public List<string> ClientsId { get; set; }
         [BsonElement("presenceId")]
         public List<string> PresencesId { get; set; }
+        [BsonElement("servicesId")]
+        public List<string> ServicesId { get; set; }
 
         [BsonElement("disabled")]
         public bool Disabled { get; set; } = false;
+
 
     }
 }

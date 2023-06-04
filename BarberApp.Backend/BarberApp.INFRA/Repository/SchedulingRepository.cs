@@ -175,6 +175,7 @@ namespace BarberApp.Infra.Repository
 
         public async Task<Scheduling> Register(Scheduling scheduling, string UserId)
         {
+            scheduling.SchedulingId = null;
             try
             {
                 await _schedulingCollection.InsertOneAsync(scheduling);
