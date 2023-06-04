@@ -23,7 +23,7 @@ namespace BarberApp.Service.Service
         public async Task<ResponseClientDto> Update(UpdateClientDto client)
         {
             var ClientMap = _mapper.Map<Client>(client);
-            await _clientRepository.Register(ClientMap);
+            await _clientRepository.Update(ClientMap);
             return _mapper.Map<ResponseClientDto>(ClientMap);
         }
         public async Task<ResponseClientDto> Register(RegisterClientDto client, string userId)

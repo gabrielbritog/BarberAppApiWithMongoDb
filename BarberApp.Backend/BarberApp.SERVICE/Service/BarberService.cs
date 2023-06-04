@@ -61,8 +61,9 @@ namespace BarberApp.Service.Service
         public async Task<ResponseBarberDto> Register(RegisterBarberDto barber, string userId)
         {
             var checkEmail = await this.GetByEmail($"{barber.Email}");
+            var checkAdm = await _userRepository.GetByEmail(barber.Email);
             var associatedCompany = await _userRepository.GetById(userId);
-            if (checkEmail != null)
+            if (checkEmail != null || checkAdm != null)
                 throw new Exception("Email já está sendo usado");
             barber.PasswordSalt = new Random().Next().GetHashCode().ToString();
             barber.Password = EncryptPassword(barber.Password + barber.PasswordSalt);

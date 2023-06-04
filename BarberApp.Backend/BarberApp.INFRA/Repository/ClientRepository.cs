@@ -107,16 +107,20 @@ namespace BarberApp.Infra.Repository
         {
             try
             {
-                var filter = Builders<Client>.Filter.Eq(u => u.Phone, client.Phone);
+                var existingClient = await _clientCollection.Find(c => c.ClientId == client.ClientId).FirstOrDefaultAsync();
+
+                if (existingClient == null)
+                    throw new Exception("Cliente não encontrado.");
+
                 var update = Builders<Client>.Update
-                    .Set(u => u.Name, client.Name)
+                    .Set(u => u.Name, client.Name ?? existingClient.Name)
                     .Set(u => u.SchedulingCount, client.SchedulingCount)
-                    .Set(u => u.LastVisit, client.LastVisit)
-                    .Set(u => u.Email, client.Email)
-                    .Set(u => u.Cpf, client.Cpf)
+                    .Set(u => u.LastVisit, client.LastVisit != default ? client.LastVisit : existingClient.LastVisit)
+                    .Set(u => u.Email, client.Email ?? existingClient.Email)
+                    .Set(u => u.Cpf, client.Cpf ?? existingClient.Cpf)
                     .Set(u => u.Retiree, client.Retiree)
-                    .Set(u => u.Adress, client.Adress)
-                    .Set(u => u.DateOfBirth, client.DateOfBirth)
+                    .Set(u => u.Adress, client.Adress ?? existingClient.Adress)
+                    .Set(u => u.DateOfBirth, client.DateOfBirth != default ? client.DateOfBirth : existingClient.DateOfBirth)
                     .Set(u => u.Age, client.Age)
                     .Set(u => u.CivilStatus, client.CivilStatus)
                     .Set(u => u.ClassesId, client.ClassesId)
@@ -129,9 +133,11 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.InterviewNumber, client.InterviewNumber)
                     .Set(u => u.RegisterNumber, client.RegisterNumber);
 
-                var result = await _clientCollection.UpdateOneAsync(filter, update);
+                var result = await _clientCollection.UpdateOneAsync(c => c.ClientId == client.ClientId, update);
+
                 if (result.MatchedCount == 0)
                     throw new Exception("Cliente não encontrado.");
+
                 return client;
             }
             catch (Exception e)
