@@ -15,8 +15,8 @@ namespace BarberApp.Domain.Dto.Scheduling
     {
         [BsonElement("client")]
         public RegisterClientDto Client { get; set; } = null!;
-        [BsonElement("class")]
-        public BarberApp.Domain.Models.Class Class { get; set; } = null!;
+        [BsonElement("schedulingClass")]
+        public SchedulingClass SchedulingClass { get; set; }
         public string SchedulingId { get; set; }
         [BsonElement("serviceType")]
         public List<RegisterServiceTypeDto> ServiceType { get; set; }

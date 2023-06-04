@@ -196,6 +196,7 @@ namespace BarberApp.Infra.Repository
                 .Set(s => s.Client, scheduling.Client)
                 .Set(s => s.Class, scheduling.Class)
                 .Set(s => s.ServiceType, scheduling.ServiceType)
+                .Set(s => s.SchedulingClass, scheduling.SchedulingClass)
                 .Set(s => s.SchedulingDate, scheduling.SchedulingDate)
                 .Set(s => s.EndOfSchedule, scheduling.EndOfSchedule)
                 .Set(s => s.Recurrence, scheduling.Recurrence);
