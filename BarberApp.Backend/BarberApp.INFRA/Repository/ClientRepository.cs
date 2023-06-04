@@ -105,20 +105,9 @@ namespace BarberApp.Infra.Repository
 
         public async Task<Client> Update(Client client)
         {
-            try
+            try                
             {
                 var filter = Builders<Client>.Filter.Eq(u => u.Phone, client.Phone);
-
-                if (existingClient == null)
-                    throw new Exception("Cliente não encontrado.");
-
-
-                if (existingClient == null)
-                    throw new Exception("Cliente não encontrado.");
-
-
-                if (existingClient == null)
-                    throw new Exception("Cliente não encontrado.");
 
                 var update = Builders<Client>.Update
                     .Set(u => u.Name, client.Name)
