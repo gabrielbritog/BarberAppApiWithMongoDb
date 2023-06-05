@@ -226,7 +226,6 @@ namespace BarberApp.Service.Service
                 throw new Exception("Informar Id");
             scheduling.BarberId ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).BarberId;
             scheduling.Client ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Client;
-            scheduling.Class ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).Class;
             scheduling.ServiceType ??= _mapper.Map<UpdateSchedulingDto>(schedulingDb).ServiceType;
             scheduling.SchedulingDate ??= schedulingDb.SchedulingDate;
             scheduling.EndOfSchedule ??= schedulingDb.EndOfSchedule;
