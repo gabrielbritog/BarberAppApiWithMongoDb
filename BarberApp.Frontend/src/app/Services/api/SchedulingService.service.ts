@@ -30,11 +30,12 @@ export class SchedulingService {
     return this.http.post<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_REGISTER, {
       barberId: schedule.barberId,
       client: schedule.client,
-      class: schedule.class,
+      class: schedule.schedulingClass,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate,
       endOfSchedule: schedule.schedulingDate,
-      recurrence: schedule.recurrence
+      recurrence: schedule.recurrence,
+      schedulingClass: schedule.schedulingClass
     });
   }
 
@@ -42,11 +43,12 @@ export class SchedulingService {
     return this.http.put<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_UPDATE, {
       schedulingId: schedule.schedulingId,
       client: schedule.client,
-      class: schedule.class,
+      class: schedule.schedulingClass,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate,
       endOfSchedule: schedule.schedulingDate,
-      recurrence: schedule.recurrence
+      recurrence: schedule.recurrence,
+      schedulingClass: schedule.schedulingClass
     });
   }
 

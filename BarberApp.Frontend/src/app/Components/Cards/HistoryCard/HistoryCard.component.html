@@ -10,7 +10,7 @@
     <div class="d-flex align-items-start justify-content-between lh-1 mb-1">
       <h5 class="card-title m-0">
         <ng-container *ngIf="scheduleModel.client">Cliente: {{scheduleModel.client.name}}</ng-container>
-        <ng-container *ngIf="scheduleModel.class">Turma: {{scheduleModel.class.name}}</ng-container>
+        <ng-container *ngIf="scheduleModel.schedulingClass">Turma: {{classModel?.name}}</ng-container>
       </h5>
       <span class="card-title m-0 text-uppercase small text-muted">{{formatedDate}}</span>
     </div>

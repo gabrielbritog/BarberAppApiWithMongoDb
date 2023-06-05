@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, NgZone, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, NgZone, OnChanges, OnInit, Renderer2, SimpleChanges } from '@angular/core';
 import { DefaultTable } from './default-table';
 
 @Component({
@@ -8,7 +8,7 @@ import { DefaultTable } from './default-table';
   changeDetection: ChangeDetectionStrategy.Default
 })
 
-export class DefaultTableComponent implements OnInit, AfterViewInit {
+export class DefaultTableComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() tableTitle?: string;
   @Input() table?: DefaultTable;
@@ -112,6 +112,9 @@ export class DefaultTableComponent implements OnInit, AfterViewInit {
 
   constructor(
   ) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.propertiesOfObjects = this.getObjectProps();
+  }
 
   ngOnInit() {
     this.propertiesOfObjects = this.getObjectProps();

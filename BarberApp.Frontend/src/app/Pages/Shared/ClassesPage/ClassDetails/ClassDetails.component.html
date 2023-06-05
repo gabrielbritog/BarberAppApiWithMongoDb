@@ -15,6 +15,65 @@
       placeholder="Nome da turma">
     </div>
 
+    <div class="p-0 rounded mb-2 border" [class.form_invalid]="submitted && services.value.length === 0">
+
+      <accordion [isAnimated]="true" class="rounded shadow-sm overflow-hidden">
+        <accordion-group
+        panelClass="custom-accordion-panel"
+        [isDisabled]="services.disabled === true"
+        (isOpenChange)="$event? groupToggle.classList.add('expanded') : groupToggle.classList.remove('expanded')">
+          <div class="group-header py-2 bg-body position-relative" accordion-heading
+          [class.disabled]="services.disabled === true"
+            >
+            <div class="placeholder_title" [class.active]="getSelectedCheckboxes(services).length > 0">
+              {{services.label}}
+            </div>
+            <div class="group-header-content d-flex">
+              <span class="me-3">
+                <ng-container *ngFor="let service of getSelectedNames(services); let i = index">
+                  {{service + (i < getSelectedNames(services).length -1? ', ' : '')}}
+                </ng-container>
+              </span>
+              <div class="group-toggle ms-auto" #groupToggle>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          <hr class="border-top opacity-100">
+          <div class="group-options pt-3 overflow-auto"
+          style="max-height: 400px;">
+            <div class="group_item" *ngFor="let option of services.formOptions; let i = index" [class.selected]="option.isSelected">
+              <label class="align-items-center border border-1">
+                <input type="checkbox"
+                      id="{{services.id}}_{{i}}"
+                      [value]="option"
+                      (change)="checkboxElement(services)"
+                      [(ngModel)]="option.isSelected"
+                      [ngModelOptions]="{standalone: true}"
+                      >
+                <div class="label_string">
+                  <ng-container *ngIf="isArray(option.label)">
+                    <span *ngFor="let item of getArrayElements(option.label)">
+                      {{item}}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="!isArray(option.label)">
+                    {{option.label}}
+                  </ng-container>
+                </div>
+              </label>
+            </div>
+          </div>
+          <ng-container *ngIf="services.options?.showTotal">
+            <div class="group-total border-top p-3 d-flex justify-content-between">
+              <span>Total: </span>
+              <span class="fw-semibold">{{getTotalValue(services)}}</span>
+            </div>
+          </ng-container>
+        </accordion-group>
+      </accordion>
+    </div>
+
     <app-default-table [table]="clientsTable()" [customHeight]="'calc(65vh - var(--nav-height))'"></app-default-table>
 
     <button type="submit" class="btn btn-main me-auto px-4 py-2 mt-2">

@@ -176,3 +176,7 @@ button{
 .border-secondary{
   border-color: rgba(var(--secondary-rgb), var(--bs-border-opacity)) !important;
 }
+.form-check-input:checked {
+  background-color: var(--main);
+  border-color: var(--main);
+}

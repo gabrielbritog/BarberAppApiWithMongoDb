@@ -15,8 +15,11 @@ export class ScheduleCardComponent implements OnInit {
   @Input('showOptions') showOptions = true;
 
   getCardTitle() {
-    if (this.scheduleModel.class)
-      return 'Turma: ' + this.scheduleModel.class.name;
+    const classModel = GlobalVariables.allClasses.find(p=> p.id === this.scheduleModel.schedulingClass?.classId)
+
+
+    if (this.scheduleModel.schedulingClass)
+      return 'Turma: ' + classModel?.name;
     if (this.scheduleModel.client)
       return 'Cliente: ' + this.scheduleModel.client.name;
 

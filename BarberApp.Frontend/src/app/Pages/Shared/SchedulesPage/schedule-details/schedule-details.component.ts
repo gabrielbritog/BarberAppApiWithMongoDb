@@ -53,7 +53,8 @@ export class ScheduleDetailsComponent implements OnInit {
 
   get ClassesModelClientsAsFormOptions() {
     const iFormOptions: IFormOptions[] = [];
-    this.scheduleModel.class?.clientsId.forEach((client, index) => {
+    const clients = GlobalVariables.allClasses.find(p => p.id === this.scheduleModel.schedulingClass?.classId)?.clientsId!;
+    clients.forEach((client, index) => {
       iFormOptions.push(this.mapClassesModelClientsToFormOptions(client, index))
     });
     return iFormOptions;
@@ -72,7 +73,7 @@ export class ScheduleDetailsComponent implements OnInit {
       id: 'class_' + index,
       label: classModel.name,
       value: classModel.id,
-      isSelected: GlobalVariables.editSchedule?.class?.id === classModel.id
+      isSelected: GlobalVariables.editSchedule?.schedulingClass?.classId === classModel.id
     }
   }
 
@@ -83,7 +84,7 @@ export class ScheduleDetailsComponent implements OnInit {
       id: 'classClients_' + index,
       label: [clientModel.name, ''],
       value: clientModel.clientId,
-      isSelected: GlobalVariables.editSchedule?.class?.presencesId.includes(clientModel.clientId!)
+      isSelected: GlobalVariables.editSchedule?.schedulingClass?.presenceList.some(p=> p.clientId === clientModel.clientId!)
     }
   }
 
@@ -115,7 +116,7 @@ export class ScheduleDetailsComponent implements OnInit {
       {
         id: 'classModel',
         label: 'Turma',
-        value: this.scheduleModel.class?.id?? '',
+        value: this.scheduleModel.schedulingClass?.classId?? '',
         type: 'select',
         formOptions: this.ClassesModelAsFormOptions
       },
@@ -131,17 +132,17 @@ export class ScheduleDetailsComponent implements OnInit {
       //   value: this.scheduleModel.client.phone,
       //   type: 'tel'
       // },
-      {
-        id: 'services',
-        label: 'Serviços',
-        value: this.scheduleModel.serviceType,
-        type: 'checkbox',
-        formOptions: this.ServicesAsFormOptions,
-        options: {
-          min: '1',
-          showTotal: true
-        }
-      },
+      // {
+      //   id: 'services',
+      //   label: 'Serviços',
+      //   value: this.scheduleModel.serviceType,
+      //   type: 'checkbox',
+      //   formOptions: this.ServicesAsFormOptions,
+      //   options: {
+      //     min: '1',
+      //     showTotal: true
+      //   }
+      // },
       {
         id: 'recurrence',
         label: 'Repetir Agendamento',
@@ -241,10 +242,20 @@ export class ScheduleDetailsComponent implements OnInit {
         name: scheduleForm.clientName,
         phone: scheduleForm.clientPhone,
       } : undefined,
-      class: _classModel,
+      schedulingClass: _classModel? {
+        classId: _classModel?.id?? '',
+        presenceList: _classModel!.clientsId.map(p => {
+          return {
+            clientId: p,
+            presence: false
+          }
+        })
+      } : undefined,
       date: scheduleForm.date,
       time: scheduleForm.time,
-      serviceType: scheduleForm.services,
+      serviceType: scheduleForm.services ?? _classModel?.servicesId?.map(p =>
+        GlobalVariables.serviceTypes.find(serv => serv.serviceTypeId === p)
+      ),
       recurrence: recurrenceForm,
     });
 

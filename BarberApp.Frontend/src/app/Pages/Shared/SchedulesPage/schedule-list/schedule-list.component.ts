@@ -46,24 +46,7 @@ export class ScheduleListComponent implements OnInit {
     const currentDay = GlobalVariables.currentDay;
     const currentDayString = currentDay.format('L');
     const filteredSchedules = GlobalVariables.schedules
-      .filter(p => {
-        if (p.date === currentDayString) {
-          return true;
-        }
-        if (
-          p.recurrence.recurrencePeriods == 30 &&
-          moment(currentDay).diff(moment(p.date), 'days') > 0 &&
-          moment(currentDay).format('DD') === moment(p.date).format('DD')) {
-          return true;
-        }
-        if (
-          moment(currentDay).diff(moment(p.schedulingDate), 'days') > 0 &&
-          moment(currentDay).diff(moment(p.schedulingDate), 'days') < 30 &&
-          moment(currentDay).diff(moment(p.schedulingDate), 'days') % p.recurrence.recurrencePeriods === 0) {
-          return true;
-        }
-        return false;
-      })
+      .filter(p => p.date === currentDayString)
       .sort((n1, n2) => n1.time.localeCompare(n2.time));
     return !this.isAdmin ? filteredSchedules : filteredSchedules.filter(p => p.barberId === this.selectedBarber?.barberId);
   }

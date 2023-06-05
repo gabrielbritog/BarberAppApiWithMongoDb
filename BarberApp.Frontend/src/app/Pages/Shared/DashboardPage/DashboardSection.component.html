@@ -40,11 +40,11 @@
           <app-card-mini-info [infos]="infos"></app-card-mini-info>
         </section>
 
-        <ng-container *ngIf="schedulesInPeriod.length > 0">
+        <ng-container *ngIf="true">
           <app-default-table [tableTitle]="'Aniversariantes'" [heightAuto]="true" [table]="getBirthdaysTable()"></app-default-table>
         </ng-container>
 
-        <ng-container *ngIf="schedulesInPeriod.length > 0">
+        <ng-container *ngIf="true">
           <app-default-table [maxElements]="5" [tableTitle]="'Alunos'" [table]="getAbsencesTable()"></app-default-table>
         </ng-container>
 
