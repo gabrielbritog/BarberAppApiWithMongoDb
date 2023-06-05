@@ -79,6 +79,8 @@ namespace BarberApp.Service.Service
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);
             schedulingMap.UserId = userId;
             var quantity = scheduling.ServiceType.Count();
+            var validReturn = true;
+            Scheduling resultReturn = schedulingMap;
             for (int i = 0; i < quantity; i++)
             {
                 schedulingMap.Total += schedulingMap.ServiceType[i].ValueService;
@@ -89,15 +91,20 @@ namespace BarberApp.Service.Service
             {
                 var startDate = schedulingMap.SchedulingDate;
                 var endDate = startDate.AddMonths(6);
-
+              
                 switch (scheduling.Recurrence.RecurrencePeriods)
-                {
+                {                   
                     case RecurrencePeriod.Daily:
                         while (startDate < endDate)
-                        {
+                        {                     
                             await _schedulingRepository.Register(schedulingMap, userId);
                             startDate = startDate.AddDays(1);
                             schedulingMap.SchedulingDate = startDate;
+                            if (validReturn) 
+                            {
+                                resultReturn = schedulingMap;
+                                validReturn = false;
+                            }
                         }
                         break;
                     case RecurrencePeriod.Weekly:
@@ -106,6 +113,11 @@ namespace BarberApp.Service.Service
                             await _schedulingRepository.Register(schedulingMap, userId);
                             startDate = startDate.AddDays(7);
                             schedulingMap.SchedulingDate = startDate;
+                            if (validReturn)
+                            {
+                                resultReturn = schedulingMap;
+                                validReturn = false;
+                            }
                         }
                         break;
                     case RecurrencePeriod.EveryTwoWeeks:
@@ -114,6 +126,11 @@ namespace BarberApp.Service.Service
                             await _schedulingRepository.Register(schedulingMap, userId);
                             startDate = startDate.AddDays(14);
                             schedulingMap.SchedulingDate = startDate;
+                            if (validReturn)
+                            {
+                                resultReturn = schedulingMap;
+                                validReturn = false;
+                            }
                         }
                         break;
                     case RecurrencePeriod.Monthly:
@@ -122,6 +139,11 @@ namespace BarberApp.Service.Service
                             await _schedulingRepository.Register(schedulingMap, userId);
                             startDate = startDate.AddMonths(1);
                             schedulingMap.SchedulingDate = startDate;
+                            if (validReturn)
+                            {
+                                resultReturn = schedulingMap;
+                                validReturn = false;
+                            }
                         }
                         break;
                     default:
@@ -131,9 +153,10 @@ namespace BarberApp.Service.Service
             else
             {
                 await _schedulingRepository.Register(schedulingMap, userId);
+                resultReturn = schedulingMap;
             }
 
-            return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
+            return _mapper.Map<ResponseSchedulingDto>(resultReturn);
         }
 
         public async Task<ResponseSchedulingDto> Register(RegisterSchedulingDto scheduling, string userId,string barberId)
@@ -152,6 +175,8 @@ namespace BarberApp.Service.Service
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);
             schedulingMap.UserId = userId;
             var quantity = scheduling.ServiceType.Count();
+            var validReturn = true;
+            Scheduling resultReturn = schedulingMap;
 
             for (int i = 0; i < quantity; i++)
             {
@@ -173,6 +198,11 @@ namespace BarberApp.Service.Service
                             await _schedulingRepository.Register(schedulingMap, userId);
                             startDate = startDate.AddDays(1);
                             schedulingMap.SchedulingDate = startDate;
+                            if (validReturn)
+                            {
+                                resultReturn = schedulingMap;
+                                validReturn = false;
+                            }
                         }
                         break;
                     case RecurrencePeriod.Weekly:
@@ -181,6 +211,11 @@ namespace BarberApp.Service.Service
                             await _schedulingRepository.Register(schedulingMap, userId);
                             startDate = startDate.AddDays(7);
                             schedulingMap.SchedulingDate = startDate;
+                            if (validReturn)
+                            {
+                                resultReturn = schedulingMap;
+                                validReturn = false;
+                            }
                         }
                         break;
                     case RecurrencePeriod.EveryTwoWeeks:
@@ -189,6 +224,11 @@ namespace BarberApp.Service.Service
                             await _schedulingRepository.Register(schedulingMap, userId);
                             startDate = startDate.AddDays(14);
                             schedulingMap.SchedulingDate = startDate;
+                            if (validReturn)
+                            {
+                                resultReturn = schedulingMap;
+                                validReturn = false;
+                            }
                         }
                         break;
                     case RecurrencePeriod.Monthly:
@@ -197,6 +237,11 @@ namespace BarberApp.Service.Service
                             await _schedulingRepository.Register(schedulingMap, userId);
                             startDate = startDate.AddMonths(1);
                             schedulingMap.SchedulingDate = startDate;
+                            if (validReturn)
+                            {
+                                resultReturn = schedulingMap;
+                                validReturn = false;
+                            }
                         }
                         break;
                     default:
@@ -206,9 +251,10 @@ namespace BarberApp.Service.Service
             else
             {
                 await _schedulingRepository.Register(schedulingMap, userId);
+                resultReturn = schedulingMap;
             }
 
-            return _mapper.Map<ResponseSchedulingDto>(schedulingMap);
+            return _mapper.Map<ResponseSchedulingDto>(resultReturn);
         }
 
         public async Task<ResponseSchedulingDto> Update(UpdateSchedulingDto scheduling, string userId)
