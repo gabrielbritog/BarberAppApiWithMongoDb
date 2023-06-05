@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { PlusButtonModule } from '../../../Components/PlusButton/plus-button.module';
 import { TablesModule } from '../../../Components/Tables/Tables.module';
 import { RouterHeaderModule } from '../../../Components/RouteHeader/router-header.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { RouterHeaderModule } from '../../../Components/RouteHeader/router-heade
     FormsModule,
     PlusButtonModule,
     TablesModule,
-    RouterHeaderModule
+    RouterHeaderModule,
+    BrowserAnimationsModule,
+    AccordionModule.forRoot(),
   ],
   declarations: [
     ClassesPageComponent,

@@ -251,14 +251,30 @@ export class NewClientComponent implements OnInit {
   ngOnInit() {
   }
 
+  assingInputsIntoModel() {
+    this.modalInputs.forEach((formInput, index) => {
+      const formValues = formInput.reduce((result: any) => {
+        formInput.forEach(p => {
+          const key = p.id;
+          result[key] = p.value;
+        });
+        return result;
+      }, {});
+
+      if (index === 2) // Endereço
+      {
+        this.clientModel.adress = formValues;
+      }
+      else if (index === 3) // Contato de emergência
+        this.clientModel.emergencyContact = formValues;
+      else
+        Object.assign(this.clientModel, formValues)
+    })
+  }
+
   onSubmit(form: NgForm) {
 
-    if (this.formIndex === 2) // Endereço
-      this.clientModel.adress = form.value;
-    else if (this.formIndex === 3) // Contato de emergência
-      this.clientModel.emergencyContact = form.value;
-    else
-      Object.assign(this.clientModel, form.value)
+    this.assingInputsIntoModel();
 
     if (form.invalid)
       return;

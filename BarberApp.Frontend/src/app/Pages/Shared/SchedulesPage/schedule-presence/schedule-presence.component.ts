@@ -8,6 +8,7 @@ import { ClientModel } from 'src/app/Models/ClientModel';
 import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { SchedulingService } from '../../../../Services/api/SchedulingService.service';
 import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-schedule-presence',
@@ -31,9 +32,9 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
       .filter(p=> p.name.toLowerCase().includes(this.searchValue))
       .sort((a, b) => a.name.localeCompare(b.name))
       .sort((a, b) => {
-        if (this.classModel.clientsPresence.some(p => p.clientId === a.clientId))
+        if (this.schedule?.schedulingClass?.presenceList.find(p => p.clientId === a.clientId)?.presence)
           return -1;
-        if (this.classModel.clientsPresence.some(p => p.clientId === b.clientId))
+        if (this.schedule?.schedulingClass?.presenceList.find(p => p.clientId === b.clientId)?.presence)
           return 1;
 
         return 0;
@@ -66,14 +67,16 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
 
           const existedSchedule = GlobalVariables.schedules.find(schedule => schedule.schedulingId === this.id);
 
-          if (!existedSchedule || !existedSchedule.class) {
+          if (!existedSchedule || !existedSchedule.schedulingClass) {
             this.router.navigateByUrl('/Schedules');
             return;
           }
 
           this.schedule = existedSchedule;
 
-          this.classModel = ClassesUtilities.convertApiModelToFrontModel(existedSchedule.class);
+          const existedClass = GlobalVariables.allClasses.find(p=> p.id === existedSchedule.schedulingClass?.classId)
+
+          this.classModel = ClassesUtilities.convertApiModelToFrontModel(existedClass!);
         }
       )
   }
@@ -85,17 +88,25 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
       onClick: (event: any) => this.addClientEventToClass(event)
     }
 
-    this.classModel.clientsModel.forEach(client => {
-      table.objects.push({
-        object: {
-          name: client.name,
-          // registerNumber: client.registerNumber,
-          checkbox: this.hasClient(client),
-          onChange: (clientId: string) => this.addClientIdToClass(clientId),
-          id: client.clientId,
-        }
-      })
+    const scheduleMoment = moment(this.schedule?.schedulingDate);
+    const momentDiff = moment().diff(scheduleMoment);
+
+    const listClients = momentDiff < 0 ? this.classModel.clientsModel : this.schedule?.schedulingClass?.presenceList.map(p => {
+      return GlobalVariables.clients.find(b=> b.clientId === p.clientId)!
     })
+
+    if(listClients)
+      listClients.forEach(client => {
+        table.objects.push({
+          object: {
+            name: client.name,
+            // registerNumber: client.registerNumber,
+            checkbox: this.hasClientId(client.clientId),
+            onChange: (clientId: string) => this.addClientIdToClass(clientId),
+            id: client.clientId,
+          }
+        })
+      })
 
     return table;
   }
@@ -107,22 +118,18 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
     return this.hasClientId(client.clientId);
   }
 
-  hasClientId(clientId: string) {
-    return this.classModel.clientsPresence.some(p => p.clientId == clientId);
+  hasClientId(clientId?: string) {
+    if (!clientId)
+      return false;
+
+    return this.schedule!.schedulingClass!.presenceList.some(p=> p.clientId === clientId && p.presence);
   }
 
   addClientIdToClass(clientId: string) {
-    const client = GlobalVariables.clients.find(p => p.clientId === clientId);
 
-    if (!client)
-      return;
+    const client = this.schedule?.schedulingClass?.presenceList.find(p => p.clientId === clientId)!;
 
-    if (this.classModel.clientsPresence.some(p => p == client)){
-      this.classModel.clientsPresence = this.classModel.clientsPresence.filter(p => p !== client);
-    }
-    else{
-      this.classModel.clientsPresence.push(client);
-    }
+    client.presence = !client.presence;
   }
 
   addClientToClass(client: ClientModel) {
@@ -145,7 +152,6 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
     if (!this.schedule)
       return;
 
-    this.schedule.class = ClassesUtilities.convertFrontModelToApiModel(this.classModel);
 
     const apiCall = this.schedulingService.update(this.schedule);
 

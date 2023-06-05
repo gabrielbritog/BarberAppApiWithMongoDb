@@ -259,13 +259,16 @@ export class EditClientComponent implements OnInit, OnDestroy {
     }
 
     const classesWithClient = GlobalVariables.schedules
-      .filter(p => p.class && p.class.clientsId.includes(this.id))
+      .filter(p => p.schedulingClass && GlobalVariables.allClasses.find(cl =>
+        cl.id === p.schedulingClass?.classId)?.clientsId.includes(this.clientModel.clientId ?? '')
+      )
       .map(p => {
         return {
           date: p.date,
           time: p.time,
-          className: p.class?.name,
-          presence: p.class?.presencesId.includes(this.id),
+          className: GlobalVariables.allClasses.find(cl =>
+            cl.id === p.schedulingClass?.classId)!.name,
+          presence: p.schedulingClass?.presenceList.some(c=> c.clientId === this.clientModel.clientId && c.presence),
           scheduleId: p.schedulingId
         }
     });
@@ -333,16 +336,30 @@ export class EditClientComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
+  assingInputsIntoModel() {
+    this.modalInputs.forEach((formInput, index) => {
+      const formValues = formInput.reduce((result: any) => {
+        formInput.forEach(p => {
+          const key = p.id;
+          result[key] = p.value;
+        });
+        return result;
+      }, {});
+
+      if (index === 2) // Endereço
+      {
+        this.clientModel.adress = formValues;
+      }
+      else if (index === 3) // Contato de emergência
+        this.clientModel.emergencyContact = formValues;
+      else
+        Object.assign(this.clientModel, formValues)
+    })
+  }
+
   onSubmit(form: NgForm) {
 
-    if (this.formIndex === 2) // Endereço
-    {
-      this.clientModel.adress = form.value;
-    }
-    else if (this.formIndex === 3) // Contato de emergência
-      this.clientModel.emergencyContact = form.value;
-    else
-      Object.assign(this.clientModel, form.value)
+    this.assingInputsIntoModel();
 
     if (form.invalid)
       return;
@@ -358,7 +375,8 @@ export class EditClientComponent implements OnInit, OnDestroy {
     apiCall.subscribe({
       next: (data: any) => {
         setTimeout(() => {
-          GlobalVariables.clients.push(data.data);
+          const existedClient = GlobalVariables.clients.find(p => p.clientId === this.id)!;
+          Object.assign(existedClient, data.data);
 
           this.onCancel();
           form.resetForm();

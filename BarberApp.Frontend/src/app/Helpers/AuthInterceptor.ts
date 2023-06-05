@@ -34,15 +34,15 @@ export class AuthInterceptor implements HttpInterceptor {
       tap(
         event => {
           if (event instanceof HttpResponse) {
-            if(event.body.message != '' && !hideLoader){
-              this.toastrService.success(event.body.message);
+            if(event.body.message != '' && event.body.data != '' && !hideLoader){
+              this.toastrService.success(event.body.data);
             }
           }
         },
         error => {
           if (error instanceof HttpErrorResponse) {
-            if(error.error.message){
-              this.toastrService.error(error.error.message);
+            if(error.error.message && error.error.data){
+              this.toastrService.error(error.error.data);
             }
             else{
               this.toastrService.error('Algo deu errado');

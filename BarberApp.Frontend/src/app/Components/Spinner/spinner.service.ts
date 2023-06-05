@@ -17,14 +17,10 @@ export class SpinnerService {
   }
 
   public hide(): void {
-    setTimeout(() => {
-
-      this.activeRequests--;
-      if (this.activeRequests <= 0) {
-        this.isLoadingSubject.next(false);
-        this.activeRequests = 0;
-      }
-
-    }, 20);
+    this.activeRequests--;
+    if (this.activeRequests <= 0) {
+      this.isLoadingSubject.next(false);
+      this.activeRequests = 0;
+    }
   }
 }

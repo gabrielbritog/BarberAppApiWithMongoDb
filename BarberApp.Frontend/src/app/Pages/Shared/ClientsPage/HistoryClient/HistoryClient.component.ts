@@ -59,14 +59,15 @@ export class HistoryClientComponent implements OnInit {
     }
 
     const classesWithClient = GlobalVariables.schedules
-      .filter(p => p.class && p.class.clientsId.includes(this.id))
+      .filter(p => p.schedulingClass && p.schedulingClass.presenceList.some(clP => clP.clientId === this.clientModel.clientId))
       .map(p => {
         return {
           date: p.date,
           time: p.time,
           datetime: moment(p.schedulingDate),
-          className: p.class?.name,
-          presence: p.class?.presencesId.includes(this.id),
+          className: GlobalVariables.allClasses.find(cl =>
+            cl.id === p.schedulingClass?.classId)!.name,
+          presence: p.schedulingClass?.presenceList.some(c=> c.clientId === this.clientModel.clientId && c.presence),
           scheduleId: p.schedulingId
         }
     });

@@ -2,13 +2,11 @@ import * as moment from 'moment';
 import { ClientModel } from './ClientModel';
 import { Recurrence } from './Recurrence';
 import { ServiceTypeModel } from './ServiceTypeModel';
-import { ClassesModel } from './ClassesModel';
 export class ScheduleModel {
   schedulingId: string = "";
   barberId!: string;
   client?: ClientModel;
-  class?: ClassesModel;
-  presenceList?: ClientModel[];
+  schedulingClass?: ScheduleClassModel;
   serviceType: ServiceTypeModel[] = [];
   total?: number;
   schedulingDate: string = "";
@@ -68,4 +66,12 @@ export class ScheduleModel {
     }
 
   }
+}
+
+export interface ScheduleClassModel{
+  classId: string,
+  presenceList: {
+    clientId: string,
+    presence: boolean
+  }[]
 }

@@ -8,15 +8,18 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
+import { IFormInput, IFormOptions } from 'src/app/Components/FormInput/IFormInput';
+import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 
 @Component({
   selector: 'app-ClassDetails',
   templateUrl: './ClassDetails.component.html',
-  styleUrls: ['../../../Styles/baseSection.scss', './ClassDetails.component.css']
+  styleUrls: ['../../../Styles/baseSection.scss', './ClassDetails.component.scss']
 })
 export class ClassDetailsComponent implements OnInit, OnDestroy {
   id: string = '';
   subscription?: Subscription;
+  submitted = false;
 
 
 
@@ -31,6 +34,20 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
   get isAdmin() {
     return GlobalVariables.isAdmin;
   }
+
+  services: IFormInput =
+    {
+      id: 'services',
+      label: 'Serviços',
+      value: [],
+      type: 'checkbox',
+      formOptions: [],
+      disabled: false,
+      options: {
+        min: '1',
+        showTotal: true
+      }
+    };
 
   searchValue = '';
 
@@ -160,6 +177,9 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.submitted = true;
+
+    this.classModel.services = this.services.value;
 
     if(!this.classModel.name){
       this.toastr.warning('O campo nome deve ser preenchido');
@@ -170,6 +190,12 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
       this.toastr.warning('Deve possuir pelo menos um cliente');
       return;
     }
+
+    if(this.classModel.services.length < 1){
+      this.toastr.warning('Deve possuir pelo menos um serviço');
+      return;
+    }
+
 
     const apiModel = ClassesUtilities.convertFrontModelToApiModel(this.classModel);
     const apiCall = this.selectedClass? this.classesService.update(apiModel) :  this.classesService.register(apiModel);
@@ -184,17 +210,35 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     })
   }
 
+  updateInput() {
+    this.services =
+    {
+      id: 'services',
+      label: 'Serviços',
+      value: this.classModel.services,
+      type: 'checkbox',
+      formOptions: this.ServicesAsFormOptions,
+      disabled: false,
+      options: {
+        min: '1',
+        showTotal: true
+      }
+    };
+  }
+
   loadClassModelTemplate() {
     if (!this.selectedClass){
       this.classModel = {
         name: '',
         clientsModel: [],
-        clientsPresence: []
+        services: []
       }
     }
     else {
       this.classModel = ClassesUtilities.convertApiModelToFrontModel(this.selectedClass);
     }
+
+    this.updateInput();
   }
 
   successResponse(apiResponse: any) {
@@ -213,5 +257,48 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
       minimumIntegerDigits: 3,
       useGrouping: false
     });
+  }
+
+  getSelectedCheckboxes(arrayElement: IFormInput) {
+    const elements = (arrayElement.value as ServiceTypeModel[]).map(p=>p.nameService);
+
+    return elements;
+  }
+
+  getSelectedNames(arrayElement: IFormInput) {
+    const elements = this.getSelectedCheckboxes(arrayElement);
+    return elements;
+  }
+
+  get ServicesAsFormOptions() {
+    return GlobalVariables.serviceTypes.map((serviceType: ServiceTypeModel, index: number) => {
+      return {
+        id: 'serviceType_' + index,
+        label: [serviceType.nameService, serviceType.valueService.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })],
+        value: serviceType,
+        isSelected: this.classModel.services.some(p=>p.serviceTypeId == serviceType.serviceTypeId)
+      }
+    });
+  }
+
+  isArray(element: string | string[]) {
+    return Array.isArray(element);
+  }
+
+  getArrayElements(element: string | string[]) {
+    return element as string[];
+  }
+
+  checkboxElement(arrayElement: IFormInput) {
+    arrayElement.value = arrayElement.formOptions?.filter(p=>p.isSelected).map(p => p.value);
+  }
+
+  getTotalValue(item: IFormInput) {
+    const total = item.value
+      .filter((p: IFormOptions) => p.isSelected)
+      .map((p: IFormOptions) => p.value.valueService)
+      .reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
+
+    return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 }

@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { ClassesModel } from 'src/app/Models/ClassesModel';
 
 @Component({
   selector: 'app-HistoryCard',
@@ -12,6 +13,8 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 export class HistoryCardComponent implements OnInit {
 
   @Input('model') scheduleModel = new ScheduleModel();
+
+  classModel?: ClassesModel;
 
   get formatedDate() {
     const dotNetDate = moment.utc(this.scheduleModel.schedulingDate).locale('pt-br');
@@ -30,9 +33,11 @@ export class HistoryCardComponent implements OnInit {
 
   constructor(
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    this.classModel = GlobalVariables.allClasses.find(p => p.id === this.scheduleModel.schedulingClass?.classId);
   }
 
   onClick() {

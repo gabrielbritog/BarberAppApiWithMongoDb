@@ -94,12 +94,13 @@ export class DashboardSectionComponent implements OnInit {
       if (existingClient) {
         existingClient.totalAbsences++;
       } else {
-        acc.push({
-          clientId: current?.clientId,
-          clientName: current?.name,
-          totalClasses: this.classesInPeriod.flatMap(p=>p.clients).filter(p=> p?.clientId === current?.clientId).length,
-          totalAbsences: 1
-        });
+        if(!current?.death)
+          acc.push({
+            clientId: current?.clientId,
+            clientName: current?.name,
+            totalClasses: this.classesInPeriod.flatMap(p=>p.clients).filter(p=> p?.clientId === current?.clientId).length,
+            totalAbsences: 1
+          });
       }
       return acc;
       }, []);
@@ -188,14 +189,16 @@ export class DashboardSectionComponent implements OnInit {
 
   getBirthdaysOfTheMonth() {
     DashboardSectionComponent._BirthdaysOfTheMonth = GlobalVariables.clients.filter(p => {
-      const birthdayAsMoment = moment(p.dateOfBirth);
+      const birthdayAsMoment = moment(p.dateOfBirth).clone().year(moment(this.endDate).year());
 
-      if (birthdayAsMoment.month() >= moment(this.startDate).month() &&
-        birthdayAsMoment.month() <= moment(this.startDate).month())
+      if (birthdayAsMoment >= moment(this.startDate) &&
+        birthdayAsMoment <= moment(this.endDate))
         return p;
 
       return 0;
-    }).sort((a, b) => {
+    })
+      .filter(p=> !p.death)
+      .sort((a, b) => {
       const birthdayAsMomentA = parseInt(moment(a.dateOfBirth).format('DD'));
       const birthdayAsMomentB = parseInt(moment(b.dateOfBirth).format('DD'));
 
@@ -208,20 +211,29 @@ export class DashboardSectionComponent implements OnInit {
   }
 
   getAbsenceOfClient(client: ClientModel) {
-    const absences = this.schedulesInPeriod.map(p => p.class).filter(c=> c?.clientsId.includes(client.clientId?? '') && !c.presencesId.includes(client.clientId?? ''));
+    const absences = this.schedulesInPeriod.map(p => p.schedulingClass).filter(c=> c?.presenceList?.find(cId => cId.clientId === client.clientId)?.presence !== true);
 
     return absences.length;
   }
 
   getClassesInPeriod() {
     const classesInPeriod = this.schedulesInPeriod.map(p => {
+      const scheduleClassModel = GlobalVariables.allClasses.find(classes => classes.id === p.schedulingClass?.classId)!;
+
       return {
         date: p.date,
         time: p.time,
-        className: p.class?.name,
-        clients: p.class?.clientsId.map(clientId => GlobalVariables.clients.find(client => client.clientId === clientId)),
-        presence: p.class?.presencesId.map(clientId => GlobalVariables.clients.find(client => client.clientId === clientId)),
-        absence: p.class?.clientsId.filter(_client => !p.class?.presencesId.includes(_client)).map(clientId => GlobalVariables.clients.find(client => client.clientId === clientId)),
+        className: scheduleClassModel.name,
+        clients: p.schedulingClass?.presenceList.map(clientP => GlobalVariables.clients.find(client => client.clientId === clientP.clientId)!),
+        presence: p.schedulingClass?.presenceList.filter(client => client.presence)
+          .map(cl =>
+            GlobalVariables.clients.find(clDb =>
+              clDb.clientId === cl.clientId
+            )!)!,
+        absence: p.schedulingClass?.presenceList.filter(client => !client.presence)
+          .map(cl => GlobalVariables.clients.find(clDb =>
+            clDb.clientId === cl.clientId
+          )!)!,
       }
     });
 
@@ -234,7 +246,7 @@ export class DashboardSectionComponent implements OnInit {
     const absencesTable: DefaultTable = {
       titles: ['Nome do aluno', 'Aulas totais', 'Faltas'],
       objects: [],
-      onClick: (event: any) => this.clientDetails(event)
+      onClick: (event: any) => this.goToClientPresenceList(event)
     }
 
     this.AbsencesInPeriod.forEach((client, i) => {
@@ -255,14 +267,14 @@ export class DashboardSectionComponent implements OnInit {
     const absencesTable: DefaultTable = {
       titles: ['Nome do aluno', 'Aniversário'],
       objects: [],
-      onClick: (event: any) => this.clientDetails(event)
+      onClick: (event: any) => this.goToClientDetails(event)
     }
 
     this.BirthdaysOfTheMonth.forEach((client, i) => {
       absencesTable.objects.push({
         object: {
           name: client.name,
-          birthday: moment(client.dateOfBirth).format('DD/MM/YYYY'),
+          birthday: moment(client.dateOfBirth).format('DD/MM'),
           id: client.clientId
         }
       })
@@ -271,7 +283,7 @@ export class DashboardSectionComponent implements OnInit {
     return absencesTable;
   }
 
-  clientDetails(event: any) {
+  goToClientDetails(event: any) {
     if (!event.object.id)
       return;
 
@@ -280,6 +292,18 @@ export class DashboardSectionComponent implements OnInit {
       return;
 
     this.router.navigateByUrl('/Clients/Edit/'+event.object.id)
+
+  }
+
+  goToClientPresenceList(event: any) {
+    if (!event.object.id)
+      return;
+
+    const clientModel = GlobalVariables.clients.find(p => p.clientId === event.object.id);
+    if (!clientModel)
+      return;
+
+    this.router.navigateByUrl('/Clients/History/'+event.object.id)
 
   }
 
