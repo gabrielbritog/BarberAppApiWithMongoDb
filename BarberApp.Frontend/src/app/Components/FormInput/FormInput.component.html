@@ -39,13 +39,34 @@ class="input_container w_100 card border p-3 gap-2 shadow-sm"
       </div>
     </div>
 
-    <div *ngIf="item.type === 'simple-radio'" class="form_group label py-2">
+    <div *ngIf="item.type === 'simple-radio'"
+    [class.disabled]="item.disabled === true"
+    class="form_group label py-2">
       {{item.label}}
       <ng-container *ngFor="let option of item.formOptions; let i =  index">
-        <label class="border-0 shadow-none">
-          <input type="radio" class="d-block w-auto me-2" [name]="option.id" [id]="option.id" [value]="option.value" [(ngModel)]="item.value">
-          {{option.label}}
-        </label>
+        <ng-container *ngIf="item.disabled === true">
+          <label
+          style="pointer-events: none;"
+          class="border-0 shadow-none disabled">
+              <input
+              type="radio"
+              class="d-block w-auto me-2"
+              [name]="option.id" [id]="option.id" [value]="option.value" [(ngModel)]="item.value"
+              >
+            {{option.label}}
+          </label>
+        </ng-container>
+        <ng-container *ngIf="!item.disabled">
+          <label
+          class="border-0 shadow-none">
+              <input
+              type="radio"
+              class="d-block w-auto me-2"
+              [name]="option.id" [id]="option.id" [value]="option.value" [(ngModel)]="item.value"
+              >
+            {{option.label}}
+          </label>
+        </ng-container>
       </ng-container>
     </div>
 
@@ -143,6 +164,7 @@ class="input_container w_100 card border p-3 gap-2 shadow-sm"
         name="{{item.id}}"
         [(ngModel)]="item.value"
         [required]="item.options?.required !== false"
+        [disabled]="item.disabled === true"
         (focus)="textAreaLabel.classList.add('dirty')"
         (blur)="item.value === ''? textAreaLabel.classList.remove('dirty') : textAreaLabel.classList.add('dirty')"
         ></textarea>

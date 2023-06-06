@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 
 import { environment } from 'src/app/Helpers/environment';
-import { UserConfig } from '../../Models/UserConfig';
 
 
 
@@ -48,7 +47,8 @@ export class AuthService {
       email: credentials.email,
       password: credentials.password,
       phoneNumber: 'Não definido',
-      workingDays: GlobalVariables.createWorkingDays()
+      workingDays: GlobalVariables.createWorkingDays(),
+      userLevel: credentials.userLevel?? 0
     });
   }
 
@@ -62,7 +62,8 @@ export class AuthService {
       urlImage: credentials.urlImage,
       password: credentials.password,
       phoneNumber: credentials.phoneNumber,
-      workingDays: credentials.workingDays
+      workingDays: credentials.workingDays,
+      userLevel: credentials.userLevel?? 1
     });
   }
 }

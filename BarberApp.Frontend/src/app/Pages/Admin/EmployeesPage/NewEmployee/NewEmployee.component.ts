@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/Services/auth/Auth.service';
 import { UserService } from 'src/app/Services/user/User.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
+import { environment, UserLevel } from 'src/app/Helpers/environment';
 
 @Component({
   selector: 'app-NewEmployee',
@@ -19,6 +20,13 @@ export class NewEmployeeComponent implements OnInit {
   hideModal = false;
 
   modalInputs: IFormInput[] = [
+    {
+      id: 'userLevel',
+      label: 'Permissões do funcionário',
+      type: 'select',
+      value: environment.userLevel.manager,
+      formOptions: this.UserLevelAsFormOptions
+    },
     {
       id: 'firstName',
       label: 'Nome',
@@ -52,6 +60,19 @@ export class NewEmployeeComponent implements OnInit {
   ]
 
   get isEditModal() { return GlobalVariables.modalAsEdit; }
+
+  get UserLevelAsFormOptions() {
+    const userLevelKeys = Object.keys(environment.userLevel) as Array<keyof typeof environment.userLevel>;
+
+    return userLevelKeys.filter(p=> p!== 'admin').map((p, index) => {
+      const keyValue = environment.userLevel[p];
+      return {
+        id: 'level_' + keyValue,
+        label: UserLevel[keyValue],
+        value: keyValue
+      }
+    });
+  }
 
   get showModal() {
     return GlobalVariables.showBarberModal;

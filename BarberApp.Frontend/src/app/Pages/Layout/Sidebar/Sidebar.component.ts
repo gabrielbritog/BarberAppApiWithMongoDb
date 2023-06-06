@@ -52,6 +52,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     return GlobalVariables.isAdmin;
   }
 
+  get userLevel() {
+    return GlobalVariables.userLevel;
+  }
+
   constructor(
     private tokenStorage: TokenStorageService,
     private userService: UserService

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
+import { IFormInput, IFormOptions } from 'src/app/Components/FormInput/IFormInput';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { BarberModel } from 'src/app/Models/BarberModel';
 import { EmployeeService } from 'src/app/Services/api/Employee.service';
 import { RouteHistoryService } from '../../../../Services/misc/route-history.service';
+import { UserLevel, environment } from 'src/app/Helpers/environment';
 
 @Component({
   selector: 'app-EditEmployee',
@@ -85,6 +86,13 @@ export class EditEmployeeComponent implements OnInit {
   updateModalInputs() {
     this.modalInputs = [
       {
+        id: 'userLevel',
+        label: 'Permissões do funcionário',
+        type: 'select',
+        value: this.barberModel.userLevel,
+        formOptions: this.UserLevelAsFormOptions
+      },
+      {
         id: 'firstName',
         label: 'Nome',
         type: 'text',
@@ -109,6 +117,19 @@ export class EditEmployeeComponent implements OnInit {
         value: this.barberModel.email
       }
     ]
+  }
+
+  get UserLevelAsFormOptions(): IFormOptions[] {
+    const userLevelKeys = Object.keys(environment.userLevel) as Array<keyof typeof environment.userLevel>;
+
+    return userLevelKeys.filter(p=> p!== 'admin').map((p, index) => {
+      const keyValue = environment.userLevel[p];
+      return {
+        id: 'level_' + keyValue,
+        label: UserLevel[keyValue],
+        value: keyValue
+      }
+    });
   }
 
   onSubmit(form: NgForm) {

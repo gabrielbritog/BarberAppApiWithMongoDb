@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { environment } from 'src/app/Helpers/environment';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { ServiceTypeService } from 'src/app/Services/api/ServiceType.service';
 
@@ -18,12 +19,14 @@ export class EditServiceComponent implements OnInit {
 
   modalInputs: IFormInput[] = [
     {
+      disabled: !this.isUserEditLevel,
       id: 'nameService',
       label: 'Nome',
       type: 'text',
       value: ''
     },
     {
+      disabled: !this.isUserEditLevel,
       id: 'valueService',
       label: 'Valor',
       type: 'text',
@@ -31,6 +34,7 @@ export class EditServiceComponent implements OnInit {
       currency: true
     },
     {
+      disabled: !this.isUserEditLevel,
       id: 'duration',
       label: 'Duração em minutos',
       type: 'tel',
@@ -45,6 +49,14 @@ export class EditServiceComponent implements OnInit {
   set showModal(value) {
     GlobalVariables.showServiceTypeModal = value;
   };
+
+  get userLevel() {
+    return GlobalVariables.userLevel;
+  }
+
+  get isUserEditLevel() {
+    return GlobalVariables.userLevel <= environment.userLevel.readAndEdit;
+  }
 
   get isEditModal() { return GlobalVariables.modalAsEdit; }
 
@@ -65,8 +77,21 @@ export class EditServiceComponent implements OnInit {
     }
   }
 
+  getSubmitText() {
+    const saveChangesString = 'Salvar',
+      addString = 'Adicionar',
+      returnString = 'Voltar'
+
+    return this.isUserEditLevel ? (this.isEditModal? saveChangesString : addString) : returnString;
+  }
 
   onSubmit(form: NgForm) {
+    if (!this.isUserEditLevel) {
+      this.onCancel();
+      return;
+    }
+
+
     let serviceType = new ServiceTypeModel(form.value);
     if (GlobalVariables.isAdmin)
       serviceType.barberId = GlobalVariables.selectedBarber?.barberId;

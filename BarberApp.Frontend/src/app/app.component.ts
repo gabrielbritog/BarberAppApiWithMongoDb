@@ -6,6 +6,7 @@ import { SpinnerService } from './Components/Spinner/spinner.service';
 import { LoadAppService } from './Services/api/LoadApp.service';
 import { ToastrService } from 'ngx-toastr';
 import { ClassesModel } from './Models/ClassesModel';
+import { environment } from './Helpers/environment';
 
 @Component({
   selector: 'app-root',

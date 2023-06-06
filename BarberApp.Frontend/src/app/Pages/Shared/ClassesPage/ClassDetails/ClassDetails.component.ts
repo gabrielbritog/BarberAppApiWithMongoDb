@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
 import { IFormInput, IFormOptions } from 'src/app/Components/FormInput/IFormInput';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
+import { environment } from 'src/app/Helpers/environment';
 
 @Component({
   selector: 'app-ClassDetails',
@@ -35,6 +36,10 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     return GlobalVariables.isAdmin;
   }
 
+  get isUserEditLevel() {
+    return GlobalVariables.userLevel <= environment.userLevel.readAndEdit
+  }
+
   services: IFormInput =
     {
       id: 'services',
@@ -42,7 +47,7 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
       value: [],
       type: 'checkbox',
       formOptions: [],
-      disabled: false,
+      disabled: !this.isUserEditLevel,
       options: {
         min: '1',
         showTotal: true
@@ -78,6 +83,7 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
           name: client.name,
           registerNumber: client.registerNumber,
           checkbox: this.hasClient(client),
+          disabled: !this.isUserEditLevel,
           onChange: (clientId: string) => this.addClientIdToClass(clientId),
           id: client.clientId,
         }
@@ -177,6 +183,11 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (!this.isUserEditLevel) {
+      this.router.navigateByUrl('/Classes');
+      return;
+    }
+
     this.submitted = true;
 
     this.classModel.services = this.services.value;
@@ -218,7 +229,7 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
       value: this.classModel.services,
       type: 'checkbox',
       formOptions: this.ServicesAsFormOptions,
-      disabled: false,
+      disabled: !this.isUserEditLevel,
       options: {
         min: '1',
         showTotal: true

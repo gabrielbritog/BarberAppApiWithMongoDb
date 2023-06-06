@@ -27,10 +27,10 @@ export class SchedulingService {
   constructor(private http: HttpClient) { }
 
   register(schedule: ScheduleModel): Observable<any> {
+    console.log(schedule)
     return this.http.post<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_REGISTER, {
       barberId: schedule.barberId,
       client: schedule.client,
-      class: schedule.schedulingClass,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate,
       endOfSchedule: schedule.schedulingDate,
@@ -40,10 +40,11 @@ export class SchedulingService {
   }
 
   update(schedule: ScheduleModel): Observable<any>{
+    console.log(schedule)
+
     return this.http.put<any>(BASE_URL_API + (!GlobalVariables.isAdmin ? URL_BARBER : '') + URL_SCHEDULING + ROUTE_UPDATE, {
       schedulingId: schedule.schedulingId,
       client: schedule.client,
-      class: schedule.schedulingClass,
       serviceType: schedule.serviceType,
       schedulingDate: schedule.schedulingDate,
       endOfSchedule: schedule.schedulingDate,

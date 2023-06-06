@@ -28,6 +28,10 @@ export class GlobalVariables {
     return !userBarberId;
   }
 
+  static get userLevel() {
+    return this.getUserModel().userLevel ?? 4;
+  }
+
   static selectedBarber?: BarberModel;
 
   static emptySchedules: ScheduleModel[] = [];
@@ -72,15 +76,8 @@ export class GlobalVariables {
   private static _employees: BarberModel[] = [];
   static get employees() {
     return this._employees;
-    // const emp: BarberModel[] = [];
-    // if(this.loadAppService){
-    //   Object.assign(emp, this.loadAppService.getKey(AppKeys.EMPLOYEES));
-    //   console.log(emp)
-    // }
-    // return emp;
   }
   static set employees(value) {
-    // this.loadAppService?.setKey(AppKeys.EMPLOYEES, value)
     this._employees = value;
   }
 
@@ -203,6 +200,9 @@ export class GlobalVariables {
         if (GlobalVariables.employees.length == 0)
           GlobalVariables.loadAppService!.navigateByUrl('/Employees/New');
 
+        if (!GlobalVariables.isAdmin)
+          GlobalVariables.selectedBarber = GlobalVariables.employees.find(p=> p.barberId === GlobalVariables.getUserModel().barberId)
+
       },
       error(err) {
         console.log('Erro inesperado');
@@ -210,15 +210,17 @@ export class GlobalVariables {
     });
   }
 
-  private static getUserModel() {
+  private static getUserModel(): UserModel {
     const USER_KEY = 'auth-user';
     let userString = localStorage.getItem(USER_KEY);
 
     if (userString)
       return Object.assign(new UserModel(), JSON.parse(userString));
 
-    return null;
+    return new UserModel();
   }
+
+
 
   static clearProperties() {
     GlobalVariables.isAppLoaded = false;
