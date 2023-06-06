@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace BarberApp.Domain.Dto.Barber
@@ -10,5 +11,7 @@ namespace BarberApp.Domain.Dto.Barber
         public string Email { get; set; }
         [Required(ErrorMessage = "Senha obrigatória")]
         public string Password { get; set; }
+        [BsonElement("userLevel")]
+        public int UserLevel { get; set; }
     }
 }

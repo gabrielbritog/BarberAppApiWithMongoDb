@@ -132,6 +132,7 @@ namespace BarberApp.Service.Service
         {
             var barberDb = await this.GetByEmail($"{barber.Email}");
             barber.UserRegistration = barberDb.UserRegistration;
+            barber.UserLevel = barberDb.UserLevel;
             barber.BarberId = barberDb.BarberId;
             barber.UserId = barberDb.UserId;
             barber.FirstName ??= barberDb.FirstName;

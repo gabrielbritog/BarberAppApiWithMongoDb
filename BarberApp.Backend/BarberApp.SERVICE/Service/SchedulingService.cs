@@ -164,12 +164,12 @@ namespace BarberApp.Service.Service
             var checkBarber = await _barberRepository.GetById(barberId);
             var checkUser = await _userRepository.GetById(userId);
 
-            if (checkBarber == null)
-                throw new Exception("Funcionário não encontrado");
-            if (checkUser == null)
-                throw new Exception("Empresa não encontrada");
-            if (checkBarber.UserId != checkUser.UserId)
-                throw new Exception("Funcionário não localizado na empresa");
+          //  if (checkBarber == null)
+           //     throw new Exception("Funcionário não encontrado");
+          //  if (checkUser == null)
+           //     throw new Exception("Empresa não encontrada");
+          //  if (checkBarber.UserId != checkUser.UserId)
+           //     throw new Exception("Funcionário não localizado na empresa");
 
             scheduling.barberId = barberId;
             var schedulingMap = _mapper.Map<Scheduling>(scheduling);

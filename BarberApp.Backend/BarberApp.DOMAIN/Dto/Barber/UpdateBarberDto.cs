@@ -19,6 +19,8 @@ namespace BarberApp.Domain.Dto.Barber
         [BsonElement("userId")]
         public string UserId { get; set; }
         public string FirstName { get; set; } = null!;
+        [BsonElement("userLevel")]
+        public int UserLevel { get; set; }
         [BsonElement("lastName")]
         public string LastName { get; set; } = null!;
         [BsonElement("email")]

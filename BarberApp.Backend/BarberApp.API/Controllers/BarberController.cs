@@ -90,7 +90,7 @@ namespace BarberApp.Api.Controllers
         {
             try
             {
-                await _clientService.Register(scheduling.Client, Id);
+                //await _clientService.Register(scheduling.Client, Id);
                 return Ok(new ResponseViewModel(true, "", await _schedulingService.Register(scheduling,Id,BarberId)));
             }
             catch (Exception e)

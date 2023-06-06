@@ -19,6 +19,7 @@ namespace BarberApp.Domain.Dto.User
         [BsonElement("urlImage")]
         public string UrlImage { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
+        [BsonElement("userLevel")]
         public int UserLevel { get; set; }
         public List<WeekDays> WorkingDays { get; set; }
         public DateTime UserRegistration { get; set; }

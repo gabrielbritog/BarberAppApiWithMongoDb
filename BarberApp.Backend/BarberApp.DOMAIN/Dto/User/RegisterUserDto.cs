@@ -43,7 +43,8 @@ namespace BarberApp.Domain.Dto.User
         public List<WeekDays> WorkingDays { get; set; }
         [BsonElement("userConfig")]
         public UserConfig UserConfig { get; set; }
-
+        [BsonElement("userLevel")]
+        public int UserLevel { get; set; }
 
     }
 }

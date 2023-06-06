@@ -82,6 +82,7 @@ namespace BarberApp.Service.Service
             var userDb = await this.GetByEmail($"{email}");
             var checkEmail = await this.GetByEmail($"{user.Email}");
             user.UserId = userDb.UserId;
+            user.UserLevel = userDb.UserLevel;
             user.UserRegistration = userDb.UserRegistration;
             if (checkEmail != null)
                 throw new Exception("Email já está sendo usado");

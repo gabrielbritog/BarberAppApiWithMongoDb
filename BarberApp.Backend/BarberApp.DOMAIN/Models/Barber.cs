@@ -41,6 +41,8 @@ namespace BarberApp.Domain.Models
         public UserConfig UserConfig { get; set; }
         [BsonElement("changePassword")]
         public ChangePassword ChangePassword { get; set; }
+        [BsonElement("userLevel")]
+        public int UserLevel { get; set; }
 
     }
 }
