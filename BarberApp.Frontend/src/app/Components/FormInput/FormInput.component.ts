@@ -5,6 +5,8 @@ import { NgForm, FormControl, Validators, FormGroup, FormControlOptions, Validat
 import { map } from 'rxjs';
 import { CepApiService } from 'src/app/Services/cepApi/cep-api.service';
 import { CepAdressModel } from 'src/app/Services/cepApi/cep-model';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { environment } from 'src/app/Helpers/environment';
 
 @Component({
   selector: 'app-FormInput',
@@ -161,10 +163,12 @@ export class FormInputComponent implements OnInit {
                                      .map((p: IFormOptions)=> p.value);
     })
 
-    this.genericFormModel.setValue(form.value);
+    if (GlobalVariables.userLevel < environment.userLevel.readAndEdit) {
+      this.genericFormModel.setValue(form.value);
 
-    if (!this.genericFormModel.valid)
-      return;
+      if (!this.genericFormModel.valid)
+        return;
+    }
 
     this.submitAction.emit(form);
   }

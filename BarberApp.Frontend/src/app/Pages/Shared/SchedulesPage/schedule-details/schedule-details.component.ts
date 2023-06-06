@@ -12,6 +12,7 @@ import { SchedulingService } from 'src/app/Services/api/SchedulingService.servic
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { Router } from '@angular/router';
 import { ClassesModel } from 'src/app/Models/ClassesModel';
+import { environment } from 'src/app/Helpers/environment';
 
 @Component({
   selector: 'app-schedule-details',
@@ -97,16 +98,24 @@ export class ScheduleDetailsComponent implements OnInit {
     }
   }
 
+  userPermissions() {
+    return GlobalVariables.userLevel > environment.userLevel.manager;
+  }
+
   fillInputModels() {
+    const userPermissions = this.userPermissions();
+
     this.inputModels = [
       {
+        disabled: userPermissions,
         id: 'date',
         label: 'Data',
         value: this.currentDay,
         type: 'date',
-        options: {min: moment().toISOString()}
+        options: {min: moment().toISOString()},
       },
       {
+        disabled: userPermissions,
         id: 'time',
         label: 'Horário',
         value: this.scheduleModel.time,
@@ -114,6 +123,7 @@ export class ScheduleDetailsComponent implements OnInit {
         formOptions: this.AvailableSchedulesAsFormOptions
       },
       {
+        disabled: userPermissions,
         id: 'classModel',
         label: 'Turma',
         value: this.scheduleModel.schedulingClass?.classId?? '',
@@ -144,6 +154,7 @@ export class ScheduleDetailsComponent implements OnInit {
       //   }
       // },
       {
+        disabled: userPermissions,
         id: 'recurrence',
         label: 'Repetir Agendamento',
         value: this.scheduleModel.recurrence.recurrencePeriods?? 0,
@@ -226,6 +237,11 @@ export class ScheduleDetailsComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
+    if (GlobalVariables.userLevel > environment.userLevel.manager) {
+      this.onCancel();
+      return;
+    }
+
     const scheduleForm = form.value;
 
     const _classModel = GlobalVariables.allClasses.find(p => p.id === scheduleForm.classModel);
@@ -288,7 +304,7 @@ export class ScheduleDetailsComponent implements OnInit {
         }, 20);
       },
       error: (err) => {
-        console.log(err.error);
+        console.log(err.data);
       }
     })
 

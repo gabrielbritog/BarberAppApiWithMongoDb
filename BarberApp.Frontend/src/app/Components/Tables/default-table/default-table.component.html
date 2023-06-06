@@ -83,6 +83,7 @@
                 i === getFilteredTable().objects.length - 1
               "
               [class.cursor-pointer]="table.onClick"
+              [style]="'pointer-events: '+ (item.object.disabled? 'none' : 'all')"
               (click)="onClick(item)"
               class="text-header-color border-bottom"
             >
@@ -140,6 +141,7 @@
                     <input
                     class="form-check-input p-0 ms-1 cursor-pointer"
                     type="checkbox"
+                    [disabled]="item.object.disabled"
                     [checked]="item.object[propertiesOfObjects[j]]"
                     (click)="item.object.onChange(item.object.id)"
                     >

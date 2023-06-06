@@ -1,6 +1,6 @@
 
 <div class="edit_container animate_show container">
 
-  <app-FormInput [inputs]="modalInputs" [submitText]="isEditModal? 'Salvar' : 'Adicionar'" (submitAction)="onSubmit($event)" ></app-FormInput>
+  <app-FormInput [inputs]="modalInputs" [submitText]="getSubmitText()" (submitAction)="onSubmit($event)" ></app-FormInput>
 
 </div>

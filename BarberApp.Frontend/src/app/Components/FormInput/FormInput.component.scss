@@ -199,6 +199,10 @@ input[type=date]::before{
   pointer-events: none;
 }
 
+input[type=date]:disabled:before{
+  opacity: 0;
+}
+
 input,
 select,
 textarea{

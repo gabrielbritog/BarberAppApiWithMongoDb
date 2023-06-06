@@ -65,4 +65,9 @@ export class TokenStorageService {
   public isAdmin(): boolean{
     return this.getUserModel().barberId === undefined;
   }
+
+  public getUserLevel() {
+    return this.getUserModel().userLevel;
+  }
+
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PlusButtonService } from '../../Components/PlusButton/plus-button.service';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { environment } from 'src/app/Helpers/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,12 @@ export class RouteHistoryService {
     RouteHistoryService.currentUrl = this.router.url;
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+
+        if (this.router.url.includes('New') && GlobalVariables.userLevel > environment.userLevel.manager) {
+          this.router.navigateByUrl('/Home');
+          return;
+        }
+
         if (event.url != RouteHistoryService.previousUrl){
           RouteHistoryService.previousUrl = RouteHistoryService.currentUrl;
           RouteHistoryService.historyRoutes.push(RouteHistoryService.previousUrl!);

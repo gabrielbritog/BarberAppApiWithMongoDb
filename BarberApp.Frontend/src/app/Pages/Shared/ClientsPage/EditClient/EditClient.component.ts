@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { ExtraBtn, IFormInput } from 'src/app/Components/FormInput/IFormInput';
 import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { environment } from 'src/app/Helpers/environment';
 import { ClientModel, ClientModelHelper } from 'src/app/Models/ClientModel';
 import { ClientService } from 'src/app/Services/api/Client.service';
 
@@ -249,7 +250,13 @@ export class EditClientComponent implements OnInit, OnDestroy {
       ],
     ]
 
+  get userLevel() {
+    return GlobalVariables.userLevel;
+  }
 
+  get isUserEditLevel() {
+    return this.userLevel <= environment.userLevel.readAndEdit;
+  }
 
   getAbsencesTable() {
     const absencesTable: DefaultTable = {
@@ -361,6 +368,11 @@ export class EditClientComponent implements OnInit, OnDestroy {
 
     this.assingInputsIntoModel();
 
+    if (!this.isUserEditLevel) {
+      this.onCancel();
+      return;
+    }
+
     if (form.invalid)
       return;
 
@@ -397,6 +409,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
       // 0 - Dados de cadastro
       [
         {
+          disabled: !this.isUserEditLevel,
           id: 'registerNumber',
           label: 'N° do Cadastro',
           type: 'text',
@@ -407,6 +420,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           }
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'interviewNumber',
           label: 'N° da Entrevista',
           type: 'text',
@@ -417,6 +431,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           }
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'name',
           label: 'Nome',
           type: 'text',
@@ -426,6 +441,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
       // 1 - Dados pessoais
       [
         {
+          disabled: !this.isUserEditLevel,
           id: 'phone',
           label: 'Contato',
           type: 'text',
@@ -435,12 +451,14 @@ export class EditClientComponent implements OnInit, OnDestroy {
           }
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'email',
           label: 'E-mail',
           type: 'email',
           value: this.clientModel.email?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'dateOfBirth',
           label: 'Data de nascimento',
           type: 'date',
@@ -450,6 +468,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           }
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'rg',
           label: 'RG',
           type: 'text',
@@ -459,6 +478,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           }
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'cpf',
           label: 'CPF',
           type: 'text',
@@ -471,6 +491,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
       // 2 - Endereço
       [
         {
+          disabled: !this.isUserEditLevel,
           id: 'cep',
           label: 'CEP',
           type: 'text',
@@ -482,6 +503,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.adress?.cep?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'uf',
           label: 'Estado',
           type: 'text',
@@ -491,6 +513,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.adress?.uf?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'city',
           label: 'Cidade',
           type: 'text',
@@ -500,6 +523,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.adress?.city?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'street',
           label: 'Rua',
           type: 'text',
@@ -509,6 +533,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.adress?.street?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'zone',
           label: 'Bairro',
           type: 'text',
@@ -518,6 +543,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.adress?.zone?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'number',
           label: 'Número',
           type: 'text',
@@ -530,6 +556,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
       // 3 - Contato de emergência
       [
         {
+          disabled: !this.isUserEditLevel,
           id: 'name',
           label: 'Nome',
           type: 'text',
@@ -539,6 +566,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.emergencyContact?.name?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'phone',
           label: 'Telefone',
           type: 'text',
@@ -549,6 +577,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.emergencyContact?.phone?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'phoneResidential',
           label: 'Celular',
           type: 'text',
@@ -559,6 +588,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.emergencyContact?.phoneResidential?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'kinship',
           label: 'Parentesco',
           type: 'text',
@@ -571,6 +601,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
       // 4 - Dados complementares
       [
         {
+          disabled: !this.isUserEditLevel,
           id: 'occupation',
           label: 'Profissão',
           type: 'text',
@@ -580,6 +611,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           value: this.clientModel.occupation?? '',
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'retiree',
           label: 'Aposentado',
           type: 'simple-radio',
@@ -601,6 +633,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
           ]
         },
         {
+          disabled: !this.isUserEditLevel,
           id: 'observation',
           label: 'Observações',
           type: 'textarea',

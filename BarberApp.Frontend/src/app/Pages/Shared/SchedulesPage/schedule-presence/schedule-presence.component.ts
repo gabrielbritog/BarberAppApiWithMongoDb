@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Subscription, endWith } from 'rxjs';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { ClassesFrontModel, ClassesUtilities } from 'src/app/Models/ClassesModel';
 import { ClientModel } from 'src/app/Models/ClientModel';
@@ -9,6 +9,7 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { SchedulingService } from '../../../../Services/api/SchedulingService.service';
 import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
 import * as moment from 'moment';
+import { environment } from 'src/app/Helpers/environment';
 
 @Component({
   selector: 'app-schedule-presence',
@@ -23,6 +24,14 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
 
   get isAdmin() {
     return GlobalVariables.isAdmin;
+  }
+
+  get userLevel() {
+    return GlobalVariables.userLevel;
+  }
+
+  get userEditLevel() {
+    return environment.userLevel.editPresenceOnly;
   }
 
   searchValue = '';
@@ -102,6 +111,7 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
             name: client.name,
             // registerNumber: client.registerNumber,
             checkbox: this.hasClientId(client.clientId),
+            disabled: this.userLevel > this.userEditLevel,
             onChange: (clientId: string) => this.addClientIdToClass(clientId),
             id: client.clientId,
           }
@@ -151,6 +161,11 @@ export class SchedulePresenceComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (!this.schedule)
       return;
+
+    if (this.userLevel > this.userEditLevel) {
+      this.onCancel();
+      return;
+    }
 
 
     const apiCall = this.schedulingService.update(this.schedule);

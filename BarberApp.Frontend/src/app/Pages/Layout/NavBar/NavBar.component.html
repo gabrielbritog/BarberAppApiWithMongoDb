@@ -62,6 +62,14 @@
         </li>
       </ul>
     </div>
+    <div
+    style="max-width: 30ch; white-space: nowrap; text-overflow: ellipsis;"
+    class="user-info lh-1 overflow-hidden d-none d-lg-block">
+      <p class="mb-1 pt-1">{{loggedUser.firstName}} {{loggedUser.lastName}}</p>
+      <p
+      style=" text-overflow: ellipsis;"
+      class="text-muted small overflow-hidden pb-1">{{loggedUser.email}}</p>
+    </div>
   </div>
 </nav>
 <hr class="border border-0 border-top opacity-100">

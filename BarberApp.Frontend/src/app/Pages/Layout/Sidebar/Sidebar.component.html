@@ -82,23 +82,27 @@ id="base-bg">
           </span>
           </a>
         </li>
-        <li class="nav_item"  >
-          <a routerLink="/WorkFlow" routerLinkActive="active"  (click)="closeSidebar()" >
-          <i class="fa-solid fa-briefcase"></i>
-          <span>
-            Horários
-          </span>
-          </a>
-        </li>
+        <ng-container *ngIf="userLevel < 1">
+          <li class="nav_item"  >
+            <a routerLink="/WorkFlow" routerLinkActive="active"  (click)="closeSidebar()" >
+            <i class="fa-solid fa-briefcase"></i>
+            <span>
+              Horários
+            </span>
+            </a>
+          </li>
+        </ng-container>
         <hr class="border-top opacity-100">
-        <li *ngIf="isAdmin" class="nav_item"  >
-          <a routerLink="/Employees" routerLinkActive="active"  (click)="closeSidebar()" >
-            <i class="fa-solid fa-people-group"></i>
-          <span>
-            Funcionários
-          </span>
-          </a>
-        </li>
+        <ng-container *ngIf="userLevel < 1">
+          <li class="nav_item"  >
+            <a routerLink="/Employees" routerLinkActive="active"  (click)="closeSidebar()" >
+              <i class="fa-solid fa-people-group"></i>
+            <span>
+              Funcionários
+            </span>
+            </a>
+          </li>
+        </ng-container>
         <li class="nav_item"  >
           <a routerLink="/Services" routerLinkActive="active"  (click)="closeSidebar()" >
           <i class="fa-solid fa-screwdriver-wrench"></i>
