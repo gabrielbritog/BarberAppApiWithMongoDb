@@ -143,8 +143,10 @@ export class EditEmployeeComponent implements OnInit {
 
     const APICALL = this.employeeService.updateEmployee(form.value, this.barberModel.email, this.barberModel.barberId ?? '');
 
+    console.log(form.value)
     APICALL.subscribe({
       next: (response: any) => {
+        console.log(response.data)
         this.barberModel = response.data;
         const existedEmployee = GlobalVariables.employees.find(p => p.barberId === this.barberModel.barberId);
         if (existedEmployee)

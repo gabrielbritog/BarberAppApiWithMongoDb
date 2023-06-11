@@ -1,5 +1,7 @@
 <form #genericForm="ngForm"
-class="input_container w_100 card border p-3 gap-2 shadow-sm"
+class="input_container w_100 card border p-3 gap-2"
+[class.border-0]="hideBgStyles"
+[class.shadow-sm]="!hideBgStyles"
 (ngSubmit)="onSubmit(genericForm)">
 
   <ng-container *ngIf="formTitle">

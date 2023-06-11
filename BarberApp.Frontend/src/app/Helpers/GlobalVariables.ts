@@ -202,7 +202,7 @@ export class GlobalVariables {
 
         if (!GlobalVariables.isAdmin)
           GlobalVariables.selectedBarber = GlobalVariables.employees.find(p=> p.barberId === GlobalVariables.getUserModel().barberId)
-
+        console.log(GlobalVariables.selectedBarber)
       },
       error(err) {
         console.log('Erro inesperado');

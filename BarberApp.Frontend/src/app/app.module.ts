@@ -17,6 +17,7 @@ import { PagesModule } from './Pages/pages.module';
 import { ComponentsModule } from './Components/components.module';
 import { ToasterComponent } from './Components/toaster/toaster.component';
 import { SpinnerModule } from './Components/Spinner/spinner.module';
+import { ModalsModule } from './Components/Modals/modals.module';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { SpinnerModule } from './Components/Spinner/spinner.module';
     ReactiveFormsModule,
     HttpClientModule,
     SpinnerModule,
+    ModalsModule,
     ToastrModule.forRoot({toastComponent: ToasterComponent, timeOut: 5000, preventDuplicates: true, progressBar: true }),
 
     DirectivesModule,

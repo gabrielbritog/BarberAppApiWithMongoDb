@@ -10,4 +10,7 @@ class="router-name align-items-center" style="height: 40px;">
     <i class="fa-solid fa-arrow-left"></i>
   </button>
   {{currentRoute}}
+  <button class="btn btn_return" *ngIf="isDynamicRoute && isAdmin" (click)="openInputModal()">
+    <i class="fa-solid fa-pen"></i>
+  </button>
 </h3>

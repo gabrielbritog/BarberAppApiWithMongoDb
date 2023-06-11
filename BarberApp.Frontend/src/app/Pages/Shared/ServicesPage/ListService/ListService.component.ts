@@ -25,7 +25,7 @@ export class ListServiceComponent implements OnInit {
       objects: [],
       buttons: [{
         label: 'Editar',
-        fontawesomeIcon: 'fa-solid fa-pen-to-square',
+        fontawesomeIcon: 'fa-solid fa-pen',
         bgColor: 'main',
         onClick: (event: any) => this.editService(event),
       }],
