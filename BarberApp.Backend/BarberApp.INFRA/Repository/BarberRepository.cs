@@ -126,6 +126,7 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.LastName, barber.LastName)
                     .Set(u => u.Password, barber.Password)
                     .Set(u => u.UserConfig, barber.UserConfig)
+                    .Set(u => u.UserLevel, barber.UserLevel)
                     .Set(u => u.UrlImage, barber.UrlImage)
                     .Set(u => u.Cep, barber.Cep)
                     .Set(u => u.Email, barber.Email)

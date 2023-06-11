@@ -23,6 +23,9 @@ namespace BarberApp.Domain.Models
         public string FontSize { get; set; }
         [BsonElement("dueDate")]
         public DateTime DueDate { get; set; }
-
+        [BsonElement("checks")]
+        public Checks Checks { get; set; }
+        [BsonElement("pageTitles")]
+        public Dictionary<string, string> PageTitles { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace BarberApp.Domain.Models
         [BsonElement("workingDays")]
         public List<WeekDays> WorkingDays { get; set; }
         [BsonElement("userConfig")]
-        public UserConfig UserConfig { get; set; }
+        public UserConfig UserConfig { get; set; }  
 
     }
 }

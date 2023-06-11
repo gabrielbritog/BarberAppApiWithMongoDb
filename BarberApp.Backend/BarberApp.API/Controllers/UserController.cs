@@ -63,6 +63,20 @@ namespace BarberApp.Api.Controllers
             }
 
         }
+        [HttpGet("GetById")]
+        public async Task<ActionResult<ResponseViewModel<ResponseUserDto>>> GetById(string id)
+        {
+            try
+            {
+                return Ok(new ResponseViewModel(true, "", await _userServices.GetById(id)));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(new ResponseViewModel(false, "Erro", e.Message));
+            }
+
+        }
 
         [HttpPut("Update")]
         [Authorize("Bearer")]
