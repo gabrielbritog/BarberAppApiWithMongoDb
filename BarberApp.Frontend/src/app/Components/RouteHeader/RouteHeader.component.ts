@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteHistoryService } from '../../Services/misc/route-history.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
+import { InputModalService } from '../Modals/input-modal/input-modal.service';
+import { ModalOptions } from '../Modals/input-modal/modal-options';
 
 @Component({
   selector: 'app-RouteHeader',
@@ -20,6 +22,7 @@ export class RouteHeaderComponent implements OnInit {
     private router: Router,
     private routeHistory: RouteHistoryService,
     private tokenStorage: TokenStorageService,
+    private InputModalService: InputModalService,
   ) { }
 
   ngOnInit() {
@@ -104,6 +107,17 @@ export class RouteHeaderComponent implements OnInit {
     return translatedRoute;
   }
 
+  get isDynamicRoute() {
+    const routerUrl = this.router.routerState.snapshot.url.split('/', 3).toString().replaceAll(',', '/');
+
+    const dynamicRoutes: string[] = [
+      '/Classes',
+      '/Clients',
+    ]
+
+    return dynamicRoutes.includes(routerUrl);
+  }
+
   get isCurrentRouteChild() {
     const routerUrl = this.routerUrlArray;
     return routerUrl.length > 1;
@@ -111,6 +125,31 @@ export class RouteHeaderComponent implements OnInit {
 
   onReturn() {
     this.routeHistory.navigateBack();
+  }
+
+  openInputModal() {
+
+    const submitInputModal = (form: any) => {
+      console.log(form.value);
+      this.InputModalService.closeModal();
+    }
+
+    const modalOptions: ModalOptions = {
+      title: 'Alterar título',
+      formInputContent: {
+        formInputs: [
+          {
+            id: 'pageTitle',
+            label: 'Título da página',
+            value: this.currentRoute,
+            type: 'text'
+          }
+        ],
+        submit: submitInputModal
+      }
+    }
+
+    this.InputModalService.openModal(modalOptions);
   }
 
 }

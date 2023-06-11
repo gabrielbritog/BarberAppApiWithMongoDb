@@ -21,8 +21,9 @@ export class FormInputComponent implements OnInit {
   @Input() formTitle?: string;
   @Input() titleOnMobileOnly: boolean = false;
   @Input() submitText: string = "Salvar";
-  @Output() submitAction = new EventEmitter<NgForm>();
+  @Output() submitAction: EventEmitter<NgForm> = new EventEmitter<NgForm>();
   @Input() marginOnSubmit = true;
+  @Input() hideBgStyles = false;
 
   genericFormModel!: FormGroup;
   listOfCheckboxes: any[] = [];

@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserConfig } from 'src/app/Models/UserConfig';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { UserService } from 'src/app/Services/user/User.service';
+import { environment } from 'src/app/Helpers/environment';
 
 @Component({
   selector: 'app-Sidebar',
@@ -48,12 +49,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
     return this.tokenStorage.getUserModel();
   }
 
-  get isAdmin() {
-    return GlobalVariables.isAdmin;
-  }
-
   get userLevel() {
     return GlobalVariables.userLevel;
+  }
+
+  get managerLevel() {
+    return environment.userLevel.manager;
+  }
+
+  get adminLevel() {
+    return environment.userLevel.admin;
   }
 
   constructor(
@@ -74,11 +79,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   setBodyScroll(value: boolean) {
-    const bodyElement = document.body;
-    if (!value)
-      bodyElement.classList.add('sidebarOpen')
-    else
-      bodyElement.classList.remove('sidebarOpen')
+    // const bodyElement = document.body;
+    // if (!value)
+    //   bodyElement.classList.add('sidebarOpen')
+    // else
+    //   bodyElement.classList.remove('sidebarOpen')
   }
 
   closeSidebar() {

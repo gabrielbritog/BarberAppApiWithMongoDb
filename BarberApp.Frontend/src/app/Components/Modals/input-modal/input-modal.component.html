@@ -1,0 +1,19 @@
+
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{options.title}}</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-0">
+  <ng-container *ngIf="options.formInputContent?.formInputs">
+    <app-FormInput [inputs]="options.formInputContent!.formInputs" [hideBgStyles]="true" (submitAction)="onSubmit($event)" ></app-FormInput>
+  </ng-container>
+  <ng-container *ngIf="options.objects">
+    <div class="p-3" *ngFor="let item of options.objects">
+      <h4>{{item.title}}</h4>
+      <p>{{item.value}}</p>
+    </div>
+  </ng-container>
+</div>
+
