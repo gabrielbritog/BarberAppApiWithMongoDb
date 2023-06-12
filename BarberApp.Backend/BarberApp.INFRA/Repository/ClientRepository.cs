@@ -128,7 +128,8 @@ namespace BarberApp.Infra.Repository
                     .Set(u => u.Rg, client.Rg)
                     .Set(u => u.Death, client.Death)
                     .Set(u => u.InterviewNumber, client.InterviewNumber)
-                    .Set(u => u.RegisterNumber, client.RegisterNumber);
+                    .Set(u => u.RegisterNumber, client.RegisterNumber)
+                    .Set(u => u.EvaluationSheet, client.EvaluationSheet);
 
                 var result = await _clientCollection.UpdateOneAsync(c => c.ClientId == client.ClientId, update);
 
