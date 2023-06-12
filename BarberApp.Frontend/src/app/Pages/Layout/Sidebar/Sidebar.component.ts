@@ -61,6 +61,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
     return environment.userLevel.admin;
   }
 
+  getDynamicRouteValue(routerLink: string): string | undefined {
+    const dynamicRoute = environment.dynamicRoutes.find(p => p.route === routerLink)
+    const defaultReturnValue = undefined;
+    if (!dynamicRoute)
+      return defaultReturnValue;
+
+    const pageTitles = GlobalVariables.companyUserConfig?.pageTitles;
+    if(pageTitles)
+      return pageTitles[dynamicRoute.key] ?? dynamicRoute.initialValue;
+
+    return dynamicRoute.initialValue;
+  }
+
   constructor(
     private tokenStorage: TokenStorageService,
     private userService: UserService

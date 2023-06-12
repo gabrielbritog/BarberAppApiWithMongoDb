@@ -20,6 +20,7 @@ export interface IFormOptions{
 export interface IOptions{
   min?: string;
   max?: string;
+  maxLength?: number;
   showTotal?: boolean;
   required?: boolean;
   mask?: 'cep' | 'tel' | 'cpf' | 'rg' | 'number'

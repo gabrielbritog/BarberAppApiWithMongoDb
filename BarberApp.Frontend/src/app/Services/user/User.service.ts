@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { GlobalVariables } from '../../Helpers/GlobalVariables';
 
 import { environment } from 'src/app/Helpers/environment';
 import { UserConfig } from '../../Models/UserConfig';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 
 // Enum UserLevel
@@ -18,9 +19,10 @@ const URL_API = environment.apiUrl;
 
 const API_URL = `${URL_API}/api/`;
 
-const ADMIN_ROUTE = 'User/'
-const BARBER_ROUTE = 'Barber/'
+const ADMIN_ROUTE = 'User/';
+const BARBER_ROUTE = 'Barber/';
 const UPDATE_ROUTE = 'Update';
+const GETBYID_ROUTE = 'GetById';
 
 
 @Injectable({
@@ -28,7 +30,19 @@ const UPDATE_ROUTE = 'Update';
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenStorage: TokenStorageService) { }
+
+  getCompanyUser(): Observable<any> {
+    const userId = this.tokenStorage.getUserModel().userId;
+
+    return this.http.get<any>(API_URL + ADMIN_ROUTE + GETBYID_ROUTE, {
+      params: {
+        id: userId?? ''
+      }
+    }).pipe(
+      map((response: { data: { userConfig: any; }; }) => response.data.userConfig)
+    );
+  }
 
   update(credentials: any): Observable<any>{
     return this.http.put<any>(API_URL+ (GlobalVariables.isAdmin ? ADMIN_ROUTE : BARBER_ROUTE) + UPDATE_ROUTE, {

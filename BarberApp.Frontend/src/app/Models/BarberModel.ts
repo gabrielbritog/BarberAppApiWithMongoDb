@@ -14,7 +14,7 @@ export class BarberModel {
   disabled?: boolean;
   workingDays?: WorkingDays[];
   userConfig = new UserConfig();
-  userLevel: number = 1;
+  userLevel?: number;
 
 
   constructor(params?: Partial<BarberModel>) {

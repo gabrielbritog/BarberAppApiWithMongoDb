@@ -65,6 +65,8 @@ export class GlobalVariables {
     this._schedules = value;
   }
 
+  public static companyUserConfig?: UserConfig;
+
   private static _serviceTypes: ServiceTypeModel[] = [];
   static get serviceTypes() {
     return this._serviceTypes;
@@ -136,6 +138,20 @@ export class GlobalVariables {
     const noAnimClass = 'no_anim';
     const appColors = Object.values(AppColors);
 
+    function loadCompanyConfig() {
+      const companyUserConfig = GlobalVariables.companyUserConfig;
+      if (!companyUserConfig)
+        return;
+      userConfig.altColor = companyUserConfig.altColor;
+      userConfig.checks = companyUserConfig.checks;
+      userConfig.pageTitles = companyUserConfig.pageTitles;
+      userConfig.primaryColor = companyUserConfig.primaryColor;
+      userConfig.secondaryColor = companyUserConfig.secondaryColor;
+    }
+
+    if (!GlobalVariables.isAdmin)
+      loadCompanyConfig();
+
     htmlElement.classList.add(noAnimClass);
 
     if (userConfig.darkmode) {
@@ -188,12 +204,17 @@ export class GlobalVariables {
     GlobalVariables.loadAppService.init().subscribe({
       next(value) {
         GlobalVariables.clients = value.clients.data.filter((p: ClientModel) => p.name !== null);
-        GlobalVariables.employees = value.employees.data;
+        GlobalVariables.employees = value.employees.data.map((p: any) => {
+          return new BarberModel(p);
+        });
         GlobalVariables.serviceTypes = value.serviceTypes.data;
         GlobalVariables.schedules = value.schedules.data.map((p: any) => {
           return new ScheduleModel(p);
         });
         GlobalVariables.allClasses = value.classes.data;
+
+        GlobalVariables.companyUserConfig = new UserConfig(value.companyUser);
+
         GlobalVariables.fillProperties();
         GlobalVariables.isAppLoaded = true;
 
@@ -202,7 +223,6 @@ export class GlobalVariables {
 
         if (!GlobalVariables.isAdmin)
           GlobalVariables.selectedBarber = GlobalVariables.employees.find(p=> p.barberId === GlobalVariables.getUserModel().barberId)
-        console.log(GlobalVariables.selectedBarber)
       },
       error(err) {
         console.log('Erro inesperado');

@@ -20,17 +20,23 @@ export class LoginPageComponent implements OnInit {
   title = 'Login';
 
   loginForm: IFormInput[] = [
-    { // Company Name
+    { // Email
       id: 'email',
       label: 'Email',
       type: 'email',
       value: ''
     },
-    { // First Name
+    { // Senha
       id: 'password',
       label: 'Senha',
       type: 'password',
       value: ''
+    },
+    { // Funcionário
+      id: 'isEmployee',
+      label: 'Sou Funcionário',
+      type: 'simple-checkbox',
+      value: false
     },
   ]
 
@@ -55,19 +61,19 @@ export class LoginPageComponent implements OnInit {
 
     const errorString = 'Usuário ou senha incorretos.';
     const userModel = new UserModel(form.value);
+    const isEmployee = form.value.isEmployee;
 
     if (form.invalid){
       this.toastr.error(errorString);
       return;
     }
 
+    const API_CALL = isEmployee ? this.authService.loginBarber(userModel) : this.authService.login(userModel);
 
-    this.authService.login(userModel).subscribe({
+    API_CALL.subscribe({
       next: (data: any) => this.loginSuccess(data),
       error: (err) => {
-        this.authService.loginBarber(userModel).subscribe({
-          next: (data: any) => this.loginSuccess(data),
-        })
+
       }
     })
 

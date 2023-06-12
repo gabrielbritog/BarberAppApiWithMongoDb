@@ -4,6 +4,10 @@ import { RouteHistoryService } from '../../Services/misc/route-history.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 import { InputModalService } from '../Modals/input-modal/input-modal.service';
 import { ModalOptions } from '../Modals/input-modal/modal-options';
+import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { KeyValue } from '@angular/common';
+import { environment } from 'src/app/Helpers/environment';
+import { UserService } from '../../Services/user/User.service';
 
 @Component({
   selector: 'app-RouteHeader',
@@ -14,6 +18,8 @@ export class RouteHeaderComponent implements OnInit {
   @Input() showOn: 'mobile' | 'desktop' = 'mobile';
   @Input() margin: boolean = true;
 
+  readonly dynamicRoutes = environment.dynamicRoutes;
+
   get isAdmin() {
     return this.tokenStorage.isAdmin();
   }
@@ -23,6 +29,7 @@ export class RouteHeaderComponent implements OnInit {
     private routeHistory: RouteHistoryService,
     private tokenStorage: TokenStorageService,
     private InputModalService: InputModalService,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -86,15 +93,15 @@ export class RouteHeaderComponent implements OnInit {
       'Serviços',
       'Editar Serviço',
       'Novo Serviço',
-      'Turmas',
-      this.isAdmin? 'Editar Turma' : 'Detalhes da turma',
-      'Nova turma',
-      'Alunos',
-      'Novo Aluno',
-      this.isAdmin? 'Editar Aluno' : 'Detalhes',
+      GlobalVariables.companyUserConfig?.pageTitles?.routeClasses?? 'Turmas',
+      this.isAdmin? `Editar` : 'Detalhes',
+      'Novo',
+      GlobalVariables.companyUserConfig?.pageTitles?.routeClients?? 'Alunos',
+      'Novo',
+      this.isAdmin? 'Editar' : 'Detalhes',
       'Aulas',
       'Ficha de Avaliação',
-      'Novo Aluno',
+      'Novo',
       'Perfil',
       'Alterar Nome',
       'Alterar Email',
@@ -110,12 +117,7 @@ export class RouteHeaderComponent implements OnInit {
   get isDynamicRoute() {
     const routerUrl = this.router.routerState.snapshot.url.split('/', 3).toString().replaceAll(',', '/');
 
-    const dynamicRoutes: string[] = [
-      '/Classes',
-      '/Clients',
-    ]
-
-    return dynamicRoutes.includes(routerUrl);
+    return this.dynamicRoutes.map(p=>p.route).includes(routerUrl);
   }
 
   get isCurrentRouteChild() {
@@ -128,9 +130,24 @@ export class RouteHeaderComponent implements OnInit {
   }
 
   openInputModal() {
+    const currentDynamicRoute = this.dynamicRoutes.find(p => p.route === this.router.url);
+
+    if (!currentDynamicRoute)
+      return;
+
+    const currentDynamicRouteKey = currentDynamicRoute.key;
 
     const submitInputModal = (form: any) => {
-      console.log(form.value);
+      const pageTitles = GlobalVariables.companyUserConfig?.pageTitles
+      if (pageTitles)
+        pageTitles[currentDynamicRouteKey] = form.value[currentDynamicRouteKey];
+      else
+        GlobalVariables.companyUserConfig!.pageTitles = form.value;
+
+      const API_CALL = this.userService.updateUserConfig(GlobalVariables.companyUserConfig);
+
+      API_CALL.subscribe();
+
       this.InputModalService.closeModal();
     }
 
@@ -139,10 +156,13 @@ export class RouteHeaderComponent implements OnInit {
       formInputContent: {
         formInputs: [
           {
-            id: 'pageTitle',
+            id: currentDynamicRouteKey,
             label: 'Título da página',
             value: this.currentRoute,
-            type: 'text'
+            type: 'text',
+            options: {
+              maxLength: 18
+            }
           }
         ],
         submit: submitInputModal

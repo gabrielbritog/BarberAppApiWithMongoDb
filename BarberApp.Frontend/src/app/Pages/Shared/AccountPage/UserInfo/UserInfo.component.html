@@ -4,35 +4,37 @@ accept="image/*"
 
 
 <div class="user_info overflow-hidden position-relative p-2 p-md-3 container d-flex flex-column gap-2 animate_show mb-5 card border shadow-sm">
-<div
-  style="
-  top: calc(120px - 40px);
-  right: 8px;"
-  class="btn-group position-absolute"
-  dropdown>
-  <button id="button-basic" aria-controls="dropdown" dropdownToggle type="button"
+<ng-container *ngIf="isAdmin">
+  <div
     style="
-    height: 32px;
-    aspect-ratio: 1;"
-    class="btn btn-outline-main border-0 rounded-pill bg-white text-main position-relative p-0 m-0 shadow-sm">
-    <i class="fa-solid fa-paintbrush"></i>
-  </button>
-  <ul id="dropdown-basic" *dropdownMenu
-    style="min-width: 0;
-    width: 32px;"
-    class="dropdown-menu shadow dropdown-menu-end p-0 overflow-hidden" role="menu"
-    aria-labelledby="button-basic">
-    <ng-container *ngFor="let enum of appColors | keyvalue">
-      <li
-       role="menuitem">
-        <button
-        style="height: 32px;"
-        [class]="'cursor pointer dropdown-item bg-'+enum.value" (click)="uploadAppColor(enum.value)">
-        </button>
-      </li>
-    </ng-container>
-  </ul>
-</div>
+    top: calc(120px - 40px);
+    right: 8px;"
+    class="btn-group position-absolute"
+    dropdown>
+    <button id="button-basic" aria-controls="dropdown" dropdownToggle type="button"
+      style="
+      height: 32px;
+      aspect-ratio: 1;"
+      class="btn btn-outline-main border-0 rounded-pill bg-white text-main position-relative p-0 m-0 shadow-sm">
+      <i class="fa-solid fa-paintbrush"></i>
+    </button>
+    <ul id="dropdown-basic" *dropdownMenu
+      style="min-width: 0;
+      width: 32px;"
+      class="dropdown-menu shadow dropdown-menu-end p-0 overflow-hidden" role="menu"
+      aria-labelledby="button-basic">
+      <ng-container *ngFor="let enum of appColors | keyvalue">
+        <li
+        role="menuitem">
+          <button
+          style="height: 32px;"
+          [class]="'cursor pointer dropdown-item bg-'+enum.value" (click)="uploadAppColor(enum.value)">
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</ng-container>
   <div class="profile_pic border-4 border-main border bg-body text-main">
     <button type="button" class="btn btn-main edit_btn p-0" (click)="fileUpload.showPicker()">
       <i class="fa-solid fa-camera"></i>
