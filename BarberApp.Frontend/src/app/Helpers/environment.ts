@@ -7,7 +7,19 @@ export const environment = {
     readAndEdit:            2,
     editPresenceOnly:       3,
     readonly:               4,
-  }
+  },
+  dynamicRoutes: [
+    {
+      route: '/Classes',
+      key: 'routeClasses',
+      initialValue: 'Turmas',
+    },
+    {
+      route: '/Clients',
+      key: 'routeClients',
+      initialValue: 'Alunos',
+    },
+  ]
 };
 
 export enum UserLevel{

@@ -72,6 +72,20 @@ class="input_container w_100 card border p-3 gap-2"
       </ng-container>
     </div>
 
+    <div *ngIf="item.type === 'simple-checkbox'"
+    [class.disabled]="item.disabled === true"
+    class="form_group p-2">
+      <label
+      class="border-0 shadow-none">
+          <input
+          type="checkbox"
+          class="d-block w-auto me-2"
+          [name]="item.id" [id]="item.id" [value]="item.value" [(ngModel)]="item.value"
+          >
+        {{item.label}}
+      </label>
+    </div>
+
     <label *ngIf="item.type === 'select'"
     [class.dirty]="item.value !== '' && item.value !== undefined"
     [class.form_invalid]="getValidationMessage(item) != null">
@@ -180,6 +194,7 @@ class="input_container w_100 card border p-3 gap-2"
     *ngIf="item.type != 'radio' &&
            item.type != 'checkbox' &&
            item.type != 'simple-radio' &&
+           item.type != 'simple-checkbox' &&
            item.type != 'textarea' &&
            item.type != 'select'">
       <label #genericInputLabel [class.dirty]="item.value != ''" [class.focused]="">
@@ -192,6 +207,7 @@ class="input_container w_100 card border p-3 gap-2"
         name="{{item.id}}"
         [min]="item.options?.min"
         [max]="item.options?.max"
+        [maxlength]="item.options?.maxLength?? null"
         [(ngModel)]="item.value"
         [class.password-input]="item.type == 'password'"
         [disabled]="item.disabled === true"
@@ -206,6 +222,7 @@ class="input_container w_100 card border p-3 gap-2"
         name="{{item.id}}"
         [min]="item.options?.min"
         [max]="item.options?.max"
+        [maxlength]="item.options?.maxLength?? null"
         [(ngModel)]="item.value"
         [mask]="formMask(item.options?.mask!, item.options?.max)"
         [showMaskTyped]="true"
@@ -233,8 +250,16 @@ class="input_container w_100 card border p-3 gap-2"
 
 
         <div class="placeholder_title">
-          {{item.label}}
+            {{item.label}}
         </div>
+
+        <ng-container *ngIf="item.options?.maxLength">
+          <span
+          style="font-size: .7rem;"
+          class="position-absolute top-0 end-0 p-2 text-muted lh-1">
+            {{item.value.length +'/'+ (item.options?.maxLength?? 0)}}
+          </span>
+        </ng-container>
         <button type="button"
         *ngIf="item.type == 'password'"
         class="show_password"

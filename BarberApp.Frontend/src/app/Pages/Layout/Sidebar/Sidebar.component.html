@@ -115,7 +115,7 @@ id="base-bg">
           <a routerLink="/Classes" routerLinkActive="active"  (click)="closeSidebar()" >
             <i class="fa-solid fa-user-group"></i>
             <span>
-              Turmas
+              {{getDynamicRouteValue('/Classes')}}
             </span>
           </a>
         </li>
@@ -123,7 +123,7 @@ id="base-bg">
           <a routerLink="/Clients" routerLinkActive="active"  (click)="closeSidebar()" >
             <i class="fa-solid fa-user-group"></i>
             <span>
-              Alunos
+              {{getDynamicRouteValue('/Clients')}}
             </span>
           </a>
         </li>

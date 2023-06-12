@@ -3,6 +3,7 @@ import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { Router } from '@angular/router';
 import { DefaultTable } from 'src/app/Components/Tables/default-table/default-table';
 import { AppColors } from 'src/app/Models/Enums/app-colors.enum';
+import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 
 @Component({
   selector: 'app-ListEmployee',
@@ -37,23 +38,27 @@ export class ListEmployeeComponent implements OnInit {
       onClick: (event: any) => this.editEmployee(event)
     }
 
+    const loggedBarber = this.tokenStorage.getUserModel().barberId;
+
     GlobalVariables.employees.forEach((employee, i) => {
-      _tables.objects.push({
-        object: {
-          name: `${employee.firstName} ${employee.lastName}`,
-          id: employee.barberId
-        },
-        fontawesomeIcon: "fa-solid fa-user",
-        imgUrl: employee.urlImage,
-        iconBgColor: 'main'
-      })
+      if(!loggedBarber || loggedBarber !== employee.barberId)
+        _tables.objects.push({
+          object: {
+            name: `${employee.firstName} ${employee.lastName}`,
+            id: employee.barberId
+          },
+          fontawesomeIcon: "fa-solid fa-user",
+          imgUrl: employee.urlImage,
+          iconBgColor: 'main'
+        })
     })
 
     return _tables;
   }
 
   constructor(
-    private router: Router
+    private router: Router,
+    private tokenStorage: TokenStorageService
    ) { }
 
   ngOnInit() {
