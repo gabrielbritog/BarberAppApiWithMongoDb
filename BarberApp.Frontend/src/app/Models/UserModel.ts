@@ -1,8 +1,8 @@
 import { UserConfig } from './UserConfig';
 import { WorkingDays } from './WorkingDays';
 export class UserModel {
-  barberId?: string;
   userId?: string;
+  barberId?: string;
   companyName?: string;
   firstName!: string;
   lastName!: string;
@@ -12,7 +12,6 @@ export class UserModel {
   password!: string;
   phoneNumber?: string;
   userLevel?: number;
-  urlImagem?: string;
   userRegistration?: string;
   workingDays?: WorkingDays[];
   userConfig = new UserConfig();

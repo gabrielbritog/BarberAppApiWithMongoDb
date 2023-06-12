@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { WindowScrollDetectorDirective } from 'src/app/Directives/WindowScrollDetector/WindowScrollDetector.directive';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
+import { environment } from 'src/app/Helpers/environment';
 import { LoadAppService } from 'src/app/Services/api/LoadApp.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
 
@@ -53,6 +54,10 @@ export class EmployeesPageComponent implements OnInit {
       .sort((a, b) => a.firstName.localeCompare(b.firstName));
   }
 
+  get isUserLevelManager() {
+    return GlobalVariables.userLevel <= environment.userLevel.manager;
+  }
+
   constructor(
     private tokenStorage: TokenStorageService,
     private router: Router
@@ -62,7 +67,7 @@ export class EmployeesPageComponent implements OnInit {
     if (!this.tokenStorage.getToken())
       this.router.navigateByUrl('/Login');
 
-    if (!this.tokenStorage.isAdmin())
+    if (!this.isUserLevelManager)
       this.router.navigateByUrl('/Schedules');
   }
 

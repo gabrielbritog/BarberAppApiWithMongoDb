@@ -27,7 +27,7 @@ export class LoadAppService {
     const clients = this.clientService.getAll();
     const employees = this.employeeService.getAll();
     const serviceTypes = this.serviceTypeService.getAll();
-    const schedules = this.schedulingService.getAll();
+    const schedules = this.schedulingService.getTodaySchedules();
     const classes = this.classesService.getAll();
     const companyUser = this.userService.getCompanyUser();
 
@@ -41,6 +41,10 @@ export class LoadAppService {
         companyUser
       }))
     );
+  }
+
+  loadSchedulesByDate(startDate: string, endDate: string) {
+    return this.schedulingService.getSchedulesByDate(startDate, endDate)
   }
 
   navigateByUrl(url: string) {

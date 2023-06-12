@@ -121,6 +121,7 @@ export class EditEmployeeComponent implements OnInit {
 
   get UserLevelAsFormOptions(): IFormOptions[] {
     const userLevelKeys = Object.keys(environment.userLevel) as Array<keyof typeof environment.userLevel>;
+    const loggedUserLevel = GlobalVariables.userLevel;
 
     return userLevelKeys.filter(p=> p!== 'admin').map((p, index) => {
       const keyValue = environment.userLevel[p];
@@ -129,7 +130,7 @@ export class EditEmployeeComponent implements OnInit {
         label: UserLevel[keyValue],
         value: keyValue
       }
-    });
+    }).filter(p=> p.value != loggedUserLevel);
   }
 
   onSubmit(form: NgForm) {
@@ -145,7 +146,6 @@ export class EditEmployeeComponent implements OnInit {
 
     const APICALL = this.employeeService.updateEmployee(form.value, this.barberModel.email, this.barberModel.barberId ?? '');
 
-    console.log(form.value)
     APICALL.subscribe({
       next: (response: any) => {
         this.barberModel = response.data;

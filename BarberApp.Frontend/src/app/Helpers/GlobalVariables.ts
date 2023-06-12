@@ -9,6 +9,7 @@ import { ClassesModel } from '../Models/ClassesModel';
 import { AppColors } from '../Models/Enums/app-colors.enum';
 import { AppKeys, LoadAppService } from '../Services/api/LoadApp.service';
 import { ClientModel } from '../Models/ClientModel';
+import { Moment } from 'moment';
 export class GlobalVariables {
 
   private static loadAppService?: LoadAppService;
@@ -33,6 +34,7 @@ export class GlobalVariables {
   }
 
   static selectedBarber?: BarberModel;
+  static datesSeen: string[] = [];
 
   static emptySchedules: ScheduleModel[] = [];
   static allClasses: ClassesModel[] = [];
@@ -99,9 +101,29 @@ export class GlobalVariables {
 
   static currentDay = moment();
 
-  static getEmptySchedulesBase() {
+  static async getEmptySchedulesBase() {
     const currentDay = moment(GlobalVariables.currentDay);
-    const currentDaySchedules = GlobalVariables.schedules.filter(p=>p.date === currentDay.format('L'))
+    const currentDaySchedules = GlobalVariables.schedules.filter(p => p.date === currentDay.format('L'))
+    const dateFormat = 'YYYY-MM-DD';
+    const dateTimeFormat = `${dateFormat} HH:mm`;
+    if (!this.datesSeen.includes(currentDay.format(dateFormat))) {
+      this.datesSeen.push(currentDay.format(dateFormat))
+
+      const startDate = currentDay.clone().startOf('day').format(dateTimeFormat);
+      const endDate = currentDay.clone().endOf('day').format(dateTimeFormat);
+      const apicall = GlobalVariables.loadAppService?.loadSchedulesByDate(startDate, endDate);
+
+      apicall?.subscribe({
+        next(value) {
+          const responseSchedules: ScheduleModel[] = value.data.map((p: any) => {
+            return new ScheduleModel(p)
+          });
+          responseSchedules.forEach(p => {
+            GlobalVariables.schedules.push(p);
+          })
+        },
+      })
+    }
     const workingDay = GlobalVariables.userWorkingDays[currentDay.weekday()];
 
     const startTime = workingDay.openingTime;
@@ -222,7 +244,8 @@ export class GlobalVariables {
           GlobalVariables.loadAppService!.navigateByUrl('/Employees/New');
 
         if (!GlobalVariables.isAdmin)
-          GlobalVariables.selectedBarber = GlobalVariables.employees.find(p=> p.barberId === GlobalVariables.getUserModel().barberId)
+          GlobalVariables.selectedBarber = GlobalVariables.employees.find(p => p.barberId === GlobalVariables.getUserModel().barberId)
+
       },
       error(err) {
         console.log('Erro inesperado');
@@ -233,11 +256,17 @@ export class GlobalVariables {
   private static getUserModel(): UserModel {
     const USER_KEY = 'auth-user';
     let userString = localStorage.getItem(USER_KEY);
+    let userModel = new UserModel();
 
     if (userString)
-      return Object.assign(new UserModel(), JSON.parse(userString));
+      userModel = Object.assign(new UserModel(), JSON.parse(userString));
 
-    return new UserModel();
+    const isUserEmployee = GlobalVariables.employees.find(p => p.barberId === userModel.barberId);
+
+    if (isUserEmployee)
+      Object.assign(userModel, isUserEmployee);
+
+    return userModel;
   }
 
 

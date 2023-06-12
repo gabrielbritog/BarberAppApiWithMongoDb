@@ -130,6 +130,10 @@ export class RouteHeaderComponent implements OnInit {
   }
 
   openInputModal() {
+
+    if (!this.isAdmin)
+      return;
+
     const currentDynamicRoute = this.dynamicRoutes.find(p => p.route === this.router.url);
 
     if (!currentDynamicRoute)

@@ -27,6 +27,10 @@ export class FormInputComponent implements OnInit {
 
   genericFormModel!: FormGroup;
   listOfCheckboxes: any[] = [];
+  collapseGroups: {
+    id: string,
+    isCollapse: boolean
+  }[] = []
   submitted = false;
 
   constructor(
@@ -46,6 +50,24 @@ export class FormInputComponent implements OnInit {
   createForm() {
     const formGroupConfig: any = {};
     this.inputs.forEach((input) => {
+      if (input.type === 'formgroup' && input.formGroup) {
+        const subFormGroupConfig: any = {};
+        this.collapseGroups.push({
+          id: input.id,
+          isCollapse: true
+        });
+
+        input.formGroup.forEach(subinput => {
+          const control = new FormControl(subinput.value);
+          if (subinput.type == 'checkbox')
+            this.listOfCheckboxes.push(subinput);
+          subFormGroupConfig[subinput.id] = control;
+        })
+
+        formGroupConfig[input.id] = new FormGroup(subFormGroupConfig);
+        return;
+      }
+
       const validatorFields = this.getValidatorFields(input);
       const control = new FormControl(input.value, validatorFields);
       if (input.type == 'checkbox')
@@ -62,6 +84,19 @@ export class FormInputComponent implements OnInit {
     }
 
     this.genericFormModel = new FormGroup(formGroupConfig);
+  }
+
+  isGroupCollapse(groupId: string) {
+    return this.collapseGroups.find(p => p.id === groupId)?.isCollapse?? false;
+  }
+
+  changeGroupCollapse(groupId: string) {
+    const group = this.collapseGroups.find(p => p.id === groupId);
+
+    console.log(this.isGroupCollapse(groupId))
+
+    if (group)
+      group.isCollapse = !group.isCollapse
   }
 
   matchPasswordValidator(matchControl: AbstractControl): ValidatorFn {

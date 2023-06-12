@@ -4,12 +4,12 @@ export interface IFormInput {
   type: string;
   value: any[] | any;
   formOptions?: IFormOptions[];
+  formGroup?: IFormInput[];
   options?: IOptions;
   currency?: boolean;
   alert?: string;
   disabled?: boolean;
 }
-
 export interface IFormOptions{
   id: string;
   label: string | string[];
