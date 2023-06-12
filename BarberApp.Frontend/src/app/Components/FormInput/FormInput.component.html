@@ -20,7 +20,7 @@ class="input_container w_100 card border p-3 gap-2"
           <p class="lh-1">{{item.label}}</p>
           <button type="button"
           style="width: 3rem; place-content: center;"
-          class="btn bg-transparent position-absolute border-0 top-0 end-0 bottom-0 p-0 d-grid" (click)="changeGroupCollapse(item.id)"
+          class="btn bg-transparent position-absolute border-0 top-0 end-0 bottom-0 p-0 d-grid"
                   [attr.aria-expanded]="!isGroupCollapse(item.id)" aria-controls="collapseBasic">
                   <i
                   [class.fa-chevron-down]="isGroupCollapse(item.id)"
@@ -33,7 +33,7 @@ class="input_container w_100 card border p-3 gap-2"
           <div class=" d-flex flex-column gap-2 p-3 pt-1">
             <ng-container *ngFor="let subitem of item.formGroup">
 
-              <div *ngIf="subitem.type === 'radio'" class="form_group" [class.form_invalid]="getValidationMessage(subitem) != null">
+              <div *ngIf="subitem.type === 'radio'" class="form_group" [class.form_invalid]="getValidationMessage(item, subitem) != null">
                 <label class="group_title" [class.collapsed]="!formGroup.checked">
                   {{subitem.label}}
                   <div class="active_radio">{{subitem.value}}</div>
@@ -110,7 +110,7 @@ class="input_container w_100 card border p-3 gap-2"
 
               <label *ngIf="subitem.type === 'select'"
               [class.dirty]="subitem.value !== '' && subitem.value !== undefined"
-              [class.form_invalid]="getValidationMessage(subitem) != null">
+              [class.form_invalid]="getValidationMessage(item, subitem) != null">
                 <select
                 class="form-select"
                 name="{{subitem.id}}"
@@ -132,7 +132,7 @@ class="input_container w_100 card border p-3 gap-2"
 
               <ng-container *ngIf="subitem.type === 'checkbox'">
 
-                <div class="p-0 rounded border" [class.form_invalid]="getValidationMessage(subitem) != null">
+                <div class="p-0 rounded border" [class.form_invalid]="getValidationMessage(item, subitem) != null">
 
                   <accordion [isAnimated]="true" class="rounded shadow-sm overflow-hidden">
                     <accordion-group
@@ -223,7 +223,7 @@ class="input_container w_100 card border p-3 gap-2"
 
 
                   <input *ngIf="subitem.currency != true && subitem.options?.mask === undefined"
-                  [class.form_invalid]="getValidationMessage(subitem) != null"
+                  [class.form_invalid]="getValidationMessage(item, subitem) != null"
                   type="{{subitem.type}}"
                   id="{{subitem.id}}"
                   name="{{subitem.id}}"
@@ -237,7 +237,7 @@ class="input_container w_100 card border p-3 gap-2"
                   [required]="subitem.options?.required !== false">
 
                   <input *ngIf="subitem.currency != true && subitem.options?.mask !== undefined"
-                  [class.form_invalid]="getValidationMessage(subitem) != null"
+                  [class.form_invalid]="getValidationMessage(item, subitem) != null"
 
                   type="{{subitem.type}}"
                   id="{{subitem.id}}"
@@ -247,14 +247,15 @@ class="input_container w_100 card border p-3 gap-2"
                   [maxlength]="subitem.options?.maxLength?? null"
                   [(ngModel)]="subitem.value"
                   [mask]="formMask(subitem.options?.mask!, subitem.options?.max)"
-                  [showMaskTyped]="true"
+                  [specialCharacters]="subitem.options?.mask !== 'size'? [ '.' ] : []"
+                  [showMaskTyped]="subitem.options?.mask !== 'size'"
                   [class.password-input]="subitem.type == 'password'"
                   [disabled]="subitem.disabled === true"
                   (ngModelChange)="onChangeOfInput($event, subitem.options)"
                   [required]="subitem.options?.required !== false">
 
                   <input *ngIf="subitem.currency"
-                  [class.form_invalid]="getValidationMessage(subitem) != null"
+                  [class.form_invalid]="getValidationMessage(item, subitem) != null"
                   type="{{subitem.type}}"
                   id="{{subitem.id}}"
                   name="{{subitem.id}}"
@@ -293,8 +294,8 @@ class="input_container w_100 card border p-3 gap-2"
                 </label>
               </ng-container>
 
-              <div class="alert validation-alert" *ngIf="getValidationMessage(subitem) != null" >
-                {{getValidationMessage(subitem)}}
+              <div class="alert validation-alert" *ngIf="getValidationMessage(item, subitem) != null" >
+                {{getValidationMessage(item, subitem)}}
               </div>
               <div class="alert" *ngIf="subitem.alert" >
 
