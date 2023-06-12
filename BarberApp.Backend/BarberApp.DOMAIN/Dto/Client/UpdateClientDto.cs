@@ -52,5 +52,7 @@ namespace BarberApp.Domain.Dto.Client
         public string RegisterNumber { get; set; }
         [BsonElement("interviewNumber")]
         public string InterviewNumber { get; set; }
+        [BsonElement("evaluationSheet")]
+        public EvaluationSheet EvaluationSheet { get; set; }
     }
 }
