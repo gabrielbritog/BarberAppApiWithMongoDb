@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
@@ -23,11 +24,12 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     AccordionModule.forRoot(),
+    CollapseModule.forRoot(),
+    NgxMaskModule.forRoot(),
     CommonModule,
     FormsModule,
     DirectivesModule,
     NgxCurrencyModule,
-    NgxMaskModule.forRoot()
   ],
   providers: []
 })

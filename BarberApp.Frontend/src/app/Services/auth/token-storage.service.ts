@@ -55,11 +55,17 @@ export class TokenStorageService {
 
   public getUserModel(): UserModel {
     let userString = this.getUser();
+    let userModel = new UserModel();
 
     if (userString)
-      return Object.assign(new UserModel(), JSON.parse(userString));
+      userModel = Object.assign(new UserModel(), JSON.parse(userString));
 
-    return new UserModel();
+    const isUserEmployee = GlobalVariables.employees.find(p => p.barberId === userModel.barberId);
+
+    if (isUserEmployee)
+      Object.assign(userModel, isUserEmployee);
+
+    return userModel;
   }
 
   public isAdmin(): boolean{

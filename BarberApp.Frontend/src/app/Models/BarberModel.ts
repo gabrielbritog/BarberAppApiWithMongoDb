@@ -1,20 +1,21 @@
 import { UserConfig } from "./UserConfig";
 import { WorkingDays } from "./WorkingDays";
 export class BarberModel {
-  associatedCompany?: string;
-  barberId?: string;
   userId?: string;
+  barberId?: string;
+  companyName?: string;
   firstName!: string;
   lastName!: string;
+  // cep?: string;
   email!: string;
   urlImage?: string;
   password!: string;
   phoneNumber?: string;
+  userLevel?: number;
   userRegistration?: string;
-  disabled?: boolean;
   workingDays?: WorkingDays[];
   userConfig = new UserConfig();
-  userLevel?: number;
+  disabled?: boolean;
 
 
   constructor(params?: Partial<BarberModel>) {

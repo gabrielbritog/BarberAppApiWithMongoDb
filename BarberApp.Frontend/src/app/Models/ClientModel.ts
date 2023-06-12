@@ -1,3 +1,5 @@
+import { EvaluationSheet } from "./EvaluationSheet";
+
 export interface ClientModel {
   clientId?: string,
   schedulingCount?: 0,
@@ -34,6 +36,7 @@ export interface ClientModel {
   observation?: string,
   registerNumber?: string,
   interviewNumber?: string,
+  evaluationSheet?: EvaluationSheet
 }
 
 export class ClientModelHelper {

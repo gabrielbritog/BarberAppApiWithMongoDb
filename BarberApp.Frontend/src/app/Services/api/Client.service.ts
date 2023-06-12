@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/app/Helpers/environment';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { ClientModel } from '../../Models/ClientModel';
+import { EvaluationSheet } from 'src/app/Models/EvaluationSheet';
 
 
 const URL_API = environment.apiUrl;
@@ -42,6 +43,10 @@ export class ClientService {
 
   update(client: ClientModel): Observable<any> {
     return this.http.put<any>(BASE_URL_API + ROUTE_UPDATE, client);
+  }
+
+  updateEvaluationSheet(evaluationSheet: EvaluationSheet){
+    return this.http.put<any>(BASE_URL_API + ROUTE_UPDATE, {evaluationSheet: evaluationSheet});
   }
 
 }

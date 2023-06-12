@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { GlobalVariables } from 'src/app/Helpers/GlobalVariables';
 import { environment } from 'src/app/Helpers/environment';
@@ -16,6 +17,7 @@ const ROUTE_REGISTER = 'Register'
 const ROUTE_GETMANY = 'GetMany'
 const ROUTE_GETBYID = 'GetById/'
 const ROUTE_UPDATE = 'Update'
+const ROUTE_GETBYDATE = 'GetManySchedulingByDate'
 
 const BASE_URL_API = `${URL_API}/api/`;
 
@@ -62,6 +64,29 @@ export class SchedulingService {
       params: {
         start: skip,
         count: take
+      }
+    });
+  }
+
+  getSchedulesByDate(startDate: string, endDate: string): Observable<any> {
+    return this.http.get<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_GETBYDATE, {
+      params: {
+        startDate: startDate,
+        endDate: endDate
+      }
+    });
+  }
+
+  getTodaySchedules(): Observable<any> {
+    const today = moment();
+    const dateTimeFormat = 'YYYY-MM-DD HH:mm';
+    const startDate = today.clone().startOf('day').format(dateTimeFormat);
+    const endDate = today.clone().endOf('day').format(dateTimeFormat);
+
+    return this.http.get<any>(BASE_URL_API + URL_SCHEDULING + ROUTE_GETBYDATE, {
+      params: {
+        startDate: startDate,
+        endDate: endDate
       }
     });
   }

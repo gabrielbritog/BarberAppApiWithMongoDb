@@ -368,17 +368,17 @@ export class EditClientComponent implements OnInit, OnDestroy {
 
     this.assingInputsIntoModel();
 
-    if (!this.isUserEditLevel) {
-      this.onCancel();
-      return;
-    }
-
     if (form.invalid)
       return;
 
     if (this.formIndex < this.formTitles.length - 1){
       this.formIndex++;
       this.maxFormIndex = Math.max(this.maxFormIndex, this.formIndex);
+      return;
+    }
+
+    if (!this.isUserEditLevel) {
+      this.onCancel();
       return;
     }
 
