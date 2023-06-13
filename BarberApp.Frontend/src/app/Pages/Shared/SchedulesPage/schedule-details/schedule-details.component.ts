@@ -10,9 +10,11 @@ import { ScheduleModel } from 'src/app/Models/ScheduleModel';
 import { ServiceTypeModel } from 'src/app/Models/ServiceTypeModel';
 import { SchedulingService } from 'src/app/Services/api/SchedulingService.service';
 import { TokenStorageService } from 'src/app/Services/auth/token-storage.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClassesModel } from 'src/app/Models/ClassesModel';
 import { environment } from 'src/app/Helpers/environment';
+import { UserService } from 'src/app/Services/user/User.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-schedule-details',
@@ -21,6 +23,8 @@ import { environment } from 'src/app/Helpers/environment';
 })
 export class ScheduleDetailsComponent implements OnInit {
 
+  id: string = '';
+  subscription?: Subscription;
 
   scheduleModel = new ScheduleModel();
   hideModal = false;
@@ -39,6 +43,8 @@ export class ScheduleDetailsComponent implements OnInit {
       this.router.navigateByUrl('/Schedules/Presence/'+this.scheduleModel.schedulingId)
     }
   }
+
+  createdCompanyDate = '';
 
   get AvailableSchedulesAsFormOptions() {
     return this.availableSchedules.map(this.mapScheduleTimeToFormOption);
@@ -112,7 +118,9 @@ export class ScheduleDetailsComponent implements OnInit {
         label: 'Data',
         value: this.currentDay,
         type: 'date',
-        options: {min: moment().toISOString()},
+        options: {
+          min: this.isEditModal ? this.createdCompanyDate : moment().format('YYYY-MM-DD')
+        },
       },
       {
         disabled: userPermissions,
@@ -191,9 +199,7 @@ export class ScheduleDetailsComponent implements OnInit {
       .reduce((acumulador: number, valorAtual: number) => acumulador + valorAtual, 0);
   }
 
-  get isEditModal() {
-    return GlobalVariables.modalAsEdit;
-  }
+  isEditModal = false;
 
   get serviceTypes() {
     const serviceTypes = GlobalVariables.serviceTypes;
@@ -215,16 +221,66 @@ export class ScheduleDetailsComponent implements OnInit {
     private schedulingService: SchedulingService,
     private tokenStorageService: TokenStorageService,
     private toaster: ToastrService,
-    private router: Router
+    private router: Router,
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute,
   ) {
   }
 
-  ngOnInit() {
+  async loadCompanyRegistrationDate() {
+    const apicall = this.userService.getCompanyRegistrationDate();
+    await new Promise<void>((resolve) => {
+      apicall.subscribe({
+        next: (value) => {
+          this.createdCompanyDate = moment(value).format('YYYY-MM-DD');
+        },
+        complete: () => {
+          resolve();
+        },
+      });
+    });
+  }
+
+  async loadSchedule() {
+    if (this.router.url.includes('New'))
+      return;
+
+    if (!this.activatedRoute.snapshot.params['id']){
+      this.router.navigateByUrl('/Schedules');
+      return;
+    }
+
+    this.subscription =
+      this.activatedRoute.params.subscribe(
+        (params: any) => {
+          if (!params['id']){
+            this.router.navigateByUrl('/Schedules');
+            return;
+          }
+
+          this.id = params['id'];
+
+          const existedModel = GlobalVariables.schedules.find(schedule => schedule.schedulingId === this.id);
+
+          if (!existedModel) {
+            this.router.navigateByUrl('/Schedules');
+            return;
+          }
+
+          this.isEditModal = true;
+
+          this.scheduleModel = {...existedModel};
+        }
+      )
+  }
+
+  async ngOnInit() {
     if (!GlobalVariables.selectedBarber) {
       this.onCancel();
       return;
     }
-    this.scheduleModel = new ScheduleModel(GlobalVariables.editSchedule);
+    await this.loadCompanyRegistrationDate();
+    await this.loadSchedule();
 
     this.scheduleModel.client = ClientModelHelper.clone(GlobalVariables.editSchedule?.client);
     this.currentDay = this.isEditModal ?

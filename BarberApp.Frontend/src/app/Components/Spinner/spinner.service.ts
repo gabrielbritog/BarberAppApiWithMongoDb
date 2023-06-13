@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -9,18 +9,23 @@ export class SpinnerService {
   private isLoadingSubject = new BehaviorSubject<boolean>(false);
   public isLoading$ = this.isLoadingSubject.asObservable();
 
-  constructor() {}
+  constructor(private ngZone: NgZone) {}
 
   public show(): void {
     this.activeRequests++;
-    this.isLoadingSubject.next(true);
+    this.ngZone.runOutsideAngular(() => {
+      this.isLoadingSubject.next(true);
+    });
   }
 
   public hide(): void {
     this.activeRequests--;
     if (this.activeRequests <= 0) {
-      this.isLoadingSubject.next(false);
-      this.activeRequests = 0;
-    }
+      this.ngZone.runOutsideAngular(() => {
+        this.isLoadingSubject.next(false);
+        this.activeRequests = 0;
+      });
   }
+  }
+
 }

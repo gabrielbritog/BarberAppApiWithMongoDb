@@ -4,8 +4,11 @@
 
     <div class="mt-3 d-flex flex-column gap-2">
       <ng-container *ngFor="let item of schedules; let i = index" >
-        <app-HistoryCard [model]="item"></app-HistoryCard>
+        <app-HistoryCard [model]="item" #historyCard></app-HistoryCard>
       </ng-container>
+      <button *ngIf="diffDays() > 0" class="btn btn-main mx-auto" (click)="loadMore()">
+        Carregar mais
+      </button>
     </div>
   </div>
 </div>

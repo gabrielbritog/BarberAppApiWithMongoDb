@@ -45,7 +45,7 @@ export class HistoryCardComponent implements OnInit {
     GlobalVariables.editSchedule = this.scheduleModel;
 
     // this.router.navigateByUrl('/Schedules/Presence/'+this.scheduleModel.schedulingId)
-    this.router.navigateByUrl('/Schedules/Details')
+    this.router.navigateByUrl('/Schedules/Details/'+this.scheduleModel.schedulingId)
   }
 
 }

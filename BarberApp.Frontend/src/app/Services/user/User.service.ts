@@ -40,7 +40,20 @@ export class UserService {
         id: userId?? ''
       }
     }).pipe(
-      map((response: { data: { userConfig: any; }; }) => response.data.userConfig)
+      map((response: { data: any; }) => response.data.userConfig)
+    );
+  }
+
+  getCompanyRegistrationDate(): Observable<any> {
+    const userId = this.tokenStorage.getUserModel().userId;
+
+    return this.http.get<any>(API_URL + ADMIN_ROUTE + GETBYID_ROUTE, {
+      params: {
+        id: userId ?? '',
+        'HideLoader': 'true'
+      }
+    }).pipe(
+      map((response: { data: any; }) => response.data.userRegistration)
     );
   }
 

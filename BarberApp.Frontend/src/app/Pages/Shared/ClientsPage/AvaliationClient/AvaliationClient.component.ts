@@ -341,6 +341,14 @@ export class AvaliationClientComponent implements OnInit {
         value: formatDatetime(evaluationSheet?.dateOfAssessment),
       },
     ]
+
+    if (!this.isUserLevelToEdit) {
+      this.modalInputs.forEach(p => {
+        p.disabled = true
+        if (p.formGroup)
+          p.formGroup.forEach(b => b.disabled = true);
+      })
+    }
   }
 
   onSubmit(form: any) {
@@ -353,13 +361,11 @@ export class AvaliationClientComponent implements OnInit {
 
     this.clientModel.evaluationSheet!.practicePhysicalActivity = this.clientModel.evaluationSheet!.physicalActivity !== ''
 
-    console.log(this.clientModel, form.value)
     const API_CALL = this.clientsService.updateEvaluationSheet(this.clientModel);
     const existedClientModel = GlobalVariables.clients.find(client => client.clientId === this.id);
 
     API_CALL.subscribe({
       next(value) {
-        console.log(value)
         if (existedClientModel)
           existedClientModel.evaluationSheet = value.data.evaluationSheet;
       },

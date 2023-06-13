@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'Schedules', component: SchedulesSectionComponent , children: [
     {path: '', component: ScheduleListComponent},
     {path: 'Presence/:id', component: SchedulePresenceComponent},
-    {path: 'Details', component: ScheduleDetailsComponent},
+    {path: 'Details/:id', component: ScheduleDetailsComponent},
     {path: 'New', component: ScheduleDetailsComponent},
   ] },
   { path: 'History', component: HistoryPage },

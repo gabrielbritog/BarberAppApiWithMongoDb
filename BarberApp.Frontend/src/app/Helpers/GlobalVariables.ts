@@ -10,6 +10,8 @@ import { AppColors } from '../Models/Enums/app-colors.enum';
 import { AppKeys, LoadAppService } from '../Services/api/LoadApp.service';
 import { ClientModel } from '../Models/ClientModel';
 import { Moment } from 'moment';
+import { firstValueFrom } from 'rxjs';
+import { HistoryPage } from '../Pages/Shared/HistoryPage/HistorySection.component';
 export class GlobalVariables {
 
   private static loadAppService?: LoadAppService;
@@ -101,7 +103,7 @@ export class GlobalVariables {
 
   static currentDay = moment();
 
-  static async getEmptySchedulesBase() {
+  static getEmptySchedulesBase() {
     const currentDay = moment(GlobalVariables.currentDay);
     const currentDaySchedules = GlobalVariables.schedules.filter(p => p.date === currentDay.format('L'))
     const dateFormat = 'YYYY-MM-DD';
@@ -152,6 +154,42 @@ export class GlobalVariables {
     GlobalVariables.emptySchedules = schedules;
 
     return schedules;
+  }
+
+  static async loadLastWeekSchedules(weekStart: number = 0, weeksToTake: number = 0) {
+    const lastWeekStart = moment().add(-(7 * (weekStart + 1)), 'days');
+    const dateFormat = 'YYYY-MM-DD';
+    const dateTimeFormat = `${dateFormat} HH:mm`;
+    const schedulesInPeriod: ScheduleModel[] = []
+
+    weeksToTake = 7 * (weeksToTake + 1);
+
+    for await (const index of Array(weeksToTake).keys()) {
+      if (!this.datesSeen.includes(lastWeekStart.format(dateFormat))) {
+        this.datesSeen.push(lastWeekStart.format(dateFormat));
+
+        const startDate = lastWeekStart.clone().startOf('day').format(dateTimeFormat);
+        const endDate = lastWeekStart.clone().endOf('day').format(dateTimeFormat);
+
+        if (!GlobalVariables.loadAppService)
+          continue;
+
+        const apicall = GlobalVariables.loadAppService.loadSchedulesByDate(startDate, endDate);
+
+        const response = await firstValueFrom(apicall);
+
+        const responseSchedules: ScheduleModel[] = response.data.map((p: any) => {
+          return new ScheduleModel(p);
+        });
+
+        schedulesInPeriod.push(...responseSchedules);
+      }
+
+      lastWeekStart.add(1, 'day');
+    }
+
+    GlobalVariables.schedules.push(...schedulesInPeriod);
+    return schedulesInPeriod;
   }
 
   static loadUserConfig(userConfig: UserConfig) {
@@ -269,8 +307,6 @@ export class GlobalVariables {
     return userModel;
   }
 
-
-
   static clearProperties() {
     GlobalVariables.isAppLoaded = false;
     GlobalVariables.loadUserConfig(new UserConfig());
@@ -279,6 +315,7 @@ export class GlobalVariables {
     GlobalVariables._employees = [];
     GlobalVariables.allClasses = [];
     GlobalVariables.clients = [];
+    HistoryPage.weeksSeen = 0;
   }
 
   static fillProperties(user?: UserModel) {

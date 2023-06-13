@@ -18,7 +18,7 @@ import { RouterHeaderModule } from 'src/app/Components/RouteHeader/router-header
     CommonModule,
     FormsModule,
     CardsModule,
-    RouterHeaderModule
-  ]
+    RouterHeaderModule,
+  ],
 })
 export class HistoryPageModule { }
