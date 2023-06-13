@@ -45,8 +45,8 @@ export class ClientService {
     return this.http.put<any>(BASE_URL_API + ROUTE_UPDATE, client);
   }
 
-  updateEvaluationSheet(evaluationSheet: EvaluationSheet){
-    return this.http.put<any>(BASE_URL_API + ROUTE_UPDATE, {evaluationSheet: evaluationSheet});
+  updateEvaluationSheet(client: ClientModel){
+    return this.http.put<any>(BASE_URL_API + ROUTE_UPDATE, client);
   }
 
 }

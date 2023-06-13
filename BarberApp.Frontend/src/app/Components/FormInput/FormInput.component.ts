@@ -58,7 +58,8 @@ export class FormInputComponent implements OnInit {
         });
 
         input.formGroup.forEach(subinput => {
-          const control = new FormControl(subinput.value);
+          const validatorFields = this.getValidatorFields(subinput);
+          const control = new FormControl(subinput.value, validatorFields);
           if (subinput.type == 'checkbox')
             this.listOfCheckboxes.push(subinput);
           subFormGroupConfig[subinput.id] = control;
@@ -92,8 +93,6 @@ export class FormInputComponent implements OnInit {
 
   changeGroupCollapse(groupId: string) {
     const group = this.collapseGroups.find(p => p.id === groupId);
-
-    console.log(this.isGroupCollapse(groupId))
 
     if (group)
       group.isCollapse = !group.isCollapse
@@ -136,8 +135,17 @@ export class FormInputComponent implements OnInit {
     return formControlOptions;
   }
 
-  getValidationMessage(item: IFormInput): string | null {
-    const validatorErrors = this.genericFormModel.get(item.id);
+  getValidationMessage(item: IFormInput, subItem?: IFormInput): string | null {
+    let validatorErrors = this.genericFormModel.get(item.id);
+
+    if (subItem) {
+      validatorErrors = this.genericFormModel.get(item.id)?.get(subItem.id)?? null;
+    }
+
+    if (!validatorErrors || !validatorErrors.errors || !this.submitted) {
+      return null;
+    }
+
     if (!validatorErrors || !validatorErrors.errors || !this.submitted)
       return null;
 
@@ -280,7 +288,7 @@ export class FormInputComponent implements OnInit {
 
   // FORM MASKS
 
-  formMask(mask: 'cep' | 'tel' | 'cpf' | 'rg' | 'number', max?: string) {
+  formMask(mask: 'cep' | 'tel' | 'cpf' | 'rg' | 'number' | 'size', max?: string) {
     switch (mask) {
       case 'cep':
         return '00000-000';
@@ -290,13 +298,18 @@ export class FormInputComponent implements OnInit {
         return '000.000.000-00';
       case 'rg':
         return '00.000.000-0';
-      case 'number':
+      case 'number': {
         let tempMask = '0'
         const maxAmount = parseInt(max ?? '6');
         for (let index = 1; index < maxAmount; index++) {
           tempMask += '0';
         }
         return tempMask;
+      }
+      case 'size': {
+        let tempMask = 'separator.2'
+        return tempMask;
+      }
 
       default:
         return '';
