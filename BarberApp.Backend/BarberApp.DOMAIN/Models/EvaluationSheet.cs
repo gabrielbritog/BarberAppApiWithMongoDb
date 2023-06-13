@@ -12,9 +12,9 @@ namespace BarberApp.Domain.Models
         [BsonElement("clientId")]
         public string Id { get; set; }
         [BsonElement("entryTime")]
-        public DateTime EntryTime { get; set; }
+        public string EntryTime { get; set; }
         [BsonElement("departureTime")]
-        public DateTime DepartureTime { get; set; }
+        public string DepartureTime { get; set; }
         [BsonElement("details")]
         public string Details { get; set; }
         [BsonElement("practicePhysicalActivity")]
@@ -33,6 +33,8 @@ namespace BarberApp.Domain.Models
         public DateTime CertificateDelivered { get; set; }
         [BsonElement("dateOfReturn")]
         public DateTime DateOfReturn { get; set; }
+        [BsonElement("Checks")]
+        public Checks Checks { get; set; }
 
     }
 }
