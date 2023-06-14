@@ -1,3 +1,4 @@
+import { Checks } from './Checks';
 import { AppColors } from './Enums/app-colors.enum';
 export class UserConfig {
   darkmode = false;
@@ -6,16 +7,7 @@ export class UserConfig {
   altColor = "#f4ede8";
   fontSize = "16px";
   dueDate = "2023-02-24T04:59:08.260Z";
-  checks?: {
-    title: string,
-    listChecks: [
-      {
-        name: string,
-        isChecked: true
-      }
-    ],
-    observation: string
-  };
+  checks?: Checks;
   pageTitles: any;
 
 
@@ -34,15 +26,6 @@ export interface UserConfig{
   altColor: string,
   fontSize: string,
   dueDate: string,
-  checks?: {
-    title: string,
-    listChecks: [
-      {
-        name: string,
-        isChecked: true
-      }
-    ],
-    observation: string
-  };
+  checks?: Checks;
   pageTitles: any
 }

@@ -288,7 +288,7 @@ export class FormInputComponent implements OnInit {
 
   // FORM MASKS
 
-  formMask(mask: 'cep' | 'tel' | 'cpf' | 'rg' | 'number' | 'size', max?: string) {
+  formMask(mask: 'cep' | 'tel' | 'cpf' | 'rg' | 'number' | 'size' | 'time', max?: string) {
     switch (mask) {
       case 'cep':
         return '00000-000';
@@ -310,6 +310,8 @@ export class FormInputComponent implements OnInit {
         let tempMask = 'separator.2'
         return tempMask;
       }
+      case 'time':
+        return '00:00';
 
       default:
         return '';

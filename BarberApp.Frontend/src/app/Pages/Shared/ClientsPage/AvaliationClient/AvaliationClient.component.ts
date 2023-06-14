@@ -212,25 +212,32 @@ export class AvaliationClientComponent implements OnInit {
 
       return moment(date).format(dateTimeFormat);
     }
+
     this.modalInputs =
     [
-      {
-        id: 'entryTime',
-        label: 'Horário de entrada',
-        type: 'date',
-        value: formatDatetime(evaluationSheet?.entryTime),
-      },
-      {
-        id: 'departureTime',
-        label: 'Horário de saída',
-        type: 'date',
-        value: formatDatetime(evaluationSheet?.departureTime),
-      },
       {
         id: 'dateOfAssessment',
         label: 'Data da avaliação',
         type: 'date',
         value: formatDatetime(evaluationSheet?.dateOfAssessment),
+      },
+      {
+        id: 'entryTime',
+        label: 'Horário de entrada',
+        type: 'text',
+        value: evaluationSheet?.entryTime?? '',
+        options:{
+          mask: 'time'
+        }
+      },
+      {
+        id: 'departureTime',
+        label: 'Horário de saída',
+        type: 'text',
+        value: evaluationSheet?.departureTime?? '',
+        options:{
+          mask: 'time'
+        }
       },
       {
         id: 'appraiser',
@@ -326,7 +333,10 @@ export class AvaliationClientComponent implements OnInit {
         id: 'details',
         label: 'Detalhes',
         type: 'textarea',
-        value: evaluationSheet?.details?? '',
+        value: evaluationSheet?.details ?? '',
+        options: {
+          required: false
+        }
       },
       {
         id: 'certificateDelivered',
@@ -365,9 +375,11 @@ export class AvaliationClientComponent implements OnInit {
     const existedClientModel = GlobalVariables.clients.find(client => client.clientId === this.id);
 
     API_CALL.subscribe({
-      next(value) {
+      next: (value) => {
         if (existedClientModel)
           existedClientModel.evaluationSheet = value.data.evaluationSheet;
+
+        this.onCancel();
       },
     })
   }

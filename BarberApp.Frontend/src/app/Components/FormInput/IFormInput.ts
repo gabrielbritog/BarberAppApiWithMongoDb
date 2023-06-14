@@ -23,7 +23,7 @@ export interface IOptions{
   maxLength?: number;
   showTotal?: boolean;
   required?: boolean;
-  mask?: 'cep' | 'tel' | 'cpf' | 'rg' | 'number' | 'size'
+  mask?: 'cep' | 'tel' | 'cpf' | 'rg' | 'number' | 'size' | 'time'
   onChangeUpdateFields?: string[];
 }
 
